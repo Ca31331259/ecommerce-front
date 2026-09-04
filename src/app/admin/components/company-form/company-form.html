@@ -1,0 +1,299 @@
+<admin-form-card title="Información comercial"
+    subtitle="Administrá los datos generales, contacto y presencia digital de la empresa.">
+
+    <!-- ======================================================
+    GENERAL INFORMATION
+    ======================================================= -->
+
+    <div class="company-form__section">
+
+        <div class="company-form__section-header">
+
+            <h3>
+                Datos generales
+            </h3>
+
+            <p>
+                Información principal que identifica al comercio.
+            </p>
+
+        </div>
+
+
+        <admin-form-grid columns="2">
+
+            <admin-field label="Nombre comercial" hint="Nombre público de la empresa.">
+
+                <input adminFieldContent adminInput type="text" [(ngModel)]="settings.businessName"
+                    placeholder="Ej. Mi Tienda">
+
+            </admin-field>
+
+
+            <admin-field label="Slogan" hint="Frase breve que acompaña la identidad del comercio.">
+
+                <input adminFieldContent adminInput type="text" [(ngModel)]="settings.slogan"
+                    placeholder="Ej. Todo lo que buscás en un solo lugar">
+
+            </admin-field>
+
+        </admin-form-grid>
+
+    </div>
+
+
+    <!-- ======================================================
+    CONTACT
+    ======================================================= -->
+
+    <div class="company-form__section">
+
+        <div class="company-form__section-header">
+
+            <h3>
+                Contacto
+            </h3>
+
+            <p>
+                Datos utilizados para que los clientes puedan comunicarse.
+            </p>
+
+        </div>
+
+
+        <admin-form-grid columns="2">
+
+            <admin-field label="Email" hint="Correo electrónico público del comercio.">
+
+                <input adminFieldContent adminInput type="email" [(ngModel)]="settings.email"
+                    placeholder="contacto@mitienda.com">
+
+            </admin-field>
+
+
+            <admin-field label="Teléfono" hint="Número telefónico principal.">
+
+                <input adminFieldContent adminInput type="tel" [(ngModel)]="settings.phone"
+                    placeholder="+54 341 000 0000">
+
+            </admin-field>
+
+
+            <admin-field label="WhatsApp" hint="Número utilizado para contacto por WhatsApp.">
+
+                <input adminFieldContent adminInput type="tel" [(ngModel)]="settings.whatsapp"
+                    placeholder="5493410000000">
+
+            </admin-field>
+
+
+            <admin-field label="Horarios de atención" hint="Horarios visibles para los clientes.">
+
+                <input adminFieldContent adminInput type="text" [(ngModel)]="settings.businessHours"
+                    placeholder="Lunes a viernes de 9:00 a 18:00">
+
+            </admin-field>
+
+        </admin-form-grid>
+
+    </div>
+
+
+    <!-- ======================================================
+    LOCATION
+    ======================================================= -->
+
+    <div class="company-form__section">
+
+        <div class="company-form__section-header">
+
+            <h3>
+                Ubicación
+            </h3>
+
+            <p>
+                Dirección comercial e integración con Google Maps.
+            </p>
+
+        </div>
+
+
+        <admin-form-grid columns="2">
+
+            <admin-field label="Dirección" hint="Dirección física visible en el sitio.">
+
+                <input adminFieldContent adminInput type="text" [(ngModel)]="settings.address"
+                    placeholder="Ej. Av. San Martín 1234, Rosario">
+
+            </admin-field>
+
+
+            <admin-field label="Google Maps" hint="URL del mapa o ubicación del comercio.">
+
+                <input adminFieldContent adminInput type="url" [(ngModel)]="settings.googleMapsUrl"
+                    placeholder="https://maps.google.com/...">
+
+            </admin-field>
+
+        </admin-form-grid>
+
+    </div>
+
+
+    <!-- ======================================================
+    WHATSAPP
+    ======================================================= -->
+
+    <div class="company-form__section">
+
+        <div class="company-form__section-header">
+
+            <h3>
+                WhatsApp
+            </h3>
+
+            <p>
+                Configuración del contacto directo mediante WhatsApp.
+            </p>
+
+        </div>
+
+
+        <admin-form-grid columns="2">
+
+            <admin-field label="Mensaje predeterminado" hint="Mensaje inicial utilizado al abrir una conversación.">
+
+                <textarea adminFieldContent adminTextarea rows="4" [(ngModel)]="settings.whatsappMessage"
+                    placeholder="Hola, quisiera realizar una consulta...">
+                </textarea>
+
+            </admin-field>
+
+
+            <admin-field label="Usuario de Instagram" hint="Usuario utilizado para mostrar referencias a Instagram.">
+
+                <input adminFieldContent adminInput type="text" [(ngModel)]="settings.instagramUser"
+                    placeholder="@mitienda">
+
+            </admin-field>
+
+        </admin-form-grid>
+
+    </div>
+
+
+    <!-- ======================================================
+    SOCIAL NETWORKS
+    ======================================================= -->
+
+    <div class="company-form__section">
+
+        <div class="company-form__section-header">
+
+            <h3>
+                Redes sociales
+            </h3>
+
+            <p>
+                Enlaces a los perfiles oficiales del comercio.
+            </p>
+
+        </div>
+
+
+        <admin-form-grid columns="2">
+
+            <admin-field label="Facebook">
+
+                <input adminFieldContent adminInput type="url" [(ngModel)]="settings.facebook"
+                    placeholder="https://facebook.com/...">
+
+            </admin-field>
+
+
+            <admin-field label="Instagram">
+
+                <input adminFieldContent adminInput type="url" [(ngModel)]="settings.instagram"
+                    placeholder="https://instagram.com/...">
+
+            </admin-field>
+
+
+            <admin-field label="TikTok">
+
+                <input adminFieldContent adminInput type="url" [(ngModel)]="settings.tiktok"
+                    placeholder="https://tiktok.com/@...">
+
+            </admin-field>
+
+
+            <admin-field label="YouTube">
+
+                <input adminFieldContent adminInput type="url" [(ngModel)]="settings.youtube"
+                    placeholder="https://youtube.com/@...">
+
+            </admin-field>
+
+
+            <admin-field label="LinkedIn">
+
+                <input adminFieldContent adminInput type="url" [(ngModel)]="settings.linkedin"
+                    placeholder="https://linkedin.com/company/...">
+
+            </admin-field>
+
+        </admin-form-grid>
+
+    </div>
+
+
+    <!-- ======================================================
+    FOOTER
+    ======================================================= -->
+
+    <div class="company-form__section">
+
+        <div class="company-form__section-header">
+
+            <h3>
+                Pie del sitio
+            </h3>
+
+            <p>
+                Texto institucional mostrado en el footer público.
+            </p>
+
+        </div>
+
+
+        <admin-form-grid columns="1">
+
+            <admin-field label="Texto del footer" hint="Texto adicional mostrado en el pie del sitio.">
+
+                <textarea adminFieldContent adminTextarea rows="4" [(ngModel)]="settings.footerText"
+                    placeholder="Información institucional o descripción breve del comercio.">
+                </textarea>
+
+            </admin-field>
+
+        </admin-form-grid>
+
+    </div>
+
+
+    <!-- ======================================================
+    ACTIONS
+    ======================================================= -->
+
+    <div adminFormCardFooter>
+
+        <admin-button variant="primary" icon="fa-solid fa-floppy-disk" (clicked)="saveSettings()">
+
+            Guardar información
+
+        </admin-button>
+
+    </div>
+    
+
+</admin-form-card>

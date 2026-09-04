@@ -1,0 +1,497 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+    min-width: 0;
+
+}
+
+/*==========================================================
+SAVE BAR
+==========================================================*/
+
+.admin-save-bar {
+
+    width: 100%;
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-card-gap);
+
+    padding: var(--admin-card-padding);
+
+    box-sizing: border-box;
+
+    background: var(--admin-surface);
+
+    border: var(--admin-card-border);
+
+    border-radius: var(--admin-card-radius);
+
+    box-shadow: var(--admin-shadow-md);
+
+}
+
+/*==========================================================
+STICKY
+==========================================================*/
+
+:host([sticky]) {
+
+    position: sticky;
+
+    bottom: var(--admin-space-4);
+
+    z-index: var(--admin-z-sticky);
+
+}
+
+/*==========================================================
+INFORMATION
+==========================================================*/
+
+.admin-save-bar__information {
+
+    min-width: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: var(--admin-space-4);
+
+}
+
+/*==========================================================
+STATUS
+==========================================================*/
+
+.admin-save-bar__status {
+
+    width: var(--admin-field-height);
+
+    height: var(--admin-field-height);
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: var(--admin-radius-round);
+
+    background: var(--admin-surface-alt);
+
+    color: var(--admin-text-secondary);
+
+}
+
+.admin-save-bar__status i {
+
+    font-size: var(--admin-font-size-sm);
+
+}
+
+/*==========================================================
+TEXT
+==========================================================*/
+
+.admin-save-bar__text {
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-1);
+
+}
+
+/*==========================================================
+MESSAGE
+==========================================================*/
+
+.admin-save-bar__message {
+
+    color: var(--admin-text-primary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+    line-height: var(--admin-line-height-normal);
+
+}
+
+/*==========================================================
+META
+==========================================================*/
+
+.admin-save-bar__meta {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    align-items: center;
+
+    gap: var(--admin-space-2);
+
+    color: var(--admin-text-secondary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-xs);
+
+    line-height: var(--admin-line-height-normal);
+
+}
+
+/*==========================================================
+ACTIONS
+==========================================================*/
+
+.admin-save-bar__actions {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    gap: var(--admin-space-3);
+
+}
+
+/*==========================================================
+BUTTON BASE
+==========================================================*/
+
+.admin-save-bar__discard,
+.admin-save-bar__save {
+
+    min-height: var(--admin-button-height);
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: var(--admin-button-gap);
+
+    padding:
+        0
+        var(--admin-button-padding-x);
+
+    box-sizing: border-box;
+
+    border-radius: var(--admin-button-radius);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+    line-height: var(--admin-line-height-normal);
+
+    cursor: pointer;
+
+    transition:
+        background
+        var(--admin-duration-fast)
+        var(--admin-easing-standard),
+
+        border-color
+        var(--admin-duration-fast)
+        var(--admin-easing-standard),
+
+        color
+        var(--admin-duration-fast)
+        var(--admin-easing-standard),
+
+        box-shadow
+        var(--admin-duration-fast)
+        var(--admin-easing-standard);
+
+}
+
+/*==========================================================
+DISCARD
+==========================================================*/
+
+.admin-save-bar__discard {
+
+    border: 1px solid var(--admin-border);
+
+    background: var(--admin-surface);
+
+    color: var(--admin-text-primary);
+
+}
+
+/*==========================================================
+SAVE
+==========================================================*/
+
+.admin-save-bar__save {
+
+    border: 1px solid var(--admin-color-primary);
+
+    background: var(--admin-color-primary);
+
+    color: var(--admin-text-inverse);
+
+}
+
+/*==========================================================
+BUTTON DISABLED
+==========================================================*/
+
+.admin-save-bar__discard:disabled,
+.admin-save-bar__save:disabled {
+
+    cursor: default;
+
+    opacity: var(--admin-opacity-disabled);
+
+}
+
+/*==========================================================
+BUTTON FOCUS
+==========================================================*/
+
+.admin-save-bar__discard:focus-visible,
+.admin-save-bar__save:focus-visible {
+
+    outline: none;
+
+    box-shadow: var(--admin-focus-ring);
+
+}
+
+/*==========================================================
+STATE DIRTY
+==========================================================*/
+
+:host([state="dirty"])
+.admin-save-bar__status {
+
+    background: var(--admin-surface-hover);
+
+    color: var(--admin-color-primary);
+
+}
+
+/*==========================================================
+STATE SAVING
+==========================================================*/
+
+:host([state="saving"])
+.admin-save-bar__status {
+
+    background: var(--admin-surface-hover);
+
+    color: var(--admin-color-primary);
+
+}
+
+/*==========================================================
+STATE SAVED
+==========================================================*/
+
+:host([state="saved"])
+.admin-save-bar__status {
+
+    background: var(--admin-surface-alt);
+
+    color: var(--admin-color-success);
+
+}
+
+/*==========================================================
+STATE ERROR
+==========================================================*/
+
+:host([state="error"])
+.admin-save-bar {
+
+    border-color: var(--admin-color-danger);
+
+}
+
+:host([state="error"])
+.admin-save-bar__status {
+
+    background: var(--admin-surface-alt);
+
+    color: var(--admin-color-danger);
+
+}
+
+/*==========================================================
+SPINNER
+==========================================================*/
+
+.admin-save-bar__spinner,
+.admin-save-bar__button-spinner {
+
+    box-sizing: border-box;
+
+    border-style: solid;
+
+    border-radius: var(--admin-radius-round);
+
+    animation:
+        admin-save-bar-spin
+        var(--admin-duration-slow)
+        linear
+        infinite;
+
+}
+
+.admin-save-bar__spinner {
+
+    width: var(--admin-space-5);
+
+    height: var(--admin-space-5);
+
+    border-width: var(--admin-space-1);
+
+    border-color: var(--admin-border);
+
+    border-top-color: var(--admin-color-primary);
+
+}
+
+.admin-save-bar__button-spinner {
+
+    width: var(--admin-space-4);
+
+    height: var(--admin-space-4);
+
+    border-width: 2px;
+
+    border-color:
+        rgb(
+            255 255 255 /
+            var(--admin-opacity-muted)
+        );
+
+    border-top-color: var(--admin-text-inverse);
+
+}
+
+/*==========================================================
+HOVER
+==========================================================*/
+
+@media (hover: hover) {
+
+    .admin-save-bar__discard:not(:disabled):hover {
+
+        border-color: var(--admin-border-hover);
+
+        background: var(--admin-surface-alt);
+
+    }
+
+    .admin-save-bar__save:not(:disabled):hover {
+
+        border-color: var(--admin-color-primary-hover);
+
+        background: var(--admin-color-primary-hover);
+
+    }
+
+}
+
+/*==========================================================
+TABLET
+==========================================================*/
+
+@media (min-width: 768px) {
+
+    .admin-save-bar {
+
+        flex-direction: row;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+    }
+
+    .admin-save-bar__actions {
+
+        display: flex;
+
+        align-items: center;
+
+        flex-shrink: 0;
+
+    }
+
+}
+
+/*==========================================================
+DISABLED
+==========================================================*/
+
+:host([disabled]) {
+
+    pointer-events: none;
+
+    opacity: var(--admin-opacity-disabled);
+
+}
+
+/*==========================================================
+ANIMATION
+==========================================================*/
+
+@keyframes admin-save-bar-spin {
+
+    to {
+
+        transform: rotate(360deg);
+
+    }
+
+}
+
+/*==========================================================
+REDUCED MOTION
+==========================================================*/
+
+@media (prefers-reduced-motion: reduce) {
+
+    .admin-save-bar__discard,
+    .admin-save-bar__save {
+
+        transition: none;
+
+    }
+
+    .admin-save-bar__spinner,
+    .admin-save-bar__button-spinner {
+
+        animation-duration: 1.5s;
+
+    }
+
+}

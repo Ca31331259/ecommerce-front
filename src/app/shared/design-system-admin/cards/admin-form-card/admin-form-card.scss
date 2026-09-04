@@ -1,0 +1,310 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+}
+
+/*==========================================================
+CARD
+==========================================================*/
+
+.admin-form-card {
+
+    width: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    overflow: hidden;
+
+    box-sizing: border-box;
+
+    background: var(--admin-surface);
+
+    border: var(--admin-card-border);
+
+    border-radius: var(--admin-card-radius);
+
+    box-shadow: var(--admin-card-shadow);
+
+}
+
+/*==========================================================
+HEADER
+==========================================================*/
+
+.admin-form-card__header {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-card-gap);
+
+}
+
+/*==========================================================
+HEADING
+==========================================================*/
+
+.admin-form-card__heading {
+
+    min-width: 0;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: var(--admin-space-4);
+
+    flex: 1;
+
+}
+
+/*==========================================================
+ICON
+==========================================================*/
+
+.admin-form-card__icon {
+
+    width: var(--admin-field-height);
+
+    height: var(--admin-field-height);
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: var(--admin-radius-md);
+
+    background: var(--admin-surface-hover);
+
+    color: var(--admin-color-primary);
+
+}
+
+.admin-form-card__icon i {
+
+    font-size: var(--admin-font-size-lg);
+
+}
+
+/*==========================================================
+INFORMATION
+==========================================================*/
+
+.admin-form-card__information {
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-2);
+
+}
+
+/*==========================================================
+TITLE
+==========================================================*/
+
+.admin-form-card__title {
+
+    margin: 0;
+
+    color: var(--admin-text-primary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-xl);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+    line-height: var(--admin-line-height-tight);
+
+}
+
+/*==========================================================
+SUBTITLE
+==========================================================*/
+
+.admin-form-card__subtitle {
+
+    max-width: var(--admin-form-max-width);
+
+    margin: 0;
+
+    color: var(--admin-text-secondary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    line-height: var(--admin-line-height-relaxed);
+
+}
+
+/*==========================================================
+ACTIONS
+==========================================================*/
+
+.admin-form-card__actions {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    align-items: center;
+
+    gap: var(--admin-toolbar-actions-gap);
+
+}
+
+/*==========================================================
+CONTENT
+==========================================================*/
+
+.admin-form-card__content {
+
+    min-width: 0;
+
+}
+
+/*==========================================================
+FOOTER
+==========================================================*/
+
+.admin-form-card__footer {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    align-items: center;
+
+    gap: var(--admin-card-gap);
+
+    background: var(--admin-surface-alt);
+
+}
+
+/*==========================================================
+DIVIDERS
+==========================================================*/
+
+:host([divided]) .admin-form-card__content {
+
+    border-top: 1px solid var(--admin-border);
+
+}
+
+:host([divided]) .admin-form-card__footer {
+
+    border-top: 1px solid var(--admin-border);
+
+}
+
+/*==========================================================
+PADDING SM
+==========================================================*/
+
+:host([padding="sm"]) .admin-form-card__header,
+:host([padding="sm"]) .admin-form-card__content {
+
+    padding: var(--admin-space-4);
+
+}
+
+:host([padding="sm"]) .admin-form-card__footer {
+
+    padding:
+        var(--admin-space-3)
+        var(--admin-space-4);
+
+}
+
+/*==========================================================
+PADDING MD
+==========================================================*/
+
+:host([padding="md"]) .admin-form-card__header,
+:host([padding="md"]) .admin-form-card__content {
+
+    padding: var(--admin-card-padding);
+
+}
+
+:host([padding="md"]) .admin-form-card__footer {
+
+    padding:
+        var(--admin-space-4)
+        var(--admin-card-padding);
+
+}
+
+/*==========================================================
+PADDING LG
+==========================================================*/
+
+:host([padding="lg"]) .admin-form-card__header,
+:host([padding="lg"]) .admin-form-card__content {
+
+    padding: var(--admin-space-8);
+
+}
+
+:host([padding="lg"]) .admin-form-card__footer {
+
+    padding:
+        var(--admin-space-5)
+        var(--admin-space-8);
+
+}
+
+/*==========================================================
+DESKTOP
+==========================================================*/
+
+@media (min-width: 768px) {
+
+    .admin-form-card__header {
+
+        flex-direction: row;
+
+        align-items: flex-start;
+
+        justify-content: space-between;
+
+    }
+
+    .admin-form-card__actions {
+
+        justify-content: flex-end;
+
+        flex-shrink: 0;
+
+    }
+
+}
+
+/*==========================================================
+REDUCED MOTION
+==========================================================*/
+
+@media (prefers-reduced-motion: reduce) {
+
+    .admin-form-card {
+
+        scroll-behavior: auto;
+
+    }
+
+}

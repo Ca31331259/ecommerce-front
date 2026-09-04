@@ -1,0 +1,171 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+    min-width: 0;
+
+}
+
+/*==========================================================
+GRID
+==========================================================*/
+
+.admin-form-grid {
+
+    width: 100%;
+
+    min-width: 0;
+
+    display: grid;
+
+    grid-template-columns: minmax(0, 1fr);
+
+    box-sizing: border-box;
+
+}
+
+/*==========================================================
+GAP SM
+==========================================================*/
+
+:host([gap="sm"]) .admin-form-grid {
+
+    gap: var(--admin-space-4);
+
+}
+
+/*==========================================================
+GAP MD
+==========================================================*/
+
+:host([gap="md"]) .admin-form-grid {
+
+    gap: var(--admin-form-gap);
+
+}
+
+/*==========================================================
+GAP LG
+==========================================================*/
+
+:host([gap="lg"]) .admin-form-grid {
+
+    gap: var(--admin-form-section-gap);
+
+}
+
+/*==========================================================
+ITEM
+==========================================================*/
+
+.admin-form-grid
+::ng-deep
+[adminFormGridItem] {
+
+    min-width: 0;
+
+}
+
+/*==========================================================
+TABLET
+==========================================================*/
+
+@media (min-width: 768px) {
+
+    :host([columns="2"]) .admin-form-grid {
+
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+
+    }
+
+    :host([columns="3"]) .admin-form-grid {
+
+        grid-template-columns:
+            repeat(
+                3,
+                minmax(0, 1fr)
+            );
+
+    }
+
+    :host([columns="4"]) .admin-form-grid {
+
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+
+    }
+
+    .admin-form-grid
+    ::ng-deep
+    [adminFormGridItem][span="2"] {
+
+        grid-column: span 2;
+
+    }
+
+    .admin-form-grid
+    ::ng-deep
+    [adminFormGridItem][span="3"],
+    .admin-form-grid
+    ::ng-deep
+    [adminFormGridItem][span="4"],
+    .admin-form-grid
+    ::ng-deep
+    [adminFormGridItem][span="full"] {
+
+        grid-column: 1 / -1;
+
+    }
+
+}
+
+/*==========================================================
+DESKTOP
+==========================================================*/
+
+@media (min-width: 1200px) {
+
+    :host([columns="4"]) .admin-form-grid {
+
+        grid-template-columns:
+            repeat(
+                4,
+                minmax(0, 1fr)
+            );
+
+    }
+
+    .admin-form-grid
+    ::ng-deep
+    [adminFormGridItem][span="3"] {
+
+        grid-column: span 3;
+
+    }
+
+    .admin-form-grid
+    ::ng-deep
+    [adminFormGridItem][span="4"] {
+
+        grid-column: span 4;
+
+    }
+
+    .admin-form-grid
+    ::ng-deep
+    [adminFormGridItem][span="full"] {
+
+        grid-column: 1 / -1;
+
+    }
+
+}

@@ -1,0 +1,33 @@
+:root {
+
+  /*======================================================
+  INFO LIST
+  ======================================================*/
+
+  --admin-info-item-height:
+    64px;
+
+  --admin-info-item-height-compact:
+    48px;
+
+  --admin-info-item-gap:
+    var(--admin-space-4);
+
+  --admin-info-item-padding-x:
+    var(--admin-space-4);
+
+  --admin-info-item-padding-y:
+    var(--admin-space-3);
+
+  --admin-info-item-padding-y-compact:
+    var(--admin-space-2);
+
+
+  /*======================================================
+  BORDER
+  ======================================================*/
+
+  --admin-info-border:
+    var(--admin-border);
+
+}

@@ -1,0 +1,69 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+}
+
+/*==========================================================
+PAGE
+==========================================================*/
+
+.admin-page {
+
+    width: 100%;
+
+    min-height: 100%;
+
+    margin-inline: auto;
+
+    box-sizing: border-box;
+
+    max-width: var(--admin-page-width-xl);
+
+    padding:
+
+        var(--admin-page-padding-y)
+
+        var(--admin-page-padding-x);
+
+}
+
+/*==========================================================
+WIDTH
+==========================================================*/
+
+:host([width="md"]) .admin-page {
+
+    max-width: var(--admin-page-width-md);
+
+}
+
+:host([width="lg"]) .admin-page {
+
+    max-width: var(--admin-page-width-lg);
+
+}
+
+:host([width="xl"]) .admin-page {
+
+    max-width: var(--admin-page-width-xl);
+
+}
+
+:host([width="full"]) .admin-page {
+
+    max-width: 100%;
+
+}
+
+/*==========================================================
+PADDING
+==========================================================*/
+
+:host(:not([padded])) .admin-page {
+
+    padding: 0;
+
+}

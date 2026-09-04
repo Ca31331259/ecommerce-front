@@ -1,0 +1,32 @@
+@if(bootstrap(); as site){
+
+<div class="public-layout">
+
+    <app-public-header [settings]="site.settings" [theme]="site.theme" [sections]="site.sections">
+    </app-public-header>
+
+    <main class="public-content">
+
+        <router-outlet />
+
+    </main>
+
+<app-public-footer
+    [settings]="site.settings"
+    [home]="site.home"
+    [theme]="site.theme"
+    [sections]="site.sections">
+</app-public-footer>
+
+</div>
+
+} @else {
+
+<div class="bootstrap-loading">
+
+    <ds-loader size="lg" layout="block" text="Cargando sitio...">
+    </ds-loader>
+
+</div>
+
+}

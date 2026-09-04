@@ -1,0 +1,782 @@
+:host {
+
+    display: block;
+
+    min-width: 0;
+
+    min-height: 100dvh;
+
+}
+
+/*==========================================================
+SIDEBAR
+==========================================================*/
+
+.admin-sidebar {
+
+    position: sticky;
+
+    width: var(--admin-sidebar-width);
+
+    height: 100dvh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    box-sizing: border-box;
+
+    overflow: hidden;
+
+    background: var(--admin-sidebar-background);
+
+    border-right: 1px solid var(--admin-sidebar-border);
+
+    color: var(--admin-sidebar-text);
+
+}
+
+/*==========================================================
+BRAND
+==========================================================*/
+
+.admin-sidebar__brand {
+
+    min-height: var(--admin-toolbar-height);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: var(--admin-space-3);
+
+    padding:
+        var(--admin-space-4)
+        var(--admin-space-5);
+
+    box-sizing: border-box;
+
+    border-bottom:
+        1px solid
+        var(--admin-sidebar-border);
+
+}
+
+/*==========================================================
+IDENTITY
+==========================================================*/
+
+.admin-sidebar__identity {
+
+    min-width: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: var(--admin-sidebar-brand-gap);
+
+}
+
+/*==========================================================
+LOGO
+==========================================================*/
+
+.admin-sidebar__logo,
+.admin-sidebar__logo-placeholder {
+
+    width: var(--admin-sidebar-logo-size);
+
+    height: var(--admin-sidebar-logo-size);
+
+    flex-shrink: 0;
+
+    border-radius: var(--admin-radius-lg);
+
+}
+
+.admin-sidebar__logo {
+
+    display: block;
+
+    object-fit: contain;
+
+    box-sizing: border-box;
+
+    padding: var(--admin-space-1);
+
+    background: var(--admin-surface);
+
+}
+
+.admin-sidebar__logo-placeholder {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: var(--admin-color-primary);
+
+    color: var(--admin-text-inverse);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-lg);
+
+    font-weight: var(--admin-font-weight-bold);
+
+}
+
+/*==========================================================
+BRAND INFORMATION
+==========================================================*/
+
+.admin-sidebar__brand-information {
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-1);
+
+}
+
+.admin-sidebar__business-name {
+
+    overflow: hidden;
+
+    color: var(--admin-sidebar-text-active);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+    line-height: var(--admin-line-height-tight);
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+}
+
+.admin-sidebar__brand-label {
+
+    overflow: hidden;
+
+    color: var(--admin-sidebar-text-muted);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-xs);
+
+    font-weight: var(--admin-font-weight-normal);
+
+    line-height: var(--admin-line-height-normal);
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+}
+
+/*==========================================================
+MOBILE CLOSE
+==========================================================*/
+
+.admin-sidebar__mobile-close {
+
+    width: var(--admin-space-9);
+
+    height: var(--admin-space-9);
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    padding: 0;
+
+    border: 0;
+
+    border-radius: var(--admin-button-radius);
+
+    background: transparent;
+
+    color: var(--admin-sidebar-text);
+
+    cursor: pointer;
+
+}
+
+/*==========================================================
+NAVIGATION
+==========================================================*/
+
+.admin-sidebar__navigation {
+
+    min-height: 0;
+
+    flex: 1;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-3);
+
+padding:
+    var(--admin-sidebar-navigation-padding-y)
+    var(--admin-sidebar-navigation-padding-x);
+
+    overflow-x: hidden;
+
+    overflow-y: auto;
+
+}
+
+/*==========================================================
+NAVIGATION LABEL
+==========================================================*/
+
+.admin-sidebar__navigation-label {
+
+    padding:
+        0
+        var(--admin-space-3);
+
+    color: var(--admin-sidebar-text-muted);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-xs);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+    line-height: var(--admin-line-height-normal);
+
+    letter-spacing: .08em;
+
+    text-transform: uppercase;
+
+}
+
+/*==========================================================
+NAVIGATION LIST
+==========================================================*/
+
+.admin-sidebar__navigation-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-sidebar-navigation-gap);
+
+}
+
+/*==========================================================
+NAVIGATION ITEM
+==========================================================*/
+
+.admin-sidebar__navigation-item {
+
+    position: relative;
+
+    min-width: 0;
+
+    min-height: var(--admin-sidebar-item-height);
+
+    display: flex;
+
+    align-items: center;
+
+    gap: var(--admin-sidebar-item-gap);
+
+padding:
+    0
+    var(--admin-sidebar-item-padding-x);
+
+    box-sizing: border-box;
+
+    border-radius: var(--admin-button-radius);
+
+    color: var(--admin-sidebar-text);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    font-weight: var(--admin-font-weight-medium);
+
+    line-height: var(--admin-line-height-normal);
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+        background
+        var(--admin-duration-fast)
+        var(--admin-easing-standard),
+
+        color
+        var(--admin-duration-fast)
+        var(--admin-easing-standard);
+
+}
+
+/*==========================================================
+NAVIGATION ICON
+==========================================================*/
+
+.admin-sidebar__navigation-icon {
+
+    width: var(--admin-sidebar-icon-width);
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+}
+
+.admin-sidebar__navigation-icon i {
+
+    font-size: var(--admin-sidebar-icon-size);
+
+    line-height: 1;
+
+}
+
+/*==========================================================
+NAVIGATION TEXT
+==========================================================*/
+
+.admin-sidebar__navigation-text {
+
+    min-width: 0;
+
+    flex: 1;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+}
+
+/*==========================================================
+NAVIGATION BADGE
+==========================================================*/
+
+.admin-sidebar__navigation-badge {
+
+    flex-shrink: 0;
+
+    padding:
+        var(--admin-space-1)
+        var(--admin-space-2);
+
+    border-radius: var(--admin-radius-round);
+
+    background: var(--admin-sidebar-surface);
+
+    color: var(--admin-sidebar-text-muted);
+
+    font-size: var(--admin-font-size-xs);
+
+    font-weight: var(--admin-font-weight-medium);
+
+    line-height: var(--admin-line-height-normal);
+
+}
+
+/*==========================================================
+ACTIVE
+==========================================================*/
+
+.admin-sidebar__navigation-item--active {
+
+    background: var(--admin-sidebar-active-background);
+
+    color: var(--admin-sidebar-text-active);
+
+}
+
+.admin-sidebar__navigation-item--active::before {
+
+    position: absolute;
+
+    top: 50%;
+
+    left: 0;
+
+    width:
+        var(--admin-sidebar-active-indicator-width);
+
+    height:
+        var(--admin-sidebar-active-indicator-height);
+
+    border-radius:
+        0
+        var(--admin-radius-round)
+        var(--admin-radius-round)
+        0;
+
+    background: var(--admin-color-primary);
+
+    content: '';
+
+    transform: translateY(-50%);
+
+}
+/*==========================================================
+DISABLED
+==========================================================*/
+
+.admin-sidebar__navigation-item--disabled {
+
+    color: var(--admin-sidebar-text-muted);
+
+    cursor: default;
+
+    opacity: .72;
+
+}
+
+/*==========================================================
+FOOTER
+==========================================================*/
+
+.admin-sidebar__footer {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-sidebar-footer-gap);
+
+    padding:
+        var(--admin-sidebar-footer-padding-y)
+        var(--admin-sidebar-footer-padding-x);
+
+    border-top:
+        1px solid
+        var(--admin-sidebar-border);
+
+}
+
+/*==========================================================
+FOOTER ACTION
+==========================================================*/
+
+.admin-sidebar__footer-action {
+
+    width: 100%;
+
+    min-height: var(--admin-button-height);
+
+    display: flex;
+
+    align-items: center;
+
+    gap: var(--admin-space-3);
+
+    padding:
+        0
+        var(--admin-space-3);
+
+    box-sizing: border-box;
+
+    border: 0;
+
+    border-radius: var(--admin-button-radius);
+
+    background: transparent;
+
+    color: var(--admin-sidebar-text);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    font-weight: var(--admin-font-weight-medium);
+
+    cursor: pointer;
+
+    transition:
+        background
+        var(--admin-duration-fast)
+        var(--admin-easing-standard),
+
+        color
+        var(--admin-duration-fast)
+        var(--admin-easing-standard);
+
+}
+
+/*==========================================================
+FOOTER ICON
+==========================================================*/
+
+.admin-sidebar__footer-icon {
+
+    width: var(--admin-space-5);
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+}
+
+/*==========================================================
+FOOTER TEXT
+==========================================================*/
+
+.admin-sidebar__footer-text {
+
+    min-width: 0;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+}
+
+/*==========================================================
+DANGER
+==========================================================*/
+
+.admin-sidebar__footer-action--danger {
+
+    color: var(--admin-color-danger);
+
+}
+
+/*==========================================================
+FOCUS
+==========================================================*/
+
+.admin-sidebar__navigation-item:focus-visible,
+.admin-sidebar__mobile-close:focus-visible,
+.admin-sidebar__footer-action:focus-visible {
+
+    outline: none;
+
+    box-shadow: var(--admin-focus-ring);
+
+}
+
+/*==========================================================
+HOVER
+==========================================================*/
+
+@media (hover: hover) {
+
+    .admin-sidebar__navigation-item:not(
+        .admin-sidebar__navigation-item--disabled
+    ):not(
+        .admin-sidebar__navigation-item--active
+    ):hover {
+
+        background: var(--admin-sidebar-surface);
+
+        color: var(--admin-sidebar-text-active);
+
+    }
+
+    .admin-sidebar__mobile-close:hover,
+    .admin-sidebar__footer-action:hover {
+
+        background: var(--admin-sidebar-surface);
+
+        color: var(--admin-sidebar-text-active);
+
+    }
+
+.admin-sidebar__footer-action--danger:hover {
+
+    background:
+        rgb(220 38 38 / 0.08);
+
+    color: var(--admin-color-danger);
+
+}
+
+}
+
+/*==========================================================
+TABLET - COLLAPSED
+==========================================================*/
+
+@media (
+    min-width: 769px
+) and (
+    max-width: 1100px
+) {
+
+    .admin-sidebar {
+
+        width: var(--admin-sidebar-collapsed-width);
+
+    }
+
+    .admin-sidebar__brand {
+
+        justify-content: center;
+
+        padding:
+            var(--admin-space-4)
+            var(--admin-space-3);
+
+    }
+
+    .admin-sidebar__brand-information,
+    .admin-sidebar__navigation-label,
+    .admin-sidebar__navigation-text,
+    .admin-sidebar__navigation-badge,
+    .admin-sidebar__footer-text {
+
+        display: none;
+
+    }
+
+    .admin-sidebar__navigation {
+
+        padding:
+            var(--admin-space-5)
+            var(--admin-space-3);
+
+    }
+
+    .admin-sidebar__navigation-item,
+    .admin-sidebar__footer-action {
+
+        justify-content: center;
+
+        padding: 0;
+
+    }
+
+}
+
+/*==========================================================
+MOBILE BACKDROP
+==========================================================*/
+
+.admin-sidebar-backdrop {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: var(--admin-z-overlay);
+
+    display: none;
+
+    padding: 0;
+
+    border: 0;
+
+    background: var(--admin-overlay-background);
+
+    cursor: pointer;
+
+}
+
+/*==========================================================
+MOBILE
+==========================================================*/
+
+@media (max-width: 768px) {
+
+    :host {
+
+        min-height: 0;
+
+    }
+
+    .admin-sidebar {
+
+        position: fixed;
+
+        inset:
+            0
+            auto
+            0
+            0;
+
+        z-index: var(--admin-z-sidebar);
+
+        width:
+            min(
+                var(--admin-sidebar-width),
+                calc(100vw - var(--admin-space-12))
+            );
+
+        transform: translateX(-100%);
+
+        transition:
+            transform
+            var(--admin-duration-normal)
+            var(--admin-easing-standard);
+
+    }
+
+    .admin-sidebar--mobile-open {
+
+        transform: translateX(0);
+
+    }
+
+    .admin-sidebar-backdrop {
+
+        display: block;
+
+    }
+
+    .admin-sidebar__mobile-close {
+
+        display: inline-flex;
+
+    }
+
+}
+
+/*==========================================================
+REDUCED MOTION
+==========================================================*/
+
+@media (prefers-reduced-motion: reduce) {
+
+    .admin-sidebar,
+    .admin-sidebar__navigation-item,
+    .admin-sidebar__mobile-close,
+    .admin-sidebar__footer-action {
+
+        transition: none;
+
+    }
+
+}

@@ -1,0 +1,26 @@
+<span class="admin-status-badge">
+
+    @if(icon){
+
+        <i
+            class="admin-status-badge__icon"
+            [class]="icon"
+            aria-hidden="true">
+        </i>
+
+    } @else if(dot){
+
+        <span
+            class="admin-status-badge__dot"
+            aria-hidden="true">
+        </span>
+
+    }
+
+    <span class="admin-status-badge__label">
+
+        {{ label }}
+
+    </span>
+
+</span>

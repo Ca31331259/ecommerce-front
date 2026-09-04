@@ -1,0 +1,477 @@
+<admin-form-card title="Identidad visual"
+    subtitle="Configurá el branding, los colores y el estilo general de la tienda.">
+
+    <!-- ======================================================
+    BRANDING
+    ======================================================= -->
+
+    <div class="theme-form__section">
+
+        <div class="theme-form__section-header">
+
+            <h3>
+                Branding
+            </h3>
+
+            <p>
+                Administrá el logo y el ícono identificador de la tienda.
+            </p>
+
+        </div>
+
+
+        <admin-form-grid columns="2">
+
+            <!-- ==================================================
+            LOGO
+            =================================================== -->
+
+            <div class="theme-form__upload">
+
+                <div class="theme-form__upload-header">
+
+                    <h4>
+                        Logo
+                    </h4>
+
+                    <p>
+                        Imagen principal utilizada para identificar la marca.
+                    </p>
+
+                </div>
+                <admin-form-preview style="margin: 30px" title="Ejemplo" description="Ejemplo de Logo"
+                    badge="Hero" image="assets/placeholders/logo-preview.png">
+                </admin-form-preview>
+                <admin-upload accept="image/*" variant="image" [previewUrl]="resolveImage(
+
+        theme.logo_url,
+
+        placeholder.logo
+
+    )" (fileSelected)="uploadLogo($event)">
+
+                    <span adminUploadMeta>
+                        JPG, PNG, SVG o WebP
+                    </span>
+
+                </admin-upload>
+
+            </div>
+
+
+            <!-- ==================================================
+            FAVICON
+            =================================================== -->
+
+            <div class="theme-form__upload">
+
+                <div class="theme-form__upload-header">
+
+                    <h4>
+                        Favicon
+                    </h4>
+
+                    <p>
+                        Ícono mostrado en la pestaña del navegador.
+                    </p>
+
+                </div>
+                <admin-form-preview style="margin: 30px" title="Ejemplo" description="Ejemplo de Favicon"
+                    badge="Hero" image="assets/placeholders/favicon-preview.png">
+                </admin-form-preview>
+                <admin-upload accept="image/*,.ico" variant="image" size="sm" [previewUrl]="resolveImage(
+
+        theme.favicon_url,
+
+        placeholder.favicon
+
+    )" (fileSelected)="uploadFavicon($event)">
+
+                    <span adminUploadMeta>
+                        ICO, PNG o SVG
+                    </span>
+
+                </admin-upload>
+
+            </div>
+
+        </admin-form-grid>
+
+    </div>
+
+
+    <!-- ======================================================
+    BRAND COLORS
+    ======================================================= -->
+
+    <div class="theme-form__section">
+
+        <div class="theme-form__section-header">
+
+            <h3>
+                Colores de marca
+            </h3>
+
+            <p>
+                Definí los colores principales que construyen la identidad visual del sitio.
+            </p>
+
+        </div>
+
+
+        <div class="theme-form__colors">
+
+            <admin-field label="Color principal">
+
+                <admin-color-picker adminFieldContent [(ngModel)]="theme.primary_color">
+                </admin-color-picker>
+
+            </admin-field>
+
+
+            <admin-field label="Color secundario">
+
+                <admin-color-picker adminFieldContent adminFieldContent [(ngModel)]="theme.secondary_color">
+                </admin-color-picker>
+
+            </admin-field>
+
+
+            <admin-field label="Color de acento">
+
+                <admin-color-picker adminFieldContent [(ngModel)]="theme.accent_color">
+                </admin-color-picker>
+
+            </admin-field>
+
+        </div>
+
+    </div>
+
+
+    <!-- ======================================================
+    TEXT COLORS
+    ======================================================= -->
+
+    <div class="theme-form__section">
+
+        <div class="theme-form__section-header">
+
+            <h3>
+                Texto y acciones
+            </h3>
+
+            <p>
+                Configurá los colores utilizados en textos, títulos y botones.
+            </p>
+
+        </div>
+
+
+        <div class="theme-form__colors">
+
+            <admin-field label="Texto general">
+
+                <admin-color-picker adminFieldContent [(ngModel)]="theme.text_color">
+                </admin-color-picker>
+
+            </admin-field>
+
+
+            <admin-field label="Títulos">
+
+                <admin-color-picker adminFieldContent [(ngModel)]="theme.title_color">
+                </admin-color-picker>
+
+            </admin-field>
+
+
+            <admin-field label="Texto de botones">
+
+                <admin-color-picker adminFieldContent [(ngModel)]="theme.buttonTextColor">
+                </admin-color-picker>
+
+            </admin-field>
+
+        </div>
+
+    </div>
+
+
+    <!-- ======================================================
+    SURFACES
+    ======================================================= -->
+
+    <div class="theme-form__section">
+
+        <div class="theme-form__section-header">
+
+            <h3>
+                Superficies
+            </h3>
+
+            <p>
+                Personalizá los fondos de las principales áreas visuales de la tienda.
+            </p>
+
+        </div>
+
+
+        <div class="theme-form__colors">
+
+            <admin-field label="Tarjetas">
+
+                <admin-color-picker adminFieldContent [(ngModel)]="theme.cardBackground">
+                </admin-color-picker>
+
+            </admin-field>
+
+
+            <admin-field label="Encabezado">
+
+                <admin-color-picker adminFieldContent [(ngModel)]="theme.headerBackground">
+                </admin-color-picker>
+
+            </admin-field>
+
+
+            <admin-field label="Pie de página">
+
+                <admin-color-picker adminFieldContent [(ngModel)]="theme.footerBackground">
+                </admin-color-picker>
+
+            </admin-field>
+
+        </div>
+
+    </div>
+
+
+    <!-- ======================================================
+    STYLE
+    ======================================================= -->
+
+    <div class="theme-form__section">
+
+        <div class="theme-form__section-header">
+
+            <h3>
+                Estilo general
+            </h3>
+
+            <p>
+                Definí la tipografía y el nivel de redondeado de los componentes.
+            </p>
+
+        </div>
+
+
+        <admin-form-grid columns="2">
+
+            <admin-field label="Fuente" hint="Nombre de la familia tipográfica utilizada por el sitio.">
+
+                <admin-select adminFieldContent [(ngModel)]="theme.fontFamily" [options]="fontFamilyOptions">
+                </admin-select>
+
+            </admin-field>
+
+
+            <admin-field label="Radio de bordes" hint="Valor base en píxeles utilizado para redondear componentes.">
+
+
+
+                <admin-select adminFieldContent [(ngModel)]="theme.borderRadius" [options]="borderRadiusOptions">
+                </admin-select>
+
+                <span>
+                    {{ theme.borderRadius ?? 8 }}px
+                </span>
+
+
+
+            </admin-field>
+
+        </admin-form-grid>
+
+    </div>
+
+
+    <!-- ======================================================
+    PREVIEW
+    ======================================================= -->
+
+    <div class="theme-form__section">
+
+        <div class="theme-form__section-header">
+
+            <h3>
+                Vista previa
+            </h3>
+
+            <p>
+                Representación aproximada de la identidad visual configurada. En esta seccion puede observar como se combinan los colores seleccionados.
+            </p>
+
+        </div>
+
+
+        <div class="theme-form__preview" [style.--preview-primary]="theme.primary_color"
+            [style.--preview-secondary]="theme.secondary_color" [style.--preview-accent]="theme.accent_color"
+            [style.--preview-text]="theme.text_color" [style.--preview-title]="theme.title_color"
+            [style.--preview-button-text]="theme.buttonTextColor" [style.--preview-card]="theme.cardBackground"
+            [style.--preview-header]="theme.headerBackground" [style.--preview-footer]="theme.footerBackground"
+            [style.--preview-font]="theme.fontFamily" [style.--preview-radius.px]="theme.borderRadius">
+
+            <!-- ==================================================
+            PREVIEW HEADER
+            =================================================== -->
+
+            <header class="theme-form__preview-header">
+
+                <div class="theme-form__preview-brand">
+
+                    <div class="theme-form__preview-logo">
+
+                        @if(theme.logo_url){
+
+                        <img [src]="theme.logo_url" [alt]="settings.businessName || 'Logo'">
+
+                        } @else {
+
+                        <span>
+
+                            {{ settings.businessName?.charAt(0) || 'T' }}
+
+                        </span>
+
+                        }
+
+                    </div>
+
+
+                    <div class="theme-form__preview-brand-content">
+
+                        <strong>
+
+                            {{ settings.businessName || 'Mi tienda' }}
+
+                        </strong>
+
+                        @if(settings.slogan){
+
+                        <span>
+
+                            {{ settings.slogan }}
+
+                        </span>
+
+                        }
+
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- ==================================================
+            PREVIEW HERO
+            =================================================== -->
+
+            <div class="theme-form__preview-body">
+
+                <div class="theme-form__preview-hero">
+
+                    <span class="theme-form__preview-badge">
+
+                        Tienda online
+
+                    </span>
+
+                    <h4>
+
+                        {{ home.heroTitle || 'Título principal de tu tienda' }}
+
+                    </h4>
+
+                    <p>
+
+                        {{
+                        home.heroSubtitle ||
+                        'El texto principal de tu sitio se visualizará utilizando la identidad configurada.'
+                        }}
+
+                    </p>
+
+                    <button type="button">
+
+                        {{ home.heroButtonText || 'Ver productos' }}
+
+                    </button>
+
+                </div>
+
+
+                <!-- ==============================================
+                PREVIEW CARD
+                =============================================== -->
+
+                <div class="theme-form__preview-card">
+
+                    <span class="theme-form__preview-card-icon">
+
+                        <i class="fa-solid fa-bag-shopping"></i>
+
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            Producto destacado
+                        </strong>
+
+                        <p>
+                            Ejemplo de tarjeta utilizando los colores del tema.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ==================================================
+            PREVIEW FOOTER
+            =================================================== -->
+
+            <footer class="theme-form__preview-footer">
+
+                <span>
+
+                    {{ settings.businessName || 'Mi tienda' }}
+
+                </span>
+
+            </footer>
+
+        </div>
+
+    </div>
+
+
+    <!-- ======================================================
+    ACTIONS
+    ======================================================= -->
+
+    <div adminFormCardFooter>
+
+        <admin-button variant="primary" icon="fa-solid fa-floppy-disk" (clicked)="saveTheme()">
+
+            Guardar tema
+
+        </admin-button>
+
+    </div>
+
+</admin-form-card>

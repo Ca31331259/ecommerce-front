@@ -1,0 +1,93 @@
+<admin-form-card
+    title="Información personal"
+    subtitle="Actualizá los datos básicos de tu cuenta.">
+
+    <admin-form-grid columns="2">
+
+        <admin-field
+            label="Nombre">
+
+            <input
+                adminFieldContent
+                adminInput
+                type="text"
+                [(ngModel)]="profile.firstName">
+
+        </admin-field>
+
+        <admin-field
+            label="Apellido">
+
+            <input
+                adminFieldContent
+                adminInput
+                type="text"
+                [(ngModel)]="profile.lastName">
+
+        </admin-field>
+
+        <admin-field
+            label="Usuario">
+
+            <input
+                adminFieldContent
+                adminInput
+                type="text"
+                [ngModel]="profile.username"
+                readonly>
+
+        </admin-field>
+
+        <admin-field
+            label="Correo electrónico">
+
+            <input
+                adminFieldContent
+                adminInput
+                type="email"
+                [ngModel]="profile.email"
+                readonly>
+
+        </admin-field>
+
+        <admin-field
+            label="Tenant">
+
+            <input
+                adminFieldContent
+                adminInput
+                type="text"
+                [ngModel]="profile.tenant"
+                readonly>
+
+        </admin-field>
+
+        <admin-field
+            label="Rol">
+
+            <input
+                adminFieldContent
+                adminInput
+                type="text"
+                [ngModel]="profile.roles.join(', ')"
+                readonly>
+
+        </admin-field>
+
+    </admin-form-grid>
+
+    <div adminFormCardFooter>
+
+        <admin-button
+            variant="primary"
+            icon="fa-solid fa-floppy-disk"
+            [loading]="saving"
+            (clicked)="saveProfile()">
+
+            Guardar cambios
+
+        </admin-button>
+
+    </div>
+
+</admin-form-card>

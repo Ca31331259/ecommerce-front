@@ -1,0 +1,38 @@
+<div class="admin-icon-picker">
+
+    @for (item of icons; track item.value) {
+
+        <button
+            class="admin-icon-picker__option"
+            type="button"
+            [class.admin-icon-picker__option--selected]="isSelected(item.value)"
+            [disabled]="disabled"
+            (click)="select(item.value)">
+
+            <!-- ========================================= -->
+            <!-- ICON -->
+            <!-- ========================================= -->
+
+            <span
+                class="admin-icon-picker__icon"
+                aria-hidden="true">
+
+                <i [class]="item.icon"></i>
+
+            </span>
+
+            <!-- ========================================= -->
+            <!-- LABEL -->
+            <!-- ========================================= -->
+
+            <span class="admin-icon-picker__label">
+
+                {{ item.label }}
+
+            </span>
+
+        </button>
+
+    }
+
+</div>

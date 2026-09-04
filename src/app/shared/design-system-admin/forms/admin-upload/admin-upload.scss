@@ -1,0 +1,732 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+    min-width: 0;
+
+}
+
+/*==========================================================
+UPLOAD
+==========================================================*/
+
+.admin-upload {
+
+    position: relative;
+
+    width: 100%;
+
+    min-width: 0;
+
+    min-height: var(--admin-upload-height);
+
+    overflow: hidden;
+
+    box-sizing: border-box;
+
+    background: var(--admin-surface-alt);
+
+    border: var(--admin-upload-border-style);
+
+    border-radius: var(--admin-upload-radius);
+
+    cursor: pointer;
+
+    transition:
+        border-color
+        var(--admin-duration-fast)
+        var(--admin-easing-standard),
+
+        background
+        var(--admin-duration-fast)
+        var(--admin-easing-standard),
+
+        box-shadow
+        var(--admin-duration-fast)
+        var(--admin-easing-standard);
+
+}
+
+/*==========================================================
+INPUT
+==========================================================*/
+
+.admin-upload__input {
+
+    position: absolute;
+
+    width: 1px;
+
+    height: 1px;
+
+    overflow: hidden;
+
+    clip: rect(0 0 0 0);
+
+    clip-path: inset(50%);
+
+    white-space: nowrap;
+
+}
+
+/*==========================================================
+EMPTY
+==========================================================*/
+
+.admin-upload__empty {
+
+    min-height: inherit;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: var(--admin-space-4);
+
+    padding: var(--admin-space-6);
+
+    box-sizing: border-box;
+
+    text-align: center;
+
+}
+
+/*==========================================================
+ICON
+==========================================================*/
+
+.admin-upload__icon {
+
+    width: var(--admin-space-12);
+
+    height: var(--admin-space-12);
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: var(--admin-radius-lg);
+
+    background: var(--admin-surface);
+
+    color: var(--admin-color-primary);
+
+    box-shadow: var(--admin-shadow-xs);
+
+}
+
+.admin-upload__icon i {
+
+    font-size: var(--admin-font-size-2xl);
+
+}
+
+/*==========================================================
+INFORMATION
+==========================================================*/
+
+.admin-upload__information {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-2);
+
+}
+
+/*==========================================================
+TITLE
+==========================================================*/
+
+.admin-upload__title {
+
+    color: var(--admin-text-primary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+    line-height: var(--admin-line-height-normal);
+
+}
+
+/*==========================================================
+TEXT
+==========================================================*/
+
+.admin-upload__text {
+
+    color: var(--admin-text-secondary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-xs);
+
+    line-height: var(--admin-line-height-normal);
+
+}
+
+/*==========================================================
+META
+==========================================================*/
+
+.admin-upload__meta {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: var(--admin-space-2);
+
+    color: var(--admin-text-muted);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-xs);
+
+    line-height: var(--admin-line-height-normal);
+
+}
+
+/*==========================================================
+PREVIEW
+==========================================================*/
+
+.admin-upload__preview {
+
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 24px;
+
+    box-sizing: border-box;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f8fafc,
+            #eef4fb
+        );
+
+}
+
+.admin-upload__image {
+
+    display: block;
+
+    width: auto;
+
+    height: auto;
+
+    max-width: min(100%, 720px);
+
+    max-height: 320px;
+
+    object-fit: contain;
+
+    border-radius: 18px;
+
+    background: white;
+
+    box-shadow:
+        0 12px 36px rgb(15 23 42 /.12);
+
+}
+
+/*==========================================================
+PREVIEW OVERLAY
+==========================================================*/
+
+.admin-upload__preview-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: var(--admin-space-4);
+
+    box-sizing: border-box;
+
+    background:
+        rgb(
+            15 23 42 /
+            var(--admin-opacity-backdrop)
+        );
+
+    opacity: 0;
+
+    transition:
+        opacity
+        var(--admin-duration-fast)
+        var(--admin-easing-standard);
+
+}
+
+.admin-upload__preview:hover
+.admin-upload__preview-overlay,
+.admin-upload__preview:focus-within
+.admin-upload__preview-overlay {
+
+    opacity: 1;
+
+}
+
+/*==========================================================
+PREVIEW ACTIONS
+==========================================================*/
+
+.admin-upload__preview-actions {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: var(--admin-space-3);
+
+}
+
+/*==========================================================
+ACTION
+==========================================================*/
+
+.admin-upload__action {
+
+    min-height: var(--admin-button-height);
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: var(--admin-button-gap);
+
+    padding:
+        0
+        var(--admin-button-padding-x);
+
+    border: 0;
+
+    border-radius: var(--admin-button-radius);
+
+    background: var(--admin-surface);
+
+    color: var(--admin-text-primary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+    cursor: pointer;
+
+}
+
+.admin-upload__action--danger {
+
+    color: var(--admin-color-danger);
+
+}
+
+/*==========================================================
+FILE
+==========================================================*/
+
+.admin-upload__file {
+
+    min-height: inherit;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: var(--admin-space-4);
+
+    padding: var(--admin-space-6);
+
+    box-sizing: border-box;
+
+}
+
+/*==========================================================
+FILE ICON
+==========================================================*/
+
+.admin-upload__file-icon {
+
+    width: var(--admin-field-height);
+
+    height: var(--admin-field-height);
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: var(--admin-radius-md);
+
+    background: var(--admin-surface);
+
+    color: var(--admin-color-primary);
+
+    box-shadow: var(--admin-shadow-xs);
+
+}
+
+/*==========================================================
+FILE INFORMATION
+==========================================================*/
+
+.admin-upload__file-information {
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-2);
+
+    flex: 1;
+
+}
+
+.admin-upload__file-name {
+
+    overflow: hidden;
+
+    color: var(--admin-text-primary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+}
+
+.admin-upload__file-action {
+
+    color: var(--admin-text-secondary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-xs);
+
+}
+
+/*==========================================================
+REMOVE
+==========================================================*/
+
+.admin-upload__remove {
+
+    width: var(--admin-button-height);
+
+    height: var(--admin-button-height);
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    padding: 0;
+
+    border: 0;
+
+    border-radius: var(--admin-button-radius);
+
+    background: transparent;
+
+    color: var(--admin-color-danger);
+
+    cursor: pointer;
+
+}
+
+/*==========================================================
+LOADING
+==========================================================*/
+
+.admin-upload__loading {
+
+    min-height: inherit;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: var(--admin-space-3);
+
+    padding: var(--admin-space-6);
+
+    box-sizing: border-box;
+
+    text-align: center;
+
+}
+
+.admin-upload__spinner {
+
+    width: var(--admin-space-8);
+
+    height: var(--admin-space-8);
+
+    box-sizing: border-box;
+
+    border:
+        var(--admin-space-1)
+        solid
+        var(--admin-border);
+
+    border-top-color: var(--admin-color-primary);
+
+    border-radius: var(--admin-radius-round);
+
+    animation:
+        admin-upload-spin
+        var(--admin-duration-slow)
+        linear
+        infinite;
+
+}
+
+.admin-upload__loading-title {
+
+    color: var(--admin-text-primary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+}
+
+.admin-upload__loading-text {
+
+    color: var(--admin-text-secondary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-xs);
+
+}
+
+/*==========================================================
+ERROR
+==========================================================*/
+
+.admin-upload__error {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: var(--admin-space-2);
+
+    margin-top: var(--admin-space-2);
+
+    color: var(--admin-color-danger);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-xs);
+
+    font-weight: var(--admin-font-weight-medium);
+
+    line-height: var(--admin-line-height-normal);
+
+}
+
+/*==========================================================
+DRAGGING
+==========================================================*/
+
+:host([dragging]) .admin-upload {
+
+    border-color: var(--admin-color-primary);
+
+    background: var(--admin-surface-hover);
+
+    box-shadow: var(--admin-focus-ring);
+
+}
+
+/*==========================================================
+INVALID
+==========================================================*/
+
+:host([invalid]) .admin-upload {
+
+    border-color: var(--admin-color-danger);
+
+}
+
+/*==========================================================
+FOCUS
+==========================================================*/
+
+.admin-upload:focus-visible {
+
+    outline: none;
+
+    border-color: var(--admin-border-focus);
+
+    box-shadow: var(--admin-focus-ring);
+
+}
+
+/*==========================================================
+DISABLED
+==========================================================*/
+
+:host([disabled]) .admin-upload {
+
+    pointer-events: none;
+
+    cursor: default;
+
+    opacity: var(--admin-opacity-disabled);
+
+}
+
+/*==========================================================
+SIZE SM
+==========================================================*/
+
+:host([size="sm"]) .admin-upload {
+
+    min-height:
+        calc(
+            var(--admin-upload-height)
+            * .65
+        );
+
+}
+
+/*==========================================================
+SIZE LG
+==========================================================*/
+
+:host([size="lg"]) .admin-upload {
+
+    min-height:
+        calc(
+            var(--admin-upload-height)
+            * 1.5
+        );
+
+}
+
+/*==========================================================
+HOVER
+==========================================================*/
+
+@media (hover: hover) {
+
+    :host(:not([disabled]))
+    :not([loading])
+    .admin-upload:hover {
+
+        border-color: var(--admin-border-hover);
+
+        background: var(--admin-surface-hover);
+
+    }
+
+}
+
+/*==========================================================
+ANIMATION
+==========================================================*/
+
+@keyframes admin-upload-spin {
+
+    to {
+
+        transform: rotate(360deg);
+
+    }
+
+}
+
+/*==========================================================
+REDUCED MOTION
+==========================================================*/
+
+@media (prefers-reduced-motion: reduce) {
+
+    .admin-upload,
+    .admin-upload__preview-overlay {
+
+        transition: none;
+
+    }
+
+    .admin-upload__spinner {
+
+        animation-duration: 1.5s;
+
+    }
+
+}
+
+/*==========================================================
+IMAGE PREVIEW
+==========================================================*/
+
+:host([variant="image"]) .admin-upload {
+
+    min-height: 380px;
+
+}

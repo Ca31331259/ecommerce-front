@@ -1,0 +1,194 @@
+<admin-section
+    title="Secciones del Sitio"
+    subtitle="Ordena, Activá o desactivá las secciones visibles en la página principal.">
+
+    <div class="section-editor">
+
+        <!-- ===================================== -->
+        <!-- HERO FIJO -->
+        <!-- ===================================== -->
+
+        @if (heroSection; as section) {
+
+        <div class="section-editor__item section-editor__item--fixed">
+
+            <div class="section-editor__drag-placeholder">
+
+                <i class="fa-solid fa-lock"></i>
+
+            </div>
+
+            <div class="section-editor__information">
+
+                <h3>
+                    {{ getSectionLabel(section.section) }}
+                </h3>
+
+                <p>
+                    {{ getSectionDescription(section.section) }}
+                </p>
+
+            </div>
+
+            <div class="section-editor__actions">
+
+                <admin-switch [(ngModel)]="section.enabled">
+
+                    Visible
+
+                </admin-switch>
+
+                <admin-button
+                    variant="primary"
+                    icon="fa-solid fa-floppy-disk"
+                    (clicked)="saveSection(section)">
+
+                    Guardar
+
+                </admin-button>
+
+            </div>
+
+        </div>
+
+        }
+
+        <!-- ===================================== -->
+        <!-- SECCIONES ORDENABLES -->
+        <!-- ===================================== -->
+
+        <div
+            class="section-editor__sortable"
+            cdkDropList
+            [cdkDropListData]="movableSections"
+            (cdkDropListDropped)="dropSection($event)">
+
+            @for (section of movableSections; track section.id) {
+
+            <div
+                class="section-editor__item"
+                cdkDrag>
+
+                <div
+                    class="section-editor__drag-handle"
+                    cdkDragHandle
+                    title="Arrastrar para reordenar">
+
+                    <i class="fa-solid fa-grip-vertical"></i>
+
+                </div>
+
+                <div class="section-editor__information">
+
+                    <h3>
+                        {{ getSectionLabel(section.section) }}
+                    </h3>
+
+                    <p>
+                        {{ getSectionDescription(section.section) }}
+                    </p>
+
+                </div>
+
+                <div class="section-editor__actions">
+
+                    <admin-switch [(ngModel)]="section.enabled">
+
+                        Visible
+
+                    </admin-switch>
+
+                    <admin-button
+                        variant="primary"
+                        icon="fa-solid fa-floppy-disk"
+                        (clicked)="saveSection(section)">
+
+                        Guardar
+
+                    </admin-button>
+
+                </div>
+
+            </div>
+
+            }
+
+        </div>
+
+        <!-- ===================================== -->
+        <!-- GUARDAR ORDEN -->
+        <!-- ===================================== -->
+
+        @if (orderChanged) {
+
+        <div class="section-editor__order-actions">
+
+            <span>
+                Orden modificado. Guardá los cambios para aplicarlos.
+            </span>
+
+            <admin-button
+                variant="primary"
+                icon="fa-solid fa-floppy-disk"
+                (clicked)="saveSectionOrder()">
+
+                Guardar orden
+
+            </admin-button>
+
+        </div>
+
+        }
+
+        <!-- ===================================== -->
+        <!-- FOOTER FIJO -->
+        <!-- ===================================== -->
+
+        @if (footerSection; as section) {
+
+        <div class="section-editor__item section-editor__item--fixed">
+
+            <div class="section-editor__drag-placeholder">
+
+                <i class="fa-solid fa-lock"></i>
+
+            </div>
+
+            <div class="section-editor__information">
+
+                <h3>
+                    {{ getSectionLabel(section.section) }}
+                </h3>
+
+                <p>
+                    {{ getSectionDescription(section.section) }}
+                </p>
+
+            </div>
+
+            <div class="section-editor__actions">
+
+                <admin-switch [(ngModel)]="section.enabled">
+
+                    Visible
+
+                </admin-switch>
+
+                <admin-button
+                    variant="primary"
+                    icon="fa-solid fa-floppy-disk"
+                    (clicked)="saveSection(section)">
+
+                    Guardar
+
+                </admin-button>
+
+            </div>
+
+        </div>
+
+        }
+
+    </div>
+
+</admin-section>

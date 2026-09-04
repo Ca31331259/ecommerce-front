@@ -1,0 +1,89 @@
+<section class="admin-table">
+
+    <!-- ========================================= -->
+    <!-- TOOLBAR -->
+    <!-- ========================================= -->
+
+    @if(toolbars.length){
+
+        <header class="admin-table__toolbar">
+
+            <ng-content
+                select="[adminTableToolbar]">
+            </ng-content>
+
+        </header>
+
+    }
+
+    <!-- ========================================= -->
+    <!-- BODY -->
+    <!-- ========================================= -->
+
+    <div class="admin-table__body">
+
+        @if(loading){
+
+            <div
+                class="admin-table__loading"
+                role="status"
+                aria-live="polite">
+
+                <span
+                    class="admin-table__spinner"
+                    aria-hidden="true">
+                </span>
+
+                <span class="admin-table__loading-label">
+
+                    {{ loadingLabel }}
+
+                </span>
+
+            </div>
+
+        } @else if(empty){
+
+            <div class="admin-table__empty">
+
+                <ng-content
+                    select="[adminTableEmpty]">
+                </ng-content>
+
+            </div>
+
+        } @else {
+
+            <div class="admin-table__scroll">
+
+                <div class="admin-table__content">
+
+                    <ng-content
+                        select="[adminTableContent]">
+                    </ng-content>
+
+                </div>
+
+            </div>
+
+        }
+
+    </div>
+
+    <!-- ========================================= -->
+    <!-- FOOTER -->
+    <!-- ========================================= -->
+
+    @if(footers.length && !loading){
+
+        <footer class="admin-table__footer">
+
+            <ng-content
+                select="[adminTableFooter]">
+            </ng-content>
+
+        </footer>
+
+    }
+
+</section>

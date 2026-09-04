@@ -1,0 +1,49 @@
+<h1>
+
+    Verificación en dos pasos
+
+</h1>
+
+<p>
+
+    Ingresá el código generado por tu aplicación
+    de autenticación.
+
+</p>
+
+
+<app-otp-input
+    [(ngModel)]="code">
+</app-otp-input>
+
+
+<div class="actions">
+
+    <button
+        mat-button
+        type="button"
+        (click)="cancel.emit()">
+
+        Volver
+
+    </button>
+
+    <button
+        mat-flat-button
+        color="primary"
+        [disabled]="loading"
+        (click)="submit()">
+
+        @if(!loading){
+
+            Verificar
+
+        } @else {
+
+            Verificando...
+
+        }
+
+    </button>
+
+</div>

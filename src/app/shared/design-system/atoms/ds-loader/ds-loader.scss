@@ -1,0 +1,243 @@
+:host {
+
+    display: block;
+
+}
+
+/*==========================================================
+CONTAINER
+==========================================================*/
+
+.loader-container {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    box-sizing: border-box;
+
+}
+
+/*==========================================================
+LAYOUT BLOCK
+==========================================================*/
+
+:host(.layout-block) {
+
+    display: block;
+
+    width: 100%;
+
+}
+
+:host(.layout-block) .loader-container {
+
+    width: 100%;
+
+    min-height: 220px;
+
+    flex-direction: column;
+
+    gap: var(--space-4);
+
+}
+
+/*==========================================================
+LAYOUT INLINE
+==========================================================*/
+
+:host(.layout-inline) {
+
+    display: inline-flex;
+
+}
+
+:host(.layout-inline) .loader-container {
+
+    display: inline-flex;
+
+    flex-direction: row;
+
+    gap: var(--space-3);
+
+}
+
+/*==========================================================
+LOADER
+==========================================================*/
+
+.loader {
+
+    display: block;
+
+    flex-shrink: 0;
+
+    border-style: solid;
+
+    border-radius: var(--ds-radius-round);
+
+    animation: ds-loader-spin .7s linear infinite;
+
+}
+
+/*==========================================================
+SIZE SMALL
+==========================================================*/
+
+:host(.size-sm) .loader {
+
+    width: 18px;
+
+    height: 18px;
+
+    border-width: 2px;
+
+}
+
+:host(.size-sm) .loader-text {
+
+    font-size: var(--font-small);
+
+}
+
+/*==========================================================
+SIZE MEDIUM
+==========================================================*/
+
+:host(.size-md) .loader {
+
+    width: 34px;
+
+    height: 34px;
+
+    border-width: 3px;
+
+}
+
+:host(.size-md) .loader-text {
+
+    font-size: var(--font-body);
+
+}
+
+/*==========================================================
+SIZE LARGE
+==========================================================*/
+
+:host(.size-lg) .loader {
+
+    width: 52px;
+
+    height: 52px;
+
+    border-width: 4px;
+
+}
+
+:host(.size-lg) .loader-text {
+
+    font-size: 18px;
+
+}
+
+/*==========================================================
+PRIMARY
+==========================================================*/
+
+:host(.variant-primary) .loader {
+
+    border-color: color-mix(
+        in srgb,
+        var(--tenant-primary) 20%,
+        transparent
+    );
+
+    border-top-color: var(--tenant-primary);
+
+}
+
+:host(.variant-primary) .loader-text {
+
+    color: var(--tenant-text);
+
+}
+
+/*==========================================================
+LIGHT
+==========================================================*/
+
+:host(.variant-light) .loader {
+
+    border-color: rgba(255, 255, 255, .25);
+
+    border-top-color: white;
+
+}
+
+:host(.variant-light) .loader-text {
+
+    color: white;
+
+}
+
+/*==========================================================
+DARK
+==========================================================*/
+
+:host(.variant-dark) .loader {
+
+    border-color: rgba(0, 0, 0, .15);
+
+    border-top-color: var(--tenant-text);
+
+}
+
+:host(.variant-dark) .loader-text {
+
+    color: var(--tenant-text);
+
+}
+
+/*==========================================================
+TEXT
+==========================================================*/
+
+.loader-text {
+
+    font-family: var(--tenant-font);
+
+    font-weight: 500;
+
+    line-height: 1.4;
+
+}
+
+/*==========================================================
+ANIMATION
+==========================================================*/
+
+@keyframes ds-loader-spin {
+
+    to {
+
+        transform: rotate(360deg);
+
+    }
+
+}
+
+/*==========================================================
+REDUCED MOTION
+==========================================================*/
+
+@media (prefers-reduced-motion: reduce) {
+
+    .loader {
+
+        animation-duration: 1.5s;
+
+    }
+
+}

@@ -1,0 +1,66 @@
+@use "./app/shared/design-system/foundations/index";
+@use './app/shared/design-system-admin/tokens';
+
+@use './app/shared/design-system-admin/forms/admin-input/admin-input.scss';
+@use './app/shared/design-system-admin/forms/admin-textarea/admin-textarea.scss';
+
+:root {
+
+    /*======================================================
+    TENANT COLORS
+    ======================================================*/
+
+    --tenant-primary: #1565C0;
+
+    --tenant-secondary: #0D47A1;
+
+    --tenant-accent: #42A5F5;
+
+
+    /*======================================================
+    TENANT SURFACES
+    ======================================================*/
+
+    --tenant-bg: #ffffff;
+
+    --tenant-card: #ffffff;
+
+    --tenant-header: #ffffff;
+
+    --tenant-footer: #f7f7f7;
+
+
+    /*======================================================
+    TENANT TEXT
+    ======================================================*/
+
+    --tenant-text: #333333;
+
+    --tenant-title: #111111;
+
+    --tenant-button-text: #ffffff;
+
+
+    /*======================================================
+    TENANT TYPOGRAPHY
+    ======================================================*/
+
+    --tenant-font:
+        'Roboto',
+        sans-serif;
+
+
+    /*======================================================
+    TENANT SHAPE
+    ======================================================*/
+
+    --tenant-radius: 12px;
+
+}
+
+
+body {
+
+    margin: 0;
+
+}

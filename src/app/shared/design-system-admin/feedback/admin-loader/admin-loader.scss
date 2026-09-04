@@ -1,0 +1,370 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+    min-width: 0;
+
+}
+
+/*==========================================================
+LOADER
+==========================================================*/
+
+.admin-loader {
+
+    width: 100%;
+
+    min-width: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    box-sizing: border-box;
+
+}
+
+/*==========================================================
+SPINNER
+==========================================================*/
+
+.admin-loader__spinner {
+
+    position: relative;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+}
+
+/*==========================================================
+SPINNER RING
+==========================================================*/
+
+.admin-loader__spinner-ring {
+
+    position: absolute;
+
+    inset: 0;
+
+    box-sizing: border-box;
+
+    border-style: solid;
+
+    border-color: var(--admin-border);
+
+    border-top-color: var(--admin-color-primary);
+
+    border-radius: var(--admin-radius-round);
+
+    animation:
+        admin-loader-spin
+        800ms
+        linear
+        infinite;
+
+}
+
+/*==========================================================
+SPINNER DOT
+==========================================================*/
+
+.admin-loader__spinner-dot {
+
+    width: 22%;
+
+    height: 22%;
+
+    border-radius: var(--admin-radius-round);
+
+    background: var(--admin-color-primary);
+
+}
+
+/*==========================================================
+INFORMATION
+==========================================================*/
+
+.admin-loader__information {
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+/*==========================================================
+LABEL
+==========================================================*/
+
+.admin-loader__label {
+
+    color: var(--admin-text-primary);
+
+    font-family: var(--admin-font-family);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+    line-height: var(--admin-line-height-normal);
+
+}
+
+/*==========================================================
+DESCRIPTION
+==========================================================*/
+
+.admin-loader__description {
+
+    color: var(--admin-text-secondary);
+
+    font-family: var(--admin-font-family);
+
+    font-weight: var(--admin-font-weight-normal);
+
+    line-height: var(--admin-line-height-relaxed);
+
+}
+
+/*==========================================================
+SIZE SM
+==========================================================*/
+
+:host([size="sm"])
+.admin-loader__spinner {
+
+    width: var(--admin-space-5);
+
+    height: var(--admin-space-5);
+
+}
+
+:host([size="sm"])
+.admin-loader__spinner-ring {
+
+    border-width: 2px;
+
+}
+
+:host([size="sm"])
+.admin-loader__label {
+
+    font-size: var(--admin-font-size-xs);
+
+}
+
+:host([size="sm"])
+.admin-loader__description {
+
+    font-size: var(--admin-font-size-xs);
+
+}
+
+/*==========================================================
+SIZE MD
+==========================================================*/
+
+:host([size="md"])
+.admin-loader__spinner {
+
+    width: var(--admin-space-8);
+
+    height: var(--admin-space-8);
+
+}
+
+:host([size="md"])
+.admin-loader__spinner-ring {
+
+    border-width: var(--admin-space-1);
+
+}
+
+:host([size="md"])
+.admin-loader__label {
+
+    font-size: var(--admin-font-size-sm);
+
+}
+
+:host([size="md"])
+.admin-loader__description {
+
+    font-size: var(--admin-font-size-xs);
+
+}
+
+/*==========================================================
+SIZE LG
+==========================================================*/
+
+:host([size="lg"])
+.admin-loader__spinner {
+
+    width: var(--admin-space-12);
+
+    height: var(--admin-space-12);
+
+}
+
+:host([size="lg"])
+.admin-loader__spinner-ring {
+
+    border-width: var(--admin-space-1);
+
+}
+
+:host([size="lg"])
+.admin-loader__label {
+
+    font-size: var(--admin-font-size-md);
+
+}
+
+:host([size="lg"])
+.admin-loader__description {
+
+    font-size: var(--admin-font-size-sm);
+
+}
+
+/*==========================================================
+VARIANT PAGE
+==========================================================*/
+
+:host([variant="page"]) {
+
+    min-height:
+        calc(
+            100vh -
+            var(--admin-toolbar-height)
+        );
+
+}
+
+:host([variant="page"])
+.admin-loader {
+
+    flex-direction: column;
+
+    gap: var(--admin-space-5);
+
+    padding:
+        var(--admin-page-padding-y)
+        var(--admin-page-padding-x);
+
+    text-align: center;
+
+}
+
+:host([variant="page"])
+.admin-loader__information {
+
+    align-items: center;
+
+    gap: var(--admin-space-2);
+
+}
+
+/*==========================================================
+VARIANT SECTION
+==========================================================*/
+
+:host([variant="section"])
+.admin-loader {
+
+    min-height: var(--admin-upload-height);
+
+    flex-direction: column;
+
+    gap: var(--admin-space-4);
+
+    padding: var(--admin-card-padding);
+
+    text-align: center;
+
+}
+
+:host([variant="section"])
+.admin-loader__information {
+
+    align-items: center;
+
+    gap: var(--admin-space-1);
+
+}
+
+/*==========================================================
+VARIANT INLINE
+==========================================================*/
+
+:host([variant="inline"]) {
+
+    display: inline-block;
+
+    width: auto;
+
+}
+
+:host([variant="inline"])
+.admin-loader {
+
+    width: auto;
+
+    justify-content: flex-start;
+
+    gap: var(--admin-space-2);
+
+}
+
+:host([variant="inline"])
+.admin-loader__information {
+
+    gap: 0;
+
+}
+
+:host([variant="inline"])
+.admin-loader__description {
+
+    display: none;
+
+}
+
+/*==========================================================
+ANIMATION
+==========================================================*/
+
+@keyframes admin-loader-spin {
+
+    to {
+
+        transform: rotate(360deg);
+
+    }
+
+}
+
+/*==========================================================
+REDUCED MOTION
+==========================================================*/
+
+@media (prefers-reduced-motion: reduce) {
+
+    .admin-loader__spinner-ring {
+
+        animation-duration: 1.5s;
+
+    }
+
+}

@@ -1,0 +1,17 @@
+:host {
+
+    display: block;
+
+}
+
+.change-email-form {
+
+    &__hint {
+
+        color: var(--admin-text-secondary);
+
+        font-size: .875rem;
+
+    }
+
+}

@@ -1,0 +1,1176 @@
+:host {
+    display: block;
+    width: 100%;
+    min-width: 0;
+}
+
+/*==========================================================
+CONTAINER
+==========================================================*/
+
+.platform-tenant-detail {
+
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: var(--admin-space-6);
+    box-sizing: border-box;
+
+}
+
+/*==========================================================
+HEADER
+==========================================================*/
+
+.platform-tenant-detail__header {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--admin-space-6);
+
+    margin-bottom: var(--admin-space-6);
+
+}
+
+.platform-tenant-detail__header-left {
+
+    display: flex;
+    align-items: center;
+    gap: var(--admin-space-4);
+
+    min-width: 0;
+    flex: 1;
+
+}
+
+.platform-tenant-detail__back {
+
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: var(--admin-button-radius);
+
+    text-decoration: none;
+
+    color: var(--admin-text-secondary);
+
+    transition:
+        background .20s,
+        color .20s;
+
+}
+
+.platform-tenant-detail__back:hover {
+
+    background: var(--admin-surface-alt);
+
+    color: var(--admin-text-primary);
+
+}
+
+.platform-tenant-detail__avatar {
+
+    width: 58px;
+    height: 58px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 16px;
+
+    background: rgba(26,71,221,.10);
+
+    color: var(--admin-color-primary);
+
+    font-size: 1.35rem;
+
+    font-weight: 700;
+
+}
+
+.platform-tenant-detail__title-row {
+
+    display: flex;
+    align-items: center;
+    gap: var(--admin-space-3);
+
+    margin-bottom: 6px;
+
+}
+
+.platform-tenant-detail__title-row h1 {
+
+    margin: 0;
+
+    color: var(--admin-text-primary);
+
+    font-size: 1.8rem;
+
+    font-weight: 700;
+
+}
+
+.platform-tenant-detail__header-meta {
+
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: var(--admin-space-3);
+
+    color: var(--admin-text-muted);
+
+    font-size: .90rem;
+
+}
+
+.platform-tenant-detail__header-meta span+span::before {
+
+    content: "•";
+
+    margin-right: var(--admin-space-3);
+
+    color: var(--admin-border-hover);
+
+}
+
+/*==========================================================
+HEADER ACTIONS
+==========================================================*/
+
+.platform-tenant-detail__header-actions {
+
+    display: flex;
+    align-items: center;
+    gap: var(--admin-space-3);
+
+    flex-shrink: 0;
+
+}
+
+/*==========================================================
+BUTTONS
+==========================================================*/
+
+.platform-tenant-detail__button {
+
+    min-height: 42px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--admin-space-2);
+
+    padding: 0 var(--admin-space-5);
+
+    border-radius: var(--admin-button-radius);
+
+    border: none;
+
+    cursor: pointer;
+
+    text-decoration: none;
+
+    font-family: inherit;
+
+    font-size: .90rem;
+
+    font-weight: 600;
+
+    transition:
+        background .20s,
+        color .20s,
+        box-shadow .20s;
+
+}
+
+.platform-tenant-detail__button:disabled {
+
+    opacity: .60;
+    cursor: not-allowed;
+
+}
+
+.platform-tenant-detail__button--primary {
+
+    background: var(--admin-color-primary);
+
+    color: white;
+
+}
+
+.platform-tenant-detail__button--primary:hover:not(:disabled) {
+
+    box-shadow: var(--admin-button-shadow);
+
+}
+
+.platform-tenant-detail__button--secondary {
+
+    background: var(--admin-surface);
+
+    border: 1px solid var(--admin-border);
+
+    color: var(--admin-text-primary);
+
+}
+
+.platform-tenant-detail__button--secondary:hover {
+
+    background: var(--admin-surface-alt);
+
+}
+
+/*==========================================================
+STATUS
+==========================================================*/
+
+.platform-tenant-detail__status {
+
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 5px 12px;
+
+    border-radius: 999px;
+
+    font-size: .78rem;
+
+    font-weight: 600;
+
+}
+
+.platform-tenant-detail__status-dot {
+
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: currentColor;
+
+}
+
+.platform-tenant-detail__status--success {
+
+    background: rgba(34,197,94,.08);
+
+    color: var(--admin-color-success);
+
+}
+
+.platform-tenant-detail__status--warning {
+
+    background: rgba(245,158,11,.08);
+
+    color: var(--admin-color-warning);
+
+}
+
+.platform-tenant-detail__status--danger {
+
+    background: rgba(220,38,38,.08);
+
+    color: var(--admin-color-danger);
+
+}
+
+.platform-tenant-detail__status--muted {
+
+    background: rgba(148,163,184,.10);
+
+    color: var(--admin-text-muted);
+
+}
+
+/*==========================================================
+ALERTS
+==========================================================*/
+
+.platform-tenant-detail__alert {
+
+    display: flex;
+    align-items: center;
+    gap: var(--admin-space-3);
+
+    padding: var(--admin-space-4);
+
+    margin-bottom: var(--admin-space-5);
+
+    border-radius: var(--admin-card-radius);
+
+    font-size: .90rem;
+
+    font-weight: 500;
+
+}
+
+.platform-tenant-detail__alert--success {
+
+    background: rgba(34,197,94,.08);
+
+    border: 1px solid rgba(34,197,94,.18);
+
+    color: var(--admin-color-success);
+
+}
+
+.platform-tenant-detail__alert--danger {
+
+    background: rgba(220,38,38,.08);
+
+    border: 1px solid rgba(220,38,38,.18);
+
+    color: var(--admin-color-danger);
+
+}
+
+/*==========================================================
+TABS
+==========================================================*/
+
+.platform-tenant-detail__tabs {
+
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    margin-bottom: var(--admin-space-6);
+
+    overflow-x: auto;
+
+    border-bottom: 1px solid var(--admin-border);
+
+}
+
+.platform-tenant-detail__tab {
+
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+    gap: var(--admin-space-2);
+
+    height: 48px;
+
+    padding: 0 var(--admin-space-5);
+
+    border: none;
+
+    background: transparent;
+
+    color: var(--admin-text-muted);
+
+    cursor: pointer;
+
+    font-size: .90rem;
+
+    font-weight: 500;
+
+    white-space: nowrap;
+
+    transition: .20s;
+
+}
+
+.platform-tenant-detail__tab:hover {
+
+    color: var(--admin-text-primary);
+
+}
+
+.platform-tenant-detail__tab::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: -1px;
+
+    height: 2px;
+
+    background: transparent;
+
+    transition: .20s;
+
+}
+
+.platform-tenant-detail__tab--active {
+
+    color: var(--admin-color-primary);
+
+    font-weight: 600;
+
+}
+
+.platform-tenant-detail__tab--active::after {
+
+    background: var(--admin-color-primary);
+
+}
+
+/*==========================================================
+CONTENT
+==========================================================*/
+
+.platform-tenant-detail__content {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-5);
+
+}
+
+/*==========================================================
+CARD
+==========================================================*/
+
+.platform-tenant-detail__card,
+.detail-card {
+
+    background: var(--admin-surface);
+
+    border: 1px solid var(--admin-border);
+
+    border-radius: var(--admin-card-radius);
+
+    box-shadow: var(--admin-card-shadow);
+
+    overflow: hidden;
+
+}
+
+.platform-tenant-detail__card-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: var(--admin-space-4);
+
+    padding: var(--admin-space-5);
+
+    border-bottom: 1px solid var(--admin-border);
+
+}
+
+.platform-tenant-detail__card-header h2 {
+
+    margin: 0;
+
+    color: var(--admin-text-primary);
+
+    font-size: 1rem;
+
+    font-weight: 600;
+
+}
+
+.platform-tenant-detail__card-header span {
+
+    display: block;
+
+    margin-top: 4px;
+
+    color: var(--admin-text-muted);
+
+    font-size: .82rem;
+
+}
+
+/*==========================================================
+DETAIL GRID
+==========================================================*/
+
+.detail-grid {
+
+    display: grid;
+
+    grid-template-columns:
+
+        repeat(auto-fit,minmax(260px,1fr));
+
+}
+
+.detail-grid>div {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+
+    padding: var(--admin-space-5);
+
+    border-right: 1px solid var(--admin-border);
+
+    border-bottom: 1px solid var(--admin-border);
+
+}
+
+.detail-grid>div:last-child{
+
+    border-right:none;
+
+}
+
+.detail-grid label {
+
+    color: var(--admin-text-muted);
+
+    font-size: .78rem;
+
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: .04em;
+
+}
+
+.detail-grid span {
+
+    color: var(--admin-text-primary);
+
+    font-size: .95rem;
+
+    font-weight: 500;
+
+}
+
+/*==========================================================
+PROPERTIES
+==========================================================*/
+
+.platform-tenant-detail__properties {
+
+    display: grid;
+
+    grid-template-columns:
+
+        repeat(auto-fit,minmax(260px,1fr));
+
+}
+
+.platform-tenant-detail__properties>div {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+
+    padding: var(--admin-space-5);
+
+    border-right: 1px solid var(--admin-border);
+
+    border-bottom: 1px solid var(--admin-border);
+
+}
+
+.platform-tenant-detail__properties>div:last-child{
+
+    border-right:none;
+
+}
+
+.platform-tenant-detail__properties span {
+
+    color: var(--admin-text-muted);
+
+    font-size: .78rem;
+
+    text-transform: uppercase;
+
+    font-weight: 600;
+
+}
+
+.platform-tenant-detail__properties strong {
+
+    color: var(--admin-text-primary);
+
+    font-size: .95rem;
+
+    font-weight: 600;
+
+}
+
+/*==========================================================
+BADGES
+==========================================================*/
+
+.badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:6px 12px;
+
+    border-radius:999px;
+
+    font-size:.80rem;
+
+    font-weight:600;
+
+}
+
+.badge.success{
+
+    background:rgba(34,197,94,.08);
+
+    color:var(--admin-color-success);
+
+}
+
+.badge.warning{
+
+    background:rgba(245,158,11,.08);
+
+    color:var(--admin-color-warning);
+
+}
+
+.badge.danger{
+
+    background:rgba(220,38,38,.08);
+
+    color:var(--admin-color-danger);
+
+}
+
+.badge.muted{
+
+    background:rgba(148,163,184,.10);
+
+    color:var(--admin-text-muted);
+
+}
+
+/*==========================================================
+DETAIL ACTIONS
+==========================================================*/
+
+.detail-actions{
+
+    display:flex;
+
+    gap:var(--admin-space-3);
+
+    padding:var(--admin-space-5);
+
+    border-bottom:1px solid var(--admin-border);
+
+    flex-wrap:wrap;
+
+}
+
+/*==========================================================
+EMPTY STATE
+==========================================================*/
+
+.empty-state{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    min-height:180px;
+
+    color:var(--admin-text-muted);
+
+    font-size:.90rem;
+
+}
+
+/*==========================================================
+STATE
+==========================================================*/
+
+.platform-tenant-detail__state{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    font-size:.92rem;
+
+    font-weight:600;
+
+}
+
+.platform-tenant-detail__state i{
+
+    font-size:.95rem;
+
+}
+
+.platform-tenant-detail__state--success{
+
+    color:var(--admin-color-success);
+
+}
+
+.platform-tenant-detail__state--warning{
+
+    color:var(--admin-color-warning);
+
+}
+
+.platform-tenant-detail__state--danger{
+
+    color:var(--admin-color-danger);
+
+}
+
+.platform-tenant-detail__state--muted{
+
+    color:var(--admin-text-muted);
+
+}
+
+/*==========================================================
+LOGS
+==========================================================*/
+
+.platform-tenant-detail__logs-empty{
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    min-height:320px;
+
+    padding:var(--admin-space-7);
+
+    text-align:center;
+
+}
+
+.platform-tenant-detail__logs-icon{
+
+    width:70px;
+
+    height:70px;
+
+    margin-bottom:var(--admin-space-4);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:18px;
+
+    background:var(--admin-surface-alt);
+
+    color:var(--admin-text-muted);
+
+    font-size:1.5rem;
+
+}
+
+.platform-tenant-detail__logs-empty strong{
+
+    margin-bottom:10px;
+
+    color:var(--admin-text-primary);
+
+    font-size:1rem;
+
+}
+
+.platform-tenant-detail__logs-empty span{
+
+    max-width:460px;
+
+    color:var(--admin-text-muted);
+
+    line-height:1.6;
+
+    font-size:.90rem;
+
+}
+
+/*==========================================================
+LOADING
+==========================================================*/
+
+.platform-tenant-detail__loading{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:var(--admin-space-5);
+
+}
+
+.platform-tenant-detail__loading-header{
+
+    height:82px;
+
+    border-radius:var(--admin-card-radius);
+
+    background:var(--admin-surface-alt);
+
+    animation:tenantPulse 1.4s infinite ease-in-out;
+
+}
+
+.platform-tenant-detail__loading-content{
+
+    height:500px;
+
+    border-radius:var(--admin-card-radius);
+
+    background:var(--admin-surface-alt);
+
+    animation:tenantPulse 1.4s infinite ease-in-out;
+
+}
+
+@keyframes tenantPulse{
+
+    0%{
+
+        opacity:.55;
+
+    }
+
+    50%{
+
+        opacity:1;
+
+    }
+
+    100%{
+
+        opacity:.55;
+
+    }
+
+}
+
+/*==========================================================
+ERROR
+==========================================================*/
+
+.platform-tenant-detail__error{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:var(--admin-space-5);
+
+    padding:var(--admin-space-6);
+
+    background:rgba(220,38,38,.05);
+
+    border:1px solid rgba(220,38,38,.18);
+
+    border-radius:var(--admin-card-radius);
+
+}
+
+.platform-tenant-detail__error-icon{
+
+    width:54px;
+
+    height:54px;
+
+    flex-shrink:0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:16px;
+
+    background:rgba(220,38,38,.10);
+
+    color:var(--admin-color-danger);
+
+    font-size:1.2rem;
+
+}
+
+.platform-tenant-detail__error strong{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    color:var(--admin-text-primary);
+
+    font-size:1rem;
+
+}
+
+.platform-tenant-detail__error p{
+
+    margin:0 0 16px;
+
+    color:var(--admin-text-muted);
+
+    line-height:1.6;
+
+}
+
+.platform-tenant-detail__error a{
+
+    color:var(--admin-color-primary);
+
+    text-decoration:none;
+
+    font-weight:600;
+
+}
+
+/*==========================================================
+GENERIC BUTTONS
+==========================================================*/
+
+.btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    min-height:42px;
+
+    padding:0 20px;
+
+    border:none;
+
+    border-radius:var(--admin-button-radius);
+
+    cursor:pointer;
+
+    font-size:.90rem;
+
+    font-weight:600;
+
+    transition:.20s;
+
+}
+
+.btn:hover{
+
+    transform:translateY(-1px);
+
+}
+
+.btn:disabled{
+
+    opacity:.60;
+
+    cursor:not-allowed;
+
+}
+
+.btn-primary{
+
+    background:var(--admin-color-primary);
+
+    color:white;
+
+}
+
+.btn-success{
+
+    background:var(--admin-color-success);
+
+    color:white;
+
+}
+
+.btn-warning{
+
+    background:var(--admin-color-warning);
+
+    color:white;
+
+}
+
+.btn-danger{
+
+    background:var(--admin-color-danger);
+
+    color:white;
+
+}
+
+/*==========================================================
+BOOTSTRAP ALERT COMPATIBILITY
+==========================================================*/
+
+.alert{
+
+    padding:16px 18px;
+
+    border-radius:var(--admin-card-radius);
+
+    font-size:.90rem;
+
+    font-weight:500;
+
+}
+
+.alert-success{
+
+    background:rgba(34,197,94,.08);
+
+    color:var(--admin-color-success);
+
+}
+
+.alert-danger{
+
+    background:rgba(220,38,38,.08);
+
+    color:var(--admin-color-danger);
+
+}
+
+/*==========================================================
+RESPONSIVE
+==========================================================*/
+
+@media (max-width:900px){
+
+    .platform-tenant-detail__header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+    .platform-tenant-detail__header-actions{
+
+        width:100%;
+
+        flex-wrap:wrap;
+
+    }
+
+    .platform-tenant-detail__header-actions>*{
+
+        flex:1;
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    .platform-tenant-detail{
+
+        padding:var(--admin-space-4);
+
+    }
+
+    .detail-grid,
+
+    .platform-tenant-detail__properties{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .detail-grid>div,
+
+    .platform-tenant-detail__properties>div{
+
+        border-right:none;
+
+    }
+
+    .platform-tenant-detail__tabs{
+
+        overflow-x:auto;
+
+    }
+
+}
+
+@media (max-width:520px){
+
+    .platform-tenant-detail__header-left{
+
+        align-items:flex-start;
+
+    }
+
+    .platform-tenant-detail__title-row{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+        gap:8px;
+
+    }
+
+    .platform-tenant-detail__header-meta{
+
+        flex-direction:column;
+
+        gap:4px;
+
+    }
+
+    .platform-tenant-detail__header-meta span+span::before{
+
+        display:none;
+
+    }
+
+    .platform-tenant-detail__tab{
+
+        padding:0 16px;
+
+    }
+
+    .platform-tenant-detail__tab i{
+
+        display:none;
+
+    }
+
+}

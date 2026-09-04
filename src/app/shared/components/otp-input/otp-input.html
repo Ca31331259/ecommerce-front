@@ -1,0 +1,33 @@
+<div class="otp-container">
+
+    @for (digit of digits; track digit; let i = $index) {
+
+        <input
+
+            #digit
+
+            class="otp-digit"
+
+            type="text"
+
+            inputmode="numeric"
+
+            autocomplete="one-time-code"
+
+            maxlength="1"
+
+            [disabled]="disabled"
+
+            [ngModel]="digits[$index]"
+
+            (ngModelChange)="digits[$index] = $event"
+
+            (input)="onInput($event, $index)"
+
+            (keydown)="onKeyDown($event, $index)"
+
+            (paste)="onPaste($event)">
+
+    }
+
+</div>

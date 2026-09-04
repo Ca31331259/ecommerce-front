@@ -1,0 +1,833 @@
+<div class="platform-tenant-detail">
+
+    <!-- ========================================== -->
+    <!-- LOADING -->
+    <!-- ========================================== -->
+
+    @if (loading()) {
+
+    <section class="platform-tenant-detail__loading">
+
+        <div class="platform-tenant-detail__loading-header"></div>
+
+        <div class="platform-tenant-detail__loading-content"></div>
+
+    </section>
+
+    }
+
+
+    <!-- ========================================== -->
+    <!-- ERROR -->
+    <!-- ========================================== -->
+
+    @if (!loading() && error()) {
+
+    <section class="platform-tenant-detail__error">
+
+        <div class="platform-tenant-detail__error-icon">
+
+            <i class="fa-solid fa-triangle-exclamation" aria-hidden="true">
+            </i>
+
+        </div>
+
+        <div>
+
+            <strong>
+
+                No se pudo cargar el tenant
+
+            </strong>
+
+            <p>
+
+                El tenant solicitado no existe
+                o no pudo ser cargado.
+
+            </p>
+
+            <a routerLink="/platform/tenants">
+
+                Volver a tenants
+
+            </a>
+
+        </div>
+
+    </section>
+
+    }
+
+
+    <!-- ========================================== -->
+    <!-- CONTENT -->
+    <!-- ========================================== -->
+
+    @if (!loading() && !error() && tenant(); as data) {
+
+    <!-- ====================================== -->
+    <!-- HEADER -->
+    <!-- ====================================== -->
+
+    <header class="platform-tenant-detail__header">
+
+        <div class="platform-tenant-detail__header-left">
+
+            <a class="platform-tenant-detail__back" routerLink="/platform/tenants" aria-label="Volver a tenants">
+
+                <i class="fa-solid fa-arrow-left" aria-hidden="true">
+                </i>
+
+            </a>
+
+
+            <div class="platform-tenant-detail__avatar">
+
+                {{ data.name.charAt(0).toUpperCase() }}
+
+            </div>
+
+
+            <div>
+
+                <div class="
+                            platform-tenant-detail__title-row
+                        ">
+
+                    <h1>
+
+                        {{ data.name }}
+
+                    </h1>
+
+
+                    @if (data.active) {
+
+                    <span class="
+                                    platform-tenant-detail__status
+                                    platform-tenant-detail__status--success
+                                ">
+
+                        <span class="
+                                        platform-tenant-detail__status-dot
+                                    ">
+                        </span>
+
+                        Activo
+
+                    </span>
+
+                    } @else {
+
+                    <span class="
+                                    platform-tenant-detail__status
+                                    platform-tenant-detail__status--muted
+                                ">
+
+                        <span class="
+                                        platform-tenant-detail__status-dot
+                                    ">
+                        </span>
+
+                        Inactivo
+
+                    </span>
+
+                    }
+
+                </div>
+
+
+                <div class="
+                            platform-tenant-detail__header-meta
+                        ">
+
+                    <span>
+
+                        {{ data.code }}
+
+                    </span>
+
+                    <span>
+
+                        {{ data.domain }}
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="platform-tenant-detail__header-actions">
+
+            <a class="
+                        platform-tenant-detail__button
+                        platform-tenant-detail__button--secondary
+                    " [routerLink]="[
+                        '/platform/tenants',
+                        data.id,
+                        'edit'
+                    ]">
+
+                <i class="fa-solid fa-pen" aria-hidden="true">
+                </i>
+
+                Editar
+
+            </a>
+
+
+            <button type="button" class="
+                        platform-tenant-detail__button
+                        platform-tenant-detail__button--primary
+                    " [disabled]="deploying()" (click)="deploy()">
+
+                @if (deploying()) {
+
+                <i class="
+                                fa-solid
+                                fa-spinner
+                                fa-spin
+                            " aria-hidden="true">
+                </i>
+
+                Desplegando...
+
+                } @else {
+
+                <i class="fa-solid fa-rocket" aria-hidden="true">
+                </i>
+
+                Deploy
+
+                }
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ====================================== -->
+    <!-- DEPLOYMENT FEEDBACK -->
+    <!-- ====================================== -->
+
+    @if (deploymentSuccess()) {
+
+    <div class="
+                    platform-tenant-detail__alert
+                    platform-tenant-detail__alert--success
+                ">
+
+        <i class="fa-solid fa-circle-check" aria-hidden="true">
+        </i>
+
+        <span>
+
+            El deployment fue ejecutado correctamente.
+
+        </span>
+
+    </div>
+
+    }
+
+
+    @if (deploymentError()) {
+
+    <div class="
+                    platform-tenant-detail__alert
+                    platform-tenant-detail__alert--danger
+                ">
+
+        <i class="fa-solid fa-circle-xmark" aria-hidden="true">
+        </i>
+
+        <span>
+
+            El deployment no pudo ser ejecutado.
+
+        </span>
+
+    </div>
+
+    }
+
+
+    <!-- ====================================== -->
+    <!-- TABS -->
+    <!-- ====================================== -->
+
+    <nav class="platform-tenant-detail__tabs">
+
+        <button type="button" [class.platform-tenant-detail__tab--active]="
+                    activeTab() === 'overview'
+                " class="platform-tenant-detail__tab" (click)="setTab('overview')">
+
+            <i class="fa-solid fa-building" aria-hidden="true">
+            </i>
+
+            Información
+
+        </button>
+
+
+        <button type="button" [class.platform-tenant-detail__tab--active]="
+                    activeTab() === 'web'
+                " class="platform-tenant-detail__tab" (click)="setTab('web')">
+
+            <i class="fa-solid fa-globe" aria-hidden="true">
+            </i>
+
+            Web
+
+        </button>
+
+
+        <button type="button" [class.platform-tenant-detail__tab--active]="
+                    activeTab() === 'ssl'
+                " class="platform-tenant-detail__tab" (click)="setTab('ssl')">
+
+            <i class="fa-solid fa-lock" aria-hidden="true">
+            </i>
+
+            SSL
+
+        </button>
+
+
+        <button type="button" [class.platform-tenant-detail__tab--active]="
+                    activeTab() === 'deployment'
+                " class="platform-tenant-detail__tab" (click)="setTab('deployment')">
+
+            <i class="fa-solid fa-rocket" aria-hidden="true">
+            </i>
+
+            Deployment
+
+        </button>
+
+
+        <button type="button" [class.platform-tenant-detail__tab--active]="
+                    activeTab() === 'logs'
+                " class="platform-tenant-detail__tab" (click)="setTab('logs')">
+
+            <i class="fa-solid fa-file-lines" aria-hidden="true">
+            </i>
+
+            Logs
+
+        </button>
+
+    </nav>
+
+
+    <!-- ====================================== -->
+    <!-- TAB CONTENT -->
+    <!-- ====================================== -->
+
+    <main class="platform-tenant-detail__content">
+
+
+        <!-- ===================================================== -->
+        <!-- OVERVIEW -->
+        <!-- ===================================================== -->
+
+        @if (activeTab() === 'overview' && tenant(); as t) {
+
+        <div class="detail-card">
+
+            <div class="detail-grid">
+
+                <div>
+                    <label>Código</label>
+                    <span>{{ t.code }}</span>
+                </div>
+
+                <div>
+                    <label>Nombre</label>
+                    <span>{{ t.name }}</span>
+                </div>
+
+                <div>
+                    <label>Dominio</label>
+                    <span>{{ t.domain }}</span>
+                </div>
+
+                <div>
+                    <label>Estado</label>
+
+                    <span class="badge" [class.success]="t.active" [class.danger]="!t.active">
+
+                        {{ t.active ? 'Activo' : 'Inactivo' }}
+
+                    </span>
+
+                </div>
+
+                <div>
+                    <label>Sitio Web</label>
+
+                    <span class="badge" [class.success]="t.webEnabled" [class.warning]="!t.webEnabled">
+
+                        {{ t.webEnabled ? 'Desplegado' : 'No desplegado' }}
+
+                    </span>
+
+                </div>
+
+                <div>
+                    <label>SSL</label>
+
+                    <span class="badge" [class]="getSslClass(t.sslStatus)">
+
+                        {{ getSslLabel(t.sslStatus) }}
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        }
+
+        <!-- ================================== -->
+        <!-- WEB -->
+        <!-- ================================== -->
+
+        @if (activeTab() === 'web') {
+
+        <section class="platform-tenant-detail__card">
+
+            <header class="
+                            platform-tenant-detail__card-header
+                        ">
+
+                <div>
+
+                    <h2>
+
+                        Configuración Web
+
+                    </h2>
+
+                    <span>
+
+                        Dominio y disponibilidad de la web
+
+                    </span>
+
+                </div>
+
+            </header>
+
+
+            <div class="
+                            platform-tenant-detail__properties
+                        ">
+
+                <div>
+
+                    <span>
+                        Dominio
+                    </span>
+
+                    <strong>
+                        {{ data.domain }}
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Web
+                    </span>
+
+                    @if (data.webEnabled) {
+
+                    <strong class="
+                                        platform-tenant-detail__state
+                                        platform-tenant-detail__state--success
+                                    ">
+
+                        <i class="
+                                            fa-solid
+                                            fa-circle-check
+                                        ">
+                        </i>
+
+                        Habilitada
+
+                    </strong>
+
+                    } @else {
+
+                    <strong class="
+                                        platform-tenant-detail__state
+                                        platform-tenant-detail__state--muted
+                                    ">
+
+                        Deshabilitada
+
+                    </strong>
+
+                    }
+
+                </div>
+
+            </div>
+
+        </section>
+
+        }
+
+
+        <!-- ===================================================== -->
+        <!-- DOMINIO -->
+        <!-- ===================================================== -->
+
+        @if (activeTab() === 'web') {
+
+        <div class="detail-card">
+
+            <div class="detail-actions">
+
+                <button class="btn btn-primary" (click)="verifyDomain()" [disabled]="verifyingDomain()">
+
+                    Verificar dominio
+
+                </button>
+
+            </div>
+
+
+            @if (domainStatus(); as domain) {
+
+            <div class="detail-grid">
+
+                <div>
+
+                    <label>Dominio</label>
+
+                    <span>{{ domain.domain }}</span>
+
+                </div>
+
+                <div>
+
+                    <label>DNS</label>
+
+                    <span class="badge" [class.success]="domain.dnsResolved" [class.danger]="!domain.dnsResolved">
+
+                        {{ domain.dnsResolved ? 'Resuelto' : 'Sin resolver' }}
+
+                    </span>
+
+                </div>
+
+            </div>
+
+            } @else {
+
+            <div class="empty-state">
+
+                Aún no se verificó el dominio.
+
+            </div>
+
+            }
+
+        </div>
+
+        }
+
+
+<!-- ===================================================== -->
+<!-- SSL -->
+<!-- ===================================================== -->
+
+@if (activeTab() === 'ssl') {
+
+<div class="detail-card">
+
+    <div class="detail-actions">
+
+        <button
+            class="btn btn-primary"
+            (click)="requestSsl()"
+            [disabled]="requestingSsl()">
+
+            Solicitar certificado SSL
+
+        </button>
+
+    </div>
+
+    @if (certificateStatus(); as certificate) {
+
+    <div class="detail-grid">
+
+        <div>
+
+            <label>Estado SSL</label>
+
+            <span
+                class="badge"
+                [class]="getSslClass(certificate.sslStatus)">
+
+                {{ getSslLabel(certificate.sslStatus) }}
+
+            </span>
+
+        </div>
+
+        <div>
+
+            <label>Certificado válido</label>
+
+            <span
+                class="badge"
+                [class.success]="certificate.valid"
+                [class.danger]="!certificate.valid">
+
+                {{ certificate.valid ? 'Sí' : 'No' }}
+
+            </span>
+
+        </div>
+
+        <div>
+
+            <label>Vencimiento</label>
+
+            <span>
+
+                {{ certificate.expirationDate || '-' }}
+
+            </span>
+
+        </div>
+
+    </div>
+
+    } @else {
+
+    <div class="empty-state">
+
+        No hay información del certificado.
+
+    </div>
+
+    }
+
+</div>
+
+}
+
+        <!-- ===================================================== -->
+        <!-- DEPLOYMENT -->
+        <!-- ===================================================== -->
+
+        @if (activeTab() === 'deployment') {
+
+        <div class="detail-card">
+
+            <div class="detail-actions">
+
+                <button class="btn btn-primary" (click)="validateDeployment()" [disabled]="validating()">
+
+                    Validar
+
+                </button>
+
+                <button class="btn btn-success" (click)="deploy()" [disabled]="deploying()">
+
+                    Deploy
+
+                </button>
+
+                <button class="btn btn-warning" (click)="redeploy()" [disabled]="redeploying()">
+
+                    Redeploy
+
+                </button>
+
+                <button class="btn btn-danger" (click)="undeploy()" [disabled]="undeploying()">
+
+                    Undeploy
+
+                </button>
+
+            </div>
+
+
+            @if (deploymentStatus(); as status) {
+
+            <div class="detail-grid">
+
+                <div>
+
+                    <label>Deployment</label>
+
+                    <span class="badge" [class.success]="status.deployed" [class.warning]="!status.deployed">
+
+                        {{ status.deployed ? 'Desplegado' : 'No desplegado' }}
+
+                    </span>
+
+                </div>
+
+                <div>
+
+                    <label>Website</label>
+
+                    <span class="badge" [class.success]="status.websiteEnabled"
+                        [class.warning]="!status.websiteEnabled">
+
+                        {{ status.websiteEnabled ? 'Activo' : 'Inactivo' }}
+
+                    </span>
+
+                </div>
+
+                <div>
+
+                    <label>SSL</label>
+
+                    <span class="badge" [class]="getSslClass(status.sslStatus)">
+
+                        {{ getSslLabel(status.sslStatus) }}
+
+                    </span>
+
+                </div>
+
+            </div>
+
+            }
+
+
+            @if (validation(); as validation) {
+
+            <div class="alert" [class.alert-success]="validation.valid" [class.alert-danger]="!validation.valid">
+
+                @if (validation.valid) {
+
+                Deployment válido.
+
+                } @else {
+
+                {{ validation.message }}
+
+                }
+
+            </div>
+
+            }
+
+
+            @if (deploymentSuccess()) {
+
+            <div class="alert alert-success">
+
+                Deployment realizado correctamente.
+
+            </div>
+
+            }
+
+
+            @if (deploymentError()) {
+
+            <div class="alert alert-danger">
+
+                Ocurrió un error durante el deployment.
+
+            </div>
+
+            }
+
+        </div>
+
+        }
+
+        <!-- ================================== -->
+        <!-- LOGS -->
+        <!-- ================================== -->
+
+        @if (activeTab() === 'logs') {
+
+        <section class="platform-tenant-detail__card">
+
+            <header class="
+                            platform-tenant-detail__card-header
+                        ">
+
+                <div>
+
+                    <h2>
+
+                        Logs
+
+                    </h2>
+
+                    <span>
+
+                        Historial de operaciones del tenant
+
+                    </span>
+
+                </div>
+
+            </header>
+
+
+            <div class="
+                            platform-tenant-detail__logs-empty
+                        ">
+
+                <div class="
+                                platform-tenant-detail__logs-icon
+                            ">
+
+                    <i class="
+                                    fa-solid
+                                    fa-file-lines
+                                ">
+                    </i>
+
+                </div>
+
+                <strong>
+
+                    Logs próximamente
+
+                </strong>
+
+                <span>
+
+                    El backend todavía no expone
+                    un endpoint de logs para este tenant.
+
+                </span>
+
+            </div>
+
+        </section>
+
+        }
+
+    </main>
+
+    }
+
+</div>

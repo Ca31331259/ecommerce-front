@@ -1,0 +1,827 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+}
+/*=========================================================
+GRID
+=========================================================*/
+
+.gallery-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,minmax(0,05fr));
+
+    gap:6px;
+
+    align-items:start;
+
+}
+
+
+/*=========================================================
+CARD
+=========================================================*/
+
+.gallery-card{
+
+    overflow:hidden;
+
+    border-radius:18px;
+
+}
+
+
+/*=========================================================
+COLUMNAS
+=========================================================*/
+
+.gallery-card--small{
+
+    grid-column:span 1;
+
+}
+
+.gallery-card--medium{
+
+    grid-column:span 2;
+
+}
+
+.gallery-card--large{
+
+    grid-column:1 / -1;
+
+}
+
+
+/*=========================================================
+BOTON
+=========================================================*/
+
+.gallery-item{
+
+    display:block;
+
+    width:100%;
+
+    padding:0;
+
+    border:0;
+
+    background:none;
+
+    cursor:pointer;
+
+}
+
+
+/*=========================================================
+IMAGEN
+=========================================================*/
+
+.gallery-image{
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+
+/*=========================================================
+ALTURAS
+=========================================================*/
+
+.gallery-card--large .gallery-image{
+
+    aspect-ratio:16 / 6;
+
+}
+
+.gallery-card--medium .gallery-image{
+
+    aspect-ratio:2 / 1;
+
+}
+.gallery-card--small .gallery-image{
+
+    aspect-ratio:1 / 1;
+
+}
+
+
+/*=========================================================
+IMG
+=========================================================*/
+
+.gallery-image img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+
+    transition:transform .45s ease;
+
+}
+
+.gallery-item:hover img{
+
+    transform:scale(1.06);
+
+}
+
+
+/*=========================================================
+OVERLAY
+=========================================================*/
+
+.gallery-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    display:flex;
+
+    align-items:flex-end;
+
+    padding:24px;
+
+    background:linear-gradient(
+        to top,
+        rgba(0,0,0,.72),
+        rgba(0,0,0,.15),
+        transparent
+    );
+
+    opacity:0;
+
+    transition:.25s;
+
+}
+
+.gallery-item:hover .gallery-overlay{
+
+    opacity:1;
+
+}
+
+.gallery-overlay-content{
+
+    color:#fff;
+
+}
+
+.gallery-zoom{
+
+    width:48px;
+
+    height:48px;
+
+    border-radius:50%;
+
+    display:grid;
+
+    place-items:center;
+
+    background:rgba(255,255,255,.18);
+
+    backdrop-filter:blur(10px);
+
+    margin-bottom:14px;
+
+}
+
+.gallery-overlay h3{
+
+    margin:0;
+
+    font-size:1.15rem;
+
+    font-weight:600;
+
+}
+
+.gallery-overlay p{
+
+    margin-top:6px;
+
+    opacity:.9;
+
+}
+/*==========================================================
+ITEM INTERACTION
+==========================================================*/
+
+.gallery-item:hover
+.gallery-image img {
+
+    transform: scale(1.06);
+
+}
+
+.gallery-item:focus-visible {
+
+    outline: 3px solid var(--tenant-primary);
+
+    outline-offset: -3px;
+
+}
+
+/*==========================================================
+LIGHTBOX
+==========================================================*/
+
+.gallery-lightbox {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 5000;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding:
+
+        72px
+
+        var(--space-4);
+
+    background: rgba(0, 0, 0, .92);
+
+    backdrop-filter: blur(10px);
+
+    animation:
+        gallery-lightbox-enter
+        var(--transition)
+        ease;
+
+}
+
+/*==========================================================
+LIGHTBOX CONTENT
+==========================================================*/
+
+.lightbox-content {
+
+    width: 100%;
+
+    max-width: 1100px;
+
+    max-height: calc(100dvh - 144px);
+
+    display: flex;
+
+    flex-direction: column;
+
+    overflow: hidden;
+
+    border-radius: var(--ds-radius-xl);
+
+    background: #111;
+
+    box-shadow: var(--shadow-lg);
+
+    animation:
+        gallery-content-enter
+        var(--transition)
+        ease;
+
+}
+
+.lightbox-content > img {
+
+    width: 100%;
+
+    min-height: 0;
+
+    display: block;
+
+    flex: 1;
+
+    object-fit: contain;
+
+    background: #080808;
+
+}
+
+/*==========================================================
+LIGHTBOX INFORMATION
+==========================================================*/
+
+.lightbox-information {
+
+    flex-shrink: 0;
+
+    padding: var(--space-5);
+
+    background: #111;
+
+}
+
+.lightbox-information h3 {
+
+    margin: 0;
+
+    color: white;
+
+    font-family: var(--tenant-font);
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+}
+
+.lightbox-information p {
+
+    margin:
+
+        var(--space-2)
+
+        0
+
+        0;
+
+    color: rgba(255, 255, 255, .72);
+
+    font-family: var(--tenant-font);
+
+    font-size: var(--font-small);
+
+    line-height: 1.6;
+
+}
+
+/*==========================================================
+LIGHTBOX CLOSE
+==========================================================*/
+
+.lightbox-close {
+
+    position: absolute;
+
+    top: var(--space-4);
+
+    right: var(--space-4);
+
+    z-index: 3;
+
+    width: 46px;
+
+    height: 46px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid rgba(255, 255, 255, .18);
+
+    border-radius: var(--ds-radius-round);
+
+    background: rgba(255, 255, 255, .10);
+
+    color: white;
+
+    backdrop-filter: blur(8px);
+
+    cursor: pointer;
+
+    transition:
+        background var(--transition-fast),
+        transform var(--transition-fast);
+
+}
+
+.lightbox-close i {
+
+    font-size: 20px;
+
+}
+
+.lightbox-close:hover {
+
+    background: var(--tenant-primary);
+
+    transform: rotate(4deg);
+
+}
+
+/*==========================================================
+LIGHTBOX CONTROLS
+==========================================================*/
+
+.lightbox-control {
+
+    position: absolute;
+
+    top: 50%;
+
+    z-index: 3;
+
+    width: 46px;
+
+    height: 46px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid rgba(255, 255, 255, .18);
+
+    border-radius: var(--ds-radius-round);
+
+    background: rgba(255, 255, 255, .10);
+
+    color: white;
+
+    backdrop-filter: blur(8px);
+
+    cursor: pointer;
+
+    transform: translateY(-50%);
+
+    transition:
+        background var(--transition-fast),
+        transform var(--transition-fast);
+
+}
+
+.lightbox-control i {
+
+    font-size: 17px;
+
+}
+
+.lightbox-previous {
+
+    left: var(--space-3);
+
+}
+
+.lightbox-next {
+
+    right: var(--space-3);
+
+}
+
+.lightbox-control:hover {
+
+    background: var(--tenant-primary);
+
+}
+
+.lightbox-previous:hover {
+
+    transform:
+        translateY(-50%)
+        translateX(-2px);
+
+}
+
+.lightbox-next:hover {
+
+    transform:
+        translateY(-50%)
+        translateX(2px);
+
+}
+
+/*==========================================================
+COUNTER
+==========================================================*/
+
+.lightbox-counter {
+
+    position: absolute;
+
+    left: 50%;
+
+    bottom: var(--space-4);
+
+    z-index: 3;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: var(--space-2);
+
+    padding:
+
+        var(--space-2)
+
+        var(--space-4);
+
+    border-radius: var(--ds-radius-round);
+
+    background: rgba(0, 0, 0, .50);
+
+    color: white;
+
+    font-family: var(--tenant-font);
+
+    font-size: var(--font-small);
+
+    font-weight: 600;
+
+    backdrop-filter: blur(8px);
+
+    transform: translateX(-50%);
+
+}
+
+.lightbox-counter span {
+
+    opacity: .45;
+
+}
+
+/*==========================================================
+ANIMATIONS
+==========================================================*/
+
+@keyframes gallery-lightbox-enter {
+
+    from {
+
+        opacity: 0;
+
+    }
+
+    to {
+
+        opacity: 1;
+
+    }
+
+}
+
+@keyframes gallery-content-enter {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(16px)
+            scale(.98);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+/*==========================================================
+TABLET
+==========================================================*/
+
+@media (min-width: 640px) {
+
+    .gallery-grid {
+
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+
+        gap: 6px;
+
+    }
+
+}
+
+/*==========================================================
+DESKTOP
+==========================================================*/
+
+@media (min-width: 1024px) {
+
+    .gallery-grid {
+
+        grid-template-columns:
+            repeat(
+                3,
+                minmax(0, 1fr)
+            );
+
+        gap: 6px;
+
+    }
+
+    .gallery-overlay {
+
+        opacity: 0;
+
+    }
+
+    .gallery-overlay-content {
+
+        transform: translateY(18px);
+
+    }
+
+    .gallery-item:hover
+    .gallery-overlay,
+    .gallery-item:focus-visible
+    .gallery-overlay {
+
+        opacity: 1;
+
+    }
+
+    .gallery-item:hover
+    .gallery-overlay-content,
+    .gallery-item:focus-visible
+    .gallery-overlay-content {
+
+        transform: translateY(0);
+
+    }
+
+    .lightbox-control {
+
+        width: 54px;
+
+        height: 54px;
+
+    }
+
+    .lightbox-previous {
+
+        left: var(--space-6);
+
+    }
+
+    .lightbox-next {
+
+        right: var(--space-6);
+
+    }
+
+}
+
+/*==========================================================
+REDUCED MOTION
+==========================================================*/
+
+@media (prefers-reduced-motion: reduce) {
+
+    .gallery-image img,
+    .gallery-overlay,
+    .gallery-overlay-content,
+    .lightbox-close,
+    .lightbox-control {
+
+        transition: none;
+
+    }
+
+    .gallery-lightbox,
+    .lightbox-content {
+
+        animation: none;
+
+    }
+
+    .gallery-item:hover
+    .gallery-image img {
+
+        transform: none;
+
+    }
+
+}
+
+
+/*==========================================================
+MOBILE
+==========================================================*/
+
+@media (max-width: 639px) {
+
+    .gallery-grid {
+
+        grid-template-columns: 1fr;
+
+        gap: 8px;
+
+    }
+
+    /* -----------------------------------------
+       En mobile todos los tamaños se comportan
+       exactamente igual.
+       ----------------------------------------- */
+
+    .gallery-card--small,
+    .gallery-card--medium,
+    .gallery-card--large {
+
+        grid-column: span 1;
+
+    }
+
+    /* -----------------------------------------
+       Altura fija para teléfono
+       ----------------------------------------- */
+
+    .gallery-card .gallery-image {
+
+        width: 100%;
+
+        height: 210px;
+
+        aspect-ratio: auto;
+
+    }
+
+    /* -----------------------------------------
+       La imagen ocupa siempre todo el espacio
+       ----------------------------------------- */
+
+    .gallery-card .gallery-image img {
+
+        width: 100%;
+
+        height: 100%;
+
+        object-fit: cover;
+
+    }
+
+    /* -----------------------------------------
+       Placeholder también debe ocupar
+       exactamente el mismo espacio
+       ----------------------------------------- */
+
+    .gallery-card .gallery-image ds-image-placeholder {
+
+        display: block;
+
+        width: 100%;
+
+        height: 100%;
+
+    }
+
+    /* -----------------------------------------
+       En mobile no necesitamos el overlay
+       permanente del desktop.
+       ----------------------------------------- */
+
+    .gallery-overlay {
+
+        padding: 16px;
+
+    }
+
+    .gallery-overlay-content {
+
+        max-width: 100%;
+
+    }
+
+    .gallery-overlay h3 {
+
+        font-size: 1rem;
+
+    }
+
+    .gallery-overlay p {
+
+        font-size: .875rem;
+
+    }
+
+}

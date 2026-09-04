@@ -1,0 +1,53 @@
+<article class="admin-card">
+
+    @if(headers.length || actions.length){
+
+        <header class="admin-card__top">
+
+            @if(headers.length){
+
+                <div class="admin-card__header">
+
+                    <ng-content
+                        select="[adminCardHeader]">
+                    </ng-content>
+
+                </div>
+
+            }
+
+            @if(actions.length){
+
+                <div class="admin-card__actions">
+
+                    <ng-content
+                        select="[adminCardActions]">
+                    </ng-content>
+
+                </div>
+
+            }
+
+        </header>
+
+    }
+
+    <div class="admin-card__content">
+
+        <ng-content></ng-content>
+
+    </div>
+
+    @if(footers.length){
+
+        <footer class="admin-card__footer">
+
+            <ng-content
+                select="[adminCardFooter]">
+            </ng-content>
+
+        </footer>
+
+    }
+
+</article>

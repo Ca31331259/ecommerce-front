@@ -1,0 +1,35 @@
+<article class="ds-card">
+
+    <div class="ds-card-image">
+
+        <ng-content select="[dsCardImage]"></ng-content>
+
+    </div>
+
+    <div class="ds-card-body">
+
+        <div class="ds-card-header">
+
+            <ng-content select="[dsCardTitle]"></ng-content>
+
+            <ng-content select="[dsCardSubtitle]"></ng-content>
+
+        </div>
+
+        <div class="ds-card-content">
+
+            <ng-content select="[dsCardContent]"></ng-content>
+
+        </div>
+
+        <div class="ds-card-actions">
+
+            <ng-content select="[dsCardActions]"></ng-content>
+
+        </div>
+
+        <ng-content></ng-content>
+
+    </div>
+
+</article>

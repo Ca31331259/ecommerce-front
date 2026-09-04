@@ -1,0 +1,145 @@
+:host {
+
+    display: block;
+
+}
+
+/*==========================================================
+ROOT
+==========================================================*/
+
+.admin-toolbar {
+
+    margin-bottom: var(--admin-toolbar-margin-bottom);
+
+}
+
+/*==========================================================
+CONTENT
+==========================================================*/
+
+.admin-toolbar__content {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-toolbar-gap);
+
+}
+
+/*==========================================================
+HEADER
+==========================================================*/
+
+.admin-toolbar__header {
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+/*==========================================================
+TITLE
+==========================================================*/
+
+.admin-toolbar__title {
+
+    margin: 0;
+
+    color: var(--admin-text-primary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-toolbar-title-size);
+
+    font-weight: var(--admin-font-weight-bold);
+
+    line-height: var(--admin-line-height-tight);
+
+}
+
+/*==========================================================
+META
+==========================================================*/
+
+.admin-toolbar__meta {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: var(--admin-space-2);
+
+    margin-top: var(--admin-space-2);
+
+}
+
+/*==========================================================
+SUBTITLE
+==========================================================*/
+
+.admin-toolbar__subtitle {
+
+    max-width: 900px;
+
+    margin:
+
+        var(--admin-space-3)
+
+        0
+
+        0;
+
+    color: var(--admin-text-secondary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-toolbar-subtitle-size);
+
+    line-height: var(--admin-line-height-relaxed);
+
+}
+
+/*==========================================================
+ACTIONS
+==========================================================*/
+
+.admin-toolbar__actions {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: var(--admin-toolbar-actions-gap);
+
+}
+
+/*==========================================================
+DESKTOP
+==========================================================*/
+
+@media (min-width: 1024px) {
+
+    :host([align="between"]) .admin-toolbar__content {
+
+        flex-direction: row;
+
+        justify-content: space-between;
+
+        align-items: flex-start;
+
+    }
+
+    .admin-toolbar__actions {
+
+        justify-content: flex-end;
+
+        align-items: center;
+
+        flex-shrink: 0;
+
+    }
+
+}

@@ -1,0 +1,254 @@
+<div class="platform-kpi-grid">
+
+    <!-- TOTAL TENANTS -->
+
+    <article class="platform-kpi-grid__card">
+
+        <div
+            class="
+                platform-kpi-grid__icon
+                platform-kpi-grid__icon--primary
+            ">
+
+            <i
+                class="fa-solid fa-building"
+                aria-hidden="true">
+            </i>
+
+        </div>
+
+        <div class="platform-kpi-grid__content">
+
+            <span>
+
+                Total tenants
+
+            </span>
+
+            <strong>
+
+                {{ dashboard().totalTenants }}
+
+            </strong>
+
+        </div>
+
+    </article>
+
+
+    <!-- ACTIVE TENANTS -->
+
+    <article class="platform-kpi-grid__card">
+
+        <div
+            class="
+                platform-kpi-grid__icon
+                platform-kpi-grid__icon--success
+            ">
+
+            <i
+                class="fa-solid fa-circle-check"
+                aria-hidden="true">
+            </i>
+
+        </div>
+
+        <div class="platform-kpi-grid__content">
+
+            <span>
+
+                Tenants activos
+
+            </span>
+
+            <strong>
+
+                {{ dashboard().activeTenants }}
+
+            </strong>
+
+        </div>
+
+    </article>
+
+
+    <!-- INACTIVE TENANTS -->
+
+    <article class="platform-kpi-grid__card">
+
+        <div
+            class="
+                platform-kpi-grid__icon
+                platform-kpi-grid__icon--danger
+            ">
+
+            <i
+                class="fa-solid fa-circle-pause"
+                aria-hidden="true">
+            </i>
+
+        </div>
+
+        <div class="platform-kpi-grid__content">
+
+            <span>
+
+                Tenants inactivos
+
+            </span>
+
+            <strong>
+
+                {{ dashboard().inactiveTenants }}
+
+            </strong>
+
+        </div>
+
+    </article>
+
+
+    <!-- WEB ENABLED -->
+
+    <article class="platform-kpi-grid__card">
+
+        <div
+            class="
+                platform-kpi-grid__icon
+                platform-kpi-grid__icon--info
+            ">
+
+            <i
+                class="fa-solid fa-globe"
+                aria-hidden="true">
+            </i>
+
+        </div>
+
+        <div class="platform-kpi-grid__content">
+
+            <span>
+
+                Web habilitada
+
+            </span>
+
+            <strong>
+
+                {{ dashboard().webEnabled }}
+
+            </strong>
+
+        </div>
+
+    </article>
+
+
+    <!-- SSL ACTIVE -->
+
+    <article class="platform-kpi-grid__card">
+
+        <div
+            class="
+                platform-kpi-grid__icon
+                platform-kpi-grid__icon--success
+            ">
+
+            <i
+                class="fa-solid fa-lock"
+                aria-hidden="true">
+            </i>
+
+        </div>
+
+        <div class="platform-kpi-grid__content">
+
+            <span>
+
+                SSL activos
+
+            </span>
+
+            <strong>
+
+                {{ dashboard().sslActive }}
+
+            </strong>
+
+        </div>
+
+    </article>
+
+
+    <!-- SSL PENDING -->
+
+    <article class="platform-kpi-grid__card">
+
+        <div
+            class="
+                platform-kpi-grid__icon
+                platform-kpi-grid__icon--warning
+            ">
+
+            <i
+                class="fa-solid fa-clock"
+                aria-hidden="true">
+            </i>
+
+        </div>
+
+        <div class="platform-kpi-grid__content">
+
+            <span>
+
+                SSL pendientes
+
+            </span>
+
+            <strong>
+
+                {{ dashboard().sslPending }}
+
+            </strong>
+
+        </div>
+
+    </article>
+
+
+    <!-- SSL ERROR -->
+
+    <article class="platform-kpi-grid__card">
+
+        <div
+            class="
+                platform-kpi-grid__icon
+                platform-kpi-grid__icon--danger
+            ">
+
+            <i
+                class="fa-solid fa-lock-open"
+                aria-hidden="true">
+            </i>
+
+        </div>
+
+        <div class="platform-kpi-grid__content">
+
+            <span>
+
+                SSL con error
+
+            </span>
+
+            <strong>
+
+                {{ dashboard().sslError }}
+
+            </strong>
+
+        </div>
+
+    </article>
+
+</div>

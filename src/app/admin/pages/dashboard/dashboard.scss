@@ -1,0 +1,616 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+    min-width: 0;
+
+}
+
+
+/*==========================================================
+QUICK ACTIONS
+==========================================================*/
+
+.dashboard-actions {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            minmax(0, 1fr)
+        );
+
+    gap: var(--admin-space-4);
+
+}
+
+
+/*==========================================================
+ACTION HEADER
+==========================================================*/
+
+.dashboard-action__header {
+
+    min-width: 0;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: var(--admin-space-4);
+
+}
+
+
+/*==========================================================
+ACTION ICON
+==========================================================*/
+
+.dashboard-action__icon {
+
+    width: var(--admin-space-11);
+
+    height: var(--admin-space-11);
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: var(--admin-radius-lg);
+
+    background: var(--admin-surface-hover);
+
+    color: var(--admin-color-primary);
+
+}
+
+.dashboard-action__icon i {
+
+    font-size: var(--admin-font-size-lg);
+
+    line-height: 1;
+
+}
+
+
+/*==========================================================
+ACTION INFORMATION
+==========================================================*/
+
+.dashboard-action__information {
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-2);
+
+}
+
+.dashboard-action__information h3 {
+
+    margin: 0;
+
+    color: var(--admin-text-primary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-base);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+    line-height: var(--admin-line-height-tight);
+
+}
+
+.dashboard-action__information p {
+
+    margin: 0;
+
+    color: var(--admin-text-secondary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    font-weight: var(--admin-font-weight-normal);
+
+    line-height: var(--admin-line-height-relaxed);
+
+}
+
+
+/*==========================================================
+CHECKLIST INFORMATION
+==========================================================*/
+
+.dashboard-checklist__information {
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-1);
+
+}
+
+.dashboard-checklist__information strong {
+
+    color: var(--admin-text-primary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+    line-height: var(--admin-line-height-tight);
+
+}
+
+.dashboard-checklist__information span {
+
+    color: var(--admin-text-secondary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    font-weight: var(--admin-font-weight-normal);
+
+    line-height: var(--admin-line-height-normal);
+
+}
+
+
+/*==========================================================
+ECOMMERCE INFORMATION
+==========================================================*/
+
+.dashboard-info__label {
+
+    min-width: 0;
+
+    color: var(--admin-text-secondary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    font-weight: var(--admin-font-weight-medium);
+
+    line-height: var(--admin-line-height-normal);
+
+}
+
+.dashboard-info__value {
+
+    min-width: 0;
+
+    max-width: 50%;
+
+    overflow: hidden;
+
+    color: var(--admin-text-primary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+    line-height: var(--admin-line-height-normal);
+
+    text-align: right;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+}
+
+
+/*==========================================================
+ROADMAP
+==========================================================*/
+
+.dashboard-roadmap {
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+
+/*==========================================================
+ROADMAP ITEM
+==========================================================*/
+
+.dashboard-roadmap__item {
+
+    min-width: 0;
+
+    min-height: var(--admin-info-item-height);
+
+    display: grid;
+
+    grid-template-columns:
+        auto
+        minmax(0, 1fr)
+        auto;
+
+    align-items: center;
+
+    gap: var(--admin-space-4);
+
+    padding:
+        var(--admin-info-item-padding-y)
+        var(--admin-info-item-padding-x);
+
+    box-sizing: border-box;
+
+}
+
+.dashboard-roadmap__item:not(:last-child) {
+
+    border-bottom:
+        1px solid
+        var(--admin-info-border);
+
+}
+
+
+/*==========================================================
+ROADMAP ICON
+==========================================================*/
+
+.dashboard-roadmap__icon {
+
+    width: var(--admin-space-10);
+
+    height: var(--admin-space-10);
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: var(--admin-radius-md);
+
+    background: var(--admin-surface-alt);
+
+    color: var(--admin-text-secondary);
+
+}
+
+.dashboard-roadmap__icon i {
+
+    font-size: var(--admin-font-size-sm);
+
+    line-height: 1;
+
+}
+
+
+/*==========================================================
+ROADMAP INFORMATION
+==========================================================*/
+
+.dashboard-roadmap__information {
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-1);
+
+}
+
+.dashboard-roadmap__information strong {
+
+    overflow: hidden;
+
+    color: var(--admin-text-primary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+    line-height: var(--admin-line-height-tight);
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+}
+
+.dashboard-roadmap__information span {
+
+    overflow: hidden;
+
+    color: var(--admin-text-secondary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    font-weight: var(--admin-font-weight-normal);
+
+    line-height: var(--admin-line-height-normal);
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+}
+
+
+/*==========================================================
+TABLET
+==========================================================*/
+
+@media (max-width: 1100px) {
+
+    .dashboard-actions {
+
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+
+    }
+
+}
+
+
+/*==========================================================
+MOBILE
+==========================================================*/
+
+@media (max-width: 640px) {
+
+    .dashboard-actions {
+
+        grid-template-columns:
+            minmax(0, 1fr);
+
+    }
+
+
+    /*======================================================
+    ACTION
+    ======================================================*/
+
+    .dashboard-action__header {
+
+        gap: var(--admin-space-3);
+
+    }
+
+    .dashboard-action__icon {
+
+        width: var(--admin-space-10);
+
+        height: var(--admin-space-10);
+
+    }
+
+
+    /*======================================================
+    CHECKLIST
+    ======================================================*/
+
+    .dashboard-checklist__information {
+
+        width: 100%;
+
+    }
+
+
+    /*======================================================
+    INFORMATION
+    ======================================================*/
+
+    .dashboard-info__value {
+
+        max-width: 100%;
+
+        text-align: left;
+
+    }
+
+
+    /*======================================================
+    ROADMAP
+    ======================================================*/
+
+    .dashboard-roadmap__item {
+
+        grid-template-columns:
+            auto
+            minmax(0, 1fr);
+
+        align-items: flex-start;
+
+        gap: var(--admin-space-3);
+
+    }
+
+    .dashboard-roadmap__item admin-status-badge {
+
+        grid-column: 2;
+
+        justify-self: start;
+
+    }
+
+    .dashboard-roadmap__information span {
+
+        overflow: visible;
+
+        white-space: normal;
+
+    }
+
+}
+
+
+/*==========================================================
+SMALL MOBILE
+==========================================================*/
+
+@media (max-width: 420px) {
+
+    .dashboard-action__header {
+
+        flex-direction: column;
+
+    }
+
+    .dashboard-roadmap__item {
+
+        grid-template-columns:
+            minmax(0, 1fr);
+
+    }
+
+    .dashboard-roadmap__icon {
+
+        width: var(--admin-space-9);
+
+        height: var(--admin-space-9);
+
+    }
+
+    .dashboard-roadmap__item admin-status-badge {
+
+        grid-column: 1;
+
+    }
+
+}
+
+/*==========================================================
+ADMIN PROFILE
+==========================================================*/
+
+.dashboard-profile {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: var(--admin-space-5);
+
+}
+
+.dashboard-profile__avatar {
+
+    width: 64px;
+
+    height: 64px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: var(--admin-color-primary);
+
+    color: white;
+
+    font-size: 1.5rem;
+
+    font-weight: var(--admin-font-weight-semibold);
+
+}
+
+.dashboard-profile__content {
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-1);
+
+}
+
+.dashboard-profile__name {
+
+    color: var(--admin-text-primary);
+
+    font-size: var(--admin-font-size-lg);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+    line-height: var(--admin-line-height-tight);
+
+}
+
+.dashboard-profile__email {
+
+    color: var(--admin-text-secondary);
+
+    font-size: var(--admin-font-size-sm);
+
+}
+
+.dashboard-profile__status {
+
+    margin-top: var(--admin-space-2);
+
+}
+
+
+/*==========================================================
+PROFILE MOBILE
+==========================================================*/
+
+@media (max-width: 640px) {
+
+    .dashboard-profile {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+    }
+
+    .dashboard-profile__avatar {
+
+        width: 56px;
+
+        height: 56px;
+
+        font-size: 1.25rem;
+
+    }
+
+}

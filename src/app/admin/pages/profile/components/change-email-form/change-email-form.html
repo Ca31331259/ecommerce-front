@@ -1,0 +1,59 @@
+<admin-form-card
+    title="Correo electrónico"
+    subtitle="Actualizá el correo utilizado para ingresar al sistema.">
+
+    <admin-form-grid columns="2">
+
+        <admin-field
+            label="Nuevo correo">
+
+            <input
+                adminFieldContent
+                adminInput
+                type="email"
+                [(ngModel)]="model.newEmail"
+                placeholder="usuario@empresa.com">
+
+        </admin-field>
+
+        <admin-field
+            label="Confirmar correo">
+
+            <input
+                adminFieldContent
+                adminInput
+                type="email"
+                [(ngModel)]="confirmEmail"
+                placeholder="Repetí el correo">
+
+        </admin-field>
+
+        <admin-field
+            label="Contraseña actual"
+            hint="Por seguridad debés confirmar tu contraseña.">
+
+            <input
+                adminFieldContent
+                adminInput
+                type="password"
+                [(ngModel)]="model.currentPassword">
+
+        </admin-field>
+
+    </admin-form-grid>
+
+    <div adminFormCardFooter>
+
+        <admin-button
+            variant="primary"
+            icon="fa-solid fa-envelope"
+            [loading]="saving"
+            (clicked)="saveEmail()">
+
+            Cambiar correo
+
+        </admin-button>
+
+    </div>
+
+</admin-form-card>

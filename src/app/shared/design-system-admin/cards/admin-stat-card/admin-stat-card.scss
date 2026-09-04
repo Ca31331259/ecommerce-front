@@ -1,0 +1,374 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+    min-width: 0;
+
+}
+
+/*==========================================================
+CARD
+==========================================================*/
+
+.admin-stat-card {
+
+    width: 100%;
+
+    height: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-card-gap);
+
+    box-sizing: border-box;
+
+    padding: var(--admin-card-padding);
+
+    background: var(--admin-surface);
+
+    border: var(--admin-card-border);
+
+    border-radius: var(--admin-card-radius);
+
+    box-shadow: var(--admin-card-shadow);
+
+    transition:
+        border-color
+        var(--admin-duration-fast)
+        var(--admin-easing-standard),
+
+        box-shadow
+        var(--admin-duration-fast)
+        var(--admin-easing-standard),
+
+        transform
+        var(--admin-duration-fast)
+        var(--admin-easing-standard);
+
+}
+
+/*==========================================================
+HEADER
+==========================================================*/
+
+.admin-stat-card__header {
+
+    min-height: var(--admin-field-height);
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: var(--admin-card-gap);
+
+}
+
+/*==========================================================
+ICON
+==========================================================*/
+
+.admin-stat-card__icon {
+
+    width: var(--admin-field-height);
+
+    height: var(--admin-field-height);
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: var(--admin-radius-md);
+
+}
+
+.admin-stat-card__icon i {
+
+    font-size: var(--admin-font-size-lg);
+
+}
+
+/*==========================================================
+TREND
+==========================================================*/
+
+.admin-stat-card__trend {
+
+    min-height: var(--admin-space-7);
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: var(--admin-space-2);
+
+    padding:
+
+        var(--admin-space-1)
+
+        var(--admin-space-3);
+
+    border-radius: var(--admin-radius-round);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-xs);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+    line-height: var(--admin-line-height-normal);
+
+}
+
+.admin-stat-card__trend i {
+
+    font-size: var(--admin-font-size-xs);
+
+}
+
+/*==========================================================
+CONTENT
+==========================================================*/
+
+.admin-stat-card__content {
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-2);
+
+}
+
+/*==========================================================
+VALUE
+==========================================================*/
+
+.admin-stat-card__value {
+
+    min-width: 0;
+
+    overflow: hidden;
+
+    color: var(--admin-text-primary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-3xl);
+
+    font-weight: var(--admin-font-weight-bold);
+
+    line-height: var(--admin-line-height-tight);
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+}
+
+/*==========================================================
+LABEL
+==========================================================*/
+
+.admin-stat-card__label {
+
+    color: var(--admin-text-secondary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    font-weight: var(--admin-font-weight-medium);
+
+    line-height: var(--admin-line-height-normal);
+
+}
+
+/*==========================================================
+FOOTER
+==========================================================*/
+
+.admin-stat-card__footer {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    align-items: center;
+
+    gap: var(--admin-space-2);
+
+    margin-top: auto;
+
+    padding-top: var(--admin-space-4);
+
+    border-top: 1px solid var(--admin-border);
+
+    color: var(--admin-text-secondary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-xs);
+
+    line-height: var(--admin-line-height-normal);
+
+}
+
+/*==========================================================
+VARIANT PRIMARY
+==========================================================*/
+
+:host([variant="primary"]) .admin-stat-card__icon {
+
+    background: var(--blue-50);
+
+    color: var(--admin-color-primary);
+
+}
+
+/*==========================================================
+VARIANT SUCCESS
+==========================================================*/
+
+:host([variant="success"]) .admin-stat-card__icon {
+
+    background: var(--admin-surface-alt);
+
+    color: var(--admin-color-success);
+
+}
+
+/*==========================================================
+VARIANT WARNING
+==========================================================*/
+
+:host([variant="warning"]) .admin-stat-card__icon {
+
+    background: var(--admin-surface-alt);
+
+    color: var(--admin-color-warning);
+
+}
+
+/*==========================================================
+VARIANT DANGER
+==========================================================*/
+
+:host([variant="danger"]) .admin-stat-card__icon {
+
+    background: var(--admin-surface-alt);
+
+    color: var(--admin-color-danger);
+
+}
+
+/*==========================================================
+VARIANT INFO
+==========================================================*/
+
+:host([variant="info"]) .admin-stat-card__icon {
+
+    background: var(--admin-surface-alt);
+
+    color: var(--admin-color-info);
+
+}
+
+/*==========================================================
+VARIANT NEUTRAL
+==========================================================*/
+
+:host([variant="neutral"]) .admin-stat-card__icon {
+
+    background: var(--admin-surface-alt);
+
+    color: var(--admin-text-secondary);
+
+}
+
+/*==========================================================
+TREND UP
+==========================================================*/
+
+:host([trend="up"]) .admin-stat-card__trend {
+
+    color: var(--admin-color-success);
+
+    background: var(--admin-surface-alt);
+
+}
+
+/*==========================================================
+TREND DOWN
+==========================================================*/
+
+:host([trend="down"]) .admin-stat-card__trend {
+
+    color: var(--admin-color-danger);
+
+    background: var(--admin-surface-alt);
+
+}
+
+/*==========================================================
+TREND NEUTRAL
+==========================================================*/
+
+:host([trend="neutral"]) .admin-stat-card__trend {
+
+    color: var(--admin-text-secondary);
+
+    background: var(--admin-surface-alt);
+
+}
+
+/*==========================================================
+HOVER
+==========================================================*/
+
+@media (hover: hover) {
+
+    .admin-stat-card:hover {
+
+        border-color: var(--admin-border-strong);
+
+        box-shadow: var(--admin-shadow-md);
+
+        transform: translateY(-2px);
+
+    }
+
+}
+
+/*==========================================================
+REDUCED MOTION
+==========================================================*/
+
+@media (prefers-reduced-motion: reduce) {
+
+    .admin-stat-card {
+
+        transition: none;
+
+    }
+
+    .admin-stat-card:hover {
+
+        transform: none;
+
+    }
+
+}

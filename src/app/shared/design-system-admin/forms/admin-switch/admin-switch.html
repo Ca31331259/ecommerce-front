@@ -1,0 +1,46 @@
+<button
+    class="admin-switch"
+    type="button"
+    role="switch"
+    [attr.aria-checked]="value"
+    [attr.aria-disabled]="disabled"
+    [disabled]="disabled"
+    (click)="toggle()">
+
+    <!-- ========================================= -->
+    <!-- TRACK -->
+    <!-- ========================================= -->
+
+    <span
+        class="admin-switch__track"
+        [class.admin-switch__track--checked]="value">
+
+        <span
+            class="admin-switch__thumb">
+        </span>
+
+    </span>
+
+    <!-- ========================================= -->
+    <!-- LABEL -->
+    <!-- ========================================= -->
+
+    @if(label){
+
+        <span class="admin-switch__label">
+
+            {{ label }}
+
+        </span>
+
+    } @else {
+
+        <span class="admin-switch__label">
+
+            <ng-content></ng-content>
+
+        </span>
+
+    }
+
+</button>

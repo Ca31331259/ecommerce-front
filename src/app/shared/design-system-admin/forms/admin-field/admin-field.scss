@@ -1,0 +1,223 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+    min-width: 0;
+
+}
+
+/*==========================================================
+FIELD
+==========================================================*/
+
+.admin-field {
+
+    width: 100%;
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    box-sizing: border-box;
+
+}
+
+/*==========================================================
+HEADER
+==========================================================*/
+
+.admin-field__header {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-label-gap);
+
+}
+
+/*==========================================================
+LABEL
+==========================================================*/
+
+.admin-field__label {
+
+    margin: 0;
+
+    color: var(--admin-text-primary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+    line-height: var(--admin-line-height-normal);
+
+}
+
+/*==========================================================
+REQUIRED
+==========================================================*/
+
+.admin-field__required {
+
+    color: var(--admin-color-danger);
+
+}
+
+/*==========================================================
+HINT
+==========================================================*/
+
+.admin-field__hint {
+
+    margin: 0;
+
+    color: var(--admin-text-secondary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-xs);
+
+    font-weight: var(--admin-font-weight-normal);
+
+    line-height: var(--admin-line-height-relaxed);
+
+}
+
+/*==========================================================
+CONTENT
+==========================================================*/
+
+.admin-field__content {
+
+    width: 95%;
+
+    min-width: 0;
+
+}
+
+/*==========================================================
+ERROR
+==========================================================*/
+
+.admin-field__error {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: var(--admin-space-2);
+
+    color: var(--admin-color-danger);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-xs);
+
+    font-weight: var(--admin-font-weight-medium);
+
+    line-height: var(--admin-line-height-normal);
+
+}
+
+.admin-field__error > i {
+
+    flex-shrink: 0;
+
+    margin-top: var(--admin-space-1);
+
+    font-size: var(--admin-font-size-xs);
+
+}
+
+.admin-field__error-content {
+
+    min-width: 0;
+
+}
+
+/*==========================================================
+SPACING SM
+==========================================================*/
+
+:host([spacing="sm"]) .admin-field {
+
+    gap: var(--admin-space-2);
+
+}
+
+/*==========================================================
+SPACING MD
+==========================================================*/
+
+:host([spacing="md"]) .admin-field {
+
+    gap: var(--admin-field-gap);
+
+}
+
+/*==========================================================
+SPACING LG
+==========================================================*/
+
+:host([spacing="lg"]) .admin-field {
+
+    gap: var(--admin-form-gap);
+
+}
+
+/*==========================================================
+INVALID
+==========================================================*/
+
+:host([invalid]) .admin-field__label {
+
+    color: var(--admin-color-danger);
+
+}
+
+/*==========================================================
+DISABLED
+==========================================================*/
+
+:host([disabled]) {
+
+    pointer-events: none;
+
+    opacity: var(--admin-opacity-disabled);
+
+}
+
+/*==========================================================
+PROJECTED CONTENT
+==========================================================*/
+
+.admin-field__content
+::ng-deep
+[adminFieldContent] {
+
+    width: 100%;
+
+    min-width: 0;
+
+}
+
+/*==========================================================
+ANGULAR MATERIAL
+==========================================================*/
+
+.admin-field__content
+::ng-deep
+mat-form-field[adminFieldContent] {
+
+    display: block;
+
+    width: 100%;
+
+}

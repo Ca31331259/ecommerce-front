@@ -1,0 +1,86 @@
+<h2 mat-dialog-title>
+
+    Configurar autenticación en dos factores
+
+</h2>
+
+<mat-dialog-content>
+
+    @if(loading()){
+
+    <p>
+
+        Generando código QR...
+
+    </p>
+
+    } @else {
+
+<p class="description">
+
+    Escaneá el código QR con tu aplicación de autenticación.
+    Luego ingresá el código de 6 dígitos generado para completar
+    la activación.
+
+</p>
+
+   <div class="qr-container">
+
+    <img
+        [src]="setup()!.qrCode"
+        alt="Código QR">
+
+</div>
+
+    <div class="manual-code">
+
+        <label>
+
+            ¿No podés escanear el código?
+
+        </label>
+
+        <p>
+
+            También podés ingresar esta clave manualmente
+            en tu aplicación autenticadora.
+
+        </p>
+
+        <code>
+
+        {{ setup()!.secret }}
+
+    </code>
+
+    </div>
+
+<admin-field
+    label="Código de verificación">
+
+    <app-otp-input
+        adminFieldContent
+        [(ngModel)]="code">
+    </app-otp-input>
+
+</admin-field>
+
+    }
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+
+    <admin-button variant="secondary" (clicked)="close()">
+
+        Cancelar
+
+    </admin-button>
+
+    <admin-button variant="primary" icon="fa-solid fa-shield-halved" [loading]="enabling()" (clicked)="activate()">
+
+        Activar
+
+    </admin-button>
+
+</mat-dialog-actions>

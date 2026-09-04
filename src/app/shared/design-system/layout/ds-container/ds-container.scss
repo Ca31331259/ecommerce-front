@@ -1,0 +1,81 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+}
+
+/*==========================================================
+CONTAINER
+==========================================================*/
+
+.ds-container {
+
+    width: 100%;
+
+    margin-inline: auto;
+
+    padding-inline: var(--space-6);
+
+    box-sizing: border-box;
+
+}
+
+/*==========================================================
+SIZES
+==========================================================*/
+
+:host(.xs) .ds-container {
+
+    max-width: 900px;
+
+}
+
+:host(.sm) .ds-container {
+
+    max-width: 1100px;
+
+}
+
+:host(.md) .ds-container {
+
+    max-width: 1280px;
+
+}
+
+:host(.lg) .ds-container {
+
+    max-width: var(--ds-container-width);
+
+}
+
+:host(.xl) .ds-container {
+
+    max-width: 1800px;
+
+}
+
+/*==========================================================
+FLUID
+==========================================================*/
+
+:host(.fluid) .ds-container {
+
+    max-width: none;
+
+}
+
+/*==========================================================
+RESPONSIVE
+==========================================================*/
+
+@media(max-width:768px){
+
+    .ds-container{
+
+        padding-inline:var(--space-5);
+
+    }
+
+}

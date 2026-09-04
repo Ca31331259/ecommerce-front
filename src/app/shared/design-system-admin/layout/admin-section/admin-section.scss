@@ -1,0 +1,141 @@
+:host {
+
+    display: block;
+
+}
+
+/*==========================================================
+SECTION
+==========================================================*/
+
+.admin-section {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-5);
+
+    margin-bottom: var(--admin-space-9);
+
+}
+
+/*==========================================================
+HEADER
+==========================================================*/
+
+.admin-section__header {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-4);
+
+}
+
+/*==========================================================
+INFO
+==========================================================*/
+
+.admin-section__information {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-2);
+
+}
+
+/*==========================================================
+TITLE
+==========================================================*/
+
+.admin-section__title {
+
+    margin: 0;
+
+    color: var(--admin-text-primary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-xl);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+    line-height: var(--admin-line-height-tight);
+
+}
+
+/*==========================================================
+SUBTITLE
+==========================================================*/
+
+.admin-section__subtitle {
+
+    margin: 0;
+
+    color: var(--admin-text-secondary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    line-height: var(--admin-line-height-relaxed);
+
+}
+
+/*==========================================================
+ACTIONS
+==========================================================*/
+
+.admin-section__actions {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: var(--admin-space-2);
+
+}
+
+/*==========================================================
+CONTENT
+==========================================================*/
+
+.admin-section__content {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-5);
+
+}
+
+/*==========================================================
+DESKTOP
+==========================================================*/
+
+@media (min-width: 1024px) {
+
+    .admin-section__header {
+
+        flex-direction: row;
+
+        justify-content: space-between;
+
+        align-items: flex-start;
+
+    }
+
+    .admin-section__actions {
+
+        flex-shrink: 0;
+
+        justify-content: flex-end;
+
+    }
+
+}

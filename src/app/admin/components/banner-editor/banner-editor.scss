@@ -1,0 +1,156 @@
+:host {
+
+    display: block;
+
+}
+
+/*======================================================
+LIST
+======================================================*/
+
+admin-form-card + admin-form-card {
+
+    margin-top: var(--admin-space-6);
+
+}
+
+/*======================================================
+LAYOUT
+======================================================*/
+
+.banner-editor {
+
+    display: grid;
+
+    grid-template-columns: 340px minmax(0, 1fr);
+
+    gap: var(--admin-space-7);
+
+    align-items: start;
+
+}
+
+/*======================================================
+IMAGE
+======================================================*/
+
+.banner-editor__image {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-4);
+
+}
+
+/*======================================================
+FORM
+======================================================*/
+
+.banner-editor__form {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-6);
+
+}
+
+/*======================================================
+GRID HELPERS
+======================================================*/
+
+.full {
+
+    grid-column: 1 / -1;
+
+}
+
+/*======================================================
+UPLOAD
+======================================================*/
+
+admin-upload {
+
+    width: 100%;
+
+}
+
+/*======================================================
+SAVE BAR
+======================================================*/
+
+admin-save-bar {
+
+    margin-top: var(--admin-space-2);
+
+}
+
+/*======================================================
+TABLET
+======================================================*/
+
+@media (max-width: 1100px) {
+
+    .banner-editor {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+
+/*======================================================
+MOBILE
+======================================================*/
+
+@media (max-width: 768px) {
+
+    .banner-editor {
+
+        gap: var(--admin-space-5);
+
+    }
+
+}
+
+
+/*======================================================
+ACTIONS
+======================================================*/
+
+.banner-editor__actions {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: var(--admin-space-3);
+
+    margin-top: var(--admin-space-7);
+
+    padding-top: var(--admin-space-5);
+
+    border-top: 1px solid var(--admin-color-border);
+
+}
+
+.banner-editor__actions admin-button:first-child {
+
+    margin-right: auto;
+
+}
+
+@media (max-width: 768px) {
+
+    .banner-editor__actions {
+
+        flex-direction: column-reverse;
+
+        align-items: stretch;
+
+    }
+
+}

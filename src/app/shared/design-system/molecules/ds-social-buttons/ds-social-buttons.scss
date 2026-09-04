@@ -1,0 +1,222 @@
+:host {
+
+    display: inline-flex;
+
+}
+
+/*==========================================================
+CONTAINER
+==========================================================*/
+
+.social-buttons {
+
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: var(--space-3);
+
+}
+
+/*==========================================================
+BUTTON
+==========================================================*/
+
+.social-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    padding: 0;
+
+    border: 1px solid transparent;
+
+    border-radius: var(--ds-radius-round);
+
+    font-family: var(--tenant-font);
+
+    cursor: pointer;
+
+    transition:
+        transform var(--transition-fast),
+        background var(--transition-fast),
+        color var(--transition-fast),
+        border-color var(--transition-fast),
+        box-shadow var(--transition);
+
+}
+
+/*==========================================================
+SIZE SMALL
+==========================================================*/
+
+:host(.size-sm) .social-button {
+
+    width: 40px;
+
+    height: 40px;
+
+}
+
+:host(.size-sm) .social-button i {
+
+    font-size: 17px;
+
+}
+
+/*==========================================================
+SIZE MEDIUM
+==========================================================*/
+
+:host(.size-md) .social-button {
+
+    width: 48px;
+
+    height: 48px;
+
+}
+
+:host(.size-md) .social-button i {
+
+    font-size: 20px;
+
+}
+
+/*==========================================================
+SIZE LARGE
+==========================================================*/
+
+:host(.size-lg) .social-button {
+
+    width: 56px;
+
+    height: 56px;
+
+}
+
+:host(.size-lg) .social-button i {
+
+    font-size: 23px;
+
+}
+
+/*==========================================================
+DEFAULT
+==========================================================*/
+
+:host(.variant-default) .social-button {
+
+    background: var(--tenant-primary);
+
+    color: var(--tenant-button-text);
+
+}
+
+:host(.variant-default) .social-button:hover {
+
+    transform: translateY(-4px);
+
+    box-shadow: var(--shadow-md);
+
+}
+
+/*==========================================================
+LIGHT
+==========================================================*/
+
+:host(.variant-light) .social-button {
+
+    background: rgba(255, 255, 255, .10);
+
+    color: white;
+
+    border-color: rgba(255, 255, 255, .14);
+
+}
+
+:host(.variant-light) .social-button:hover {
+
+    background: var(--tenant-primary);
+
+    border-color: var(--tenant-primary);
+
+    transform: translateY(-4px);
+
+    box-shadow: var(--shadow-md);
+
+}
+
+/*==========================================================
+DARK
+==========================================================*/
+
+:host(.variant-dark) .social-button {
+
+    background: rgba(0, 0, 0, .06);
+
+    color: var(--tenant-text);
+
+    border-color: rgba(0, 0, 0, .08);
+
+}
+
+:host(.variant-dark) .social-button:hover {
+
+    background: var(--tenant-primary);
+
+    color: var(--tenant-button-text);
+
+    border-color: var(--tenant-primary);
+
+    transform: translateY(-4px);
+
+    box-shadow: var(--shadow-md);
+
+}
+
+/*==========================================================
+FOCUS
+==========================================================*/
+
+.social-button:focus-visible {
+
+    outline: 3px solid color-mix(
+        in srgb,
+        var(--tenant-primary) 28%,
+        transparent
+    );
+
+    outline-offset: 3px;
+
+}
+
+/*==========================================================
+ACTIVE
+==========================================================*/
+
+.social-button:active {
+
+    transform: translateY(-1px);
+
+}
+
+/*==========================================================
+REDUCED MOTION
+==========================================================*/
+
+@media (prefers-reduced-motion: reduce) {
+
+    .social-button {
+
+        transition: none;
+
+    }
+
+}

@@ -1,0 +1,21 @@
+<div
+    class="loader-container"
+    role="status"
+    [attr.aria-label]="text || 'Cargando'">
+
+    <span
+        class="loader"
+        aria-hidden="true">
+    </span>
+
+    @if(text){
+
+        <span class="loader-text">
+
+            {{ text }}
+
+        </span>
+
+    }
+
+</div>

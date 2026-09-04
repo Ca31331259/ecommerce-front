@@ -1,0 +1,279 @@
+:host {
+
+    display: inline-flex;
+
+    max-width: 100%;
+
+    vertical-align: middle;
+
+}
+
+/*==========================================================
+BADGE
+==========================================================*/
+
+.admin-status-badge {
+
+    max-width: 100%;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    box-sizing: border-box;
+
+    border: 1px solid transparent;
+
+    border-radius: var(--admin-radius-round);
+
+    font-family: var(--admin-font-family);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+    line-height: var(--admin-line-height-normal);
+
+    white-space: nowrap;
+
+}
+
+/*==========================================================
+DOT
+==========================================================*/
+
+.admin-status-badge__dot {
+
+    display: inline-block;
+
+    flex-shrink: 0;
+
+    border-radius: var(--admin-radius-round);
+
+    background: currentColor;
+
+}
+
+/*==========================================================
+ICON
+==========================================================*/
+
+.admin-status-badge__icon {
+
+    flex-shrink: 0;
+
+    line-height: 1;
+
+}
+
+/*==========================================================
+LABEL
+==========================================================*/
+
+.admin-status-badge__label {
+
+    min-width: 0;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+}
+
+/*==========================================================
+SIZE SM
+==========================================================*/
+
+:host([size="sm"])
+.admin-status-badge {
+
+    min-height: var(--admin-space-6);
+
+    gap: var(--admin-space-1);
+
+    padding:
+
+        var(--admin-space-1)
+
+        var(--admin-space-2);
+
+    font-size: var(--admin-font-size-xs);
+
+}
+
+:host([size="sm"])
+.admin-status-badge__dot {
+
+    width: var(--admin-space-1);
+
+    height: var(--admin-space-1);
+
+}
+
+:host([size="sm"])
+.admin-status-badge__icon {
+
+    font-size: var(--admin-font-size-xs);
+
+}
+
+/*==========================================================
+SIZE MD
+==========================================================*/
+
+:host([size="md"])
+.admin-status-badge {
+
+    min-height: var(--admin-space-7);
+
+    gap: var(--admin-space-2);
+
+    padding:
+
+        var(--admin-space-1)
+
+        var(--admin-space-3);
+
+    font-size: var(--admin-font-size-xs);
+
+}
+
+:host([size="md"])
+.admin-status-badge__dot {
+
+    width: var(--admin-space-2);
+
+    height: var(--admin-space-2);
+
+}
+
+:host([size="md"])
+.admin-status-badge__icon {
+
+    font-size: var(--admin-font-size-xs);
+
+}
+
+/*==========================================================
+VARIANT NEUTRAL
+==========================================================*/
+
+:host([variant="neutral"])
+.admin-status-badge {
+
+    background: var(--admin-surface-alt);
+
+    border-color: var(--admin-border);
+
+    color: var(--admin-text-secondary);
+
+}
+
+/*==========================================================
+VARIANT PRIMARY
+==========================================================*/
+
+:host([variant="primary"])
+.admin-status-badge {
+
+    background: var(--blue-50);
+
+    border-color: var(--blue-100);
+
+    color: var(--admin-color-primary);
+
+}
+
+/*==========================================================
+VARIANT SUCCESS
+==========================================================*/
+
+:host([variant="success"])
+.admin-status-badge {
+
+    background:
+        rgb(
+            22 163 74 /
+            .08
+        );
+
+    border-color:
+        rgb(
+            22 163 74 /
+            .16
+        );
+
+    color: var(--admin-color-success);
+
+}
+
+/*==========================================================
+VARIANT WARNING
+==========================================================*/
+
+:host([variant="warning"])
+.admin-status-badge {
+
+    background:
+        rgb(
+            245 158 11 /
+            .10
+        );
+
+    border-color:
+        rgb(
+            245 158 11 /
+            .20
+        );
+
+    color: var(--admin-color-warning);
+
+}
+
+/*==========================================================
+VARIANT DANGER
+==========================================================*/
+
+:host([variant="danger"])
+.admin-status-badge {
+
+    background:
+        rgb(
+            220 38 38 /
+            .08
+        );
+
+    border-color:
+        rgb(
+            220 38 38 /
+            .16
+        );
+
+    color: var(--admin-color-danger);
+
+}
+
+/*==========================================================
+VARIANT INFO
+==========================================================*/
+
+:host([variant="info"])
+.admin-status-badge {
+
+    background:
+        rgb(
+            8 145 178 /
+            .08
+        );
+
+    border-color:
+        rgb(
+            8 145 178 /
+            .16
+        );
+
+    color: var(--admin-color-info);
+
+}

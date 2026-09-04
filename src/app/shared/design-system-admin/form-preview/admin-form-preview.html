@@ -1,0 +1,85 @@
+<div class="admin-form-preview">
+
+    <div
+        class="admin-form-preview__header"
+        [class.admin-form-preview__header--clickable]="collapsible"
+        (click)="collapsible && togglePreview()"
+    >
+
+        <div class="admin-form-preview__title">
+
+            <div class="admin-form-preview__icon">
+
+                <i class="fa-regular fa-eye"></i>
+
+            </div>
+
+            <div>
+
+                <h4>
+                    {{ title }}
+                </h4>
+
+                @if (description) {
+
+                    <p>
+                        {{ description }}
+                    </p>
+
+                }
+
+            </div>
+
+        </div>
+
+        <div class="admin-form-preview__actions">
+
+            @if (badge) {
+
+                <span class="admin-form-preview__badge">
+                    {{ badge }}
+                </span>
+
+            }
+
+            @if (collapsible) {
+
+                <button
+                    type="button"
+                    class="admin-form-preview__toggle"
+                    [attr.aria-expanded]="expanded"
+                    [attr.aria-label]="expanded ? 'Ocultar vista previa' : 'Mostrar vista previa'"
+                    (click)="togglePreview($event)"
+                >
+
+                    <i
+                        class="fa-solid"
+                        [class.fa-chevron-up]="expanded"
+                        [class.fa-chevron-down]="!expanded">
+                    </i>
+
+                </button>
+
+            }
+
+        </div>
+
+    </div>
+
+    @if (expanded) {
+
+        <div class="admin-form-preview__content">
+
+            <div class="admin-form-preview__image">
+
+                <img
+                    [src]="image"
+                    [alt]="title">
+
+            </div>
+
+        </div>
+
+    }
+
+</div>

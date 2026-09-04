@@ -1,0 +1,317 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+    min-width: 0;
+
+}
+
+/*==========================================================
+COLOR PICKER
+==========================================================*/
+
+.admin-color-picker {
+
+    width: 100%;
+
+    min-width: 0;
+
+    display: flex;
+
+    align-items: stretch;
+
+    gap: var(--admin-space-3);
+
+}
+
+/*==========================================================
+PREVIEW
+==========================================================*/
+
+.admin-color-picker__preview {
+
+    position: relative;
+
+    width: var(--admin-field-height);
+
+    height: var(--admin-field-height);
+
+    display: block;
+
+    flex-shrink: 0;
+
+    overflow: hidden;
+
+    box-sizing: border-box;
+
+    border: 1px solid var(--admin-border);
+
+    border-radius: var(--admin-radius-md);
+
+    cursor: pointer;
+
+    transition:
+        border-color
+        var(--admin-duration-fast)
+        var(--admin-easing-standard),
+
+        box-shadow
+        var(--admin-duration-fast)
+        var(--admin-easing-standard);
+
+}
+
+/*==========================================================
+NATIVE COLOR
+==========================================================*/
+
+.admin-color-picker__native {
+
+    position: absolute;
+
+    width: 1px;
+
+    height: 1px;
+
+    overflow: hidden;
+
+    clip: rect(0 0 0 0);
+
+    clip-path: inset(50%);
+
+    white-space: nowrap;
+
+}
+
+/*==========================================================
+SWATCH
+==========================================================*/
+
+.admin-color-picker__swatch {
+
+    position: absolute;
+
+    inset: var(--admin-space-1);
+
+    display: block;
+
+    border-radius: var(--admin-radius-sm);
+
+}
+
+/*==========================================================
+VALUE
+==========================================================*/
+
+.admin-color-picker__value {
+
+    min-width: 0;
+
+    height: var(--admin-field-height);
+
+    display: flex;
+
+    align-items: center;
+
+    flex: 1;
+
+    box-sizing: border-box;
+
+    overflow: hidden;
+
+    background: var(--admin-surface);
+
+    border: 1px solid var(--admin-border);
+
+    border-radius: var(--admin-radius-md);
+
+    transition:
+        border-color
+        var(--admin-duration-fast)
+        var(--admin-easing-standard),
+
+        box-shadow
+        var(--admin-duration-fast)
+        var(--admin-easing-standard);
+
+}
+
+/*==========================================================
+HASH
+==========================================================*/
+
+.admin-color-picker__hash {
+
+    padding-left: var(--admin-space-4);
+
+    color: var(--admin-text-muted);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    font-weight: var(--admin-font-weight-medium);
+
+}
+
+/*==========================================================
+INPUT
+==========================================================*/
+
+.admin-color-picker__input {
+
+    width: 100%;
+
+    min-width: 0;
+
+    height: 100%;
+
+    padding:
+
+        0
+
+        var(--admin-space-4)
+
+        0
+
+        var(--admin-space-2);
+
+    box-sizing: border-box;
+
+    border: 0;
+
+    outline: 0;
+
+    background: transparent;
+
+    color: var(--admin-text-primary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+    letter-spacing: .04em;
+
+    text-transform: uppercase;
+
+}
+
+/*==========================================================
+FOCUS
+==========================================================*/
+
+.admin-color-picker__preview:focus-within,
+.admin-color-picker__value:focus-within {
+
+    border-color: var(--admin-border-focus);
+
+    box-shadow: var(--admin-focus-ring);
+
+}
+
+/*==========================================================
+HOVER
+==========================================================*/
+
+@media (hover: hover) {
+
+    :host(:not([disabled]))
+    .admin-color-picker__preview:hover,
+
+    :host(:not([disabled]))
+    .admin-color-picker__value:hover {
+
+        border-color: var(--admin-border-hover);
+
+    }
+
+}
+
+/*==========================================================
+DISABLED
+==========================================================*/
+
+:host([disabled]) {
+
+    pointer-events: none;
+
+    opacity: var(--admin-opacity-disabled);
+
+}
+
+/*==========================================================
+SIZE SM
+==========================================================*/
+
+:host([size="sm"])
+.admin-color-picker__preview,
+
+:host([size="sm"])
+.admin-color-picker__value {
+
+    height:
+        calc(
+            var(--admin-field-height)
+            * .85
+        );
+
+}
+
+:host([size="sm"])
+.admin-color-picker__preview {
+
+    width:
+        calc(
+            var(--admin-field-height)
+            * .85
+        );
+
+}
+
+/*==========================================================
+SIZE LG
+==========================================================*/
+
+:host([size="lg"])
+.admin-color-picker__preview,
+
+:host([size="lg"])
+.admin-color-picker__value {
+
+    height:
+        calc(
+            var(--admin-field-height)
+            * 1.15
+        );
+
+}
+
+:host([size="lg"])
+.admin-color-picker__preview {
+
+    width:
+        calc(
+            var(--admin-field-height)
+            * 1.15
+        );
+
+}
+
+/*==========================================================
+REDUCED MOTION
+==========================================================*/
+
+@media (prefers-reduced-motion: reduce) {
+
+    .admin-color-picker__preview,
+    .admin-color-picker__value {
+
+        transition: none;
+
+    }
+
+}

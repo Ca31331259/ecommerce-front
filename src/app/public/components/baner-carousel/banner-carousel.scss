@@ -1,0 +1,486 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+}
+
+/*==========================================================
+CAROUSEL
+==========================================================*/
+
+.banner-carousel {
+
+    position: relative;
+
+    width: 100%;
+
+}
+
+/*==========================================================
+BANNER
+==========================================================*/
+
+.banner {
+
+    position: relative;
+
+    width: 100%;
+
+    min-height: 420px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    overflow: hidden;
+
+    isolation: isolate;
+
+    border-radius: var(--ds-radius-xl);
+
+    background: var(--tenant-card);
+
+    box-shadow: var(--shadow-md);
+
+}
+
+/*==========================================================
+VISUAL
+==========================================================*/
+
+.banner-visual {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: -2;
+
+}
+
+.banner-visual img {
+
+    width: 100%;
+
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    transition:
+        transform 8s ease;
+
+}
+
+.banner-carousel:hover
+.banner-visual img {
+
+    transform: scale(1.04);
+
+}
+
+.banner-visual ds-image-placeholder {
+
+    width: 100%;
+
+    height: 100%;
+
+}
+
+.banner-visual ::ng-deep
+.image-placeholder {
+
+    height: 100%;
+
+    aspect-ratio: auto;
+
+    border-radius: 0;
+
+}
+
+/*==========================================================
+OVERLAY
+==========================================================*/
+
+.banner-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: -1;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0, 0, 0, .08) 0%,
+            rgba(0, 0, 0, .32) 42%,
+            rgba(0, 0, 0, .78) 100%
+        );
+
+}
+
+/*==========================================================
+CONTENT
+==========================================================*/
+
+.banner-content {
+
+    width: 100%;
+
+    max-width: 720px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    padding:
+
+        var(--space-8)
+
+        var(--space-6)
+
+        var(--space-9);
+
+}
+
+/*==========================================================
+TITLE
+==========================================================*/
+
+.banner-content h2 {
+
+    margin: 0;
+
+    color: white;
+
+    font-family: var(--tenant-font);
+
+    font-size: clamp(
+        30px,
+        8vw,
+        52px
+    );
+
+    font-weight: 700;
+
+    line-height: 1.08;
+
+    letter-spacing: -.025em;
+
+}
+
+/*==========================================================
+SUBTITLE
+==========================================================*/
+
+.banner-content p {
+
+    max-width: 620px;
+
+    margin:
+
+        var(--space-4)
+
+        0
+
+        0;
+
+    color: rgba(255, 255, 255, .88);
+
+    font-family: var(--tenant-font);
+
+    font-size: 17px;
+
+    line-height: 1.65;
+
+}
+
+/*==========================================================
+ACTIONS
+==========================================================*/
+
+.banner-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: var(--space-3);
+
+    margin-top: var(--space-6);
+
+}
+
+/*==========================================================
+CONTROLS
+==========================================================*/
+
+.carousel-control {
+
+    position: absolute;
+
+    top: 50%;
+
+    z-index: 3;
+
+    width: 44px;
+
+    height: 44px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid rgba(255, 255, 255, .20);
+
+    border-radius: var(--ds-radius-round);
+
+    background: rgba(0, 0, 0, .30);
+
+    color: white;
+
+    backdrop-filter: blur(8px);
+
+    cursor: pointer;
+
+    transform: translateY(-50%);
+
+    transition:
+        transform var(--transition-fast),
+        background var(--transition-fast),
+        border-color var(--transition-fast);
+
+}
+
+.carousel-control i {
+
+    font-size: 16px;
+
+}
+
+.carousel-control-previous {
+
+    left: var(--space-3);
+
+}
+
+.carousel-control-next {
+
+    right: var(--space-3);
+
+}
+
+.carousel-control:hover {
+
+    background: var(--tenant-primary);
+
+    border-color: var(--tenant-primary);
+
+}
+
+.carousel-control-previous:hover {
+
+    transform:
+        translateY(-50%)
+        translateX(-2px);
+
+}
+
+.carousel-control-next:hover {
+
+    transform:
+        translateY(-50%)
+        translateX(2px);
+
+}
+
+.carousel-control:focus-visible {
+
+    outline: 3px solid rgba(255, 255, 255, .55);
+
+    outline-offset: 3px;
+
+}
+
+/*==========================================================
+INDICATORS
+==========================================================*/
+
+.carousel-indicators {
+
+    position: absolute;
+
+    left: 50%;
+
+    bottom: var(--space-4);
+
+    z-index: 3;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: var(--space-2);
+
+    transform: translateX(-50%);
+
+}
+
+.carousel-indicator {
+
+    width: 8px;
+
+    height: 8px;
+
+    padding: 0;
+
+    border: 0;
+
+    border-radius: var(--ds-radius-round);
+
+    background: rgba(255, 255, 255, .48);
+
+    cursor: pointer;
+
+    transition:
+        width var(--transition),
+        background var(--transition);
+
+}
+
+.carousel-indicator.active {
+
+    width: 28px;
+
+    background: white;
+
+}
+
+.carousel-indicator:focus-visible {
+
+    outline: 2px solid white;
+
+    outline-offset: 3px;
+
+}
+
+/*==========================================================
+TABLET
+==========================================================*/
+
+@media (min-width: 768px) {
+
+    .banner {
+
+        min-height: 500px;
+
+    }
+
+    .banner-content {
+
+        padding:
+
+            var(--space-9)
+
+            var(--space-8)
+
+            var(--space-10);
+
+    }
+
+    .banner-content p {
+
+        font-size: 19px;
+
+    }
+
+    .carousel-control {
+
+        width: 50px;
+
+        height: 50px;
+
+    }
+
+    .carousel-control-previous {
+
+        left: var(--space-5);
+
+    }
+
+    .carousel-control-next {
+
+        right: var(--space-5);
+
+    }
+
+    .carousel-indicators {
+
+        bottom: var(--space-5);
+
+    }
+
+}
+
+/*==========================================================
+DESKTOP
+==========================================================*/
+
+@media (min-width: 1024px) {
+
+    .banner {
+
+        min-height: 560px;
+
+    }
+
+    .banner-content {
+
+        padding:
+
+            var(--space-10)
+
+            var(--space-9)
+
+            112px;
+
+    }
+
+}
+
+/*==========================================================
+REDUCED MOTION
+==========================================================*/
+
+@media (prefers-reduced-motion: reduce) {
+
+    .banner-visual img,
+    .carousel-control,
+    .carousel-indicator {
+
+        transition: none;
+
+    }
+
+    .banner-carousel:hover
+    .banner-visual img {
+
+        transform: none;
+
+    }
+
+}

@@ -1,0 +1,123 @@
+.admin-input {
+
+    width: 95%;
+
+    min-height: 44px;
+
+padding: 0 1rem;
+
+border: 1px solid var(--admin-border, #D0D5DD);
+
+    border-radius:
+
+        var(--admin-radius-md);
+
+background: var(--admin-surface, #FFF);
+
+color: var(--admin-text, #111827);
+    font:
+
+        inherit;
+
+    transition:
+
+        border-color .2s,
+
+        box-shadow .2s,
+
+        background .2s;
+
+    outline: none;
+
+}
+
+/*======================================================
+FOCUS
+======================================================*/
+
+.admin-input:focus {
+
+border-color:
+    var(--admin-primary, #2563EB);
+
+box-shadow:
+    0 0 0 3px rgba(37,99,235,.12);
+
+}
+
+/*======================================================
+PLACEHOLDER
+======================================================*/
+
+.admin-input::placeholder {
+
+color:
+    #94A3B8;
+}
+
+/*======================================================
+DISABLED
+======================================================*/
+
+.admin-input:disabled {
+
+background:#F8FAFC;
+
+color:#94A3B8;
+
+opacity:.75;
+
+    cursor:
+
+        not-allowed;
+
+}
+
+/*======================================================
+INVALID
+======================================================*/
+
+.admin-input.ng-invalid.ng-touched {
+
+    border-color:
+
+        var(--red-600);
+
+}
+
+/*======================================================
+SIZES
+======================================================*/
+
+.admin-input[size="sm"] {
+
+    min-height: 36px;
+
+    font-size: .875rem;
+
+}
+
+.admin-input[size="md"] {
+
+    min-height: 44px;
+
+    font-size: .95rem;
+
+}
+
+.admin-input[size="lg"] {
+
+    min-height: 52px;
+
+    font-size: 1rem;
+
+}
+
+.admin-input:hover {
+
+    border-color:
+        var(--admin-primary, #2563EB);
+
+}
+
+

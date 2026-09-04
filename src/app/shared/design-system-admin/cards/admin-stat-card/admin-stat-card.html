@@ -1,0 +1,92 @@
+<article class="admin-stat-card">
+
+    <header class="admin-stat-card__header">
+
+        @if(icon){
+
+            <span
+                class="admin-stat-card__icon"
+                aria-hidden="true">
+
+                <i [class]="icon"></i>
+
+            </span>
+
+        }
+
+        @if(trendValue){
+
+            <span class="admin-stat-card__trend">
+
+                @switch(trend){
+
+                    @case('up'){
+
+                        <i
+                            class="fa-solid fa-arrow-trend-up"
+                            aria-hidden="true">
+                        </i>
+
+                    }
+
+                    @case('down'){
+
+                        <i
+                            class="fa-solid fa-arrow-trend-down"
+                            aria-hidden="true">
+                        </i>
+
+                    }
+
+                    @default {
+
+                        <i
+                            class="fa-solid fa-minus"
+                            aria-hidden="true">
+                        </i>
+
+                    }
+
+                }
+
+                <span>
+
+                    {{ trendValue }}
+
+                </span>
+
+            </span>
+
+        }
+
+    </header>
+
+    <div class="admin-stat-card__content">
+
+        <strong class="admin-stat-card__value">
+
+            {{ value }}
+
+        </strong>
+
+        <span class="admin-stat-card__label">
+
+            {{ label }}
+
+        </span>
+
+    </div>
+
+    @if(footers.length){
+
+        <footer class="admin-stat-card__footer">
+
+            <ng-content
+                select="[adminStatCardFooter]">
+            </ng-content>
+
+        </footer>
+
+    }
+
+</article>

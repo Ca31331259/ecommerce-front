@@ -1,0 +1,89 @@
+<div class="login-container">
+
+    <div class="background-shapes">
+
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+
+    </div>
+
+    <mat-card class="login-card">
+
+        <div class="logo">
+
+            <span>🛍️</span>
+
+        </div>
+
+        <h1>Panel de Administración</h1>
+
+        <p>
+
+            Ingresá con tu usuario para administrar el sitio.
+
+        </p>
+
+        @if(!requiresTwoFactor() && !requiresPasswordChange()){
+        <div class="login-content">
+            <form [formGroup]="form" (ngSubmit)="submit()">
+
+                <mat-form-field appearance="outline">
+
+                    <mat-label>Email</mat-label>
+
+                    <input matInput formControlName="email">
+
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+
+                    <mat-label>Contraseña</mat-label>
+
+                    <input matInput type="password" formControlName="password">
+
+                </mat-form-field>
+
+                @if(error){
+
+                <div class="error">
+
+                    {{error}}
+
+                </div>
+
+                }
+
+                <button mat-flat-button color="primary" type="submit" [disabled]="loading">
+
+                    @if(!loading){
+
+                    Ingresar
+
+                    }@else{
+
+                    Ingresando...
+
+                    }
+
+                </button>
+
+            </form>
+        </div>
+        }
+
+        @if(requiresTwoFactor()){
+        <div class="login-content">
+            <app-two-factor-form [loading]="loading" (verify)="verifyTwoFactor($event)" (cancel)="cancelTwoFactor()">
+            </app-two-factor-form>
+        </div>
+        }
+
+        @if(requiresPasswordChange()){
+        <div class="login-content">
+            <app-expired-password-form [loading]="loading" (changePassword)="changeExpiredPassword($event)">
+            </app-expired-password-form>
+        </div>
+        }
+    </mat-card>
+
+</div>

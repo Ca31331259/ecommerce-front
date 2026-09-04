@@ -1,0 +1,288 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+}
+
+/*==========================================================
+LAYOUT
+==========================================================*/
+
+.about-layout {
+
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns: 1fr;
+
+    gap: var(--space-8);
+
+    align-items: center;
+
+}
+
+/*==========================================================
+VISUAL
+==========================================================*/
+
+.about-visual {
+
+    position: relative;
+
+    width: 100%;
+
+    max-width: 620px;
+
+    margin-inline: auto;
+
+}
+
+/*==========================================================
+IMAGE
+==========================================================*/
+
+.about-image {
+
+    position: relative;
+
+    z-index: 2;
+
+    width: 100%;
+
+    overflow: hidden;
+
+    border-radius: var(--ds-radius-xl);
+
+    box-shadow: var(--shadow-lg);
+
+}
+
+.about-image img {
+
+    display: block;
+
+    width: 100%;
+
+    aspect-ratio: 4 / 3;
+
+    object-fit: cover;
+
+    transition:
+        transform 700ms ease;
+
+}
+
+.about-image:hover img {
+
+    transform: scale(1.035);
+
+}
+
+/*==========================================================
+PLACEHOLDER
+==========================================================*/
+
+.about-visual ds-image-placeholder {
+
+    position: relative;
+
+    z-index: 2;
+
+}
+
+/*==========================================================
+DECORATION
+==========================================================*/
+
+.about-decoration {
+
+    position: absolute;
+
+    border-radius: var(--ds-radius-round);
+
+    pointer-events: none;
+
+}
+
+.about-decoration-primary {
+
+    width: 150px;
+
+    height: 150px;
+
+    top: -30px;
+
+    right: -20px;
+
+    z-index: 1;
+
+    background: color-mix(
+        in srgb,
+        var(--tenant-primary) 12%,
+        transparent
+    );
+
+}
+
+.about-decoration-secondary {
+
+    width: 110px;
+
+    height: 110px;
+
+    bottom: -25px;
+
+    left: -20px;
+
+    z-index: 3;
+
+    border: 18px solid color-mix(
+        in srgb,
+        var(--tenant-secondary) 18%,
+        transparent
+    );
+
+}
+
+/*==========================================================
+CONTENT
+==========================================================*/
+
+.about-content {
+
+    width: 100%;
+
+    min-width: 0;
+
+}
+
+/*==========================================================
+SECTION HEADER
+==========================================================*/
+
+.about-content ds-section-header {
+
+    margin: 0;
+
+}
+
+/*==========================================================
+ACTIONS
+==========================================================*/
+
+.about-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: var(--space-4);
+
+    margin-top: var(--space-6);
+
+}
+
+/*==========================================================
+TABLET
+==========================================================*/
+
+@media (min-width: 768px) {
+
+    .about-layout {
+
+        gap: var(--space-9);
+
+    }
+
+    .about-decoration-primary {
+
+        width: 190px;
+
+        height: 190px;
+
+        top: -40px;
+
+        right: -35px;
+
+    }
+
+    .about-decoration-secondary {
+
+        width: 135px;
+
+        height: 135px;
+
+        bottom: -35px;
+
+        left: -30px;
+
+        border-width: 22px;
+
+    }
+
+}
+
+/*==========================================================
+DESKTOP
+==========================================================*/
+
+@media (min-width: 1024px) {
+
+    .about-layout {
+
+        grid-template-columns:
+
+            minmax(0, .95fr)
+
+            minmax(0, 1.05fr);
+
+        gap: var(--space-10);
+
+    }
+
+    .about-visual {
+
+        margin-inline: 0;
+
+    }
+
+}
+
+/*==========================================================
+LARGE DESKTOP
+==========================================================*/
+
+@media (min-width: 1280px) {
+
+    .about-layout {
+
+        gap: 96px;
+
+    }
+
+}
+
+/*==========================================================
+REDUCED MOTION
+==========================================================*/
+
+@media (prefers-reduced-motion: reduce) {
+
+    .about-image img {
+
+        transition: none;
+
+    }
+
+    .about-image:hover img {
+
+        transform: none;
+
+    }
+
+}

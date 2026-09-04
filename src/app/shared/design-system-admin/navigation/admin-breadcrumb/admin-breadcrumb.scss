@@ -1,0 +1,196 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+    min-width: 0;
+
+}
+
+/*==========================================================
+BREADCRUMB
+==========================================================*/
+
+.admin-breadcrumb {
+
+    width: 100%;
+
+    min-width: 0;
+
+}
+
+/*==========================================================
+LIST
+==========================================================*/
+
+.admin-breadcrumb__list {
+
+    min-width: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 0;
+
+    margin: 0;
+
+    padding: 0;
+
+    list-style: none;
+
+}
+
+/*==========================================================
+ITEM
+==========================================================*/
+
+::ng-deep [admin-breadcrumb-item] {
+
+    min-width: 0;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: var(--admin-breadcrumb-item-gap);
+
+    color: var(--admin-breadcrumb-text);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-breadcrumb-font-size);
+
+    font-weight: var(--admin-font-weight-medium);
+
+    line-height: var(--admin-line-height-normal);
+
+    text-decoration: none;
+
+    transition:
+        color
+        var(--admin-duration-fast)
+        var(--admin-easing-standard);
+
+}
+
+/*==========================================================
+SEPARATOR
+==========================================================*/
+
+::ng-deep [admin-breadcrumb-item]:not(:last-child)::after {
+
+    margin:
+        0
+        var(--admin-breadcrumb-separator-gap);
+
+    color: var(--admin-breadcrumb-separator);
+
+    content: '/';
+
+    font-weight: var(--admin-font-weight-normal);
+
+    pointer-events: none;
+
+}
+
+/*==========================================================
+CURRENT
+==========================================================*/
+
+::ng-deep [admin-breadcrumb-item][current] {
+
+    color: var(--admin-breadcrumb-text-current);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+    cursor: default;
+
+}
+
+/*==========================================================
+SIZE MD
+==========================================================*/
+
+:host([size="md"])
+::ng-deep [admin-breadcrumb-item] {
+
+    font-size:
+        var(--admin-breadcrumb-font-size-md);
+
+}
+
+/*==========================================================
+FOCUS
+==========================================================*/
+
+::ng-deep a[admin-breadcrumb-item]:focus-visible {
+
+    outline: none;
+
+    border-radius: var(--admin-radius-sm);
+
+    box-shadow: var(--admin-focus-ring);
+
+}
+
+/*==========================================================
+HOVER
+==========================================================*/
+
+@media (hover: hover) {
+
+    ::ng-deep a[admin-breadcrumb-item]:not([current]):hover {
+
+        color: var(--admin-breadcrumb-text-hover);
+
+    }
+
+}
+
+/*==========================================================
+MOBILE
+==========================================================*/
+
+@media (max-width: 640px) {
+
+    .admin-breadcrumb__list {
+
+        flex-wrap: nowrap;
+
+        overflow-x: auto;
+
+        scrollbar-width: none;
+
+    }
+
+    .admin-breadcrumb__list::-webkit-scrollbar {
+
+        display: none;
+
+    }
+
+    ::ng-deep [admin-breadcrumb-item] {
+
+        flex-shrink: 0;
+
+    }
+
+}
+
+/*==========================================================
+REDUCED MOTION
+==========================================================*/
+
+@media (prefers-reduced-motion: reduce) {
+
+    ::ng-deep [admin-breadcrumb-item] {
+
+        transition: none;
+
+    }
+
+}

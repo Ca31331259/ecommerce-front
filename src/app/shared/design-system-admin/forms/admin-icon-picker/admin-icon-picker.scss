@@ -1,0 +1,192 @@
+:host {
+
+    display: block;
+
+}
+
+/*======================================================
+GRID
+======================================================*/
+
+.admin-icon-picker {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+
+    gap: var(--admin-space-4);
+
+}
+
+/*======================================================
+OPTION
+======================================================*/
+
+.admin-icon-picker__option {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: var(--admin-space-3);
+
+    min-height: 110px;
+
+    padding: var(--admin-space-5);
+
+    border: 1px solid var(--slate-200);
+
+    border-radius: var(--admin-radius-lg);
+
+    background: var(--white);
+
+    cursor: pointer;
+
+    transition:
+        background-color .2s,
+        border-color .2s,
+        transform .15s,
+        box-shadow .2s;
+
+}
+
+/*======================================================
+HOVER
+======================================================*/
+
+.admin-icon-picker__option:hover:not(:disabled) {
+
+    border-color: var(--blue-400);
+
+    background: var(--blue-50);
+
+    transform: translateY(-2px);
+
+}
+
+/*======================================================
+ACTIVE
+======================================================*/
+
+.admin-icon-picker__option--selected {
+
+    border-color: var(--blue-600);
+
+    background: var(--blue-50);
+
+    box-shadow:
+        0 0 0 2px rgba(37,99,235,.12);
+
+}
+
+/*======================================================
+FOCUS
+======================================================*/
+
+.admin-icon-picker__option:focus-visible {
+
+    outline: none;
+
+    border-color: var(--blue-600);
+
+    box-shadow:
+        0 0 0 3px rgba(37,99,235,.18);
+
+}
+
+/*======================================================
+DISABLED
+======================================================*/
+
+.admin-icon-picker__option:disabled {
+
+    opacity: .55;
+
+    cursor: not-allowed;
+
+}
+
+/*======================================================
+ICON
+======================================================*/
+
+.admin-icon-picker__icon {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 52px;
+
+    height: 52px;
+
+    border-radius: 50%;
+
+    background: var(--slate-100);
+
+    color: var(--slate-700);
+
+    font-size: 1.35rem;
+
+    transition:
+        background-color .2s,
+        color .2s;
+
+}
+
+.admin-icon-picker__option--selected
+.admin-icon-picker__icon {
+
+    background: var(--blue-600);
+
+    color: var(--white);
+
+}
+
+/*======================================================
+LABEL
+======================================================*/
+
+.admin-icon-picker__label {
+
+    text-align: center;
+
+    color: var(--slate-700);
+
+    font-size: .875rem;
+
+    font-weight: 500;
+
+    line-height: 1.35;
+
+}
+
+/*======================================================
+RESPONSIVE
+======================================================*/
+
+@media (max-width: 768px) {
+
+    .admin-icon-picker {
+
+        grid-template-columns: repeat(2, 1fr);
+
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .admin-icon-picker {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}

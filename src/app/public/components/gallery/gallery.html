@@ -1,0 +1,270 @@
+<ds-section id="gallery" background="card" padding="xl">
+
+    <ds-container size="xl">
+
+        <!-- ========================================= -->
+        <!-- SECTION HEADER -->
+        <!-- ========================================= -->
+
+        <ds-section-header title="Conocé nuestro espacio"
+            subtitle="Descubrí un poco más sobre nosotros a través de nuestra galería.">
+
+            <ds-badge dsHeaderBadge variant="accent">
+
+                <i class="fa-regular fa-images"></i>
+
+                Galería
+
+            </ds-badge>
+
+        </ds-section-header>
+
+        <!-- ========================================= -->
+        <!-- GALLERY -->
+        <!-- ========================================= -->
+
+        @if(gallery.length){
+
+        <div class="gallery-grid">
+
+            @for(
+            item of gallery;
+            track item.id;
+            let index = $index
+            ){
+
+            <ds-card padding="none" shadow="sm" [hover]="true" [outlined]="false" class="gallery-card"
+                [class.gallery-card--small]="item.size === 'SMALL'"
+                [class.gallery-card--medium]="item.size === 'MEDIUM'"
+                [class.gallery-card--large]="item.size === 'LARGE'">
+
+                <button type="button" class="gallery-item" [attr.aria-label]="
+                                'Abrir ' +
+                                (
+                                    item.title ||
+                                    'imagen de galería'
+                                )
+                            " (click)="openItem(index)">
+
+                    <!-- ========================= -->
+                    <!-- IMAGE -->
+                    <!-- ========================= -->
+
+                    <div class="gallery-image">
+
+                        @if(item.imageUrl){
+
+                        <img [src]="item.thumbnailUrl || item.imageUrl" [alt]="item.title || 'Imagen de galería'"
+                            loading="lazy">
+
+                        } @else {
+
+                        <ds-image-placeholder ratio="square" size="lg" icon="fa-regular fa-image"
+                            text="Imagen no disponible">
+                        </ds-image-placeholder>
+
+                        }
+
+                    </div>
+
+                    <!-- ========================= -->
+                    <!-- OVERLAY -->
+                    <!-- ========================= -->
+
+                    <div class="gallery-overlay">
+
+                        <div class="gallery-overlay-content">
+
+                            <span class="gallery-zoom">
+
+                                <i class="fa-solid fa-expand"></i>
+
+                            </span>
+
+                            @if(item.title){
+
+                            <h3>
+
+                                {{ item.title }}
+
+                            </h3>
+
+                            }
+
+                            @if(item.description){
+
+                            <p>
+
+                                {{ item.description }}
+
+                            </p>
+
+                            }
+
+                        </div>
+
+                    </div>
+
+                </button>
+
+            </ds-card>
+
+            }
+
+        </div>
+
+        } @else {
+
+        <!-- ========================================= -->
+        <!-- EMPTY STATE -->
+        <!-- ========================================= -->
+
+        <ds-empty-state size="lg" variant="subtle">
+
+            <i dsEmptyIcon class="fa-regular fa-images">
+            </i>
+
+            <h3 dsEmptyTitle>
+
+                Todavía no hay imágenes
+
+            </h3>
+
+            <p dsEmptyDescription>
+
+                Próximamente vas a poder conocer más sobre nosotros.
+
+            </p>
+
+        </ds-empty-state>
+
+        }
+
+    </ds-container>
+
+</ds-section>
+
+<!-- ===================================================== -->
+<!-- LIGHTBOX -->
+<!-- ===================================================== -->
+
+@if(selectedItem; as item){
+
+<div class="gallery-lightbox" role="dialog" aria-modal="true" aria-label="Vista ampliada de imagen"
+    (click)="closeItem()">
+
+    <!-- ============================================= -->
+    <!-- CLOSE -->
+    <!-- ============================================= -->
+
+    <button type="button" class="lightbox-close" aria-label="Cerrar imagen"
+        (click)="closeItem(); $event.stopPropagation()">
+
+        <i class="fa-solid fa-xmark"></i>
+
+    </button>
+
+    <!-- ============================================= -->
+    <!-- PREVIOUS -->
+    <!-- ============================================= -->
+
+    @if(gallery.length > 1){
+
+    <button type="button" class="lightbox-control lightbox-previous" aria-label="Imagen anterior"
+        (click)="previous(); $event.stopPropagation()">
+
+        <i class="fa-solid fa-chevron-left"></i>
+
+    </button>
+
+    }
+
+    <!-- ============================================= -->
+    <!-- CONTENT -->
+    <!-- ============================================= -->
+
+    <div class="lightbox-content" (click)="$event.stopPropagation()">
+
+        @if(item.imageUrl){
+
+        <img [src]="item.imageUrl" [alt]="
+                        item.title ||
+                        'Imagen de galería'
+                    ">
+
+        } @else {
+
+        <ds-image-placeholder ratio="landscape" size="lg" icon="fa-regular fa-image" text="Imagen no disponible">
+        </ds-image-placeholder>
+
+        }
+
+        @if(
+        item.title ||
+        item.description
+        ){
+
+        <div class="lightbox-information">
+
+            @if(item.title){
+
+            <h3>
+
+                {{ item.title }}
+
+            </h3>
+
+            }
+
+            @if(item.description){
+
+            <p>
+
+                {{ item.description }}
+
+            </p>
+
+            }
+
+        </div>
+
+        }
+
+    </div>
+
+    <!-- ============================================= -->
+    <!-- NEXT -->
+    <!-- ============================================= -->
+
+    @if(gallery.length > 1){
+
+    <button type="button" class="lightbox-control lightbox-next" aria-label="Imagen siguiente"
+        (click)="next(); $event.stopPropagation()">
+
+        <i class="fa-solid fa-chevron-right"></i>
+
+    </button>
+
+    }
+
+    <!-- ============================================= -->
+    <!-- COUNTER -->
+    <!-- ============================================= -->
+
+    @if(gallery.length > 1){
+
+    <div class="lightbox-counter">
+
+        {{ selectedIndex()! + 1 }}
+
+        <span>/</span>
+
+        {{ gallery.length }}
+
+    </div>
+
+    }
+
+</div>
+
+}

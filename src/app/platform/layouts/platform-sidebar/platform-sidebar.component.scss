@@ -1,0 +1,281 @@
+:host {
+
+    display: block;
+
+    height: 100%;
+
+}
+
+/*==========================================================
+SIDEBAR
+==========================================================*/
+
+.platform-sidebar {
+
+    width: 280px;
+
+    height: 100dvh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    background: var(--admin-surface);
+
+    border-right: 1px solid var(--admin-border);
+
+}
+
+/*==========================================================
+BRAND
+==========================================================*/
+
+.platform-sidebar__brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: var(--admin-space-4);
+
+    padding: var(--admin-space-6);
+
+    border-bottom: 1px solid var(--admin-border);
+
+}
+
+.platform-sidebar__logo {
+
+    width: 48px;
+
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background: var(--admin-color-primary);
+
+    color: white;
+
+    font-size: 1.2rem;
+
+}
+
+.platform-sidebar__brand-info {
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+.platform-sidebar__brand-info strong {
+
+    color: var(--admin-text-primary);
+
+    font-weight: 700;
+
+}
+
+.platform-sidebar__brand-info span {
+
+    color: var(--admin-text-muted);
+
+    font-size: .82rem;
+
+}
+
+/*==========================================================
+NAVIGATION
+==========================================================*/
+
+.platform-sidebar__navigation {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+
+    padding: var(--admin-space-6);
+
+}
+
+.platform-sidebar__section {
+
+    margin-bottom: var(--admin-space-2);
+
+    color: var(--admin-text-muted);
+
+    font-size: .72rem;
+
+    font-weight: 700;
+
+    letter-spacing: .08em;
+
+    text-transform: uppercase;
+
+}
+
+/*==========================================================
+ITEM
+==========================================================*/
+
+.platform-sidebar__item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: var(--admin-space-3);
+
+    padding: 12px 14px;
+
+    border-radius: 12px;
+
+    text-decoration: none;
+
+    color: var(--admin-text-secondary);
+
+    transition: .2s;
+
+}
+
+.platform-sidebar__item:hover {
+
+    background: var(--admin-surface-alt);
+
+    color: var(--admin-text-primary);
+
+}
+
+.platform-sidebar__item--active {
+
+    background: rgb(26 71 221 / 0.12);
+
+    color: var(--admin-color-primary);
+
+    font-weight: 600;
+
+}
+
+.platform-sidebar__icon {
+
+    width: 18px;
+
+    text-align: center;
+
+}
+
+/*==========================================================
+FOOTER
+==========================================================*/
+
+.platform-sidebar__footer {
+
+    margin-top: auto;
+
+    padding: var(--admin-space-6);
+
+    border-top: 1px solid var(--admin-border);
+
+}
+
+/*==========================================================
+USER
+==========================================================*/
+
+.platform-sidebar__user {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: var(--admin-space-3);
+
+    margin-bottom: var(--admin-space-5);
+
+}
+
+.platform-sidebar__avatar {
+
+    width: 42px;
+
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: var(--admin-color-primary);
+
+    color: white;
+
+    font-weight: 700;
+
+}
+
+.platform-sidebar__user strong {
+
+    display: block;
+
+    color: var(--admin-text-primary);
+
+    font-size: .9rem;
+
+}
+
+.platform-sidebar__user span {
+
+    color: var(--admin-text-muted);
+
+    font-size: .75rem;
+
+}
+
+/*==========================================================
+LOGOUT
+==========================================================*/
+
+.platform-sidebar__logout {
+
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: var(--admin-space-2);
+
+    padding: 12px;
+
+    border: 0;
+
+    border-radius: 12px;
+
+    background: rgb(220 38 38 / 0.08);
+
+    color: var(--admin-color-danger);
+
+    cursor: pointer;
+
+    transition: .2s;
+
+}
+
+.platform-sidebar__logout:hover {
+
+    background: rgb(220 38 38 / 0.14);
+
+}

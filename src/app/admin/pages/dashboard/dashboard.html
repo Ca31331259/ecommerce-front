@@ -1,0 +1,516 @@
+<admin-page>
+
+    <!-- ======================================================
+    BREADCRUMB
+    ======================================================= -->
+
+    <admin-breadcrumb>
+
+        <span adminBreadcrumbItem [current]="true">
+
+            Dashboard
+
+        </span>
+
+    </admin-breadcrumb>
+
+
+    <!-- ======================================================
+    PAGE HEADER
+    ======================================================= -->
+
+    <admin-toolbar title="Dashboard" [subtitle]="
+            'Bienvenido ' +
+            businessName() +
+            '. Administrá tu ecommerce desde un único lugar.'
+        ">
+
+        <admin-status-badge adminToolbarMeta [label]="
+                tenant()?.active
+                    ? 'Activo'
+                    : 'Inactivo'
+            " [variant]="
+                tenant()?.active
+                    ? 'success'
+                    : 'danger'
+            ">
+        </admin-status-badge>
+
+
+
+    </admin-toolbar>
+
+
+    <!-- ======================================================
+    LOADING
+    ======================================================= -->
+
+    @if(loading()){
+
+    <admin-loader label="Cargando información del ecommerce...">
+    </admin-loader>
+
+    } @else {
+
+    <admin-section title="Información del administrador"
+        subtitle="Datos de la cuenta con la que administrás el ecommerce.">
+
+        <admin-card>
+
+            <admin-info-list>
+
+                <div adminInfoItem>
+
+                    <span class="dashboard-info__label">
+
+                        Nombre
+
+                    </span>
+
+                    <strong class="dashboard-info__value">
+
+                        {{ profile()?.firstName }}
+
+                    </strong>
+
+                </div>
+
+                <div adminInfoItem>
+
+                    <span class="dashboard-info__label">
+
+                        Apellido
+
+                    </span>
+
+                    <strong class="dashboard-info__value">
+
+                        {{ profile()?.lastName }}
+
+                    </strong>
+
+                </div>
+
+                <div adminInfoItem>
+
+                    <span class="dashboard-info__label">
+
+                        Correo electrónico
+
+                    </span>
+
+                    <strong class="dashboard-info__value">
+
+                        {{ profile()?.email }}
+
+                    </strong>
+
+                </div>
+
+                <div adminInfoItem>
+
+                    <span class="dashboard-info__label">
+
+                        Verificación en dos pasos
+
+                    </span>
+
+                    <admin-status-badge [label]="
+                        profile()?.twoFactorEnabled
+                            ? 'Activada'
+                            : 'Desactivada'
+                    " [variant]="
+                        profile()?.twoFactorEnabled
+                            ? 'success'
+                            : 'warning'
+                    ">
+                    </admin-status-badge>
+
+                </div>
+
+            </admin-info-list>
+
+        </admin-card>
+
+    </admin-section>
+
+    <!-- ==================================================
+        QUICK ACTIONS
+        =================================================== 
+
+    <admin-section title="Acciones rápidas" subtitle="Accesos directos a las tareas más frecuentes.">
+
+        <div class="dashboard-actions">
+
+            @for(
+            action of quickActions();
+            track action.title
+            ){
+
+            <admin-card>
+
+                <div adminCardHeader>
+
+                    <div class="dashboard-action__header">
+
+                        <span class="dashboard-action__icon" aria-hidden="true">
+
+                            <i [class]="action.icon"></i>
+
+                        </span>
+
+                        <div class="dashboard-action__information">
+
+                            <h3>
+
+                                {{ action.title }}
+
+                            </h3>
+
+                            <p>
+
+                                {{ action.description }}
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div adminCardFooter>
+
+                    <admin-button variant="primary" size="sm" icon="fa-solid fa-arrow-right"
+                        (clicked)="action.action()">
+
+                        Abrir
+
+                    </admin-button>
+
+                </div>
+
+            </admin-card>
+
+            }
+
+        </div>
+
+    </admin-section>
+-->
+
+    <!-- ==================================================
+        SITE STATUS
+        =================================================== -->
+
+    <admin-section title="Estado del sitio" subtitle="Verificación rápida de la configuración principal.">
+
+        <admin-card>
+
+            <admin-info-list>
+
+                @for(
+                item of checklist();
+                track item.title
+                ){
+
+                <div adminInfoItem>
+
+                    <div class="dashboard-checklist__information">
+
+                        <strong>
+
+                            {{ item.title }}
+
+                        </strong>
+
+                        <span>
+
+                            {{ item.description }}
+
+                        </span>
+
+                    </div>
+
+
+                    <admin-status-badge [label]="
+                                    item.completed
+                                        ? 'Configurado'
+                                        : 'Pendiente'
+                                " [variant]="
+                                    item.completed
+                                        ? 'success'
+                                        : 'warning'
+                                ">
+                    </admin-status-badge>
+
+                </div>
+
+                }
+
+            </admin-info-list>
+
+        </admin-card>
+
+    </admin-section>
+
+
+    <!-- ==================================================
+        ECOMMERCE INFORMATION
+        =================================================== -->
+
+    <admin-section title="Información del ecommerce" subtitle="Resumen general del tenant y del sitio configurado.">
+
+        <admin-card>
+
+            <admin-info-list>
+
+                <div adminInfoItem>
+
+                    <span class="dashboard-info__label">
+
+                        Comercio
+
+                    </span>
+
+                    <strong class="dashboard-info__value">
+
+                        {{ businessName() }}
+
+                    </strong>
+
+                </div>
+
+
+                <div adminInfoItem>
+
+                    <span class="dashboard-info__label">
+
+                        Tenant
+
+                    </span>
+
+                    <strong class="dashboard-info__value">
+
+                        {{ tenant()?.code ?? 'Sin código' }}
+
+                    </strong>
+
+                </div>
+
+
+                <div adminInfoItem>
+
+                    <span class="dashboard-info__label">
+
+                        Estado
+
+                    </span>
+
+                    <admin-status-badge [label]="
+                                tenant()?.active
+                                    ? 'Activo'
+                                    : 'Inactivo'
+                            " [variant]="
+                                tenant()?.active
+                                    ? 'success'
+                                    : 'danger'
+                            ">
+                    </admin-status-badge>
+
+                </div>
+
+
+                <div adminInfoItem>
+
+                    <span class="dashboard-info__label">
+
+                        Banners configurados
+
+                    </span>
+
+                    <strong class="dashboard-info__value">
+
+                        {{ bannerCount() }}
+
+                    </strong>
+
+                </div>
+
+            </admin-info-list>
+
+        </admin-card>
+
+    </admin-section>
+
+
+    <!-- ==================================================
+        ROADMAP
+        =================================================== -->
+
+    <admin-section title="Próximos módulos"
+        subtitle="Funcionalidades previstas para las siguientes etapas del ecommerce.">
+
+        <admin-card>
+
+            <div class="dashboard-roadmap">
+
+                <div class="dashboard-roadmap__item">
+
+                    <span class="dashboard-roadmap__icon" aria-hidden="true">
+
+                        <i class="fa-solid fa-box"></i>
+
+                    </span>
+
+                    <div class="dashboard-roadmap__information">
+
+                        <strong>
+
+                            Productos
+
+                        </strong>
+
+                        <span>
+
+                            Administración del catálogo.
+
+                        </span>
+
+                    </div>
+
+                    <admin-status-badge label="Próximamente" variant="neutral">
+                    </admin-status-badge>
+
+                </div>
+
+
+                <div class="dashboard-roadmap__item">
+
+                    <span class="dashboard-roadmap__icon" aria-hidden="true">
+
+                        <i class="fa-solid fa-layer-group"></i>
+
+                    </span>
+
+                    <div class="dashboard-roadmap__information">
+
+                        <strong>
+
+                            Categorías
+
+                        </strong>
+
+                        <span>
+
+                            Organización y clasificación de productos.
+
+                        </span>
+
+                    </div>
+
+                    <admin-status-badge label="Próximamente" variant="neutral">
+                    </admin-status-badge>
+
+                </div>
+
+
+                <div class="dashboard-roadmap__item">
+
+                    <span class="dashboard-roadmap__icon" aria-hidden="true">
+
+                        <i class="fa-solid fa-cart-shopping"></i>
+
+                    </span>
+
+                    <div class="dashboard-roadmap__information">
+
+                        <strong>
+
+                            Pedidos
+
+                        </strong>
+
+                        <span>
+
+                            Gestión del flujo de compras.
+
+                        </span>
+
+                    </div>
+
+                    <admin-status-badge label="Próximamente" variant="neutral">
+                    </admin-status-badge>
+
+                </div>
+
+
+                <div class="dashboard-roadmap__item">
+
+                    <span class="dashboard-roadmap__icon" aria-hidden="true">
+
+                        <i class="fa-solid fa-users"></i>
+
+                    </span>
+
+                    <div class="dashboard-roadmap__information">
+
+                        <strong>
+
+                            Clientes
+
+                        </strong>
+
+                        <span>
+
+                            Administración de compradores.
+
+                        </span>
+
+                    </div>
+
+                    <admin-status-badge label="Próximamente" variant="neutral">
+                    </admin-status-badge>
+
+                </div>
+
+
+                <div class="dashboard-roadmap__item">
+
+                    <span class="dashboard-roadmap__icon" aria-hidden="true">
+
+                        <i class="fa-solid fa-chart-line"></i>
+
+                    </span>
+
+                    <div class="dashboard-roadmap__information">
+
+                        <strong>
+
+                            Analytics
+
+                        </strong>
+
+                        <span>
+
+                            Métricas y rendimiento del ecommerce.
+
+                        </span>
+
+                    </div>
+
+                    <admin-status-badge label="Próximamente" variant="neutral">
+                    </admin-status-badge>
+
+                </div>
+
+            </div>
+
+        </admin-card>
+
+    </admin-section>
+
+    }
+
+</admin-page>

@@ -1,0 +1,24 @@
+<button
+    class="ds-button"
+    [type]="type"
+    [disabled]="disabled || loading"
+    [attr.aria-busy]="loading">
+
+    @if(loading){
+
+        <span
+            class="spinner"
+            aria-hidden="true">
+        </span>
+
+    }
+
+    <span
+        class="button-content"
+        [class.loading]="loading">
+
+        <ng-content />
+
+    </span>
+
+</button>

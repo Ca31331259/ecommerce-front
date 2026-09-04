@@ -1,0 +1,79 @@
+<admin-form-card
+    title="Autenticación en dos factores"
+    subtitle="Protegé tu cuenta agregando un segundo factor de autenticación.">
+
+    <div class="security-form">
+
+        @if(profile.twoFactorEnabled){
+
+            <div class="status enabled">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                <div>
+
+                    <strong>Protección activa</strong>
+
+                    <p>
+                        Tu cuenta solicita un código de Google Authenticator
+                        al iniciar sesión.
+                    </p>
+
+                </div>
+
+            </div>
+
+        } @else {
+
+            <div class="status disabled">
+
+                <i class="fa-solid fa-circle"></i>
+
+                <div>
+
+                    <strong>Protección deshabilitada</strong>
+
+                    <p>
+
+                        Activá la autenticación en dos pasos para
+                        aumentar la seguridad de tu cuenta.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        }
+
+    </div>
+
+    <div adminFormCardFooter>
+
+        @if(profile.twoFactorEnabled){
+
+            <admin-button
+                variant="danger"
+                icon="fa-solid fa-lock-open"
+                (clicked)="disable()">
+
+                Desactivar
+
+            </admin-button>
+
+        } @else {
+
+            <admin-button
+                variant="primary"
+                icon="fa-solid fa-shield-halved"
+                (clicked)="configure()">
+
+                Configurar
+
+            </admin-button>
+
+        }
+
+    </div>
+
+</admin-form-card>

@@ -1,0 +1,577 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+    min-height: 100dvh;
+
+}
+
+
+/*==========================================================
+PAGE
+==========================================================*/
+
+.platform-login {
+
+    width: 100%;
+
+    min-height: 100dvh;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding:
+        var(--admin-space-6);
+
+    box-sizing: border-box;
+
+    background:
+        var(--admin-page-background);
+
+}
+
+
+/*==========================================================
+CONTAINER
+==========================================================*/
+
+.platform-login__container {
+
+    width: 100%;
+
+    max-width: 430px;
+
+}
+
+
+/*==========================================================
+BRAND
+==========================================================*/
+
+.platform-login__brand {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: var(--admin-space-3);
+
+    margin-bottom: var(--admin-space-6);
+
+}
+
+.platform-login__logo {
+
+    width: 44px;
+
+    height: 44px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background:
+        var(--admin-color-primary);
+
+    color:
+        var(--admin-text-inverse);
+
+    font-size: 1.2rem;
+
+    font-weight:
+        var(--admin-font-weight-bold);
+
+}
+
+.platform-login__brand strong {
+
+    display: block;
+
+    color:
+        var(--admin-text-primary);
+
+    font-size:
+        var(--admin-font-size-lg);
+
+    font-weight:
+        var(--admin-font-weight-bold);
+
+    line-height:
+        var(--admin-line-height-tight);
+
+}
+
+.platform-login__brand span {
+
+    display: block;
+
+    margin-top: 2px;
+
+    color:
+        var(--admin-text-muted);
+
+    font-size:
+        var(--admin-font-size-xs);
+
+}
+
+
+/*==========================================================
+CARD
+==========================================================*/
+
+.platform-login__card {
+
+    padding: var(--admin-space-6);
+
+    background:
+        var(--admin-surface);
+
+    border:
+        1px solid
+        var(--admin-border);
+
+    border-radius:
+        var(--admin-card-radius);
+
+    box-shadow:
+        var(--admin-card-shadow);
+
+}
+
+
+/*==========================================================
+HEADER
+==========================================================*/
+
+.platform-login__header {
+
+    margin-bottom:
+        var(--admin-space-6);
+
+}
+
+.platform-login__header h1 {
+
+    margin: 0;
+
+    color:
+        var(--admin-text-primary);
+
+    font-size: 1.5rem;
+
+    font-weight:
+        var(--admin-font-weight-bold);
+
+    line-height:
+        var(--admin-line-height-tight);
+
+}
+
+.platform-login__header p {
+
+    margin:
+        var(--admin-space-2)
+        0
+        0;
+
+    color:
+        var(--admin-text-muted);
+
+    font-size:
+        var(--admin-font-size-sm);
+
+    line-height:
+        var(--admin-line-height-normal);
+
+}
+
+
+/*==========================================================
+FIELD
+==========================================================*/
+
+.platform-login__field {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-2);
+
+    margin-bottom:
+        var(--admin-space-5);
+
+}
+
+.platform-login__field label {
+
+    color:
+        var(--admin-text-primary);
+
+    font-size:
+        var(--admin-font-size-sm);
+
+    font-weight:
+        var(--admin-font-weight-semibold);
+
+}
+
+.platform-login__field small {
+
+    color:
+        var(--admin-color-danger);
+
+    font-size:
+        var(--admin-font-size-xs);
+
+}
+
+
+/*==========================================================
+INPUT
+==========================================================*/
+
+.platform-login__input-wrapper {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+}
+
+.platform-login__input-wrapper
+> i {
+
+    position: absolute;
+
+    left:
+        var(--admin-space-3);
+
+    color:
+        var(--admin-text-muted);
+
+    pointer-events: none;
+
+}
+
+.platform-login__input-wrapper
+> input {
+
+    width: 100%;
+
+    min-height: 44px;
+
+    padding:
+        0
+        var(--admin-space-10)
+        0
+        var(--admin-space-9);
+
+    box-sizing: border-box;
+
+    border:
+        1px solid
+        var(--admin-border);
+
+    border-radius:
+        var(--admin-input-radius);
+
+    outline: none;
+
+    background:
+        var(--admin-surface);
+
+    color:
+        var(--admin-text-primary);
+
+    font-family:
+        var(--admin-font-family);
+
+    font-size:
+        var(--admin-font-size-sm);
+
+    transition:
+        border-color
+        var(--admin-duration-fast)
+        var(--admin-easing-standard),
+
+        box-shadow
+        var(--admin-duration-fast)
+        var(--admin-easing-standard);
+
+}
+
+.platform-login__input-wrapper
+> input::placeholder {
+
+    color:
+        var(--admin-text-muted);
+
+}
+
+.platform-login__input-wrapper
+> input:focus {
+
+    border-color:
+        var(--admin-color-primary);
+
+    box-shadow:
+        var(--admin-focus-ring);
+
+}
+
+.platform-login__input--error {
+
+    border-color:
+        var(--admin-color-danger) !important;
+
+}
+
+
+/*==========================================================
+PASSWORD TOGGLE
+==========================================================*/
+
+.platform-login__password-toggle {
+
+    position: absolute;
+
+    right:
+        var(--admin-space-2);
+
+    width: 34px;
+
+    height: 34px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: 0;
+
+    border-radius:
+        var(--admin-button-radius);
+
+    background: transparent;
+
+    color:
+        var(--admin-text-muted);
+
+    cursor: pointer;
+
+}
+
+.platform-login__password-toggle:hover {
+
+    background:
+        var(--admin-surface-alt);
+
+    color:
+        var(--admin-text-primary);
+
+}
+
+
+/*==========================================================
+ALERT
+==========================================================*/
+
+.platform-login__alert {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: var(--admin-space-3);
+
+    margin-bottom:
+        var(--admin-space-5);
+
+    padding:
+        var(--admin-space-3)
+        var(--admin-space-4);
+
+    border-radius:
+        var(--admin-radius-md);
+
+    font-size:
+        var(--admin-font-size-sm);
+
+}
+
+.platform-login__alert--danger {
+
+    background:
+        rgb(220 38 38 / .06);
+
+    border:
+        1px solid
+        rgb(220 38 38 / .18);
+
+    color:
+        var(--admin-color-danger);
+
+}
+
+
+/*==========================================================
+SUBMIT
+==========================================================*/
+
+.platform-login__submit {
+
+    width: 100%;
+
+    min-height: 46px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: var(--admin-space-2);
+
+    padding:
+        0
+        var(--admin-space-4);
+
+    border: 0;
+
+    border-radius:
+        var(--admin-button-radius);
+
+    background:
+        var(--admin-color-primary);
+
+    color:
+        var(--admin-text-inverse);
+
+    font-family:
+        var(--admin-font-family);
+
+    font-size:
+        var(--admin-font-size-sm);
+
+    font-weight:
+        var(--admin-font-weight-semibold);
+
+    cursor: pointer;
+
+    transition:
+        background
+        var(--admin-duration-fast)
+        var(--admin-easing-standard),
+
+        box-shadow
+        var(--admin-duration-fast)
+        var(--admin-easing-standard);
+
+}
+
+.platform-login__submit:hover:not(:disabled) {
+
+    box-shadow:
+        var(--admin-button-shadow);
+
+}
+
+.platform-login__submit:disabled {
+
+    opacity: .65;
+
+    cursor: not-allowed;
+
+}
+
+
+/*==========================================================
+FOOTER
+==========================================================*/
+
+.platform-login__footer {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: var(--admin-space-3);
+
+    margin-top:
+        var(--admin-space-4);
+
+    padding:
+        0
+        var(--admin-space-1);
+
+    color:
+        var(--admin-text-muted);
+
+    font-size:
+        var(--admin-font-size-xs);
+
+}
+
+.platform-login__footer span:last-child {
+
+    text-align: right;
+
+}
+
+
+/*==========================================================
+MOBILE
+==========================================================*/
+
+@media (max-width: 520px) {
+
+    .platform-login {
+
+        align-items: flex-start;
+
+        padding:
+            var(--admin-space-4);
+
+        padding-top:
+            12vh;
+
+    }
+
+    .platform-login__card {
+
+        padding:
+            var(--admin-space-5);
+
+    }
+
+    .platform-login__footer {
+
+        flex-direction: column;
+
+        align-items: center;
+
+    }
+
+    .platform-login__footer span:last-child {
+
+        text-align: center;
+
+    }
+
+}

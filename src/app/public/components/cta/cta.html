@@ -1,0 +1,83 @@
+<ds-section
+    id="cta"
+    background="surface"
+    padding="lg">
+
+    <ds-container size="lg">
+
+        <div class="cta">
+
+            <!-- ========================================= -->
+            <!-- DECORATION -->
+            <!-- ========================================= -->
+
+            <div
+                class="cta-decoration cta-decoration-primary"
+                aria-hidden="true">
+            </div>
+
+            <div
+                class="cta-decoration cta-decoration-secondary"
+                aria-hidden="true">
+            </div>
+
+            <!-- ========================================= -->
+            <!-- CONTENT -->
+            <!-- ========================================= -->
+
+            <div class="cta-content">
+
+                <div
+                    class="cta-icon"
+                    aria-hidden="true">
+
+                    <i class="fa-solid fa-arrow-trend-up"></i>
+
+                </div>
+
+                @if(home.ctaTitle){
+
+                    <h2>
+
+                        {{ home.ctaTitle }}
+
+                    </h2>
+
+                }
+
+                @if(home.ctaText){
+
+                    <p>
+
+                        {{ home.ctaText }}
+
+                    </p>
+
+                }
+
+                @if(home.ctaButtonText){
+
+                    <div class="cta-actions">
+
+                        <ds-button
+                            variant="neutral"
+                            size="lg"
+                            (click)="openLink()">
+
+                            {{ home.ctaButtonText }}
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </ds-button>
+
+                    </div>
+
+                }
+
+            </div>
+
+        </div>
+
+    </ds-container>
+
+</ds-section>

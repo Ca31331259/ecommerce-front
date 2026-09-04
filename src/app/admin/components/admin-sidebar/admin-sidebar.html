@@ -1,0 +1,245 @@
+<!-- ====================================================== -->
+<!-- MOBILE BACKDROP -->
+<!-- ====================================================== -->
+
+@if(shellStore.mobileSidebarOpen()){
+
+    <button
+        class="admin-sidebar-backdrop"
+        type="button"
+        aria-label="Cerrar navegación"
+        (click)="closeMobileSidebar()">
+    </button>
+
+}
+
+<!-- ====================================================== -->
+<!-- SIDEBAR -->
+<!-- ====================================================== -->
+
+<aside
+    class="admin-sidebar"
+    [class.admin-sidebar--mobile-open]="
+        shellStore.mobileSidebarOpen()
+    ">
+
+    <!-- ================================================== -->
+    <!-- BRAND -->
+    <!-- ================================================== -->
+
+    <header class="admin-sidebar__brand">
+
+        <div class="admin-sidebar__identity">
+
+            @if(logoUrl()){
+
+                <img
+                    class="admin-sidebar__logo"
+                    [src]="logoUrl()"
+                    [alt]="businessName()">
+
+            } @else {
+
+                <span
+                    class="admin-sidebar__logo-placeholder"
+                    aria-hidden="true">
+
+                    {{ businessInitial() }}
+
+                </span>
+
+            }
+
+            <div class="admin-sidebar__brand-information">
+
+                <strong class="admin-sidebar__business-name">
+
+                    {{ businessName() }}
+
+                </strong>
+
+                <span class="admin-sidebar__brand-label">
+
+                    Panel administrativo
+
+                </span>
+
+            </div>
+
+        </div>
+
+        <button
+            class="admin-sidebar__mobile-close"
+            type="button"
+            aria-label="Cerrar navegación"
+            (click)="closeMobileSidebar()">
+
+            <i
+                class="fa-solid fa-xmark"
+                aria-hidden="true">
+            </i>
+
+        </button>
+
+    </header>
+
+    <!-- ================================================== -->
+    <!-- NAVIGATION -->
+    <!-- ================================================== -->
+
+    <nav
+        class="admin-sidebar__navigation"
+        aria-label="Navegación administrativa">
+
+        <span class="admin-sidebar__navigation-label">
+
+            Administración
+
+        </span>
+
+        <div class="admin-sidebar__navigation-list">
+
+            @for(
+                item of navigationItems;
+                track item.label
+            ){
+
+                @if(
+                    !item.disabled &&
+                    item.route
+                ){
+
+                    <a
+                        class="admin-sidebar__navigation-item"
+                        [routerLink]="item.route"
+                        routerLinkActive="admin-sidebar__navigation-item--active"
+                        [routerLinkActiveOptions]="{
+                            exact: true
+                        }"
+                        [attr.aria-label]="item.label"
+                        (click)="closeMobileSidebar()">
+
+                        <span class="admin-sidebar__navigation-icon">
+
+                            <i
+                                [class]="item.icon"
+                                aria-hidden="true">
+                            </i>
+
+                        </span>
+
+                        <span class="admin-sidebar__navigation-text">
+
+                            {{ item.label }}
+
+                        </span>
+
+                    </a>
+
+                } @else {
+
+                    <span
+                        class="
+                            admin-sidebar__navigation-item
+                            admin-sidebar__navigation-item--disabled
+                        "
+                        [attr.aria-label]="
+                            item.label +
+                            (
+                                item.badge
+                                    ? ' - ' + item.badge
+                                    : ''
+                            )
+                        ">
+
+                        <span class="admin-sidebar__navigation-icon">
+
+                            <i
+                                [class]="item.icon"
+                                aria-hidden="true">
+                            </i>
+
+                        </span>
+
+                        <span class="admin-sidebar__navigation-text">
+
+                            {{ item.label }}
+
+                        </span>
+
+                        @if(item.badge){
+
+                            <span class="admin-sidebar__navigation-badge">
+
+                                {{ item.badge }}
+
+                            </span>
+
+                        }
+
+                    </span>
+
+                }
+
+            }
+
+        </div>
+
+    </nav>
+
+    <!-- ================================================== -->
+    <!-- FOOTER -->
+    <!-- ================================================== -->
+
+    <footer class="admin-sidebar__footer">
+
+        <button
+            class="admin-sidebar__footer-action"
+            type="button"
+            (click)="openStore()">
+
+            <span class="admin-sidebar__footer-icon">
+
+                <i
+                    class="fa-solid fa-arrow-up-right-from-square"
+                    aria-hidden="true">
+                </i>
+
+            </span>
+
+            <span class="admin-sidebar__footer-text">
+
+                Ver sitio
+
+            </span>
+
+        </button>
+
+        <button
+            class="
+                admin-sidebar__footer-action
+                admin-sidebar__footer-action--danger
+            "
+            type="button"
+            (click)="logout()">
+
+            <span class="admin-sidebar__footer-icon">
+
+                <i
+                    class="fa-solid fa-arrow-right-from-bracket"
+                    aria-hidden="true">
+                </i>
+
+            </span>
+
+            <span class="admin-sidebar__footer-text">
+
+                Cerrar sesión
+
+            </span>
+
+        </button>
+
+    </footer>
+
+</aside>

@@ -1,0 +1,107 @@
+<admin-section title="Beneficios" subtitle="Administrá las ventajas que se muestran en la página principal.">
+
+        <admin-form-preview style="margin: 30px" title="Ejemplo" description="Ejemplo de Beneficios" badge="Hero"
+        image="assets/placeholders/beneficios-preview.png">
+    </admin-form-preview>
+
+    <admin-button adminSectionActions variant="primary" icon="fa-solid fa-plus" (clicked)="createFeature()">
+
+        Nuevo Beneficio
+
+    </admin-button>
+
+    @for (feature of features; track feature.id) {
+
+    <admin-form-card [title]="feature.title || 'Nuevo beneficio'" icon="fa-solid fa-star">
+        <admin-button adminFormCardActions variant="danger" icon="fa-solid fa-trash" [iconOnly]="true"
+            (clicked)="deleteFeature(feature)">
+        </admin-button>
+        <div class="feature-editor">
+
+            <!-- ===================================== -->
+            <!-- ICONO -->
+            <!-- ===================================== -->
+
+            <div class="feature-editor__icon">
+
+                <admin-field label="Icono">
+
+                    <admin-icon-picker adminFieldContent [(ngModel)]="feature.icon">
+
+                    </admin-icon-picker>
+
+                </admin-field>
+
+            </div>
+
+            <!-- ===================================== -->
+            <!-- FORMULARIO -->
+            <!-- ===================================== -->
+
+            <div class="feature-editor__form">
+
+                <admin-form-grid>
+
+                    <!-- Título -->
+
+                    <admin-field label="Título" [required]="true">
+
+                        <input adminFieldContent adminInput [(ngModel)]="feature.title">
+
+                    </admin-field>
+
+                    <!-- Orden -->
+
+                    <admin-field label="Orden">
+
+                        <input adminFieldContent adminInput type="number" [(ngModel)]="feature.sortOrder">
+
+                    </admin-field>
+
+                    <!-- Descripción -->
+
+                    <admin-field class="full" label="Descripción">
+
+                        <textarea adminFieldContent adminTextarea rows="5" [(ngModel)]="feature.description">
+
+                            </textarea>
+
+                    </admin-field>
+
+                    <!-- Estado -->
+
+                    <admin-field label="Estado">
+
+                        <admin-switch adminFieldContent [(ngModel)]="feature.active">
+
+                            Beneficio activo
+
+                        </admin-switch>
+
+                    </admin-field>
+
+                </admin-form-grid>
+
+                <!-- ===================================== -->
+                <!-- SAVE BAR -->
+                <!-- ===================================== -->
+
+                <admin-save-bar [model]="feature" (save)="saveFeature(feature)">
+
+                    <admin-button variant="primary" icon="fa-solid fa-floppy-disk" (clicked)="saveFeature(feature)">
+
+                        Guardar
+
+                    </admin-button>
+
+                </admin-save-bar>
+
+            </div>
+
+        </div>
+
+    </admin-form-card>
+
+    }
+
+</admin-section>

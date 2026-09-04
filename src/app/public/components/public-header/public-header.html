@@ -1,0 +1,286 @@
+<header
+    class="public-header"
+    [class.scrolled]="scrolled()">
+
+    <ds-container size="lg">
+
+        <div class="header-content">
+
+            <!-- ========================================= -->
+            <!-- BRAND -->
+            <!-- ========================================= -->
+
+            <button
+                type="button"
+                class="brand"
+                aria-label="Ir al inicio"
+                (click)="scrollTo('hero')">
+
+                @if(theme?.logo_url){
+
+                    <img
+                        class="brand-logo"
+                        [src]="theme.logo_url"
+                        [alt]="settings?.businessName || 'Logo'">
+
+                } @else {
+
+                    <span class="brand-placeholder">
+
+                        <i class="fa-solid fa-store"></i>
+
+                    </span>
+
+                }
+
+                <div class="brand-content">
+
+                    @if(settings?.businessName){
+
+                        <span class="brand-name">
+
+                            {{ settings.businessName }}
+
+                        </span>
+
+                    }
+
+                    @if(settings?.slogan){
+
+                        <span class="brand-slogan">
+
+                            {{ settings.slogan }}
+
+                        </span>
+
+                    }
+
+                </div>
+
+            </button>
+
+            <!-- ========================================= -->
+            <!-- DESKTOP NAVIGATION -->
+            <!-- ========================================= -->
+
+            <nav
+                class="desktop-navigation"
+                aria-label="Navegación principal">
+
+                <button
+                    type="button"
+                    class="nav-link"
+                    (click)="scrollTo('hero')">
+
+                    Inicio
+
+                </button>
+
+                @if(isEnabled('ABOUT')){
+
+                    <button
+                        type="button"
+                        class="nav-link"
+                        (click)="scrollTo('about')">
+
+                        Nosotros
+
+                    </button>
+
+                }
+
+                @if(isEnabled('FEATURES')){
+
+                    <button
+                        type="button"
+                        class="nav-link"
+                        (click)="scrollTo('features')">
+
+                        Beneficios
+
+                    </button>
+
+                }
+
+                @if(isEnabled('GALLERY')){
+
+                    <button
+                        type="button"
+                        class="nav-link"
+                        (click)="scrollTo('gallery')">
+
+                        Galería
+
+                    </button>
+
+                }
+
+                @if(isEnabled('CONTACT')){
+
+                    <button
+                        type="button"
+                        class="nav-link"
+                        (click)="scrollTo('contact')">
+
+                        Contacto
+
+                    </button>
+
+                }
+
+            </nav>
+
+            <!-- ========================================= -->
+            <!-- DESKTOP ACTIONS -->
+            <!-- ========================================= -->
+
+            <div class="desktop-actions">
+
+                <ds-button
+                    variant="text"
+                    size="sm"
+                    (click)="irAlLogin()">
+
+                    <i class="fa-solid fa-user-lock"></i>
+
+                    Administración
+
+                </ds-button>
+
+            </div>
+
+            <!-- ========================================= -->
+            <!-- MOBILE MENU BUTTON -->
+            <!-- ========================================= -->
+
+            <button
+                type="button"
+                class="menu-toggle"
+                [attr.aria-expanded]="menuOpen()"
+                aria-label="Abrir menú de navegación"
+                (click)="toggleMenu()">
+
+                @if(menuOpen()){
+
+                    <i class="fa-solid fa-xmark"></i>
+
+                } @else {
+
+                    <i class="fa-solid fa-bars"></i>
+
+                }
+
+            </button>
+
+        </div>
+
+    </ds-container>
+
+    <!-- ========================================= -->
+    <!-- MOBILE NAVIGATION -->
+    <!-- ========================================= -->
+
+    <div
+        class="mobile-navigation"
+        [class.open]="menuOpen()">
+
+        <ds-container size="lg">
+
+            <nav
+                class="mobile-navigation-content"
+                aria-label="Navegación móvil">
+
+                <button
+                    type="button"
+                    class="mobile-nav-link"
+                    (click)="scrollTo('hero')">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    <span>Inicio</span>
+
+                </button>
+
+                @if(isEnabled('ABOUT')){
+
+                    <button
+                        type="button"
+                        class="mobile-nav-link"
+                        (click)="scrollTo('about')">
+
+                        <i class="fa-solid fa-circle-info"></i>
+
+                        <span>Nosotros</span>
+
+                    </button>
+
+                }
+
+                @if(isEnabled('FEATURES')){
+
+                    <button
+                        type="button"
+                        class="mobile-nav-link"
+                        (click)="scrollTo('features')">
+
+                        <i class="fa-solid fa-star"></i>
+
+                        <span>Beneficios</span>
+
+                    </button>
+
+                }
+
+                @if(isEnabled('GALLERY')){
+
+                    <button
+                        type="button"
+                        class="mobile-nav-link"
+                        (click)="scrollTo('gallery')">
+
+                        <i class="fa-regular fa-images"></i>
+
+                        <span>Galería</span>
+
+                    </button>
+
+                }
+
+                @if(isEnabled('CONTACT')){
+
+                    <button
+                        type="button"
+                        class="mobile-nav-link"
+                        (click)="scrollTo('contact')">
+
+                        <i class="fa-solid fa-envelope"></i>
+
+                        <span>Contacto</span>
+
+                    </button>
+
+                }
+
+                <div class="mobile-actions">
+
+                    <ds-button
+                        variant="secondary"
+                        size="md"
+                        [fullWidth]="true"
+                        (click)="irAlLogin()">
+
+                        <i class="fa-solid fa-user-lock"></i>
+
+                        Administración
+
+                    </ds-button>
+
+                </div>
+
+            </nav>
+
+        </ds-container>
+
+    </div>
+
+</header>

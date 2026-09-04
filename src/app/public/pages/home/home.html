@@ -1,0 +1,79 @@
+@if(home(); as homeData){
+@for (section of sections(); track section.id) {
+
+@if(section.enabled) {
+
+@switch(section.section) {
+
+@case('HERO') {
+
+<app-hero-banner [home]="homeData">
+</app-hero-banner>
+
+}
+
+@case('FEATURES') {
+
+@if(features().length) {
+
+<app-features [features]="features()">
+</app-features>
+
+}
+
+}
+
+@case('ABOUT') {
+
+<app-about [home]="homeData">
+</app-about>
+
+}
+
+@case('BANNERS') {
+
+@if(banners().length) {
+
+<app-banner-carousel [banners]="banners()">
+</app-banner-carousel>
+
+}
+
+}
+
+@case('PRODUCTS') {
+
+<!-- productos -->
+
+}
+
+@case('GALLERY') {
+
+<app-gallery [gallery]="gallery()">
+</app-gallery>
+
+}
+
+@case('CTA') {
+
+<app-cta [home]="homeData">
+</app-cta>
+
+}
+
+@case('CONTACT') {
+
+@if(settings(); as settingsData) {
+
+<app-contact [settings]="settingsData">
+</app-contact>
+
+}
+
+}
+
+}
+
+}
+
+}}

@@ -1,0 +1,418 @@
+<ds-section id="contact" background="surface" padding="lg">
+
+    <ds-container size="lg">
+
+        <!-- ========================================= -->
+        <!-- SECTION HEADER -->
+        <!-- ========================================= -->
+
+        <ds-section-header title="Hablemos"
+            subtitle="¿Tenés una consulta? Escribinos y estaremos encantados de ayudarte.">
+
+            <ds-badge dsHeaderBadge variant="accent">
+
+                <i class="fa-solid fa-paper-plane"></i>
+
+                Contacto
+
+            </ds-badge>
+
+        </ds-section-header>
+
+        <!-- ========================================= -->
+        <!-- CONTACT LAYOUT -->
+        <!-- ========================================= -->
+
+        <div class="contact-layout">
+
+            <!-- ===================================== -->
+            <!-- INFORMATION -->
+            <!-- ===================================== -->
+
+            <div class="contact-information">
+
+                <div class="contact-information-header">
+
+                    <h3>
+
+                        Estamos para ayudarte
+
+                    </h3>
+
+                    <p>
+
+                        Elegí el medio que prefieras o completá
+                        el formulario para iniciar una conversación.
+
+                    </p>
+
+                </div>
+
+                <!-- ================================= -->
+                <!-- CONTACT ITEMS -->
+                <!-- ================================= -->
+
+                <div class="contact-items">
+
+                    @if(settings?.phone){
+
+                    <a class="contact-item" [href]="'tel:' + settings.phone">
+
+                        <span class="contact-item-icon">
+
+                            <i class="fa-solid fa-phone"></i>
+
+                        </span>
+
+                        <span class="contact-item-content">
+
+                            <span class="contact-item-label">
+
+                                Teléfono
+
+                            </span>
+
+                            <span class="contact-item-value">
+
+                                {{ settings.phone }}
+
+                            </span>
+
+                        </span>
+
+                        <i class="fa-solid fa-arrow-up-right-from-square contact-item-arrow">
+                        </i>
+
+                    </a>
+
+                    }
+
+                    @if(settings?.email){
+
+                    <a class="contact-item" [href]="'mailto:' + settings.email">
+
+                        <span class="contact-item-icon">
+
+                            <i class="fa-solid fa-envelope"></i>
+
+                        </span>
+
+                        <span class="contact-item-content">
+
+                            <span class="contact-item-label">
+
+                                Email
+
+                            </span>
+
+                            <span class="contact-item-value">
+
+                                {{ settings.email }}
+
+                            </span>
+
+                        </span>
+
+                        <i class="fa-solid fa-arrow-up-right-from-square contact-item-arrow">
+                        </i>
+
+                    </a>
+
+                    }
+
+                    @if(settings?.address){
+
+                    <a class="contact-item" [href]="settings.googleMapsUrl" target="_blank">
+
+                        <span class="contact-item-icon">
+
+                            <i class="fa-solid fa-location-dot"></i>
+
+                        </span>
+
+                        <span class="contact-item-content">
+
+                            <span class="contact-item-label">
+
+                                Dirección
+
+                            </span>
+
+                            <span class="contact-item-value">
+
+                                {{ settings.address }}
+
+                            </span>
+
+                        </span>
+
+                    </a>
+
+                    }
+
+                    @if(settings?.businessHours){
+
+                    <div class="contact-item">
+
+                        <span class="contact-item-icon">
+
+                            <i class="fa-regular fa-clock"></i>
+
+                        </span>
+
+                        <span class="contact-item-content">
+
+                            <span class="contact-item-label">
+
+                                Horarios
+
+                            </span>
+
+                            <span class="contact-item-value">
+
+                                {{ settings.businessHours }}
+
+                            </span>
+
+                        </span>
+
+                    </div>
+
+                    }
+
+                </div>
+
+                <!-- ================================= -->
+                <!-- SOCIAL -->
+                <!-- ================================= -->
+
+                <div class="contact-social">
+
+                    <span class="contact-social-title">
+
+                        También podés encontrarnos en
+
+                    </span>
+
+                    <ds-social-buttons [facebook]="settings?.facebook" [instagram]="settings?.instagram"
+                        [whatsapp]="settings?.whatsapp" [linkedin]="settings?.linkedin">
+                    </ds-social-buttons>
+
+                </div>
+
+            </div>
+
+            <!-- ===================================== -->
+            <!-- FORM -->
+            <!-- ===================================== -->
+
+            <ds-card padding="lg" shadow="md" [outlined]="true">
+
+                <form class="contact-form" novalidate (ngSubmit)="sendMessage()">
+
+                    <!-- ============================= -->
+                    <!-- FORM HEADER -->
+                    <!-- ============================= -->
+
+                    <div class="form-header">
+
+                        <div class="form-header-icon">
+
+                            <i class="fa-regular fa-message"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h3>
+
+                                Enviá tu consulta
+
+                            </h3>
+
+                            <p>
+
+                                Completá tus datos y contanos
+                                en qué podemos ayudarte.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <!-- ============================= -->
+                    <!-- NAME -->
+                    <!-- ============================= -->
+
+                    <div class="form-field">
+
+                        <label for="contact-name">
+
+                            Nombre
+
+                            <span aria-hidden="true">*</span>
+
+                        </label>
+
+                        <div class="input-wrapper" [class.invalid]="isFieldInvalid('name')">
+
+                            <i class="fa-regular fa-user"></i>
+
+                            <input id="contact-name" type="text" name="name" autocomplete="name" placeholder="Tu nombre"
+                                [(ngModel)]="name">
+
+                        </div>
+
+                        @if(isFieldInvalid('name')){
+
+                        <span class="field-error">
+
+                            <i class="fa-solid fa-circle-exclamation"></i>
+
+                            Ingresá tu nombre.
+
+                        </span>
+
+                        }
+
+                    </div>
+
+                    <!-- ============================= -->
+                    <!-- EMAIL -->
+                    <!-- ============================= -->
+
+                    <div class="form-field">
+
+                        <label for="contact-email">
+
+                            Email
+
+                            <span aria-hidden="true">*</span>
+
+                        </label>
+
+                        <div class="input-wrapper" [class.invalid]="isFieldInvalid('email')">
+
+                            <i class="fa-regular fa-envelope"></i>
+
+                            <input id="contact-email" type="email" name="email" autocomplete="email"
+                                placeholder="tu@email.com" [(ngModel)]="email">
+
+                        </div>
+
+                        @if(isFieldInvalid('email')){
+
+                        <span class="field-error">
+
+                            <i class="fa-solid fa-circle-exclamation"></i>
+
+                            Ingresá un email válido.
+
+                        </span>
+
+                        }
+
+                    </div>
+
+                    <!-- ============================= -->
+                    <!-- PHONE -->
+                    <!-- ============================= -->
+
+                    <div class="form-field">
+
+                        <label for="contact-phone">
+
+                            Teléfono
+
+                            <span class="optional">
+
+                                Opcional
+
+                            </span>
+
+                        </label>
+
+                        <div class="input-wrapper">
+
+                            <i class="fa-solid fa-phone"></i>
+
+                            <input id="contact-phone" type="tel" name="phone" autocomplete="tel"
+                                placeholder="Tu teléfono" [(ngModel)]="phone">
+
+                        </div>
+
+                    </div>
+
+                    <!-- ============================= -->
+                    <!-- MESSAGE -->
+                    <!-- ============================= -->
+
+                    <div class="form-field">
+
+                        <label for="contact-message">
+
+                            Mensaje
+
+                            <span aria-hidden="true">*</span>
+
+                        </label>
+
+                        <div class="input-wrapper textarea-wrapper" [class.invalid]="isFieldInvalid('message')">
+
+                            <i class="fa-regular fa-message"></i>
+
+                            <textarea id="contact-message" name="message" rows="6"
+                                placeholder="Contanos en qué podemos ayudarte..." [(ngModel)]="message">
+                            </textarea>
+
+                        </div>
+
+                        @if(isFieldInvalid('message')){
+
+                        <span class="field-error">
+
+                            <i class="fa-solid fa-circle-exclamation"></i>
+
+                            Escribí tu consulta.
+
+                        </span>
+
+                        }
+
+                    </div>
+
+                    <!-- ============================= -->
+                    <!-- ACTION -->
+                    <!-- ============================= -->
+
+                    <div class="form-actions">
+
+                        <ds-button type="submit" variant="primary" size="lg" [fullWidth]="true">
+
+                            Enviar consulta
+
+                            <i class="fa-solid fa-paper-plane"></i>
+
+                        </ds-button>
+
+                    </div>
+
+                    <p class="form-help">
+
+                        <i class="fa-solid fa-shield-halved"></i>
+
+                        Tus datos se utilizarán únicamente para
+                        responder tu consulta.
+
+                    </p>
+
+                </form>
+
+            </ds-card>
+
+        </div>
+
+    </ds-container>
+
+</ds-section>

@@ -1,0 +1,838 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+    min-width: 0;
+
+}
+
+
+.platform-tenant-form {
+
+    width: 100%;
+
+    max-width: 1100px;
+
+    margin: 0 auto;
+
+    padding: var(--admin-space-6);
+
+    box-sizing: border-box;
+
+}
+
+
+/*==========================================================
+HEADER
+==========================================================*/
+
+.platform-tenant-form__header {
+
+    margin-bottom: var(--admin-space-6);
+
+}
+
+.platform-tenant-form__header-main {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: var(--admin-space-4);
+
+}
+
+.platform-tenant-form__back {
+
+    width: 40px;
+
+    height: 40px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    margin-top: 2px;
+
+    border-radius: var(--admin-button-radius);
+
+    color: var(--admin-text-secondary);
+
+    text-decoration: none;
+
+    transition:
+        background
+        var(--admin-duration-fast)
+        var(--admin-easing-standard),
+
+        color
+        var(--admin-duration-fast)
+        var(--admin-easing-standard);
+
+}
+
+.platform-tenant-form__back:hover {
+
+    background: var(--admin-surface-alt);
+
+    color: var(--admin-text-primary);
+
+}
+
+.platform-tenant-form__eyebrow {
+
+    display: block;
+
+    margin-bottom: var(--admin-space-1);
+
+    color: var(--admin-text-muted);
+
+    font-size: var(--admin-font-size-xs);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+    text-transform: uppercase;
+
+    letter-spacing: .06em;
+
+}
+
+.platform-tenant-form__header h1 {
+
+    margin: 0;
+
+    color: var(--admin-text-primary);
+
+    font-size: 1.75rem;
+
+    font-weight: var(--admin-font-weight-bold);
+
+    line-height: var(--admin-line-height-tight);
+
+}
+
+.platform-tenant-form__header p {
+
+    margin:
+        var(--admin-space-2)
+        0
+        0;
+
+    color: var(--admin-text-muted);
+
+    font-size: var(--admin-font-size-sm);
+
+}
+
+
+/*==========================================================
+FORM
+==========================================================*/
+
+.platform-tenant-form__form {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-5);
+
+}
+
+
+/*==========================================================
+CARD
+==========================================================*/
+
+.platform-tenant-form__card {
+
+    overflow: hidden;
+
+    background: var(--admin-surface);
+
+    border:
+        1px solid
+        var(--admin-border);
+
+    border-radius: var(--admin-card-radius);
+
+    box-shadow: var(--admin-card-shadow);
+
+}
+
+.platform-tenant-form__card-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: var(--admin-space-4);
+
+    padding: var(--admin-space-5);
+
+    border-bottom:
+        1px solid
+        var(--admin-border);
+
+}
+
+.platform-tenant-form__card-header h2 {
+
+    margin: 0;
+
+    color: var(--admin-text-primary);
+
+    font-size: var(--admin-font-size-lg);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+}
+
+.platform-tenant-form__card-header p {
+
+    margin:
+        var(--admin-space-1)
+        0
+        0;
+
+    color: var(--admin-text-muted);
+
+    font-size: var(--admin-font-size-xs);
+
+}
+
+.platform-tenant-form__card-body {
+
+    padding: var(--admin-space-5);
+
+}
+
+
+/*==========================================================
+GRID
+==========================================================*/
+
+.platform-tenant-form__grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap:
+        var(--admin-space-5)
+        var(--admin-space-6);
+
+}
+
+
+/*==========================================================
+FIELD
+==========================================================*/
+
+.platform-tenant-form__field {
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-2);
+
+}
+
+.platform-tenant-form__field--full {
+
+    grid-column: 1 / -1;
+
+}
+
+.platform-tenant-form__field label {
+
+    color: var(--admin-text-primary);
+
+    font-size: var(--admin-font-size-sm);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+}
+
+.platform-tenant-form__field label > span {
+
+    margin-left: 3px;
+
+    color: var(--admin-color-danger);
+
+}
+
+.platform-tenant-form__field > small {
+
+    color: var(--admin-text-muted);
+
+    font-size: var(--admin-font-size-xs);
+
+    line-height: var(--admin-line-height-normal);
+
+}
+
+.platform-tenant-form__field
+> input {
+
+    width: 100%;
+
+    min-height: 42px;
+
+    padding:
+        0
+        var(--admin-space-3);
+
+    box-sizing: border-box;
+
+    border:
+        1px solid
+        var(--admin-border);
+
+    border-radius: var(--admin-input-radius);
+
+    outline: none;
+
+    background: var(--admin-surface);
+
+    color: var(--admin-text-primary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    transition:
+        border-color
+        var(--admin-duration-fast)
+        var(--admin-easing-standard),
+
+        box-shadow
+        var(--admin-duration-fast)
+        var(--admin-easing-standard);
+
+}
+
+.platform-tenant-form__field
+> input::placeholder {
+
+    color: var(--admin-text-muted);
+
+}
+
+.platform-tenant-form__field
+> input:focus {
+
+    border-color: var(--admin-color-primary);
+
+    box-shadow: var(--admin-focus-ring);
+
+}
+
+.platform-tenant-form__field
+> input:disabled {
+
+    opacity: .65;
+
+    cursor: not-allowed;
+
+    background: var(--admin-surface-alt);
+
+}
+
+.platform-tenant-form__input--error {
+
+    border-color: var(--admin-color-danger) !important;
+
+}
+
+.platform-tenant-form__input--error:focus {
+
+    box-shadow:
+        0 0 0 3px
+        rgb(220 38 38 / .10) !important;
+
+}
+
+.platform-tenant-form__field
+small {
+
+    color: var(--admin-text-muted);
+
+}
+
+.platform-tenant-form__field
+input.platform-tenant-form__input--error
++ small {
+
+    color: var(--admin-color-danger);
+
+}
+
+
+/*==========================================================
+INPUT PREFIX
+==========================================================*/
+
+.platform-tenant-form__input-prefix {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+}
+
+.platform-tenant-form__input-prefix > i {
+
+    position: absolute;
+
+    left: var(--admin-space-3);
+
+    color: var(--admin-text-muted);
+
+    pointer-events: none;
+
+}
+
+.platform-tenant-form__input-prefix
+> input {
+
+    width: 100%;
+
+    min-height: 42px;
+
+    padding:
+        0
+        var(--admin-space-3)
+        0
+        var(--admin-space-9);
+
+    box-sizing: border-box;
+
+    border:
+        1px solid
+        var(--admin-border);
+
+    border-radius: var(--admin-input-radius);
+
+    outline: none;
+
+    background: var(--admin-surface);
+
+    color: var(--admin-text-primary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+}
+
+.platform-tenant-form__input-prefix
+> input:focus {
+
+    border-color: var(--admin-color-primary);
+
+    box-shadow: var(--admin-focus-ring);
+
+}
+
+.platform-tenant-form__prefix {
+
+    position: absolute;
+
+    left: var(--admin-space-3);
+
+    color: var(--admin-text-muted);
+
+    font-size: var(--admin-font-size-sm);
+
+    pointer-events: none;
+
+}
+
+
+/*==========================================================
+TOGGLE
+==========================================================*/
+
+.platform-tenant-form__toggle {
+
+    min-height: 42px;
+
+    display: inline-flex !important;
+
+    align-items: center;
+
+    gap: var(--admin-space-3);
+
+    color: var(--admin-text-secondary) !important;
+
+    font-size: var(--admin-font-size-sm);
+
+    font-weight: var(--admin-font-weight-medium) !important;
+
+    cursor: pointer;
+
+}
+
+.platform-tenant-form__toggle input {
+
+    position: absolute;
+
+    width: 1px;
+
+    height: 1px;
+
+    opacity: 0;
+
+}
+
+.platform-tenant-form__toggle-track {
+
+    position: relative;
+
+    width: 42px;
+
+    height: 24px;
+
+    flex-shrink: 0;
+
+    border-radius: 999px;
+
+    background: var(--admin-border-hover);
+
+    transition:
+        background
+        var(--admin-duration-fast)
+        var(--admin-easing-standard);
+
+}
+
+.platform-tenant-form__toggle-thumb {
+
+    position: absolute;
+
+    top: 3px;
+
+    left: 3px;
+
+    width: 18px;
+
+    height: 18px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    box-shadow: 0 1px 3px rgb(0 0 0 / .18);
+
+    transition:
+        transform
+        var(--admin-duration-fast)
+        var(--admin-easing-standard);
+
+}
+
+.platform-tenant-form__toggle
+input:checked
++ .platform-tenant-form__toggle-track {
+
+    background: var(--admin-color-primary);
+
+}
+
+.platform-tenant-form__toggle
+input:checked
++ .platform-tenant-form__toggle-track
+.platform-tenant-form__toggle-thumb {
+
+    transform: translateX(18px);
+
+}
+
+.platform-tenant-form__toggle
+input:focus-visible
++ .platform-tenant-form__toggle-track {
+
+    box-shadow: var(--admin-focus-ring);
+
+}
+
+
+/*==========================================================
+SECURITY LABEL
+==========================================================*/
+
+.platform-tenant-form__security-label {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: var(--admin-space-2);
+
+    padding:
+        var(--admin-space-2)
+        var(--admin-space-3);
+
+    border-radius: var(--admin-radius-md);
+
+    background: var(--admin-surface-alt);
+
+    color: var(--admin-text-muted);
+
+    font-size: var(--admin-font-size-xs);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+}
+
+
+/*==========================================================
+ALERT
+==========================================================*/
+
+.platform-tenant-form__alert {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: var(--admin-space-3);
+
+    padding: var(--admin-space-4);
+
+    border-radius: var(--admin-card-radius);
+
+}
+
+.platform-tenant-form__alert--danger {
+
+    background: rgb(220 38 38 / .06);
+
+    border:
+        1px solid
+        rgb(220 38 38 / .18);
+
+    color: var(--admin-color-danger);
+
+}
+
+.platform-tenant-form__alert strong {
+
+    display: block;
+
+    margin-bottom: var(--admin-space-1);
+
+    color: var(--admin-text-primary);
+
+    font-size: var(--admin-font-size-sm);
+
+}
+
+.platform-tenant-form__alert span {
+
+    color: var(--admin-text-secondary);
+
+    font-size: var(--admin-font-size-xs);
+
+}
+
+
+/*==========================================================
+ACTIONS
+==========================================================*/
+
+.platform-tenant-form__actions {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: var(--admin-space-3);
+
+    padding-bottom: var(--admin-space-4);
+
+}
+
+.platform-tenant-form__button {
+
+    min-height: 42px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: var(--admin-space-2);
+
+    padding:
+        0
+        var(--admin-space-5);
+
+    border-radius: var(--admin-button-radius);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition: .2s;
+
+}
+
+.platform-tenant-form__button:disabled {
+
+    opacity: .6;
+
+    cursor: not-allowed;
+
+}
+
+.platform-tenant-form__button--secondary {
+
+    background: var(--admin-surface);
+
+    border:
+        1px solid
+        var(--admin-border);
+
+    color: var(--admin-text-secondary);
+
+}
+
+.platform-tenant-form__button--secondary:hover {
+
+    background: var(--admin-surface-alt);
+
+    color: var(--admin-text-primary);
+
+}
+
+.platform-tenant-form__button--primary {
+
+    border: 0;
+
+    background: var(--admin-color-primary);
+
+    color: var(--admin-text-inverse);
+
+}
+
+.platform-tenant-form__button--primary:hover:not(:disabled) {
+
+    box-shadow: var(--admin-button-shadow);
+
+}
+
+
+/*==========================================================
+LOADING
+==========================================================*/
+
+.platform-tenant-form__loading {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-5);
+
+}
+
+.platform-tenant-form__loading div {
+
+    height: 180px;
+
+    border-radius: var(--admin-card-radius);
+
+    background: var(--admin-surface-alt);
+
+    animation:
+        platform-tenant-form-pulse
+        1.5s
+        ease-in-out
+        infinite;
+
+}
+
+@keyframes platform-tenant-form-pulse {
+
+    0%,
+    100% {
+        opacity: .55;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+}
+
+
+/*==========================================================
+RESPONSIVE
+==========================================================*/
+
+@media (max-width: 768px) {
+
+    .platform-tenant-form {
+
+        padding: var(--admin-space-4);
+
+    }
+
+    .platform-tenant-form__grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .platform-tenant-form__field--full {
+
+        grid-column: auto;
+
+    }
+
+    .platform-tenant-form__card-header {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+    }
+
+    .platform-tenant-form__actions {
+
+        flex-direction: column-reverse;
+
+    }
+
+    .platform-tenant-form__button {
+
+        width: 100%;
+
+    }
+
+}

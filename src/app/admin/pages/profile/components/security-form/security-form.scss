@@ -1,0 +1,63 @@
+.security-form{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.status{
+
+    display:flex;
+
+    gap:18px;
+
+    align-items:flex-start;
+
+    padding:20px;
+
+    border-radius:10px;
+
+}
+
+.status i{
+
+    font-size:22px;
+
+    margin-top:3px;
+
+}
+
+.status strong{
+
+    display:block;
+
+    margin-bottom:6px;
+
+}
+
+.status p{
+
+    margin:0;
+
+    color:#666;
+
+    line-height:1.6;
+
+}
+
+.enabled{
+
+    background:#edf8f1;
+
+    color:#2e7d32;
+
+}
+
+.disabled{
+
+    background:#fafafa;
+
+    color:#666;
+
+}

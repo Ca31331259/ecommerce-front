@@ -1,0 +1,126 @@
+<div class="admin-save-bar">
+
+    <div class="admin-save-bar__information">
+
+        <span
+            class="admin-save-bar__status"
+            aria-hidden="true">
+
+            @switch(state){
+
+                @case('saving'){
+
+                    <span class="admin-save-bar__spinner">
+                    </span>
+
+                }
+
+                @case('saved'){
+
+                    <i class="fa-solid fa-check"></i>
+
+                }
+
+                @case('error'){
+
+                    <i class="fa-solid fa-exclamation"></i>
+
+                }
+
+                @case('dirty'){
+
+                    <i class="fa-solid fa-pen"></i>
+
+                }
+
+                @default {
+
+                    <i class="fa-solid fa-check"></i>
+
+                }
+
+            }
+
+        </span>
+
+        <div class="admin-save-bar__text">
+
+            <strong class="admin-save-bar__message">
+
+                {{ resolvedMessage }}
+
+            </strong>
+
+            @if(metadata.length){
+
+                <div class="admin-save-bar__meta">
+
+                    <ng-content
+                        select="[adminSaveBarMeta]">
+                    </ng-content>
+
+                </div>
+
+            }
+
+        </div>
+
+    </div>
+
+    <div class="admin-save-bar__actions">
+
+        @if(showDiscard){
+
+            <button
+                class="admin-save-bar__discard"
+                type="button"
+                [disabled]="
+                    disabled ||
+                    state === 'saving' ||
+                    state === 'clean'
+                "
+                (click)="onDiscard()">
+
+                {{ discardLabel }}
+
+            </button>
+
+        }
+
+        <button
+            class="admin-save-bar__save"
+            type="button"
+            [disabled]="
+                disabled ||
+                state === 'saving' ||
+                state === 'clean'
+            "
+            (click)="onSave()">
+
+            @if(state === 'saving'){
+
+                <span
+                    class="admin-save-bar__button-spinner"
+                    aria-hidden="true">
+                </span>
+
+            } @else {
+
+                <i
+                    class="fa-solid fa-floppy-disk"
+                    aria-hidden="true">
+                </i>
+
+            }
+
+            <span>
+
+                {{ saveLabel }}
+
+            </span>
+
+        </button>
+
+    </div>
+
+</div>

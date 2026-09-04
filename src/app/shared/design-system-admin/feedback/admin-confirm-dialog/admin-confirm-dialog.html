@@ -1,0 +1,102 @@
+<div class="admin-confirm-dialog">
+
+    <!-- ========================================= -->
+    <!-- ICON -->
+    <!-- ========================================= -->
+
+    <span
+        class="admin-confirm-dialog__icon"
+        aria-hidden="true">
+
+        <i [class]="icon"></i>
+
+    </span>
+
+    <!-- ========================================= -->
+    <!-- INFORMATION -->
+    <!-- ========================================= -->
+
+    <div class="admin-confirm-dialog__information">
+
+        <h2
+            class="admin-confirm-dialog__title"
+            mat-dialog-title>
+
+            {{ title }}
+
+        </h2>
+
+        @if(description){
+
+            <div
+                class="admin-confirm-dialog__description"
+                mat-dialog-content>
+
+                <p>
+
+                    {{ description }}
+
+                </p>
+
+            </div>
+
+        }
+
+    </div>
+
+    <!-- ========================================= -->
+    <!-- ACTIONS -->
+    <!-- ========================================= -->
+
+    <div
+        class="admin-confirm-dialog__actions"
+        mat-dialog-actions>
+
+        <button
+            class="admin-confirm-dialog__cancel"
+            type="button"
+            (click)="cancel()">
+
+            {{ cancelLabel }}
+
+        </button>
+
+        <button
+            class="admin-confirm-dialog__confirm"
+            type="button"
+            (click)="confirm()">
+
+            @if(variant === 'danger'){
+
+                <i
+                    class="fa-solid fa-trash"
+                    aria-hidden="true">
+                </i>
+
+            } @else if(variant === 'warning'){
+
+                <i
+                    class="fa-solid fa-check"
+                    aria-hidden="true">
+                </i>
+
+            } @else {
+
+                <i
+                    class="fa-solid fa-check"
+                    aria-hidden="true">
+                </i>
+
+            }
+
+            <span>
+
+                {{ confirmLabel }}
+
+            </span>
+
+        </button>
+
+    </div>
+
+</div>

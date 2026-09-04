@@ -1,0 +1,75 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+    min-width: 0;
+
+}
+
+/*==========================================================
+SECTIONS
+==========================================================*/
+
+.profile-form__section {
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-5);
+
+}
+
+.profile-form__section + .profile-form__section {
+
+    margin-top: var(--admin-space-8);
+
+    padding-top: var(--admin-space-8);
+
+    border-top:
+        1px solid
+        var(--admin-border);
+
+}
+
+/*==========================================================
+SECTION HEADER
+==========================================================*/
+
+.profile-form__section-header {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-1);
+
+}
+
+.profile-form__section-header h3 {
+
+    margin: 0;
+
+    color: var(--admin-text-primary);
+
+    font-size: var(--admin-font-size-base);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+}
+
+.profile-form__section-header p {
+
+    margin: 0;
+
+    color: var(--admin-text-secondary);
+
+    font-size: var(--admin-font-size-sm);
+
+    line-height: var(--admin-line-height-relaxed);
+
+}

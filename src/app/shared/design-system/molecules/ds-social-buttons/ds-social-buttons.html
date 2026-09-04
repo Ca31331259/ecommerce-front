@@ -1,0 +1,93 @@
+<div class="social-buttons">
+
+    @if(facebook){
+
+        <button
+            type="button"
+            class="social-button"
+            aria-label="Facebook"
+            title="Facebook"
+            (click)="abrir(facebook)">
+
+            <i class="fa-brands fa-facebook-f"></i>
+
+        </button>
+
+    }
+
+    @if(instagram){
+
+        <button
+            type="button"
+            class="social-button"
+            aria-label="Instagram"
+            title="Instagram"
+            (click)="abrir(instagram)">
+
+            <i class="fa-brands fa-instagram"></i>
+
+        </button>
+
+    }
+
+    @if(youtube){
+
+        <button
+            type="button"
+            class="social-button"
+            aria-label="YouTube"
+            title="YouTube"
+            (click)="abrir(youtube)">
+
+            <i class="fa-brands fa-youtube"></i>
+
+        </button>
+
+    }
+
+    @if(linkedin){
+
+        <button
+            type="button"
+            class="social-button"
+            aria-label="LinkedIn"
+            title="LinkedIn"
+            (click)="abrir(linkedin)">
+
+            <i class="fa-brands fa-linkedin-in"></i>
+
+        </button>
+
+    }
+
+    @if(tiktok){
+
+        <button
+            type="button"
+            class="social-button"
+            aria-label="TikTok"
+            title="TikTok"
+            (click)="abrir(tiktok)">
+
+            <i class="fa-brands fa-tiktok"></i>
+
+        </button>
+
+    }
+
+    @if(whatsapp){
+
+        <button
+            type="button"
+            class="social-button"
+            aria-label="WhatsApp"
+            title="WhatsApp"
+            (click)="abrirWhatsapp()">
+
+            <i class="fa-brands fa-whatsapp"></i>
+
+        </button>
+
+    }
+
+</div>

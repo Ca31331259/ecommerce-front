@@ -1,0 +1,65 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+    min-height: 100dvh;
+
+}
+
+/*==========================================================
+PUBLIC LAYOUT
+==========================================================*/
+
+.public-layout {
+
+    width: 100%;
+
+    min-height: 100dvh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    background: var(--tenant-bg);
+
+    color: var(--tenant-text);
+
+    font-family: var(--tenant-font);
+
+}
+
+/*==========================================================
+CONTENT
+==========================================================*/
+
+.public-content {
+
+    width: 100%;
+
+    flex: 1;
+
+    display: block;
+
+}
+
+/*==========================================================
+BOOTSTRAP LOADING
+==========================================================*/
+
+.bootstrap-loading {
+
+    width: 100%;
+
+    min-height: 100dvh;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: var(--tenant-bg, #ffffff);
+
+}

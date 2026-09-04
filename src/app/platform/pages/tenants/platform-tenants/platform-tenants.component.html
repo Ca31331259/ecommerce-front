@@ -1,0 +1,488 @@
+<div class="platform-tenants">
+
+    <!-- ========================================== -->
+    <!-- HEADER -->
+    <!-- ========================================== -->
+
+    <header class="platform-tenants__header">
+
+        <div>
+
+            <span class="platform-tenants__eyebrow">
+
+                Plataforma
+
+            </span>
+
+            <h1 class="platform-tenants__title">
+
+                Tenants
+
+            </h1>
+
+            <p class="platform-tenants__description">
+
+                Administrá las cuentas y configuraciones
+                de cada tenant.
+
+            </p>
+
+        </div>
+
+
+        <a
+            class="platform-tenants__create"
+            routerLink="/platform/tenants/new">
+
+            <i
+                class="fa-solid fa-plus"
+                aria-hidden="true">
+            </i>
+
+            <span>
+
+                Nuevo tenant
+
+            </span>
+
+        </a>
+
+    </header>
+
+
+    <!-- ========================================== -->
+    <!-- TOOLBAR -->
+    <!-- ========================================== -->
+
+    <section class="platform-tenants__toolbar">
+
+        <div class="platform-tenants__search">
+
+            <i
+                class="fa-solid fa-magnifying-glass"
+                aria-hidden="true">
+            </i>
+
+            <input
+                type="search"
+                placeholder="Buscar por código, nombre o dominio..."
+                [value]="search()"
+                (input)="setSearch($any($event.target).value)" />
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- LOADING -->
+    <!-- ========================================== -->
+
+    @if (loading()) {
+
+        <section class="platform-tenants__loading">
+
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+
+        </section>
+
+    }
+
+
+    <!-- ========================================== -->
+    <!-- ERROR -->
+    <!-- ========================================== -->
+
+    @if (!loading() && error()) {
+
+        <section class="platform-tenants__error">
+
+            <div class="platform-tenants__error-icon">
+
+                <i
+                    class="fa-solid fa-triangle-exclamation"
+                    aria-hidden="true">
+                </i>
+
+            </div>
+
+            <div>
+
+                <strong>
+
+                    No se pudieron cargar los tenants
+
+                </strong>
+
+                <p>
+
+                    Ocurrió un error al consultar la plataforma.
+
+                </p>
+
+            </div>
+
+        </section>
+
+    }
+
+
+    <!-- ========================================== -->
+    <!-- TABLE -->
+    <!-- ========================================== -->
+
+    @if (!loading() && !error()) {
+
+        <section class="platform-tenants__table-container">
+
+            <div class="platform-tenants__table-wrapper">
+
+                <table class="platform-tenants__table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Tenant
+                            </th>
+
+                            <th>
+                                Dominio
+                            </th>
+
+                            <th>
+                                Web
+                            </th>
+
+                            <th>
+                                SSL
+                            </th>
+
+                            <th>
+                                Precio mensual
+                            </th>
+
+                            <th>
+                                Estado
+                            </th>
+
+                            <th>
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        @for (
+                            tenant of filteredTenants();
+                            track tenant.id
+                        ) {
+
+                            <tr>
+
+                                <!-- TENANT -->
+
+                                <td>
+
+                                    <div
+                                        class="
+                                            platform-tenants__tenant
+                                        ">
+
+                                        <div
+                                            class="
+                                                platform-tenants__tenant-avatar
+                                            ">
+
+                                            {{
+                                                tenant.name
+                                                    .charAt(0)
+                                                    .toUpperCase()
+                                            }}
+
+                                        </div>
+
+                                        <div>
+
+                                            <strong>
+
+                                                {{ tenant.name }}
+
+                                            </strong>
+
+                                            <span>
+
+                                                {{ tenant.code }}
+
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <!-- DOMAIN -->
+
+                                <td>
+
+                                    <span
+                                        class="
+                                            platform-tenants__domain
+                                        ">
+
+                                        {{ tenant.domain }}
+
+                                    </span>
+
+                                </td>
+
+
+                                <!-- WEB -->
+
+                                <td>
+
+                                    @if (tenant.webEnabled) {
+
+                                        <span
+                                            class="
+                                                platform-tenants__status
+                                                platform-tenants__status--success
+                                            ">
+
+                                            <i
+                                                class="fa-solid fa-check"
+                                                aria-hidden="true">
+                                            </i>
+
+                                            Activa
+
+                                        </span>
+
+                                    } @else {
+
+                                        <span
+                                            class="
+                                                platform-tenants__status
+                                                platform-tenants__status--muted
+                                            ">
+
+                                            No
+
+                                        </span>
+
+                                    }
+
+                                </td>
+
+
+                                <!-- SSL -->
+
+                                <td>
+
+                                    <span
+                                        class="
+                                            platform-tenants__status
+                                            platform-tenants__status--ssl
+                                        "
+                                        [class.platform-tenants__status--success]="
+                                            tenant.sslStatus === 'ACTIVE'
+                                        "
+                                        [class.platform-tenants__status--warning]="
+                                            tenant.sslStatus === 'PENDING'
+                                        "
+                                        [class.platform-tenants__status--danger]="
+                                            tenant.sslStatus === 'ERROR' ||
+                                            tenant.sslStatus === 'EXPIRED'
+                                        ">
+
+                                        @if (
+                                            tenant.sslStatus === 'ACTIVE'
+                                        ) {
+
+                                            <i
+                                                class="fa-solid fa-lock"
+                                                aria-hidden="true">
+                                            </i>
+
+                                        }
+
+                                        @if (
+                                            tenant.sslStatus === 'PENDING'
+                                        ) {
+
+                                            <i
+                                                class="fa-solid fa-clock"
+                                                aria-hidden="true">
+                                            </i>
+
+                                        }
+
+                                        @if (
+                                            tenant.sslStatus === 'ERROR' ||
+                                            tenant.sslStatus === 'EXPIRED'
+                                        ) {
+
+                                            <i
+                                                class="fa-solid fa-triangle-exclamation"
+                                                aria-hidden="true">
+                                            </i>
+
+                                        }
+
+                                        {{ getSslLabel(tenant.sslStatus) }}
+
+                                    </span>
+
+                                </td>
+
+
+                                <!-- PRICE -->
+
+                                <td>
+
+                                    <span
+                                        class="
+                                            platform-tenants__price
+                                        ">
+
+                                        ${{ tenant.monthlyPrice }}
+
+                                    </span>
+
+                                </td>
+
+
+                                <!-- ACTIVE -->
+
+                                <td>
+
+                                    @if (tenant.active) {
+
+                                        <span
+                                            class="
+                                                platform-tenants__status
+                                                platform-tenants__status--success
+                                            ">
+
+                                            <span
+                                                class="
+                                                    platform-tenants__status-dot
+                                                ">
+                                            </span>
+
+                                            Activo
+
+                                        </span>
+
+                                    } @else {
+
+                                        <span
+                                            class="
+                                                platform-tenants__status
+                                                platform-tenants__status--muted
+                                            ">
+
+                                            <span
+                                                class="
+                                                    platform-tenants__status-dot
+                                                ">
+                                            </span>
+
+                                            Inactivo
+
+                                        </span>
+
+                                    }
+
+                                </td>
+
+
+                                <!-- ACTION -->
+
+                                <td>
+
+                                    <a
+                                        class="
+                                            platform-tenants__action
+                                        "
+                                        [routerLink]="[
+                                            '/platform/tenants',
+                                            tenant.id
+                                        ]"
+                                        aria-label="Ver tenant">
+
+                                        <i
+                                            class="
+                                                fa-solid
+                                                fa-chevron-right
+                                            "
+                                            aria-hidden="true">
+                                        </i>
+
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+                        } @empty {
+
+                            <tr>
+
+                                <td
+                                    colspan="7"
+                                    class="
+                                        platform-tenants__empty
+                                    ">
+
+                                    <div>
+
+                                        <i
+                                            class="
+                                                fa-solid
+                                                fa-building
+                                            "
+                                            aria-hidden="true">
+                                        </i>
+
+                                        <strong>
+
+                                            No hay tenants
+
+                                        </strong>
+
+                                        <span>
+
+                                            No encontramos tenants
+                                            que coincidan con la búsqueda.
+
+                                        </span>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    }
+
+</div>

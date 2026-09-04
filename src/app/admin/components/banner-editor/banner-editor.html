@@ -1,0 +1,165 @@
+<admin-section title="Banners" subtitle="Administrá el carrusel principal de la tienda.">
+
+    <admin-form-preview style="margin: 30px" title="Ejemplo" description="Ejemplo de Banner" badge="Hero"
+        image="assets/placeholders/banner-preview.png">
+    </admin-form-preview>
+
+    <admin-button adminSectionActions variant="primary" icon="fa-solid fa-plus" (clicked)="createBanner()">
+
+        Nuevo Banner
+
+    </admin-button>
+
+    @for (banner of banners; track banner.id) {
+
+    <admin-form-card [title]="banner.title || 'Banner'" [subtitle]="'Orden ' + (banner.sortOrder ?? 0)"
+        icon="fa-regular fa-images">
+
+        <admin-button adminFormCardActions variant="danger" icon="fa-solid fa-trash" [iconOnly]="true"
+            (clicked)="deleteBanner(banner)">
+        </admin-button>
+
+        <div class="banner-editor">
+
+            <!-- ===================================== -->
+            <!-- IMAGEN -->
+            <!-- ===================================== -->
+
+            <div class="banner-editor__image">
+
+                <admin-upload [previewUrl]="resolveImage(
+
+        banner.imageUrl,
+
+        placeholder.banner
+
+    )" (fileSelected)="uploadBanner(banner, $event)">
+
+                    <span adminUploadMeta>
+
+                        JPG, PNG o WEBP
+
+                    </span>
+
+                </admin-upload>
+
+            </div>
+
+            <!-- ===================================== -->
+            <!-- FORMULARIO -->
+            <!-- ===================================== -->
+
+            <div class="banner-editor__form">
+
+                <admin-form-grid>
+
+                    <!-- Título -->
+
+                    <admin-field label="Título" [required]="true">
+
+                        <input adminFieldContent adminInput [(ngModel)]="banner.title" (ngModelChange)="markDirty()">
+
+                    </admin-field>
+
+                    <!-- Orden -->
+
+                    <admin-field label="Orden">
+
+                        <input adminFieldContent adminInput type="number" [(ngModel)]="banner.sortOrder"
+                            (ngModelChange)="markDirty()">
+
+                    </admin-field>
+
+                    <!-- Subtitulo -->
+
+                    <admin-field class="full" label="Subtítulo">
+
+                        <textarea adminFieldContent adminTextarea rows="4" [(ngModel)]="banner.subtitle"
+                            (ngModelChange)="markDirty()">
+                            </textarea>
+
+                    </admin-field>
+
+                    <!-- Texto botón -->
+
+                    <admin-field label="Texto del botón" hint="Aparece en el boton del banner.">
+
+                        <input adminFieldContent adminInput [(ngModel)]="banner.buttonText"
+                            (ngModelChange)="markDirty()">
+
+                    </admin-field>
+
+                    <!-- Link -->
+
+                    <admin-field label="Destino del botón" hint="Elegí una sección del sitio o una URL personalizada.">
+
+                        <admin-select adminFieldContent [ngModel]="resolveLinkType(banner)"
+                            (ngModelChange)="onBannerLinkChange(banner, $event)" [options]="anchorOptions">
+
+                        </admin-select>
+
+                    </admin-field>
+
+                    @if(resolveLinkType(banner) === CUSTOM_LINK){
+
+                    <div style="margin-top:12px;">
+
+                        <input adminInput type="url" [(ngModel)]="banner.buttonLink" (ngModelChange)="markDirty()"
+                            placeholder="https://...">
+
+                    </div>
+
+                    }
+
+                    <!-- Color -->
+
+                    <admin-field label="Color del texto">
+
+                        <admin-color-picker adminFieldContent [(ngModel)]="banner.textColor"
+                            (ngModelChange)="markDirty()">
+
+                        </admin-color-picker>
+
+                    </admin-field>
+
+                    <!-- Estado -->
+
+                    <admin-field label="Estado">
+
+                        <admin-switch adminFieldContent [(ngModel)]="banner.active" (ngModelChange)="markDirty()">
+
+                            Banner activo
+
+                        </admin-switch>
+
+                    </admin-field>
+
+                </admin-form-grid>
+
+                <!-- ===================================== -->
+                <!-- SAVE BAR -->
+                <!-- ===================================== -->
+
+
+                <admin-save-bar [model]="banner" (save)="saveBanner(banner)">
+
+
+
+                    <admin-button variant="primary" icon="fa-solid fa-floppy-disk" (clicked)="saveBanner(banner)">
+
+                        Guardar cambios
+
+                    </admin-button>
+                </admin-save-bar>
+
+
+
+            </div>
+
+        </div>
+
+    </admin-form-card>
+
+    }
+
+</admin-section>

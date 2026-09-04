@@ -1,0 +1,110 @@
+<section class="hero">
+    <!-- ========================================= -->
+    <!-- BACKGROUND -->
+    <!-- ========================================= -->
+
+    <div class="hero-background">
+
+        @if(isImageBackground){
+        <img class="hero-background-image" [src]="heroBackgroundImage" [alt]="home.heroTitle || 'Imagen principal'">
+
+        }
+
+        @if(isVideoBackground){
+
+        <video #heroVideo class="hero-background-video" [src]="home.heroBackgroundVideo" muted autoplay loop
+            playsinline>
+        </video>
+
+        }
+
+        @if(isGradient){
+
+        <div class="hero-background-gradient"></div>
+
+        }
+
+        @if(!isGradient){
+
+        <div class="hero-overlay" [style.opacity]="overlayOpacity">
+        </div>
+
+        }
+
+    </div>
+
+    <!-- ========================================= -->
+    <!-- CONTENT -->
+    <!-- ========================================= -->
+
+    <ds-container size="lg">
+
+        <div class="hero-layout">
+
+            <!-- ================================= -->
+            <!-- TEXT -->
+            <!-- ================================= -->
+
+            <div class="hero-content">
+
+                @if(home.heroTitle){
+
+                <h1>
+
+                    {{ home.heroTitle }}
+
+                </h1>
+
+                }
+
+                @if(home.heroSubtitle){
+
+                <p class="hero-subtitle">
+
+                    {{ home.heroSubtitle }}
+
+                </p>
+
+                }
+
+                @if(home.heroButtonText){
+
+                <div class="hero-actions">
+
+                    <ds-button variant="primary" size="lg" (click)="openLink()">
+
+                        {{ home.heroButtonText }}
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </ds-button>
+
+                </div>
+
+                }
+
+            </div>
+
+            <!-- ================================= -->
+            <!-- HERO IMAGE -->
+            <!-- ================================= -->
+
+            @if(home.heroImage && !isMobile){
+
+            <div class="hero-visual" [class.image-none]="heroImageStyle === 'NONE'"
+                [class.image-normal]="heroImageStyle === 'NORMAL'" [class.image-rounded]="heroImageStyle === 'ROUNDED'"
+                [class.image-circle]="heroImageStyle === 'CIRCLE'"
+                [class.image-floating]="heroImageStyle === 'FLOATING'"
+                [class.image-device-frame]="heroImageStyle === 'DEVICE_FRAME'">
+
+                <img [src]="home.heroImage" [alt]="home.heroTitle || 'Imagen destacada'">
+
+            </div>
+
+            }
+
+        </div>
+
+    </ds-container>
+
+</section>

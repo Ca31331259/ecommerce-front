@@ -1,0 +1,414 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+    min-width: 0;
+
+}
+
+/*==========================================================
+DIALOG
+==========================================================*/
+
+.admin-confirm-dialog {
+
+    width: 100%;
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: var(--admin-space-5);
+
+    padding: var(--admin-space-6);
+
+    box-sizing: border-box;
+
+    background: var(--admin-surface);
+
+    text-align: center;
+
+}
+
+/*==========================================================
+ICON
+==========================================================*/
+
+.admin-confirm-dialog__icon {
+
+    width: var(--admin-space-12);
+
+    height: var(--admin-space-12);
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: var(--admin-radius-round);
+
+    background: var(--admin-surface-alt);
+
+    color: var(--admin-color-primary);
+
+}
+
+.admin-confirm-dialog__icon i {
+
+    font-size: var(--admin-font-size-xl);
+
+    line-height: 1;
+
+}
+
+/*==========================================================
+INFORMATION
+==========================================================*/
+
+.admin-confirm-dialog__information {
+
+    width: 100%;
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: var(--admin-space-2);
+
+}
+
+/*==========================================================
+TITLE
+==========================================================*/
+
+.admin-confirm-dialog__title {
+
+    margin: 0;
+
+    padding: 0;
+
+    color: var(--admin-text-primary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-xl);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+    line-height: var(--admin-line-height-tight);
+
+}
+
+/*==========================================================
+DESCRIPTION
+==========================================================*/
+
+.admin-confirm-dialog__description {
+
+    max-width: var(--admin-form-max-width);
+
+    margin: 0;
+
+    padding: 0;
+
+    color: var(--admin-text-secondary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    font-weight: var(--admin-font-weight-normal);
+
+    line-height: var(--admin-line-height-relaxed);
+
+}
+
+.admin-confirm-dialog__description p {
+
+    margin: 0;
+
+}
+
+/*==========================================================
+ACTIONS
+==========================================================*/
+
+.admin-confirm-dialog__actions {
+
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    gap: var(--admin-space-3);
+
+    margin: 0;
+
+    padding: var(--admin-space-2) 0 0;
+
+    box-sizing: border-box;
+
+}
+
+/*==========================================================
+BUTTON BASE
+==========================================================*/
+
+.admin-confirm-dialog__cancel,
+.admin-confirm-dialog__confirm {
+
+    min-height: var(--admin-button-height);
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: var(--admin-button-gap);
+
+    padding:
+        0
+        var(--admin-button-padding-x);
+
+    box-sizing: border-box;
+
+    border-radius: var(--admin-button-radius);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+    line-height: var(--admin-line-height-normal);
+
+    cursor: pointer;
+
+    transition:
+        background
+        var(--admin-duration-fast)
+        var(--admin-easing-standard),
+
+        border-color
+        var(--admin-duration-fast)
+        var(--admin-easing-standard),
+
+        color
+        var(--admin-duration-fast)
+        var(--admin-easing-standard),
+
+        box-shadow
+        var(--admin-duration-fast)
+        var(--admin-easing-standard);
+
+}
+
+/*==========================================================
+CANCEL
+==========================================================*/
+
+.admin-confirm-dialog__cancel {
+
+    border: 1px solid var(--admin-border);
+
+    background: var(--admin-surface);
+
+    color: var(--admin-text-primary);
+
+}
+
+/*==========================================================
+CONFIRM
+==========================================================*/
+
+.admin-confirm-dialog__confirm {
+
+    border: 1px solid var(--admin-color-primary);
+
+    background: var(--admin-color-primary);
+
+    color: var(--admin-text-inverse);
+
+}
+
+/*==========================================================
+PRIMARY
+==========================================================*/
+
+:host([variant="primary"])
+.admin-confirm-dialog__icon {
+
+    background: var(--blue-50);
+
+    color: var(--admin-color-primary);
+
+}
+
+/*==========================================================
+WARNING
+==========================================================*/
+
+:host([variant="warning"])
+.admin-confirm-dialog__icon {
+
+    background:
+        rgb(
+            245 158 11 /
+            .10
+        );
+
+    color: var(--admin-color-warning);
+
+}
+
+:host([variant="warning"])
+.admin-confirm-dialog__confirm {
+
+    border-color: var(--admin-color-warning);
+
+    background: var(--admin-color-warning);
+
+}
+
+/*==========================================================
+DANGER
+==========================================================*/
+
+:host([variant="danger"])
+.admin-confirm-dialog__icon {
+
+    background:
+        rgb(
+            220 38 38 /
+            .08
+        );
+
+    color: var(--admin-color-danger);
+
+}
+
+:host([variant="danger"])
+.admin-confirm-dialog__confirm {
+
+    border-color: var(--admin-color-danger);
+
+    background: var(--admin-color-danger);
+
+}
+
+/*==========================================================
+FOCUS
+==========================================================*/
+
+.admin-confirm-dialog__cancel:focus-visible,
+.admin-confirm-dialog__confirm:focus-visible {
+
+    outline: none;
+
+    box-shadow: var(--admin-focus-ring);
+
+}
+
+/*==========================================================
+HOVER
+==========================================================*/
+
+@media (hover: hover) {
+
+    .admin-confirm-dialog__cancel:hover {
+
+        border-color: var(--admin-border-hover);
+
+        background: var(--admin-surface-alt);
+
+    }
+
+    :host([variant="primary"])
+    .admin-confirm-dialog__confirm:hover {
+
+        border-color: var(--admin-color-primary-hover);
+
+        background: var(--admin-color-primary-hover);
+
+    }
+
+    :host([variant="warning"])
+    .admin-confirm-dialog__confirm:hover {
+
+        filter: brightness(.94);
+
+    }
+
+    :host([variant="danger"])
+    .admin-confirm-dialog__confirm:hover {
+
+        filter: brightness(.94);
+
+    }
+
+}
+
+/*==========================================================
+DESKTOP
+==========================================================*/
+
+@media (min-width: 768px) {
+
+    .admin-confirm-dialog {
+
+        padding: var(--admin-space-8);
+
+    }
+
+    .admin-confirm-dialog__actions {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+    }
+
+    .admin-confirm-dialog__cancel,
+    .admin-confirm-dialog__confirm {
+
+        min-width: 8rem;
+
+    }
+
+}
+
+/*==========================================================
+REDUCED MOTION
+==========================================================*/
+
+@media (prefers-reduced-motion: reduce) {
+
+    .admin-confirm-dialog__cancel,
+    .admin-confirm-dialog__confirm {
+
+        transition: none;
+
+    }
+
+}

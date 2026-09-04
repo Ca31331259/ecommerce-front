@@ -1,0 +1,109 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+    min-width: 0;
+
+    min-height: 100dvh;
+
+}
+
+/*==========================================================
+PLATFORM SHELL
+==========================================================*/
+
+.platform-shell {
+
+    width: 100%;
+
+    min-width: 0;
+
+    min-height: 100dvh;
+
+    display: grid;
+
+    grid-template-columns:
+        auto
+        minmax(0, 1fr);
+
+    background: var(--admin-page-background);
+
+}
+
+/*==========================================================
+SIDEBAR
+==========================================================*/
+
+.platform-shell__sidebar {
+
+    position: sticky;
+
+    top: 0;
+
+    align-self: start;
+
+    height: 100dvh;
+
+    z-index: var(--admin-z-sidebar);
+
+}
+
+/*==========================================================
+WORKSPACE
+==========================================================*/
+
+.platform-shell__workspace {
+
+    min-width: 0;
+
+    min-height: 100dvh;
+
+    display: grid;
+
+    grid-template-rows:
+        auto
+        minmax(0, 1fr);
+
+}
+
+/*==========================================================
+TOPBAR
+==========================================================*/
+
+.platform-shell__topbar {
+
+    position: sticky;
+
+    top: 0;
+
+    min-width: 0;
+
+    z-index: var(--admin-z-sticky);
+
+}
+
+/*==========================================================
+MAIN
+==========================================================*/
+
+.platform-shell__main {
+
+    min-width: 0;
+
+    min-height: 0;
+
+    overflow-x: hidden;
+
+}
+
+/*==========================================================
+ROUTED CONTENT
+==========================================================*/
+
+.platform-shell__main > router-outlet {
+
+    display: none;
+
+}

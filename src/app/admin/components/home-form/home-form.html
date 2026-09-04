@@ -1,0 +1,586 @@
+<admin-form-card title="Contenido de la página principal"
+    subtitle="Administrá el Hero, la sección Nosotros y el llamado a la acción principal.">
+
+    <!-- ======================================================
+    HERO
+    ======================================================= -->
+
+    <div class="home-form__section">
+
+        <div class="home-form__section-header">
+
+            <h3>
+                Hero principal
+            </h3>
+
+            <p>
+                Configurá el contenido principal que recibe a los visitantes.
+            </p>
+
+        </div>
+
+        <admin-form-preview style="margin: 30px" title="Ejemplo" description="Ejemplo de Hero." badge="Hero"
+            image="assets/placeholders/hero-preview.png">
+        </admin-form-preview>
+        <admin-form-grid columns="2">
+
+            <admin-field label="Título principal" hint="Título destacado del Hero.">
+
+                <input adminFieldContent adminInput type="text" [(ngModel)]="home.heroTitle"
+                    placeholder="Título principal del sitio">
+
+            </admin-field>
+
+
+            <admin-field label="Subtítulo" hint="Texto complementario mostrado debajo del título.">
+
+                <textarea adminFieldContent adminTextarea rows="4" [(ngModel)]="home.heroSubtitle"
+                    placeholder="Descripción principal del comercio">
+                </textarea>
+
+            </admin-field>
+
+
+            <admin-field label="Texto del botón" hint="Texto visible en la acción principal.">
+
+                <input adminFieldContent adminInput type="text" [(ngModel)]="home.heroButtonText"
+                    placeholder="Ej. Ver productos">
+
+            </admin-field>
+
+
+            <admin-field label="Destino del botón" hint="Elegí una sección del sitio o una URL personalizada.">
+
+                <admin-select adminFieldContent [ngModel]="heroLinkType" (ngModelChange)="onHeroLinkChange($event)"
+                    [options]="anchorOptions">
+
+                </admin-select>
+
+            </admin-field>
+
+            @if(heroLinkType === CUSTOM_LINK){
+
+            <div style="margin-top:12px;">
+
+                <input adminInput type="url" [(ngModel)]="home.heroButtonLink" placeholder="https://...">
+
+            </div>
+
+            }
+        </admin-form-grid>
+
+    </div>
+
+    <!-- ======================================================
+    HERO BACKGROUND
+    ======================================================= -->
+
+    <div class="home-form__section">
+
+        <div class="home-form__section-header">
+
+            <h3>
+                Fondo del Hero
+            </h3>
+
+            <p>
+                Elegí el tipo de fondo y configurá el recurso visual correspondiente.
+            </p>
+
+        </div>
+
+
+        <admin-form-grid columns="2">
+
+            <admin-field label="Tipo de fondo" hint="Define cómo se construye el fondo del Hero.">
+
+                <admin-select adminFieldContent [(ngModel)]="home.heroBackgroundType" [options]="heroBackgroundOptions">
+
+                    <option value="GRADIENT">
+                        Gradiente
+                    </option>
+
+                    <option value="IMAGE">
+                        Imagen
+                    </option>
+
+                    <option value="VIDEO">
+                        Video
+                    </option>
+
+                </admin-select>
+
+            </admin-field>
+
+
+            @if(home.heroBackgroundType !== 'GRADIENT'){
+
+            <admin-field label="Opacidad del overlay" hint="Valor entre 0 y 100.">
+
+
+
+                <input adminFieldContent adminInput type="range" min="0" max="100" step="1"
+                    [(ngModel)]="home.heroOverlayOpacity">
+
+                <span>
+                    {{ home.heroOverlayOpacity ?? 35 }}%
+                </span>
+
+
+            </admin-field>
+
+            }
+
+        </admin-form-grid>
+
+
+        @if(home.heroBackgroundType === 'IMAGE'){
+
+        <div class="home-form__conditional">
+
+            <div class="home-form__upload">
+
+                <div class="home-form__upload-header">
+
+                    <h4>
+                        Imagen de fondo
+                    </h4>
+
+                    <p>
+                        Imagen utilizada como fondo completo del Hero.
+                    </p>
+
+                </div>
+
+                <admin-upload accept="image/*" variant="image" [previewUrl]="resolveImage(
+
+        home.heroBackgroundImage,
+
+        placeholder.hero
+
+    )" (fileSelected)="uploadHeroBackground($event)">
+
+                    <span adminUploadMeta>
+                        JPG, PNG o WebP
+                    </span>
+
+                </admin-upload>
+
+            </div>
+
+        </div>
+
+        }
+
+
+        @if(home.heroBackgroundType === 'VIDEO'){
+
+        <div class="home-form__conditional">
+
+            <div class="home-form__upload">
+
+                <div class="home-form__upload-header">
+
+                    <h4>
+                        Video de fondo
+                    </h4>
+
+                    <p>
+                        Video reproducido automáticamente como fondo del Hero.
+                    </p>
+
+                </div>
+
+                <admin-upload accept="video/*" variant="file" [fileName]="home.heroBackgroundVideo"
+                    (fileSelected)="uploadHeroVideo($event)">
+
+                    <span adminUploadMeta>
+                        MP4, WebM u otro formato compatible
+                    </span>
+
+                </admin-upload>
+
+            </div>
+
+        </div>
+
+        }
+
+    </div>
+
+
+
+    <!-- ======================================================
+    HERO IMAGE
+    ======================================================= -->
+
+    <div class="home-form__section">
+            <admin-form-preview style="margin: 30px" title="Ejemplo" description="Ejemplo de Imagen destacada" badge="Hero"
+        image="assets/placeholders/Imagen del hero-preview.png">
+    </admin-form-preview>
+        <div class="home-form__section-header">
+
+            <h3>
+                Imagen destacada
+            </h3>
+
+            <p>
+                Imagen visual mostrada junto al contenido principal del Hero.
+            </p>
+
+        </div>
+
+
+        <div class="home-form__upload">
+
+            <div class="home-form__upload-header">
+
+                <h4>
+                    Imagen del Hero
+                </h4>
+
+                <p>
+                    Seleccioná la imagen destacada del contenido principal.
+                </p>
+
+            </div>
+
+            <admin-upload accept="image/*" variant="image" [previewUrl]="resolveImage(
+
+        home.heroImage,
+
+        placeholder.hero
+
+    )" (fileSelected)="uploadHero($event)">
+
+                <span adminUploadMeta>
+                    JPG, PNG o WebP
+                </span>
+
+            </admin-upload>
+
+        </div>
+
+
+        <admin-form-grid columns="2">
+
+            <admin-field label="Estilo de imagen" hint="Define la presentación visual de la imagen destacada.">
+
+                <admin-select adminFieldContent [(ngModel)]="home.heroImageStyle" [options]="heroImageStyleOptions"
+                    [allowEmpty]="true" placeholder="Sin definir">
+
+                    <option [ngValue]="null">
+                        Sin definir
+                    </option>
+
+                    <option value="NONE">
+                        Sin estilo
+                    </option>
+
+                    <option value="NORMAL">
+                        Normal
+                    </option>
+
+                    <option value="ROUNDED">
+                        Bordes redondeados
+                    </option>
+
+                    <option value="CIRCLE">
+                        Circular
+                    </option>
+
+                    <option value="FLOATING">
+                        Flotante
+                    </option>
+
+                    <option value="DEVICE_FRAME">
+                        Marco de dispositivo
+                    </option>
+
+                </admin-select>
+
+            </admin-field>
+
+        </admin-form-grid>
+
+    </div>
+
+
+    <!-- ======================================================
+    HERO LAYOUT
+    ======================================================= -->
+
+    <div class="home-form__section">
+
+        <div class="home-form__section-header">
+
+            <h3>
+                Distribución del Hero
+            </h3>
+
+            <p>
+                Controlá la alineación y altura de la sección principal.
+            </p>
+
+        </div>
+
+
+        <admin-form-grid columns="2">
+
+            <admin-field label="Alineación" hint="Posición del contenido dentro del Hero.">
+
+                <admin-select adminFieldContent [(ngModel)]="home.heroAlignment" [options]="heroAlignmentOptions">
+
+                    <option [ngValue]="null">
+                        Sin definir
+                    </option>
+
+                    <option value="LEFT">
+                        Izquierda
+                    </option>
+
+                    <option value="CENTER">
+                        Centrado
+                    </option>
+
+                    <option value="RIGHT">
+                        Derecha
+                    </option>
+
+                </admin-select>
+
+            </admin-field>
+
+
+            <admin-field label="Altura" hint="Altura visual de la sección principal.">
+
+                <admin-select adminFieldContent [(ngModel)]="home.heroHeight" [options]="heroHeightOptions">
+
+
+                    <option [ngValue]="null">
+                        Sin definir
+                    </option>
+
+                    <option value="SMALL">
+                        Compacta
+                    </option>
+
+                    <option value="MEDIUM">
+                        Media
+                    </option>
+
+                    <option value="FULLSCREEN">
+                        Pantalla completa
+                    </option>
+
+                </admin-select>
+
+            </admin-field>
+
+        </admin-form-grid>
+
+    </div>
+
+
+
+
+    <!-- ======================================================
+    ABOUT
+    ======================================================= -->
+
+
+
+    <div class="home-form__section">
+
+        <admin-form-preview style="margin: 30px" title="Ejemplo" description="Ejemplo de Nosotros" badge="Hero"
+            image="assets/placeholders/about-preview.png">
+        </admin-form-preview>
+
+        <div class="home-form__section-header">
+
+            <h3>
+                Nosotros
+            </h3>
+
+            <p>
+                Presentá la empresa y contá a los clientes quiénes están detrás del comercio.
+            </p>
+
+        </div>
+
+
+        <admin-form-grid columns="2">
+
+            <admin-field label="Título" hint="Título principal de la sección Nosotros.">
+
+                <input adminFieldContent adminInput type="text" [(ngModel)]="home.aboutTitle"
+                    placeholder="Ej. Sobre nosotros">
+
+            </admin-field>
+
+
+            <admin-field label="Descripción" hint="Historia o presentación institucional del comercio.">
+
+                <textarea adminFieldContent adminTextarea rows="6" [(ngModel)]="home.aboutText"
+                    placeholder="Contá brevemente la historia de la empresa...">
+                </textarea>
+
+            </admin-field>
+
+
+            <admin-field label="Texto del botón" hint="Texto visible en la acción de la sección Nosotros.">
+
+                <input adminFieldContent adminInput type="text" [(ngModel)]="home.aboutButtonText"
+                    placeholder="Ej. Conocé más">
+
+            </admin-field>
+
+
+            <admin-field label="Destino del botón" hint="Elegí una sección del sitio o una URL personalizada.">
+
+                <admin-select adminFieldContent [ngModel]="aboutLinkType" (ngModelChange)="onAboutLinkChange($event)"
+                    [options]="anchorOptions">
+
+                </admin-select>
+
+            </admin-field>
+
+            @if(aboutLinkType === CUSTOM_LINK){
+
+            <div style="margin-top:12px;">
+
+                <input adminInput type="url" [(ngModel)]="home.aboutButtonLink" placeholder="https://...">
+
+            </div>
+
+            }
+
+        </admin-form-grid>
+
+
+        <div class="home-form__upload">
+
+            <div class="home-form__upload">
+
+                <div class="home-form__upload-header">
+
+                    <h4>
+                        Imagen de Nosotros
+                    </h4>
+
+                    <p>
+                        Imagen institucional mostrada en la sección.
+                    </p>
+
+                </div>
+
+                <admin-upload accept="image/*" variant="image" [previewUrl]="resolveImage(
+
+        home.aboutImage,
+
+        placeholder.about
+
+    )" (fileSelected)="uploadAbout($event)">
+
+                    <span adminUploadMeta>
+                        JPG, PNG o WebP
+                    </span>
+
+                </admin-upload>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ======================================================
+    CTA
+    ======================================================= -->
+
+    <div class="home-form__section">
+
+        <admin-form-preview style="margin: 30px" title="Ejemplo" description="Ejemplo de Llamado a la Accion"
+            badge="Hero" image="assets/placeholders/cta-preview.png">
+        </admin-form-preview>
+
+        <div class="home-form__section-header">
+
+            <h3>
+                Llamado a la acción
+            </h3>
+
+            <p>
+                Configurá el bloque destacado que invita al visitante a realizar una acción.
+            </p>
+
+        </div>
+
+
+        <admin-form-grid columns="2">
+
+            <admin-field label="Título" hint="Título principal del llamado a la acción.">
+
+                <input adminFieldContent adminInput type="text" [(ngModel)]="home.ctaTitle"
+                    placeholder="Ej. ¿Listo para comenzar?">
+
+            </admin-field>
+
+
+            <admin-field label="Descripción" hint="Texto complementario del llamado a la acción.">
+
+                <textarea adminFieldContent adminTextarea rows="4" [(ngModel)]="home.ctaText"
+                    placeholder="Invitá al visitante a dar el siguiente paso...">
+                </textarea>
+
+            </admin-field>
+
+
+            <admin-field label="Texto del botón" hint="Texto visible en el botón del CTA.">
+
+                <input adminFieldContent adminInput type="text" [(ngModel)]="home.ctaButtonText"
+                    placeholder="Ej. Contactanos">
+
+            </admin-field>
+
+
+            <admin-field label="Destino del botón" hint="Elegí una sección del sitio o una URL personalizada.">
+
+                <admin-select adminFieldContent [ngModel]="ctaLinkType" (ngModelChange)="onCtaLinkChange($event)"
+                    [options]="anchorOptions">
+
+                </admin-select>
+
+            </admin-field>
+
+            @if(ctaLinkType === CUSTOM_LINK){
+
+            <div style="margin-top:12px;">
+
+                <input adminInput type="url" [(ngModel)]="home.ctaButtonLink" placeholder="https://...">
+
+            </div>
+
+            }
+
+        </admin-form-grid>
+
+    </div>
+
+
+    <!-- ======================================================
+    ACTIONS
+    ======================================================= -->
+
+    <div adminFormCardFooter>
+
+        <admin-button variant="primary" icon="fa-solid fa-floppy-disk" (clicked)="saveHome()">
+
+            Guardar página principal
+
+        </admin-button>
+
+    </div>
+
+</admin-form-card>

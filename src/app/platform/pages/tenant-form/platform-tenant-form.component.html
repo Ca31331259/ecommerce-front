@@ -1,0 +1,802 @@
+<div class="platform-tenant-form">
+
+    <!-- ================================================== -->
+    <!-- HEADER -->
+    <!-- ================================================== -->
+
+    <header class="platform-tenant-form__header">
+
+        <div class="platform-tenant-form__header-main">
+
+            <a
+                class="platform-tenant-form__back"
+                routerLink="/platform/tenants"
+                aria-label="Volver a tenants">
+
+                <i
+                    class="fa-solid fa-arrow-left"
+                    aria-hidden="true">
+                </i>
+
+            </a>
+
+            <div>
+
+                <span class="platform-tenant-form__eyebrow">
+
+                    Plataforma / Tenants
+
+                </span>
+
+                <h1>
+
+                    {{ title }}
+
+                </h1>
+
+                <p>
+
+                    {{ description }}
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================================================== -->
+    <!-- LOADING -->
+    <!-- ================================================== -->
+
+    @if (loading) {
+
+        <section class="platform-tenant-form__loading">
+
+            <div></div>
+            <div></div>
+            <div></div>
+
+        </section>
+
+    }
+
+
+    @if (!loading) {
+
+        <form
+            class="platform-tenant-form__form"
+            [formGroup]="form"
+            (ngSubmit)="submit()"
+            novalidate>
+
+
+            <!-- ========================================== -->
+            <!-- ERROR -->
+            <!-- ========================================== -->
+
+            @if (errorMessage) {
+
+                <div
+                    class="
+                        platform-tenant-form__alert
+                        platform-tenant-form__alert--danger
+                    ">
+
+                    <i
+                        class="fa-solid fa-circle-exclamation"
+                        aria-hidden="true">
+                    </i>
+
+                    <div>
+
+                        <strong>
+
+                            No se pudo guardar el tenant
+
+                        </strong>
+
+                        <span>
+
+                            {{ errorMessage }}
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            }
+
+
+            <!-- ========================================== -->
+            <!-- INFORMACIÓN GENERAL -->
+            <!-- ========================================== -->
+
+            <section class="platform-tenant-form__card">
+
+                <header class="platform-tenant-form__card-header">
+
+                    <div>
+
+                        <h2>
+
+                            Información general
+
+                        </h2>
+
+                        <p>
+
+                            Identificación básica del tenant.
+
+                        </p>
+
+                    </div>
+
+                </header>
+
+
+                <div class="platform-tenant-form__card-body">
+
+                    <div class="platform-tenant-form__grid">
+
+
+                        <!-- CODE -->
+
+                        <div
+                            class="
+                                platform-tenant-form__field
+                            ">
+
+                            <label for="code">
+
+                                Código
+
+                                <span>*</span>
+
+                            </label>
+
+                            <input
+                                id="code"
+                                type="text"
+                                formControlName="code"
+                                autocomplete="off"
+                                placeholder="Ej. CONTINI"
+                                [class.platform-tenant-form__input--error]="
+                                    hasError('code')
+                                " />
+
+                            @if (hasError('code')) {
+
+                                <small>
+
+                                    {{ fieldError('code') }}
+
+                                </small>
+
+                            } @else {
+
+                                <small>
+
+                                    Identificador único del tenant.
+
+                                </small>
+
+                            }
+
+                        </div>
+
+
+                        <!-- NAME -->
+
+                        <div
+                            class="
+                                platform-tenant-form__field
+                            ">
+
+                            <label for="name">
+
+                                Nombre
+
+                                <span>*</span>
+
+                            </label>
+
+                            <input
+                                id="name"
+                                type="text"
+                                formControlName="name"
+                                autocomplete="organization"
+                                placeholder="Ej. Contini Ópticas"
+                                [class.platform-tenant-form__input--error]="
+                                    hasError('name')
+                                " />
+
+                            @if (hasError('name')) {
+
+                                <small>
+
+                                    {{ fieldError('name') }}
+
+                                </small>
+
+                            }
+
+                        </div>
+
+
+                        <!-- DOMAIN -->
+
+                        <div
+                            class="
+                                platform-tenant-form__field
+                                platform-tenant-form__field--full
+                            ">
+
+                            <label for="domain">
+
+                                Dominio
+
+                                <span>*</span>
+
+                            </label>
+
+                            <div
+                                class="
+                                    platform-tenant-form__input-prefix
+                                ">
+
+                                <i
+                                    class="fa-solid fa-globe"
+                                    aria-hidden="true">
+                                </i>
+
+                                <input
+                                    id="domain"
+                                    type="text"
+                                    formControlName="domain"
+                                    autocomplete="url"
+                                    placeholder="contini.testing.numecos.com"
+                                    [class.platform-tenant-form__input--error]="
+                                        hasError('domain')
+                                    " />
+
+                            </div>
+
+                            @if (hasError('domain')) {
+
+                                <small>
+
+                                    {{ fieldError('domain') }}
+
+                                </small>
+
+                            } @else {
+
+                                <small>
+
+                                    Dominio que utilizará el tenant.
+
+                                </small>
+
+                            }
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ========================================== -->
+            <!-- COMERCIAL / WEB -->
+            <!-- ========================================== -->
+
+            <section class="platform-tenant-form__card">
+
+                <header class="platform-tenant-form__card-header">
+
+                    <div>
+
+                        <h2>
+
+                            Configuración comercial y web
+
+                        </h2>
+
+                        <p>
+
+                            Estado comercial y disponibilidad de la web.
+
+                        </p>
+
+                    </div>
+
+                </header>
+
+
+                <div class="platform-tenant-form__card-body">
+
+                    <div class="platform-tenant-form__grid">
+
+
+                        <!-- PRICE -->
+
+                        <div
+                            class="
+                                platform-tenant-form__field
+                            ">
+
+                            <label for="monthlyPrice">
+
+                                Precio mensual
+
+                                <span>*</span>
+
+                            </label>
+
+                            <div
+                                class="
+                                    platform-tenant-form__input-prefix
+                                ">
+
+                                <span
+                                    class="
+                                        platform-tenant-form__prefix
+                                    ">
+
+                                    $
+
+                                </span>
+
+                                <input
+                                    id="monthlyPrice"
+                                    type="number"
+                                    formControlName="monthlyPrice"
+                                    min="0"
+                                    step="0.01"
+                                    [class.platform-tenant-form__input--error]="
+                                        hasError('monthlyPrice')
+                                    " />
+
+                            </div>
+
+                            @if (hasError('monthlyPrice')) {
+
+                                <small>
+
+                                    {{ fieldError('monthlyPrice') }}
+
+                                </small>
+
+                            }
+
+                        </div>
+
+
+                        <!-- ACTIVE -->
+
+                        <div
+                            class="
+                                platform-tenant-form__field
+                            ">
+
+                            <label>
+
+                                Estado
+
+                            </label>
+
+                            <label
+                                class="
+                                    platform-tenant-form__toggle
+                                ">
+
+                                <input
+                                    type="checkbox"
+                                    formControlName="active" />
+
+                                <span
+                                    class="
+                                        platform-tenant-form__toggle-track
+                                    ">
+
+                                    <span
+                                        class="
+                                            platform-tenant-form__toggle-thumb
+                                        ">
+                                    </span>
+
+                                </span>
+
+                                <span>
+
+                                    Tenant activo
+
+                                </span>
+
+                            </label>
+
+                        </div>
+
+
+                        <!-- WEB -->
+
+                        <div
+                            class="
+                                platform-tenant-form__field
+                                platform-tenant-form__field--full
+                            ">
+
+                            <label>
+
+                                Sitio web
+
+                            </label>
+
+                            <label
+                                class="
+                                    platform-tenant-form__toggle
+                                ">
+
+                                <input
+                                    type="checkbox"
+                                    formControlName="webEnabled" />
+
+                                <span
+                                    class="
+                                        platform-tenant-form__toggle-track
+                                    ">
+
+                                    <span
+                                        class="
+                                            platform-tenant-form__toggle-thumb
+                                        ">
+                                    </span>
+
+                                </span>
+
+                                <span>
+
+                                    Habilitar sitio web
+
+                                </span>
+
+                            </label>
+
+                            <small>
+
+                                Si está habilitado, el tenant podrá
+                                utilizar su dominio para acceder al sitio.
+
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ========================================== -->
+            <!-- DATABASE -->
+            <!-- ========================================== -->
+
+            <section class="platform-tenant-form__card">
+
+                <header class="platform-tenant-form__card-header">
+
+                    <div>
+
+                        <h2>
+
+                            Base de datos
+
+                        </h2>
+
+                        <p>
+
+                            Datos de conexión a la base de datos
+                            específica de este tenant.
+
+                        </p>
+
+                    </div>
+
+                    <span
+                        class="
+                            platform-tenant-form__security-label
+                        ">
+
+                        <i
+                            class="fa-solid fa-database"
+                            aria-hidden="true">
+                        </i>
+
+                        MariaDB
+
+                    </span>
+
+                </header>
+
+
+                <div class="platform-tenant-form__card-body">
+
+                    <div class="platform-tenant-form__grid">
+
+
+                        <!-- HOST -->
+
+                        <div
+                            class="
+                                platform-tenant-form__field
+                            ">
+
+                            <label for="dbHost">
+
+                                Host
+
+                                <span>*</span>
+
+                            </label>
+
+                            <input
+                                id="dbHost"
+                                type="text"
+                                formControlName="dbHost"
+                                autocomplete="off"
+                                placeholder="10.0.0.2"
+                                [class.platform-tenant-form__input--error]="
+                                    hasError('dbHost')
+                                " />
+
+                            @if (hasError('dbHost')) {
+
+                                <small>
+
+                                    {{ fieldError('dbHost') }}
+
+                                </small>
+
+                            }
+
+                        </div>
+
+
+                        <!-- PORT -->
+
+                        <div
+                            class="
+                                platform-tenant-form__field
+                            ">
+
+                            <label for="dbPort">
+
+                                Puerto
+
+                                <span>*</span>
+
+                            </label>
+
+                            <input
+                                id="dbPort"
+                                type="number"
+                                formControlName="dbPort"
+                                min="1"
+                                max="65535"
+                                [class.platform-tenant-form__input--error]="
+                                    hasError('dbPort')
+                                " />
+
+                            @if (hasError('dbPort')) {
+
+                                <small>
+
+                                    {{ fieldError('dbPort') }}
+
+                                </small>
+
+                            }
+
+                        </div>
+
+
+                        <!-- SCHEMA -->
+
+                        <div
+                            class="
+                                platform-tenant-form__field
+                            ">
+
+                            <label for="dbSchema">
+
+                                Schema
+
+                                <span>*</span>
+
+                            </label>
+
+                            <input
+                                id="dbSchema"
+                                type="text"
+                                formControlName="dbSchema"
+                                autocomplete="off"
+                                placeholder="tenant_db"
+                                [class.platform-tenant-form__input--error]="
+                                    hasError('dbSchema')
+                                " />
+
+                            @if (hasError('dbSchema')) {
+
+                                <small>
+
+                                    {{ fieldError('dbSchema') }}
+
+                                </small>
+
+                            }
+
+                        </div>
+
+
+                        <!-- USER -->
+
+                        <div
+                            class="
+                                platform-tenant-form__field
+                            ">
+
+                            <label for="dbUsername">
+
+                                Usuario
+
+                                <span>*</span>
+
+                            </label>
+
+                            <input
+                                id="dbUsername"
+                                type="text"
+                                formControlName="dbUsername"
+                                autocomplete="off"
+                                placeholder="usuario"
+                                [class.platform-tenant-form__input--error]="
+                                    hasError('dbUsername')
+                                " />
+
+                            @if (hasError('dbUsername')) {
+
+                                <small>
+
+                                    {{ fieldError('dbUsername') }}
+
+                                </small>
+
+                            }
+
+                        </div>
+
+
+                        <!-- PASSWORD -->
+
+                        <div
+                            class="
+                                platform-tenant-form__field
+                                platform-tenant-form__field--full
+                            ">
+
+                            <label for="dbPassword">
+
+                                Password
+
+                                @if (!isEdit) {
+
+                                    <span>*</span>
+
+                                }
+
+                            </label>
+
+                            <input
+                                id="dbPassword"
+                                type="password"
+                                formControlName="dbPassword"
+                                autocomplete="new-password"
+                                placeholder="••••••••"
+                                [class.platform-tenant-form__input--error]="
+                                    hasError('dbPassword')
+                                " />
+
+                            @if (hasError('dbPassword')) {
+
+                                <small>
+
+                                    {{ fieldError('dbPassword') }}
+
+                                </small>
+
+                            } @else if (isEdit) {
+
+                                <small>
+
+                                    Dejá este campo vacío para conservar
+                                    la contraseña actual.
+
+                                </small>
+
+                            }
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ========================================== -->
+            <!-- ACTIONS -->
+            <!-- ========================================== -->
+
+            <footer class="platform-tenant-form__actions">
+
+                <a
+                    class="
+                        platform-tenant-form__button
+                        platform-tenant-form__button--secondary
+                    "
+                    routerLink="/platform/tenants">
+
+                    Cancelar
+
+                </a>
+
+
+                <button
+                    type="submit"
+                    class="
+                        platform-tenant-form__button
+                        platform-tenant-form__button--primary
+                    "
+                    [disabled]="saving">
+
+                    @if (saving) {
+
+                        <i
+                            class="
+                                fa-solid
+                                fa-spinner
+                                fa-spin
+                            "
+                            aria-hidden="true">
+                        </i>
+
+                        Guardando...
+
+                    } @else {
+
+                        <i
+                            class="fa-solid fa-check"
+                            aria-hidden="true">
+                        </i>
+
+                        {{ isEdit ? 'Guardar cambios' : 'Crear tenant' }}
+
+                    }
+
+                </button>
+
+            </footer>
+
+        </form>
+
+    }
+
+</div>

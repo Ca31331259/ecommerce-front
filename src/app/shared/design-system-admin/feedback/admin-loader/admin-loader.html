@@ -1,0 +1,38 @@
+<div
+    class="admin-loader"
+    role="status"
+    aria-live="polite">
+
+    <span
+        class="admin-loader__spinner"
+        aria-hidden="true">
+
+        <span class="admin-loader__spinner-ring">
+        </span>
+
+        <span class="admin-loader__spinner-dot">
+        </span>
+
+    </span>
+
+    <div class="admin-loader__information">
+
+        <span class="admin-loader__label">
+
+            {{ label }}
+
+        </span>
+
+        @if(description){
+
+            <span class="admin-loader__description">
+
+                {{ description }}
+
+            </span>
+
+        }
+
+    </div>
+
+</div>

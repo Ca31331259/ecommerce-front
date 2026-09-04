@@ -1,0 +1,99 @@
+.admin-textarea {
+
+    width: 100%;
+
+    min-height: 120px;
+
+    padding: var(--admin-space-4);
+
+    resize: vertical;
+
+    border: 1px solid var(--slate-300);
+
+    border-radius: var(--admin-radius-md);
+
+    background: var(--white);
+
+    color: var(--slate-900);
+
+    font: inherit;
+
+    line-height: 1.5;
+
+    transition:
+        border-color .2s,
+        box-shadow .2s,
+        background .2s;
+
+    outline: none;
+
+}
+
+/*======================================================
+FOCUS
+======================================================*/
+
+.admin-textarea:focus {
+
+    border-color: var(--blue-600);
+
+    box-shadow:
+        0 0 0 3px rgba(37,99,235,.12);
+
+}
+
+/*======================================================
+PLACEHOLDER
+======================================================*/
+
+.admin-textarea::placeholder {
+
+    color: var(--slate-400);
+
+}
+
+/*======================================================
+DISABLED
+======================================================*/
+
+.admin-textarea:disabled {
+
+    background: var(--slate-100);
+
+    color: var(--slate-500);
+
+    cursor: not-allowed;
+
+}
+
+/*======================================================
+INVALID
+======================================================*/
+
+.admin-textarea.ng-invalid.ng-touched {
+
+    border-color: var(--red-600);
+
+}
+
+/*======================================================
+SIZES
+======================================================*/
+
+.admin-textarea[admin-size="sm"] {
+
+    min-height: 80px;
+
+}
+
+.admin-textarea[admin-size="md"] {
+
+    min-height: 120px;
+
+}
+
+.admin-textarea[admin-size="lg"] {
+
+    min-height: 180px;
+
+}

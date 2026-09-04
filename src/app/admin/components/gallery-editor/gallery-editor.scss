@@ -1,0 +1,160 @@
+:host {
+
+    display: block;
+
+}
+
+/*======================================================
+LIST
+======================================================*/
+
+admin-form-card + admin-form-card {
+
+    margin-top: var(--admin-space-6);
+
+}
+
+/*======================================================
+LAYOUT
+======================================================*/
+
+.gallery-editor {
+
+    display: grid;
+
+    grid-template-columns: 340px minmax(0, 1fr);
+
+    gap: var(--admin-space-7);
+
+    align-items: start;
+
+}
+
+/*======================================================
+IMAGE
+======================================================*/
+
+.gallery-editor__image {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-4);
+
+}
+
+/*======================================================
+FORM
+======================================================*/
+
+.gallery-editor__form {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-6);
+
+}
+
+/*======================================================
+GRID HELPERS
+======================================================*/
+
+.full {
+
+    grid-column: 1 / -1;
+
+}
+
+/*======================================================
+UPLOAD
+======================================================*/
+
+admin-upload {
+
+    width: 100%;
+
+}
+
+/*======================================================
+SELECT
+======================================================*/
+
+select[adminInput] {
+
+    width: 100%;
+
+}
+
+/*======================================================
+SAVE BAR
+======================================================*/
+
+admin-save-bar {
+
+    margin-top: var(--admin-space-2);
+
+}
+
+/*======================================================
+TABLET
+======================================================*/
+
+@media (max-width: 1100px) {
+
+    .gallery-editor {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+
+/*======================================================
+MOBILE
+======================================================*/
+
+@media (max-width: 768px) {
+
+    .gallery-editor {
+
+        gap: var(--admin-space-5);
+
+    }
+
+}
+
+
+.gallery-cropper-backdrop{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.7);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:9999;
+
+}
+
+.gallery-cropper{
+
+    width:900px;
+
+    max-width:95vw;
+
+    background:white;
+
+    border-radius:12px;
+
+    padding:24px;
+
+}

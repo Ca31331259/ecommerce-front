@@ -1,0 +1,270 @@
+<footer class="public-footer">
+
+  <!-- ============================================= -->
+  <!-- MAIN FOOTER -->
+  <!-- ============================================= -->
+
+  <div class="footer-main">
+
+    <ds-container size="lg">
+
+      <div class="footer-grid">
+
+        <!-- ================================= -->
+        <!-- BRAND -->
+        <!-- ================================= -->
+
+        <div class="footer-brand">
+
+          <button type="button" class="footer-brand-header" aria-label="Ir al inicio" (click)="scrollTo('hero')">
+
+            @if(theme?.logo_url){
+
+            <img class="footer-logo" [src]="theme.logo_url" [alt]="settings?.businessName || 'Logo'">
+
+            } @else {
+
+            <span class="footer-logo-placeholder">
+
+              <i class="fa-solid fa-store"></i>
+
+            </span>
+
+            }
+
+            @if(settings?.businessName){
+
+            <span class="footer-business-name">
+
+              {{ settings.businessName }}
+
+            </span>
+
+            }
+
+          </button>
+
+          @if(settings?.slogan){
+
+          <p class="footer-description">
+
+            {{ settings.slogan }}
+
+          </p>
+
+          } @else if(home?.heroSubtitle){
+
+          <p class="footer-description">
+
+            {{ home.heroSubtitle }}
+
+          </p>
+
+          }
+
+          <div class="footer-social">
+
+            <ds-social-buttons [facebook]="settings?.facebook" [instagram]="settings?.instagram"
+              [whatsapp]="settings?.whatsapp" [linkedin]="settings?.linkedin" variant="light">
+            </ds-social-buttons>
+
+          </div>
+
+        </div>
+
+        <!-- ================================= -->
+        <!-- NAVIGATION -->
+        <!-- ================================= -->
+
+        <div class="footer-column">
+
+          <h3>
+
+            Navegación
+
+          </h3>
+
+          <nav class="footer-navigation" aria-label="Navegación del pie de página">
+
+            <button type="button" (click)="scrollTo('hero')">
+
+              Inicio
+
+            </button>
+            @if(isEnabled('ABOUT')){
+
+            <button type="button" (click)="scrollTo('about')">
+
+              Nosotros
+
+            </button>
+
+            }
+
+            @if(isEnabled('FEATURES')){
+
+            <button type="button" (click)="scrollTo('features')">
+
+              Beneficios
+
+            </button>
+
+            }
+
+            @if(isEnabled('GALLERY')){
+
+            <button type="button" (click)="scrollTo('gallery')">
+
+              Galería
+
+            </button>
+
+            }
+
+            @if(isEnabled('CONTACT')){
+
+            <button type="button" (click)="scrollTo('contact')">
+
+              Contacto
+
+            </button>
+
+            }
+
+          </nav>
+
+        </div>
+
+        <!-- ================================= -->
+        <!-- CONTACT -->
+        <!-- ================================= -->
+
+        <div class="footer-column">
+
+          <h3>
+
+            Contacto
+
+          </h3>
+
+          <div class="footer-contact">
+
+            @if(settings?.phone){
+
+            <a [href]="'tel:' + settings.phone">
+
+              <span class="footer-contact-icon">
+
+                <i class="fa-solid fa-phone"></i>
+
+              </span>
+
+              <span>
+
+                {{ settings.phone }}
+
+              </span>
+
+            </a>
+
+            }
+
+            @if(settings?.email){
+
+            <a [href]="'mailto:' + settings.email">
+
+              <span class="footer-contact-icon">
+
+                <i class="fa-solid fa-envelope"></i>
+
+              </span>
+
+              <span>
+
+                {{ settings.email }}
+
+              </span>
+
+            </a>
+
+            }
+
+            @if(settings?.address){
+
+            <div class="footer-contact-item">
+
+              <span class="footer-contact-icon">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+              </span>
+
+              <span>
+
+                {{ settings.address }}
+
+              </span>
+
+            </div>
+
+            }
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </ds-container>
+
+  </div>
+
+  <!-- ============================================= -->
+  <!-- FOOTER BOTTOM -->
+  <!-- ============================================= -->
+
+  <div class="footer-bottom">
+
+    <ds-container size="lg">
+
+      <div class="footer-bottom-content">
+
+        <p>
+
+          © {{ currentYear }}
+
+          @if(settings?.businessName){
+
+          {{ settings.businessName }}.
+
+          }
+
+          Todos los derechos reservados.
+
+        </p>
+
+        <span class="footer-platform">
+
+          <span>
+
+            Sitio desarrollado con
+
+          </span>
+
+          <span class="footer-platform-brand">
+
+            <i class="fa-solid fa-bolt"></i>
+
+            Numecos
+
+          </span>
+
+        </span>
+
+      </div>
+
+    </ds-container>
+
+  </div>
+
+</footer>

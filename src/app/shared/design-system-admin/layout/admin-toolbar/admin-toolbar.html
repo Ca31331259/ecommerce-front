@@ -1,0 +1,51 @@
+<header class="admin-toolbar">
+
+    <div class="admin-toolbar__content">
+
+        <div class="admin-toolbar__header">
+
+            <h1 class="admin-toolbar__title">
+
+                {{ title }}
+
+            </h1>
+
+            @if(meta.length){
+
+                <div class="admin-toolbar__meta">
+
+                    <ng-content
+                        select="[adminToolbarMeta]">
+                    </ng-content>
+
+                </div>
+
+            }
+
+            @if(subtitle){
+
+                <p class="admin-toolbar__subtitle">
+
+                    {{ subtitle }}
+
+                </p>
+
+            }
+
+        </div>
+
+        @if(actions.length){
+
+            <div class="admin-toolbar__actions">
+
+                <ng-content
+                    select="[adminToolbarActions]">
+                </ng-content>
+
+            </div>
+
+        }
+
+    </div>
+
+</header>

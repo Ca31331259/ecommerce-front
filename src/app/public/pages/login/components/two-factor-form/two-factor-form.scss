@@ -1,0 +1,183 @@
+:host{
+
+    display:block;
+
+}
+
+.actions{
+
+    display:flex;
+
+    gap:12px;
+
+    margin-top:24px;
+
+}
+
+.actions button{
+
+    flex:1;
+
+}
+
+mat-form-field{
+
+    width:100%;
+
+}
+
+:host{
+
+    display:block;
+
+}
+
+form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+    margin-top:20px;
+
+}
+
+mat-form-field{
+
+    width:100%;
+
+}
+
+button{
+
+    width:100%;
+
+    height:52px;
+
+    border-radius:12px;
+
+    font-size:16px;
+
+    font-weight:600;
+
+}
+
+h2{
+
+    margin:0 0 8px;
+
+    text-align:center;
+
+}
+
+p{
+
+    margin:0 0 24px;
+
+    text-align:center;
+
+    color:#666;
+
+    line-height:1.5;
+
+}
+
+button[mat-flat-button]{
+
+    width:100%;
+
+    height:52px;
+
+    margin-top:24px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#1565C0;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:
+        background .2s,
+        transform .15s,
+        box-shadow .2s;
+
+    box-shadow:
+        0 8px 20px rgba(21,101,192,.25);
+
+}
+
+button[mat-flat-button]:hover:not(:disabled){
+
+    background:#0D47A1;
+
+    transform:translateY(-1px);
+
+}
+
+button[mat-flat-button]:active:not(:disabled){
+
+    transform:translateY(0);
+
+}
+
+button[mat-flat-button]:disabled{
+
+    opacity:.6;
+
+    cursor:not-allowed;
+
+}
+
+.otp-label{
+
+    display:block;
+
+    margin-bottom:10px;
+
+    font-weight:600;
+
+    font-size:14px;
+
+    color:#444;
+
+}
+
+
+.otp-container{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:12px;
+
+    margin-bottom:24px;
+
+}
+
+
+.otp-digit{
+
+    width:52px;
+
+    height:58px;
+
+    border-radius:12px;
+
+    text-align:center;
+
+    font-size:24px;
+
+    font-weight:600;
+
+}

@@ -1,0 +1,48 @@
+<button
+    class="admin-button"
+    [type]="type"
+    [disabled]="disabled || loading"
+    (click)="onClick()">
+
+    @if(loading){
+
+        <span
+            class="admin-button__spinner"
+            aria-hidden="true">
+        </span>
+
+    } @else {
+
+        @if(icon){
+
+            <span
+                class="admin-button__icon"
+                aria-hidden="true">
+
+                <i [class]="icon"></i>
+
+            </span>
+
+        }
+
+    }
+
+@if(!iconOnly){
+
+    <span class="admin-button__content">
+
+        @if(loading && loadingText){
+
+            {{ loadingText }}
+
+        } @else {
+
+            <ng-content></ng-content>
+
+        }
+
+    </span>
+
+}
+
+</button>

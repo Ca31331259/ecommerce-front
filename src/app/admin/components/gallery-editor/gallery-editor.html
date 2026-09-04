@@ -1,0 +1,181 @@
+<admin-section title="Galería" subtitle="Administrá las imágenes que se muestran en la galería del sitio.">
+
+    
+        <admin-form-preview style="margin: 30px" title="Ejemplo" description="Ejemplo de Galeria" badge="Hero"
+        image="assets/placeholders/galeria-preview.png">
+    </admin-form-preview>
+
+    <admin-button adminSectionActions variant="primary" icon="fa-solid fa-plus" (clicked)="createGallery()">
+
+        Nueva Imagen
+
+    </admin-button>
+
+    @for (item of gallery; track item.id) {
+
+    <admin-form-card [title]="item.title || 'Nueva imagen'" icon="fa-regular fa-image">
+        <admin-button adminFormCardActions variant="danger" icon="fa-solid fa-trash" [iconOnly]="true"
+            (clicked)="deleteGallery(item)">
+        </admin-button>
+        <div class="gallery-editor">
+
+            <!-- ===================================== -->
+            <!-- IMAGEN -->
+            <!-- ===================================== -->
+
+            <div class="gallery-editor__image">
+
+                <!-- Imagen principal -->
+
+                <admin-upload [previewUrl]="resolveImage(
+            item.imageUrl,
+            placeholder.gallery
+        )" accept="image/*" (fileSelected)="uploadImage(item, $event)">
+
+                    <span adminUploadMeta>
+
+                        Imagen principal
+
+                    </span>
+
+                </admin-upload>
+
+                <div style="margin-top:16px;">
+
+                    <admin-switch [ngModel]="resolveThumbnailMode(item)" (ngModelChange)="
+                onThumbnailModeChange(
+                    item,
+                    $event
+                )">
+
+                        Usar la imagen principal como miniatura
+
+                    </admin-switch>
+
+                </div>
+
+                @if(cropperVisible){
+
+                <div class="gallery-cropper-backdrop">
+
+                    <div class="gallery-cropper">
+
+                        <admin-image-cropper [imageChangedEvent]="imageChangedEvent" [aspectRatio]="1"
+                            (cancel)="closeCropper()" (save)="saveThumbnail($event)">
+
+                        </admin-image-cropper>
+
+                    </div>
+
+                </div>
+
+                }
+
+            </div>
+
+            <!--<div class="gallery-editor__image">
+
+                <admin-upload [previewUrl]="resolveImage(
+
+                item.imageUrl,
+
+                    placeholder.gallery
+
+                        )" accept="image/*" (fileSelected)="uploadImage(item, $event)">
+
+                    <span adminUploadMeta>
+
+                        JPG, PNG o WEBP
+
+                    </span>
+
+                </admin-upload>
+
+                
+
+            </div> -->
+
+            <!-- ===================================== -->
+            <!-- FORM -->
+            <!-- ===================================== -->
+
+            <div class="gallery-editor__form">
+
+                <admin-form-grid>
+
+                    <!-- ============================ -->
+                    <!-- TITULO -->
+                    <!-- ============================ -->
+
+                    <admin-field label="Título" [required]="true">
+
+                        <input adminFieldContent adminInput [(ngModel)]="item.title">
+
+                    </admin-field>
+
+                    <!-- ============================ -->
+                    <!-- TAMAÑO -->
+                    <!-- ============================ -->
+                    <admin-field label="Tamaño">
+
+                        <admin-select adminFieldContent [(ngModel)]="item.size" [options]="sizeOptions">
+
+                        </admin-select>
+
+                    </admin-field>
+
+                    <!-- ============================ -->
+                    <!-- ORDEN -->
+                    <!-- ============================ -->
+
+                    <admin-field label="Orden">
+
+                        <input adminFieldContent adminInput type="number" [(ngModel)]="item.sortOrder">
+
+                    </admin-field>
+
+                    <!-- ============================ -->
+                    <!-- ESTADO -->
+                    <!-- ============================ -->
+
+                    <admin-field label="Estado">
+
+                        <admin-switch adminFieldContent [(ngModel)]="item.active">
+
+                            Imagen activa
+
+                        </admin-switch>
+
+                    </admin-field>
+
+                </admin-form-grid>
+
+                <!-- ===================================== -->
+                <!-- SAVE BAR -->
+                <!-- ===================================== -->
+
+                <admin-save-bar [model]="item" (save)="saveGallery(item)">
+
+                    <admin-button variant="danger" icon="fa-solid fa-trash" (clicked)="deleteGallery(item)">
+
+                        Eliminar
+
+                    </admin-button>
+
+                    <admin-button variant="primary" icon="fa-solid fa-floppy-disk" (clicked)="saveGallery(item)">
+
+                        Guardar
+
+                    </admin-button>
+
+                </admin-save-bar>
+
+            </div>
+
+        </div>
+
+    </admin-form-card>
+
+    }
+
+</admin-section>

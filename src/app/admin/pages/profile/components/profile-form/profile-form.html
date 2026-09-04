@@ -1,0 +1,67 @@
+<admin-form-card title="Configuración de la cuenta" subtitle="Administrá la información principal de tu cuenta.">
+
+    <!-- ======================================================
+    INFORMACIÓN PERSONAL
+    ======================================================= -->
+
+    <div class="profile-form__section">
+
+        <div class="profile-form__section-header">
+
+            <h3>
+
+                Información personal
+
+            </h3>
+
+            <p>
+
+                Actualizá los datos básicos de tu cuenta.
+
+            </p>
+
+        </div>
+
+        <admin-form-grid columns="2">
+
+            <admin-field label="Nombre">
+
+                <input adminFieldContent adminInput type="text" [(ngModel)]="profile.firstName">
+
+            </admin-field>
+
+            <admin-field label="Apellido">
+
+                <input adminFieldContent adminInput type="text" [(ngModel)]="profile.lastName">
+
+            </admin-field>
+
+            <admin-field label="Correo electrónico" hint="El correo utilizado para iniciar sesión.">
+
+                <span adminFieldContent>
+
+                    {{ profile.email }}
+
+                </span>
+
+            </admin-field>
+
+        </admin-form-grid>
+
+    </div>
+
+    <!-- ======================================================
+    ACTIONS
+    ======================================================= -->
+
+    <div adminFormCardFooter>
+
+        <admin-button variant="primary" icon="fa-solid fa-floppy-disk" [loading]="saving" (clicked)="saveProfile()">
+
+            Guardar cambios
+
+        </admin-button>
+
+    </div>
+
+</admin-form-card>

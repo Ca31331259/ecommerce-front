@@ -1,0 +1,85 @@
+<section class="admin-form-card">
+
+    <!-- ========================================= -->
+    <!-- HEADER -->
+    <!-- ========================================= -->
+
+    <header class="admin-form-card__header">
+
+        <div class="admin-form-card__heading">
+
+            @if(icon){
+
+                <span
+                    class="admin-form-card__icon"
+                    aria-hidden="true">
+
+                    <i [class]="icon"></i>
+
+                </span>
+
+            }
+
+            <div class="admin-form-card__information">
+
+                <h2 class="admin-form-card__title">
+
+                    {{ title }}
+
+                </h2>
+
+                @if(subtitle){
+
+                    <p class="admin-form-card__subtitle">
+
+                        {{ subtitle }}
+
+                    </p>
+
+                }
+
+            </div>
+
+        </div>
+
+        @if(actions.length){
+
+            <div class="admin-form-card__actions">
+
+                <ng-content
+                    select="[adminFormCardActions]">
+                </ng-content>
+
+            </div>
+
+        }
+
+    </header>
+
+    <!-- ========================================= -->
+    <!-- CONTENT -->
+    <!-- ========================================= -->
+
+    <div class="admin-form-card__content">
+
+        <ng-content></ng-content>
+
+    </div>
+
+    <!-- ========================================= -->
+    <!-- FOOTER -->
+    <!-- ========================================= -->
+
+    @if(footers.length){
+
+        <footer class="admin-form-card__footer">
+
+            <ng-content
+                select="[adminFormCardFooter]">
+            </ng-content>
+
+        </footer>
+
+    }
+
+</section>

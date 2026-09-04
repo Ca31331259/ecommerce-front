@@ -1,0 +1,47 @@
+<div class="admin-color-picker">
+
+    <label
+        class="admin-color-picker__preview">
+
+        <input
+            class="admin-color-picker__native"
+            type="color"
+            [value]="value"
+            [disabled]="disabled"
+            aria-label="Seleccionar color"
+            (input)="onNativeColorChange($event)"
+            (blur)="onColorBlur()">
+
+        <span
+            class="admin-color-picker__swatch"
+            [style.background]="value"
+            aria-hidden="true">
+        </span>
+
+    </label>
+
+    <div class="admin-color-picker__value">
+
+        <span
+            class="admin-color-picker__hash"
+            aria-hidden="true">
+
+            #
+
+        </span>
+
+        <input
+            class="admin-color-picker__input"
+            type="text"
+            maxlength="6"
+            autocomplete="off"
+            spellcheck="false"
+            [value]="value.substring(1)"
+            [disabled]="disabled"
+            aria-label="Código hexadecimal del color"
+            (input)="onTextInput($event)"
+            (blur)="onTextBlur()">
+
+    </div>
+
+</div>

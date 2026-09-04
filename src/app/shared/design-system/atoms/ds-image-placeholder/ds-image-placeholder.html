@@ -1,0 +1,31 @@
+<div
+    class="image-placeholder"
+    role="img"
+    [attr.aria-label]="text || 'Imagen no disponible'">
+
+    <div class="placeholder-content">
+
+        @if(icon){
+
+            <i
+                [class]="icon"
+                aria-hidden="true">
+            </i>
+
+        }
+
+        @if(text){
+
+            <span>
+
+                {{ text }}
+
+            </span>
+
+        }
+
+        <ng-content />
+
+    </div>
+
+</div>

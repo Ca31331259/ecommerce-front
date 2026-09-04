@@ -1,0 +1,121 @@
+<aside class="platform-sidebar">
+
+    <!-- ====================================== -->
+    <!-- BRAND -->
+    <!-- ====================================== -->
+
+    <header class="platform-sidebar__brand">
+
+        <div class="platform-sidebar__logo">
+
+            <i class="fa-solid fa-cubes"></i>
+
+        </div>
+
+        <div class="platform-sidebar__brand-info">
+
+            <strong>
+
+                Numecos
+
+            </strong>
+
+            <span>
+
+                Platform
+
+            </span>
+
+        </div>
+
+    </header>
+
+    <!-- ====================================== -->
+    <!-- NAVIGATION -->
+    <!-- ====================================== -->
+
+    <nav class="platform-sidebar__navigation">
+
+        <span class="platform-sidebar__section">
+
+            GENERAL
+
+        </span>
+
+        @for(item of navigationItems(); track item.route){
+
+            <a
+                class="platform-sidebar__item"
+                [routerLink]="item.route"
+                routerLinkActive="platform-sidebar__item--active"
+                [routerLinkActiveOptions]="{exact:item.route=='/platform'}">
+
+                <i
+                    class="platform-sidebar__icon"
+                    [class]="item.icon">
+                </i>
+
+                <span>
+
+                    {{ item.label }}
+
+                </span>
+
+            </a>
+
+        }
+
+    </nav>
+
+  
+
+    <!-- ====================================== -->
+    <!-- FOOTER -->
+    <!-- ====================================== -->
+
+    <footer class="platform-sidebar__footer">
+
+        <div class="platform-sidebar__user">
+
+            <div class="platform-sidebar__avatar">
+
+                N
+
+            </div>
+
+            <div>
+
+                <strong>
+
+                    Super Administrador
+
+                </strong>
+
+                <span>
+
+                    Numecos
+
+                </span>
+
+            </div>
+
+        </div>
+
+        <button
+            class="platform-sidebar__logout"
+            type="button"
+            (click)="logout()">
+
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+
+            <span>
+
+                Cerrar sesión
+
+            </span>
+
+        </button>
+
+    </footer>
+
+</aside>

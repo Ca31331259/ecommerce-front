@@ -1,0 +1,169 @@
+<ds-section
+    id="banners"
+    background="surface"
+    padding="md">
+
+    <ds-container size="lg">
+
+        @if(activeBanner; as banner){
+
+            <div
+                class="banner-carousel"
+                (mouseenter)="pauseAutoplay()"
+                (mouseleave)="resumeAutoplay()">
+
+                <!-- ===================================== -->
+                <!-- BANNER -->
+                <!-- ===================================== -->
+
+                <article class="banner">
+
+                    <!-- ================================= -->
+                    <!-- VISUAL -->
+                    <!-- ================================= -->
+
+                    <div class="banner-visual">
+
+                        @if(banner.imageUrl){
+
+                            <img
+                                [src]="banner.imageUrl"
+                                [alt]="banner.title || 'Banner promocional'">
+
+                        } @else {
+
+                            <ds-image-placeholder
+                                ratio="wide"
+                                size="lg"
+                                icon="fa-regular fa-images"
+                                text="Banner sin imagen">
+                            </ds-image-placeholder>
+
+                        }
+
+                    </div>
+
+                    <!-- ================================= -->
+                    <!-- OVERLAY -->
+                    <!-- ================================= -->
+
+                    <div
+                        class="banner-overlay"
+                        aria-hidden="true">
+                    </div>
+
+                    <!-- ================================= -->
+                    <!-- CONTENT -->
+                    <!-- ================================= -->
+
+                    <div class="banner-content">
+
+                        @if(banner.title){
+
+                            <h2>
+
+                                {{ banner.title }}
+
+                            </h2>
+
+                        }
+
+                        @if(banner.subtitle){
+
+                            <p>
+
+                                {{ banner.subtitle }}
+
+                            </p>
+
+                        }
+
+                        @if(banner.buttonText && banner.link){
+
+                            <div class="banner-actions">
+
+                                <ds-button
+                                    variant="primary"
+                                    size="md"
+                                    (click)="openBanner(banner)">
+
+                                    {{ banner.buttonText }}
+
+                                    <i class="fa-solid fa-arrow-right"></i>
+
+                                </ds-button>
+
+                            </div>
+
+                        }
+
+                    </div>
+
+                </article>
+
+                <!-- ===================================== -->
+                <!-- NAVIGATION -->
+                <!-- ===================================== -->
+
+                @if(banners.length > 1){
+
+                    <button
+                        type="button"
+                        class="carousel-control carousel-control-previous"
+                        aria-label="Banner anterior"
+                        (click)="previous()">
+
+                        <i class="fa-solid fa-chevron-left"></i>
+
+                    </button>
+
+                    <button
+                        type="button"
+                        class="carousel-control carousel-control-next"
+                        aria-label="Banner siguiente"
+                        (click)="next()">
+
+                        <i class="fa-solid fa-chevron-right"></i>
+
+                    </button>
+
+                    <!-- ================================= -->
+                    <!-- INDICATORS -->
+                    <!-- ================================= -->
+
+                    <div
+                        class="carousel-indicators"
+                        aria-label="Seleccionar banner">
+
+                        @for(
+                            bannerItem of banners;
+                            track bannerItem.id;
+                            let index = $index
+                        ){
+
+                            <button
+                                type="button"
+                                class="carousel-indicator"
+                                [class.active]="activeIndex() === index"
+                                [attr.aria-label]="'Ir al banner ' + (index + 1)"
+                                [attr.aria-current]="
+                                    activeIndex() === index
+                                        ? 'true'
+                                        : null
+                                "
+                                (click)="goTo(index)">
+                            </button>
+
+                        }
+
+                    </div>
+
+                }
+
+            </div>
+
+        }
+
+    </ds-container>
+
+</ds-section>

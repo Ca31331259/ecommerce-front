@@ -1,0 +1,30 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+    min-width: 0;
+
+}
+
+
+/*==========================================================
+EDITOR COMPONENTS
+==========================================================*/
+
+app-company-form,
+app-home-form,
+app-theme-form,
+app-banner-editor,
+app-feature-editor,
+app-gallery-editor,
+app-section-editor {
+
+    display: block;
+
+    width: 100%;
+
+    min-width: 0;
+
+}

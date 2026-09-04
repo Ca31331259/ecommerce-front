@@ -1,0 +1,164 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+}
+
+.platform-kpi-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: var(--admin-space-4);
+
+}
+
+.platform-kpi-grid__card {
+
+    min-width: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: var(--admin-space-4);
+
+    padding: var(--admin-space-5);
+
+    background: var(--admin-surface);
+
+    border:
+        1px solid
+        var(--admin-border);
+
+    border-radius: var(--admin-card-radius);
+
+    box-shadow: var(--admin-card-shadow);
+
+}
+
+.platform-kpi-grid__icon {
+
+    width: 44px;
+
+    height: 44px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: var(--admin-radius-md);
+
+}
+
+.platform-kpi-grid__icon--primary {
+
+    background: rgb(26 71 221 / .10);
+
+    color: var(--admin-color-primary);
+
+}
+
+.platform-kpi-grid__icon--success {
+
+    background: rgb(34 197 94 / .10);
+
+    color: var(--admin-color-success);
+
+}
+
+.platform-kpi-grid__icon--danger {
+
+    background: rgb(220 38 38 / .10);
+
+    color: var(--admin-color-danger);
+
+}
+
+.platform-kpi-grid__icon--warning {
+
+    background: rgb(245 158 11 / .10);
+
+    color: var(--admin-color-warning);
+
+}
+
+.platform-kpi-grid__icon--info {
+
+    background: rgb(59 130 246 / .10);
+
+    color: var(--admin-color-info);
+
+}
+
+.platform-kpi-grid__content {
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-1);
+
+}
+
+.platform-kpi-grid__content span {
+
+    color: var(--admin-text-muted);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-xs);
+
+    font-weight: var(--admin-font-weight-medium);
+
+}
+
+.platform-kpi-grid__content strong {
+
+    color: var(--admin-text-primary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: 1.6rem;
+
+    font-weight: var(--admin-font-weight-bold);
+
+    line-height: 1;
+
+}
+
+
+/*==========================================================
+RESPONSIVE
+==========================================================*/
+
+@media (max-width: 1100px) {
+
+    .platform-kpi-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+    }
+
+}
+
+@media (max-width: 520px) {
+
+    .platform-kpi-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}

@@ -1,0 +1,157 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+}
+
+/*======================================================
+SELECT
+======================================================*/
+
+.admin-select {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    width: 100%;
+
+}
+
+/*======================================================
+NATIVE
+======================================================*/
+
+.admin-select__native {
+
+    width: 100%;
+
+    min-height: 44px;
+
+    padding:
+        0
+        2.75rem
+        0
+        1rem;
+
+    border: 1px solid var(--admin-border, #D0D5DD);
+
+    border-radius: var(--admin-radius-md, 10px);
+
+    background: var(--admin-surface, #FFFFFF);
+
+    color: var(--admin-text, #111827);
+
+    font: inherit;
+
+    line-height: 1.4;
+
+    outline: none;
+
+    cursor: pointer;
+
+    appearance: none;
+
+    -webkit-appearance: none;
+
+    -moz-appearance: none;
+
+    transition:
+
+        border-color .2s,
+
+        box-shadow .2s,
+
+        background-color .2s;
+
+}
+
+.admin-select__native:hover {
+
+    border-color: var(--admin-primary, #2563EB);
+
+}
+
+.admin-select__native:focus {
+
+    border-color: var(--admin-primary, #2563EB);
+
+    box-shadow:
+
+        0 0 0 3px rgba(37, 99, 235, .12);
+
+}
+
+/*======================================================
+ICON
+======================================================*/
+
+.admin-select__icon {
+
+    position: absolute;
+
+    right: 1rem;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    pointer-events: none;
+
+    color: #64748B;
+
+    font-size: .85rem;
+
+}
+
+/*======================================================
+DISABLED
+======================================================*/
+
+:host([disabled]) .admin-select__native {
+
+    background: #F8FAFC;
+
+    color: #94A3B8;
+
+    cursor: not-allowed;
+
+    opacity: .75;
+
+}
+
+:host([disabled]) .admin-select__icon {
+
+    color: #CBD5E1;
+
+}
+
+/*======================================================
+SIZE
+======================================================*/
+
+:host([size="sm"]) .admin-select__native {
+
+    min-height: 38px;
+
+    font-size: .9rem;
+
+}
+
+:host([size="md"]) .admin-select__native {
+
+    min-height: 44px;
+
+}
+
+:host([size="lg"]) .admin-select__native {
+
+    min-height: 52px;
+
+    font-size: 1rem;
+
+}

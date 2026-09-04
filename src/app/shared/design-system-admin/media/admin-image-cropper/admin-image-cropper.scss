@@ -1,0 +1,38 @@
+.cropper{
+
+    width:100%;
+
+}
+
+.actions{
+
+    margin-top:20px;
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:10px;
+
+}
+
+.thumbnail-editor{
+
+    display:grid;
+
+    grid-template-columns:1fr 320px;
+
+    gap:32px;
+
+    align-items:start;
+
+}
+
+
+.thumbnail-preview{
+
+    position:sticky;
+
+    top:20px;
+
+}

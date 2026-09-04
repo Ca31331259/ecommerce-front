@@ -1,0 +1,121 @@
+<ds-section id="features" background="surface" padding="lg">
+
+    <ds-container size="lg">
+
+        <!-- ========================================= -->
+        <!-- SECTION HEADER -->
+        <!-- ========================================= -->
+
+        <ds-section-header
+            title="Lo que nos diferencia"
+            subtitle="Conocé algunos de los beneficios que ofrecemos para brindarte una mejor experiencia.">
+
+            <ds-badge
+                dsHeaderBadge
+                variant="accent">
+
+                <i class="fa-solid fa-star"></i>
+
+                Beneficios
+
+            </ds-badge>
+
+        </ds-section-header>
+
+        <!-- ========================================= -->
+        <!-- FEATURES -->
+        <!-- ========================================= -->
+
+        @if(features.length){
+
+            <div class="features-grid">
+
+                @for(feature of features; track feature.id){
+
+                    <ds-card
+                        class="feature-card"
+                        padding="lg"
+                        shadow="sm"
+                        [hover]="true"
+                        [outlined]="true">
+
+                        <div class="feature-content">
+
+                            <!-- ====================== -->
+                            <!-- ICON -->
+                            <!-- ====================== -->
+
+                            <div class="feature-icon">
+
+                                <i
+                                    [class]="featureIconClass(feature.icon)">
+                                </i>
+
+                            </div>
+
+                            <!-- ====================== -->
+                            <!-- TITLE -->
+                            <!-- ====================== -->
+
+                            @if(feature.title){
+
+                                <h3 class="feature-title">
+
+                                    {{ feature.title }}
+
+                                </h3>
+
+                            }
+
+                            <!-- ====================== -->
+                            <!-- DESCRIPTION -->
+                            <!-- ====================== -->
+
+                            @if(feature.description){
+
+                                <p class="feature-description">
+
+                                    {{ feature.description }}
+
+                                </p>
+
+                            }
+
+                        </div>
+
+                    </ds-card>
+
+                }
+
+            </div>
+
+        } @else {
+
+            <ds-empty-state
+                size="md"
+                variant="subtle">
+
+                <i
+                    dsEmptyIcon
+                    class="fa-solid fa-star">
+                </i>
+
+                <h3 dsEmptyTitle>
+
+                    Próximamente más beneficios
+
+                </h3>
+
+                <p dsEmptyDescription>
+
+                    Estamos preparando más información para vos.
+
+                </p>
+
+            </ds-empty-state>
+
+        }
+
+    </ds-container>
+
+</ds-section>

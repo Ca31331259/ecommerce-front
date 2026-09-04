@@ -1,0 +1,284 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+}
+
+.ds-card {
+
+    width: 100%;
+
+    height: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    overflow: hidden;
+
+    box-sizing: border-box;
+
+    background: var(--tenant-card);
+
+    border-radius: calc(var(--tenant-radius) * 1.5);
+
+    transition:
+        transform var(--transition),
+        box-shadow var(--transition),
+        border-color var(--transition);
+
+}
+
+/*==========================================================
+PADDING
+==========================================================*/
+
+:host(.padding-none) .ds-card-body {
+
+    padding: 0;
+
+}
+
+:host(.padding-sm) .ds-card-body {
+
+    padding: var(--space-4);
+
+}
+
+:host(.padding-md) .ds-card-body {
+
+    padding: var(--space-6);
+
+}
+
+:host(.padding-lg) .ds-card-body {
+
+    padding: var(--space-7);
+
+}
+
+/*==========================================================
+SHADOW
+==========================================================*/
+
+:host(.shadow-none) .ds-card {
+
+    box-shadow: none;
+
+}
+
+:host(.shadow-sm) .ds-card {
+
+    box-shadow: var(--shadow-sm);
+
+}
+
+:host(.shadow-md) .ds-card {
+
+    box-shadow: var(--shadow-md);
+
+}
+
+:host(.shadow-lg) .ds-card {
+
+    box-shadow: var(--shadow-lg);
+
+}
+
+/*==========================================================
+OUTLINED
+==========================================================*/
+
+:host(.outlined) .ds-card {
+
+    border: 1px solid rgba(0, 0, 0, .08);
+
+}
+
+/*==========================================================
+HOVER
+==========================================================*/
+
+:host(.hover) .ds-card:hover {
+
+    transform: translateY(-6px);
+
+    box-shadow: var(--shadow-lg);
+
+}
+
+/*==========================================================
+IMAGE
+==========================================================*/
+
+.ds-card-image {
+
+    width: 100%;
+
+    overflow: hidden;
+
+}
+
+.ds-card-image:empty {
+
+    display: none;
+
+}
+
+.ds-card-image ::ng-deep img {
+
+    display: block;
+
+    width: 100%;
+
+    height: auto;
+
+    object-fit: cover;
+
+}
+
+/*==========================================================
+BODY
+==========================================================*/
+
+.ds-card-body {
+
+    flex: 1;
+
+    display: flex;
+
+    flex-direction: column;
+
+    box-sizing: border-box;
+
+}
+
+/*==========================================================
+HEADER
+==========================================================*/
+
+.ds-card-header {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--space-3);
+
+}
+
+.ds-card-header:empty {
+
+    display: none;
+
+}
+
+/*==========================================================
+TITLE
+==========================================================*/
+
+.ds-card-header ::ng-deep [dsCardTitle] {
+
+    margin: 0;
+
+    color: var(--tenant-title);
+
+    font-family: var(--tenant-font);
+
+    font-size: var(--font-subtitle);
+
+    font-weight: 700;
+
+    line-height: 1.25;
+
+}
+
+/*==========================================================
+SUBTITLE
+==========================================================*/
+
+.ds-card-header ::ng-deep [dsCardSubtitle] {
+
+    margin: 0;
+
+    color: var(--tenant-text);
+
+    font-family: var(--tenant-font);
+
+    font-size: var(--font-small);
+
+    line-height: 1.6;
+
+    opacity: .75;
+
+}
+
+/*==========================================================
+CONTENT
+==========================================================*/
+
+.ds-card-content {
+
+    margin-top: var(--space-5);
+
+    color: var(--tenant-text);
+
+    font-family: var(--tenant-font);
+
+    font-size: var(--font-body);
+
+    line-height: 1.7;
+
+}
+
+.ds-card-content:empty {
+
+    display: none;
+
+}
+
+/*==========================================================
+ACTIONS
+==========================================================*/
+
+.ds-card-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: var(--space-3);
+
+    margin-top: auto;
+
+    padding-top: var(--space-6);
+
+}
+
+.ds-card-actions:empty {
+
+    display: none;
+
+}
+
+/*==========================================================
+RESPONSIVE - MOBILE FIRST
+==========================================================*/
+
+@media (min-width: 768px) {
+
+    :host(.padding-md) .ds-card-body {
+
+        padding: var(--space-6);
+
+    }
+
+    :host(.padding-lg) .ds-card-body {
+
+        padding: var(--space-7);
+
+    }
+
+}

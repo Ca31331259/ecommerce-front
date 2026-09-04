@@ -1,0 +1,270 @@
+:host {
+
+    display: inline-flex;
+
+}
+
+:host([full-width]){
+
+    display:flex;
+
+    width:100%;
+
+}
+
+.admin-button{
+
+    width:100%;
+
+    min-height:var(--admin-button-height);
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:var(--admin-button-gap);
+
+    padding:
+        0
+        var(--admin-button-padding-x);
+
+    border-radius:var(--admin-button-radius);
+
+    border:1px solid transparent;
+
+    cursor:pointer;
+
+    font:
+
+        inherit;
+
+    transition:
+
+        background .20s,
+
+        border-color .20s,
+
+        color .20s,
+
+        box-shadow .20s;
+
+}
+
+/*======================================================
+ICON
+======================================================*/
+
+.admin-button__icon{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+.admin-button__content{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+/*======================================================
+SPINNER
+======================================================*/
+
+.admin-button__spinner{
+
+    width:16px;
+
+    height:16px;
+
+    border-radius:50%;
+
+    border:2px solid currentColor;
+
+    border-right-color:transparent;
+
+    animation:
+
+        admin-button-spin
+
+        .65s
+
+        linear
+
+        infinite;
+
+}
+
+@keyframes admin-button-spin{
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+/*======================================================
+PRIMARY
+======================================================*/
+
+:host([variant="primary"]) .admin-button{
+
+    background:var(--admin-color-primary);
+
+    color:white;
+
+}
+
+:host([variant="primary"]) .admin-button:hover{
+
+    filter:brightness(.95);
+
+}
+
+/*======================================================
+SECONDARY
+======================================================*/
+
+:host([variant="secondary"]) .admin-button{
+
+    background:var(--admin-surface-alt);
+
+    color:var(--admin-text-primary);
+
+}
+
+/*======================================================
+OUTLINE
+======================================================*/
+
+:host([variant="outline"]) .admin-button{
+
+    background:transparent;
+
+    border-color:var(--admin-border);
+
+    color:var(--admin-text-primary);
+
+}
+
+/*======================================================
+GHOST
+======================================================*/
+
+:host([variant="ghost"]) .admin-button{
+
+    background:transparent;
+
+    color:var(--admin-text-primary);
+
+}
+
+/*======================================================
+SUCCESS
+======================================================*/
+
+:host([variant="success"]) .admin-button{
+
+    background:var(--green-600);
+
+    color:white;
+
+}
+
+/*======================================================
+DANGER
+======================================================*/
+
+:host([variant="danger"]) .admin-button{
+
+    background:var(--red-600);
+
+    color:white;
+
+}
+
+/*======================================================
+SIZES
+======================================================*/
+
+:host([size="sm"]) .admin-button{
+
+    min-height:36px;
+
+    font-size:13px;
+
+}
+
+:host([size="md"]) .admin-button{
+
+    min-height:var(--admin-button-height);
+
+}
+
+:host([size="lg"]) .admin-button{
+
+    min-height:52px;
+
+    font-size:15px;
+
+}
+
+/*======================================================
+DISABLED
+======================================================*/
+
+.admin-button:disabled{
+
+    opacity:.55;
+
+    cursor:not-allowed;
+
+}
+
+/*======================================================
+FOCUS
+======================================================*/
+
+.admin-button:focus-visible{
+
+    outline:none;
+
+    box-shadow:var(--admin-focus-ring);
+
+}
+
+.admin-button__icon{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:14px;
+
+    line-height:1;
+
+}
+
+
+:host([icon-only]) .admin-button{
+
+    width:40px;
+
+    min-width:40px;
+
+    padding:0;
+
+}

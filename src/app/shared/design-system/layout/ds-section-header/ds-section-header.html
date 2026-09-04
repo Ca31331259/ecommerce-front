@@ -1,0 +1,67 @@
+<div
+    class="section-header"
+    [class.left]="align === 'left'"
+    [class.center]="align === 'center'"
+    [class.right]="align === 'right'">
+
+    <!-- ===================================== -->
+    <!-- BADGE -->
+    <!-- ===================================== -->
+
+    @if(projectedBadge){
+
+        <ng-content
+            select="[dsHeaderBadge]">
+        </ng-content>
+
+    } @else if(badge){
+
+        <span class="badge">
+
+            {{ badge }}
+
+        </span>
+
+    }
+
+    <!-- ===================================== -->
+    <!-- TITLE -->
+    <!-- ===================================== -->
+
+    @if(projectedTitle){
+
+        <ng-content
+            select="[dsHeaderTitle]">
+        </ng-content>
+
+    } @else if(title){
+
+        <h2>
+
+            {{ title }}
+
+        </h2>
+
+    }
+
+    <!-- ===================================== -->
+    <!-- SUBTITLE -->
+    <!-- ===================================== -->
+
+    @if(projectedSubtitle){
+
+        <ng-content
+            select="[dsHeaderSubtitle]">
+        </ng-content>
+
+    } @else if(subtitle){
+
+        <p>
+
+            {{ subtitle }}
+
+        </p>
+
+    }
+
+</div>

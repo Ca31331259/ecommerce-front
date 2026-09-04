@@ -1,0 +1,283 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+}
+
+/*==========================================================
+CARD
+==========================================================*/
+
+.admin-card {
+
+    width: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    overflow: hidden;
+
+    box-sizing: border-box;
+
+    background: var(--admin-surface);
+
+    border-radius: var(--admin-card-radius);
+
+    transition:
+        border-color var(--admin-duration-fast)
+        var(--admin-easing-standard),
+        box-shadow var(--admin-duration-fast)
+        var(--admin-easing-standard);
+
+}
+
+/*==========================================================
+OUTLINED
+==========================================================*/
+
+:host([outlined]) .admin-card {
+
+    border: var(--admin-card-border);
+
+}
+
+:host(:not([outlined])) .admin-card {
+
+    border: 0;
+
+}
+
+/*==========================================================
+ELEVATION
+==========================================================*/
+
+:host([elevation="none"]) .admin-card {
+
+    box-shadow: var(--admin-shadow-none);
+
+}
+
+:host([elevation="xs"]) .admin-card {
+
+    box-shadow: var(--admin-shadow-xs);
+
+}
+
+:host([elevation="sm"]) .admin-card {
+
+    box-shadow: var(--admin-shadow-sm);
+
+}
+
+:host([elevation="md"]) .admin-card {
+
+    box-shadow: var(--admin-shadow-md);
+
+}
+
+:host([elevation="lg"]) .admin-card {
+
+    box-shadow: var(--admin-shadow-lg);
+
+}
+
+/*==========================================================
+TOP
+==========================================================*/
+
+.admin-card__top {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-card-gap);
+
+}
+
+/*==========================================================
+HEADER
+==========================================================*/
+
+.admin-card__header {
+
+    min-width: 0;
+
+    flex: 1;
+
+}
+
+/*==========================================================
+ACTIONS
+==========================================================*/
+
+.admin-card__actions {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    align-items: center;
+
+    gap: var(--admin-toolbar-actions-gap);
+
+    flex-shrink: 0;
+
+}
+
+/*==========================================================
+CONTENT
+==========================================================*/
+
+.admin-card__content {
+
+    min-width: 0;
+
+}
+
+/*==========================================================
+FOOTER
+==========================================================*/
+
+.admin-card__footer {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    align-items: center;
+
+    gap: var(--admin-card-gap);
+
+    border-top: 1px solid var(--admin-border);
+
+}
+
+/*==========================================================
+PADDING NONE
+==========================================================*/
+
+:host([padding="none"]) .admin-card__top,
+:host([padding="none"]) .admin-card__content,
+:host([padding="none"]) .admin-card__footer {
+
+    padding: 0;
+
+}
+
+/*==========================================================
+PADDING SM
+==========================================================*/
+
+:host([padding="sm"]) .admin-card__top,
+:host([padding="sm"]) .admin-card__content {
+
+    padding:
+        var(--admin-space-4);
+
+}
+
+:host([padding="sm"]) .admin-card__footer {
+
+    padding:
+        var(--admin-space-3)
+        var(--admin-space-4);
+
+}
+
+/*==========================================================
+PADDING MD
+==========================================================*/
+
+:host([padding="md"]) .admin-card__top,
+:host([padding="md"]) .admin-card__content {
+
+    padding:
+        var(--admin-card-padding);
+
+}
+
+:host([padding="md"]) .admin-card__footer {
+
+    padding:
+        var(--admin-space-4)
+        var(--admin-card-padding);
+
+}
+
+/*==========================================================
+PADDING LG
+==========================================================*/
+
+:host([padding="lg"]) .admin-card__top,
+:host([padding="lg"]) .admin-card__content {
+
+    padding:
+        var(--admin-space-8);
+
+}
+
+:host([padding="lg"]) .admin-card__footer {
+
+    padding:
+        var(--admin-space-5)
+        var(--admin-space-8);
+
+}
+
+/*==========================================================
+CONTENT SPACING
+==========================================================*/
+
+.admin-card__top + .admin-card__content {
+
+    padding-top: 0;
+
+}
+
+.admin-card__content + .admin-card__footer {
+
+    margin-top: 0;
+
+}
+
+/*==========================================================
+DESKTOP
+==========================================================*/
+
+@media (min-width: 768px) {
+
+    .admin-card__top {
+
+        flex-direction: row;
+
+        align-items: flex-start;
+
+        justify-content: space-between;
+
+    }
+
+    .admin-card__actions {
+
+        justify-content: flex-end;
+
+    }
+
+}
+
+/*==========================================================
+REDUCED MOTION
+==========================================================*/
+
+@media (prefers-reduced-motion: reduce) {
+
+    .admin-card {
+
+        transition: none;
+
+    }
+
+}

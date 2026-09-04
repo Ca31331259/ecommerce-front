@@ -1,0 +1,78 @@
+<div class="admin-field">
+
+    <!-- ========================================= -->
+    <!-- HEADER -->
+    <!-- ========================================= -->
+
+    <div class="admin-field__header">
+
+        <label class="admin-field__label">
+
+            {{ label }}
+
+            @if(required){
+
+                <span
+                    class="admin-field__required"
+                    aria-hidden="true">
+
+                    *
+
+                </span>
+
+            }
+
+        </label>
+
+        @if(hint){
+
+            <p class="admin-field__hint">
+
+                {{ hint }}
+
+            </p>
+
+        }
+
+    </div>
+
+    <!-- ========================================= -->
+    <!-- CONTENT -->
+    <!-- ========================================= -->
+
+    <div class="admin-field__content">
+
+        <ng-content
+            select="[adminFieldContent]">
+        </ng-content>
+
+    </div>
+
+    <!-- ========================================= -->
+    <!-- ERROR -->
+    <!-- ========================================= -->
+
+    @if(invalid && errors.length){
+
+        <div
+            class="admin-field__error"
+            role="alert">
+
+            <i
+                class="fa-solid fa-circle-exclamation"
+                aria-hidden="true">
+            </i>
+
+            <div class="admin-field__error-content">
+
+                <ng-content
+                    select="[adminFieldError]">
+                </ng-content>
+
+            </div>
+
+        </div>
+
+    }
+
+</div>

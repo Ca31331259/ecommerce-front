@@ -1,0 +1,457 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+    min-width: 0;
+
+}
+
+/*==========================================================
+TABLE
+==========================================================*/
+
+.admin-table {
+
+    width: 100%;
+
+    min-width: 0;
+
+    overflow: hidden;
+
+    box-sizing: border-box;
+
+    background: var(--admin-surface);
+
+    border: var(--admin-card-border);
+
+    border-radius: var(--admin-card-radius);
+
+    box-shadow: var(--admin-card-shadow);
+
+}
+
+/*==========================================================
+TOOLBAR
+==========================================================*/
+
+.admin-table__toolbar {
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-toolbar-gap);
+
+    padding: var(--admin-card-padding);
+
+    box-sizing: border-box;
+
+    border-bottom: 1px solid var(--admin-border);
+
+}
+
+/*==========================================================
+BODY
+==========================================================*/
+
+.admin-table__body {
+
+    position: relative;
+
+    width: 100%;
+
+    min-width: 0;
+
+}
+
+/*==========================================================
+SCROLL
+==========================================================*/
+
+.admin-table__scroll {
+
+    width: 100%;
+
+    max-width: 100%;
+
+    overflow-x: auto;
+
+    overflow-y: hidden;
+
+    overscroll-behavior-inline: contain;
+
+    -webkit-overflow-scrolling: touch;
+
+}
+
+/*==========================================================
+CONTENT
+==========================================================*/
+
+.admin-table__content {
+
+    width: 100%;
+
+    min-width: max-content;
+
+}
+
+/*==========================================================
+LOADING
+==========================================================*/
+
+.admin-table__loading {
+
+    min-height: var(--admin-upload-height);
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: var(--admin-space-4);
+
+    padding: var(--admin-card-padding);
+
+    box-sizing: border-box;
+
+    text-align: center;
+
+}
+
+.admin-table__spinner {
+
+    width: var(--admin-space-8);
+
+    height: var(--admin-space-8);
+
+    box-sizing: border-box;
+
+    border:
+        var(--admin-space-1)
+        solid
+        var(--admin-border);
+
+    border-top-color: var(--admin-color-primary);
+
+    border-radius: var(--admin-radius-round);
+
+    animation:
+        admin-table-spin
+        var(--admin-duration-slow)
+        linear
+        infinite;
+
+}
+
+.admin-table__loading-label {
+
+    color: var(--admin-text-secondary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    font-weight: var(--admin-font-weight-medium);
+
+    line-height: var(--admin-line-height-normal);
+
+}
+
+/*==========================================================
+EMPTY
+==========================================================*/
+
+.admin-table__empty {
+
+    width: 100%;
+
+    min-width: 0;
+
+}
+
+/*==========================================================
+FOOTER
+==========================================================*/
+
+.admin-table__footer {
+
+    min-width: 0;
+
+    padding:
+        var(--admin-space-3)
+        var(--admin-card-padding);
+
+    box-sizing: border-box;
+
+    border-top: 1px solid var(--admin-border);
+
+    background: var(--admin-surface-alt);
+
+}
+
+/*==========================================================
+PROJECTED TABLE
+==========================================================*/
+
+.admin-table__content
+::ng-deep
+[adminTableContent] {
+
+    width: 100%;
+
+}
+
+/*==========================================================
+NATIVE TABLE
+==========================================================*/
+
+.admin-table__content
+::ng-deep
+table[adminTableContent] {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    background: transparent;
+
+}
+
+/*==========================================================
+MATERIAL TABLE
+==========================================================*/
+
+.admin-table__content
+::ng-deep
+.mat-mdc-table[adminTableContent] {
+
+    width: 100%;
+
+    background: transparent;
+
+}
+
+/*==========================================================
+HEADER CELL
+==========================================================*/
+
+.admin-table__content
+::ng-deep
+.mat-mdc-header-cell {
+
+    border-bottom-color: var(--admin-border);
+
+    color: var(--admin-text-secondary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-xs);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+    line-height: var(--admin-line-height-normal);
+
+    letter-spacing: .04em;
+
+    text-transform: uppercase;
+
+    white-space: nowrap;
+
+}
+
+/*==========================================================
+CELL
+==========================================================*/
+
+.admin-table__content
+::ng-deep
+.mat-mdc-cell {
+
+    border-bottom-color: var(--admin-border);
+
+    color: var(--admin-text-primary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    font-weight: var(--admin-font-weight-normal);
+
+    line-height: var(--admin-line-height-normal);
+
+}
+
+/*==========================================================
+LAST ROW
+==========================================================*/
+
+.admin-table__content
+::ng-deep
+.mat-mdc-row:last-child
+.mat-mdc-cell {
+
+    border-bottom-width: 0;
+
+}
+
+/*==========================================================
+DENSITY COMPACT
+==========================================================*/
+
+:host([density="compact"])
+.admin-table__content
+::ng-deep
+.mat-mdc-header-cell,
+
+:host([density="compact"])
+.admin-table__content
+::ng-deep
+.mat-mdc-cell {
+
+    height: var(--admin-space-10);
+
+    padding:
+        0
+        var(--admin-space-3);
+
+}
+
+/*==========================================================
+DENSITY DEFAULT
+==========================================================*/
+
+:host([density="default"])
+.admin-table__content
+::ng-deep
+.mat-mdc-header-cell,
+
+:host([density="default"])
+.admin-table__content
+::ng-deep
+.mat-mdc-cell {
+
+    height: var(--admin-table-row-height);
+
+    padding:
+        0
+        var(--admin-space-4);
+
+}
+
+/*==========================================================
+DENSITY COMFORTABLE
+==========================================================*/
+
+:host([density="comfortable"])
+.admin-table__content
+::ng-deep
+.mat-mdc-header-cell,
+
+:host([density="comfortable"])
+.admin-table__content
+::ng-deep
+.mat-mdc-cell {
+
+    height:
+        calc(
+            var(--admin-table-row-height)
+            + var(--admin-space-3)
+        );
+
+    padding:
+        0
+        var(--admin-space-5);
+
+}
+
+/*==========================================================
+HOVERABLE
+==========================================================*/
+
+@media (hover: hover) {
+
+    :host([hoverable])
+    .admin-table__content
+    ::ng-deep
+    .mat-mdc-row {
+
+        transition:
+            background
+            var(--admin-duration-fast)
+            var(--admin-easing-standard);
+
+    }
+
+    :host([hoverable])
+    .admin-table__content
+    ::ng-deep
+    .mat-mdc-row:hover {
+
+        background: var(--admin-surface-hover);
+
+    }
+
+}
+
+/*==========================================================
+TOOLBAR DESKTOP
+==========================================================*/
+
+@media (min-width: 768px) {
+
+    .admin-table__toolbar {
+
+        flex-direction: row;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+    }
+
+}
+
+/*==========================================================
+ANIMATION
+==========================================================*/
+
+@keyframes admin-table-spin {
+
+    to {
+
+        transform: rotate(360deg);
+
+    }
+
+}
+
+/*==========================================================
+REDUCED MOTION
+==========================================================*/
+
+@media (prefers-reduced-motion: reduce) {
+
+    .admin-table__spinner {
+
+        animation-duration: 1.5s;
+
+    }
+
+    :host([hoverable])
+    .admin-table__content
+    ::ng-deep
+    .mat-mdc-row {
+
+        transition: none;
+
+    }
+
+}

@@ -1,0 +1,94 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+}
+
+.otp-container {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 12px;
+
+    width: 100%;
+
+}
+
+.otp-digit {
+
+    width: 52px;
+
+    height: 60px;
+
+    border: 1px solid var(--mat-sys-outline, #d1d5db);
+
+    border-radius: 12px;
+
+    background: white;
+
+    font-size: 28px;
+
+    font-weight: 600;
+
+    text-align: center;
+
+    outline: none;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        transform .15s ease;
+
+}
+
+.otp-digit:hover {
+
+    border-color: #3b82f6;
+
+}
+
+.otp-digit:focus {
+
+    border-color: #2563eb;
+
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, .15);
+
+    transform: translateY(-1px);
+
+}
+
+.otp-digit:disabled {
+
+    background: #f5f5f5;
+
+    color: #9ca3af;
+
+    cursor: not-allowed;
+
+}
+
+@media (max-width: 600px) {
+
+    .otp-container {
+
+        gap: 8px;
+
+    }
+
+    .otp-digit {
+
+        width: 44px;
+
+        height: 52px;
+
+        font-size: 24px;
+
+    }
+
+}

@@ -1,0 +1,120 @@
+<admin-page>
+
+    <!-- ======================================================
+    BREADCRUMB
+    ======================================================= -->
+
+    <admin-breadcrumb>
+
+        <a adminBreadcrumbItem routerLink="/admin/dashboard">
+
+            Dashboard
+
+        </a>
+
+        <span adminBreadcrumbItem [current]="true">
+
+            Sitio web
+
+        </span>
+
+    </admin-breadcrumb>
+
+
+    <!-- ======================================================
+    PAGE HEADER
+    ======================================================= -->
+
+    <admin-toolbar title="Editor del sitio web"
+        subtitle="Personalizá la identidad, apariencia y contenido público de tu tienda.">
+    </admin-toolbar>
+
+
+    <!-- ======================================================
+    LOADING
+    ======================================================= -->
+
+    @if(loading()){
+
+    <admin-loader label="Cargando configuración del sitio...">
+    </admin-loader>
+
+    } @else if(data(); as site) {
+
+    <!-- ==================================================
+        COMPANY
+        =================================================== -->
+
+    <app-company-form [settings]="site.settings" (save)="saveSettings($event)">
+    </app-company-form>
+
+
+    <!-- ==================================================
+        HOME
+        =================================================== -->
+
+    <app-home-form [home]="site.home" (save)="saveHome($event)" (heroUpload)="uploadHero($event)"
+        (heroBackgroundUpload)="uploadHeroBackground($event)" (heroVideoUpload)="uploadHeroVideo($event)"
+        (aboutUpload)="uploadAbout($event)" style="margin-top: 10px;">
+    </app-home-form>
+
+
+    <!-- ==================================================
+        THEME
+        =================================================== -->
+
+    @if (data(); as site) {
+
+    <app-theme-form [theme]="site.theme" [settings]="site.settings" [home]="site.home" (save)="saveTheme($event)"
+        (logoUpload)="uploadLogo($event)" (faviconUpload)="uploadFavicon($event)" style="margin-top:10px">
+    </app-theme-form>
+    }
+
+
+    <!-- ==================================================
+        BANNERS
+        =================================================== -->
+
+    <app-banner-editor [banners]="site.banners" (create)="createBanner()" (save)="saveBanner($event)"
+        style="margin-top:10px" (delete)="deleteBanner($event)" (upload)="uploadBanner($event.banner, $event.file)"
+        (dirtyChange)="markDirty()">
+    </app-banner-editor>
+
+
+    <!-- ==================================================
+        FEATURES
+        =================================================== -->
+
+    <app-feature-editor [features]="site.features" (create)="createFeature()" (save)="saveFeature($event)"
+        (delete)="deleteFeature($event)">
+    </app-feature-editor>
+
+
+    <!-- ==================================================
+        GALLERY
+        =================================================== -->
+
+    <app-gallery-editor [gallery]="site.gallery" (create)="createGallery()" (save)="saveGallery($event)"
+        (delete)="deleteGallery($event)" (saveThumbnailRequested)="uploadGalleryImages($event)">
+    </app-gallery-editor>
+
+    <!-- ==================================================
+        SECTIONS
+        =================================================== -->
+    <app-section-editor [sections]="data()?.sections ?? []" (save)="saveSection($event)"
+        (saveOrder)="saveSectionsOrder($event)">
+    </app-section-editor>
+
+    } @else {
+
+    <!-- ==================================================
+        EMPTY / LOAD ERROR
+        =================================================== -->
+
+    <admin-empty-state icon="fa-solid fa-triangle-exclamation" title="No pudimos cargar la configuración"
+        description="La información del sitio no está disponible en este momento.">
+    </admin-empty-state>
+
+    }
+
+</admin-page>

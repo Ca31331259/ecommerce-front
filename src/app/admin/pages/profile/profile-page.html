@@ -1,0 +1,36 @@
+<admin-page
+    title="Mi perfil"
+    subtitle="Administrá tu información personal y la seguridad de tu cuenta.">
+
+    @if(loading()){
+
+        <p>Cargando...</p>
+
+    } @else if(profile()){
+
+        <app-profile-form
+            [profile]="profile()!"
+            [saving]="saving()"
+            (save)="updateProfile($event)">
+        </app-profile-form>
+
+
+        <app-change-email-form
+            [saving]="saving()"
+            (save)="changeEmail($event)">
+        </app-change-email-form>
+
+        <app-change-password-form
+            [saving]="saving()"
+            (save)="changePassword($event)">
+        </app-change-password-form>
+
+        <app-security-form
+    [profile]="profile()!"
+    [saving]="saving()"
+    (refresh)="loadProfile()">
+</app-security-form>
+
+    }
+
+</admin-page>

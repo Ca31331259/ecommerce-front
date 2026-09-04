@@ -1,0 +1,367 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+    min-width: 0;
+
+}
+
+/*==========================================================
+EMPTY STATE
+==========================================================*/
+
+.admin-empty-state {
+
+    width: 100%;
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    box-sizing: border-box;
+
+    text-align: center;
+
+}
+
+/*==========================================================
+ICON
+==========================================================*/
+
+.admin-empty-state__icon {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: var(--admin-radius-round);
+
+    background: var(--admin-surface-alt);
+
+    color: var(--admin-text-secondary);
+
+}
+
+.admin-empty-state__icon i {
+
+    line-height: 1;
+
+}
+
+/*==========================================================
+INFORMATION
+==========================================================*/
+
+.admin-empty-state__information {
+
+    width: 100%;
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+}
+
+/*==========================================================
+TITLE
+==========================================================*/
+
+.admin-empty-state__title {
+
+    margin: 0;
+
+    color: var(--admin-text-primary);
+
+    font-family: var(--admin-font-family);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+    line-height: var(--admin-line-height-tight);
+
+}
+
+/*==========================================================
+DESCRIPTION
+==========================================================*/
+
+.admin-empty-state__description {
+
+    max-width: var(--admin-form-max-width);
+
+    margin: 0;
+
+    color: var(--admin-text-secondary);
+
+    font-family: var(--admin-font-family);
+
+    font-weight: var(--admin-font-weight-normal);
+
+    line-height: var(--admin-line-height-relaxed);
+
+}
+
+/*==========================================================
+ACTIONS
+==========================================================*/
+
+.admin-empty-state__actions {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: var(--admin-toolbar-actions-gap);
+
+}
+
+/*==========================================================
+META
+==========================================================*/
+
+.admin-empty-state__meta {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: var(--admin-space-2);
+
+    color: var(--admin-text-muted);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-xs);
+
+    line-height: var(--admin-line-height-normal);
+
+}
+
+/*==========================================================
+SIZE SM
+==========================================================*/
+
+:host([size="sm"])
+.admin-empty-state {
+
+    gap: var(--admin-space-3);
+
+    padding: var(--admin-space-5);
+
+}
+
+:host([size="sm"])
+.admin-empty-state__icon {
+
+    width: var(--admin-space-10);
+
+    height: var(--admin-space-10);
+
+}
+
+:host([size="sm"])
+.admin-empty-state__icon i {
+
+    font-size: var(--admin-font-size-lg);
+
+}
+
+:host([size="sm"])
+.admin-empty-state__information {
+
+    gap: var(--admin-space-1);
+
+}
+
+:host([size="sm"])
+.admin-empty-state__title {
+
+    font-size: var(--admin-font-size-sm);
+
+}
+
+:host([size="sm"])
+.admin-empty-state__description {
+
+    font-size: var(--admin-font-size-xs);
+
+}
+
+/*==========================================================
+SIZE MD
+==========================================================*/
+
+:host([size="md"])
+.admin-empty-state {
+
+    gap: var(--admin-space-5);
+
+    padding: var(--admin-space-8);
+
+}
+
+:host([size="md"])
+.admin-empty-state__icon {
+
+    width: var(--admin-space-12);
+
+    height: var(--admin-space-12);
+
+}
+
+:host([size="md"])
+.admin-empty-state__icon i {
+
+    font-size: var(--admin-font-size-2xl);
+
+}
+
+:host([size="md"])
+.admin-empty-state__information {
+
+    gap: var(--admin-space-2);
+
+}
+
+:host([size="md"])
+.admin-empty-state__title {
+
+    font-size: var(--admin-font-size-lg);
+
+}
+
+:host([size="md"])
+.admin-empty-state__description {
+
+    font-size: var(--admin-font-size-sm);
+
+}
+
+/*==========================================================
+SIZE LG
+==========================================================*/
+
+:host([size="lg"])
+.admin-empty-state {
+
+    gap: var(--admin-space-6);
+
+    padding:
+
+        var(--admin-space-12)
+
+        var(--admin-space-8);
+
+}
+
+:host([size="lg"])
+.admin-empty-state__icon {
+
+    width: var(--admin-space-12);
+
+    height: var(--admin-space-12);
+
+    transform: scale(1.25);
+
+    margin-bottom: var(--admin-space-2);
+
+}
+
+:host([size="lg"])
+.admin-empty-state__icon i {
+
+    font-size: var(--admin-font-size-2xl);
+
+}
+
+:host([size="lg"])
+.admin-empty-state__information {
+
+    gap: var(--admin-space-3);
+
+}
+
+:host([size="lg"])
+.admin-empty-state__title {
+
+    font-size: var(--admin-font-size-xl);
+
+}
+
+:host([size="lg"])
+.admin-empty-state__description {
+
+    font-size: var(--admin-font-size-md);
+
+}
+
+/*==========================================================
+VARIANT SEARCH
+==========================================================*/
+
+:host([variant="search"])
+.admin-empty-state__icon {
+
+    background: var(--admin-surface-hover);
+
+    color: var(--admin-color-primary);
+
+}
+
+/*==========================================================
+VARIANT ERROR
+==========================================================*/
+
+:host([variant="error"])
+.admin-empty-state__icon {
+
+    background: var(--admin-surface-alt);
+
+    color: var(--admin-color-danger);
+
+}
+
+:host([variant="error"])
+.admin-empty-state__title {
+
+    color: var(--admin-color-danger);
+
+}
+
+/*==========================================================
+REDUCED MOTION
+==========================================================*/
+
+@media (prefers-reduced-motion: reduce) {
+
+    :host([size="lg"])
+    .admin-empty-state__icon {
+
+        transform: none;
+
+    }
+
+}

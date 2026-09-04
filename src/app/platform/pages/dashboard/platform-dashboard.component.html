@@ -1,0 +1,419 @@
+<div class="platform-dashboard">
+
+    <!-- ========================================== -->
+    <!-- HEADER -->
+    <!-- ========================================== -->
+
+    <header class="platform-dashboard__header">
+
+        <div>
+
+            <span class="platform-dashboard__eyebrow">
+
+                Plataforma
+
+            </span>
+
+            <h1 class="platform-dashboard__title">
+
+                Dashboard
+
+            </h1>
+
+            <p class="platform-dashboard__description">
+
+                Estado general de la plataforma SaaS.
+
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <!-- ========================================== -->
+    <!-- LOADING -->
+    <!-- ========================================== -->
+
+    @if (loading()) {
+
+        <section class="platform-dashboard__loading">
+
+            <div class="platform-dashboard__loading-card"></div>
+
+            <div class="platform-dashboard__loading-card"></div>
+
+            <div class="platform-dashboard__loading-card"></div>
+
+            <div class="platform-dashboard__loading-card"></div>
+
+        </section>
+
+    }
+
+
+    <!-- ========================================== -->
+    <!-- ERROR -->
+    <!-- ========================================== -->
+
+    @if (!loading() && error()) {
+
+        <section class="platform-dashboard__error">
+
+            <div class="platform-dashboard__error-icon">
+
+                <i
+                    class="fa-solid fa-triangle-exclamation"
+                    aria-hidden="true">
+                </i>
+
+            </div>
+
+            <div>
+
+                <strong>
+
+                    No se pudo cargar el dashboard
+
+                </strong>
+
+                <p>
+
+                    Ocurrió un error al obtener la información
+                    de la plataforma.
+
+                </p>
+
+            </div>
+
+        </section>
+
+    }
+
+
+    <!-- ========================================== -->
+    <!-- CONTENT -->
+    <!-- ========================================== -->
+
+    @if (!loading() && !error() && dashboard(); as data) {
+
+        <!-- ====================================== -->
+        <!-- TENANTS -->
+        <!-- ====================================== -->
+
+        <section class="platform-dashboard__section">
+
+            <div class="platform-dashboard__section-header">
+
+                <div>
+
+                    <h2>
+
+                        Tenants
+
+                    </h2>
+
+                    <span>
+
+                        Estado de las cuentas de la plataforma
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="platform-dashboard__kpi-grid">
+
+                <!-- TOTAL -->
+
+                <article class="platform-dashboard__kpi">
+
+                    <div
+                        class="
+                            platform-dashboard__kpi-icon
+                            platform-dashboard__kpi-icon--primary
+                        ">
+
+                        <i
+                            class="fa-solid fa-building"
+                            aria-hidden="true">
+                        </i>
+
+                    </div>
+
+                    <div class="platform-dashboard__kpi-content">
+
+                        <span>
+
+                            Total tenants
+
+                        </span>
+
+                        <strong>
+
+                            {{ data.totalTenants }}
+
+                        </strong>
+
+                    </div>
+
+                </article>
+
+
+                <!-- ACTIVE -->
+
+                <article class="platform-dashboard__kpi">
+
+                    <div
+                        class="
+                            platform-dashboard__kpi-icon
+                            platform-dashboard__kpi-icon--success
+                        ">
+
+                        <i
+                            class="fa-solid fa-circle-check"
+                            aria-hidden="true">
+                        </i>
+
+                    </div>
+
+                    <div class="platform-dashboard__kpi-content">
+
+                        <span>
+
+                            Activos
+
+                        </span>
+
+                        <strong>
+
+                            {{ data.activeTenants }}
+
+                        </strong>
+
+                    </div>
+
+                </article>
+
+
+                <!-- INACTIVE -->
+
+                <article class="platform-dashboard__kpi">
+
+                    <div
+                        class="
+                            platform-dashboard__kpi-icon
+                            platform-dashboard__kpi-icon--danger
+                        ">
+
+                        <i
+                            class="fa-solid fa-circle-pause"
+                            aria-hidden="true">
+                        </i>
+
+                    </div>
+
+                    <div class="platform-dashboard__kpi-content">
+
+                        <span>
+
+                            Inactivos
+
+                        </span>
+
+                        <strong>
+
+                            {{ data.inactiveTenants }}
+
+                        </strong>
+
+                    </div>
+
+                </article>
+
+
+                <!-- WEB -->
+
+                <article class="platform-dashboard__kpi">
+
+                    <div
+                        class="
+                            platform-dashboard__kpi-icon
+                            platform-dashboard__kpi-icon--info
+                        ">
+
+                        <i
+                            class="fa-solid fa-globe"
+                            aria-hidden="true">
+                        </i>
+
+                    </div>
+
+                    <div class="platform-dashboard__kpi-content">
+
+                        <span>
+
+                            Web habilitada
+
+                        </span>
+
+                        <strong>
+
+                            {{ data.webEnabled }}
+
+                        </strong>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- ====================================== -->
+        <!-- SSL -->
+        <!-- ====================================== -->
+
+        <section class="platform-dashboard__section">
+
+            <div class="platform-dashboard__section-header">
+
+                <div>
+
+                    <h2>
+
+                        Certificados SSL
+
+                    </h2>
+
+                    <span>
+
+                        Estado de los certificados de los tenants
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="platform-dashboard__kpi-grid">
+
+                <!-- ACTIVE -->
+
+                <article class="platform-dashboard__kpi">
+
+                    <div
+                        class="
+                            platform-dashboard__kpi-icon
+                            platform-dashboard__kpi-icon--success
+                        ">
+
+                        <i
+                            class="fa-solid fa-lock"
+                            aria-hidden="true">
+                        </i>
+
+                    </div>
+
+                    <div class="platform-dashboard__kpi-content">
+
+                        <span>
+
+                            SSL activos
+
+                        </span>
+
+                        <strong>
+
+                            {{ data.sslActive }}
+
+                        </strong>
+
+                    </div>
+
+                </article>
+
+
+                <!-- PENDING -->
+
+                <article class="platform-dashboard__kpi">
+
+                    <div
+                        class="
+                            platform-dashboard__kpi-icon
+                            platform-dashboard__kpi-icon--warning
+                        ">
+
+                        <i
+                            class="fa-solid fa-clock"
+                            aria-hidden="true">
+                        </i>
+
+                    </div>
+
+                    <div class="platform-dashboard__kpi-content">
+
+                        <span>
+
+                            SSL pendientes
+
+                        </span>
+
+                        <strong>
+
+                            {{ data.sslPending }}
+
+                        </strong>
+
+                    </div>
+
+                </article>
+
+
+                <!-- ERROR -->
+
+                <article class="platform-dashboard__kpi">
+
+                    <div
+                        class="
+                            platform-dashboard__kpi-icon
+                            platform-dashboard__kpi-icon--danger
+                        ">
+
+                        <i
+                            class="fa-solid fa-lock-open"
+                            aria-hidden="true">
+                        </i>
+
+                    </div>
+
+                    <div class="platform-dashboard__kpi-content">
+
+                        <span>
+
+                            SSL con error
+
+                        </span>
+
+                        <strong>
+
+                            {{ data.sslError }}
+
+                        </strong>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+    }
+
+</div>

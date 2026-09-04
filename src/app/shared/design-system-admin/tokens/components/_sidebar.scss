@@ -1,0 +1,130 @@
+:root {
+
+  /*======================================================
+  SIDEBAR
+  ======================================================*/
+
+  --admin-sidebar-width: 280px;
+
+  --admin-sidebar-collapsed-width: 72px;
+
+  --admin-sidebar-item-height: 48px;
+
+  --admin-sidebar-padding:
+    var(--admin-space-5);
+
+
+  /*======================================================
+  SURFACES
+  ======================================================*/
+
+  --admin-sidebar-background:
+    var(--slate-900);
+
+  --admin-sidebar-surface:
+    rgb(255 255 255 / 0.06);
+
+  --admin-sidebar-surface-hover:
+    rgb(255 255 255 / 0.09);
+
+  --admin-sidebar-active-background:
+    rgb(255 255 255 / 0.1);
+
+
+  /*======================================================
+  BORDER
+  ======================================================*/
+
+  --admin-sidebar-border:
+    rgb(255 255 255 / 0.08);
+
+
+  /*======================================================
+  TEXT
+  ======================================================*/
+
+  --admin-sidebar-text:
+    var(--slate-300);
+
+  --admin-sidebar-text-muted:
+    var(--slate-400);
+
+  --admin-sidebar-text-active:
+    var(--white);
+
+
+  /*======================================================
+  ICON
+  ======================================================*/
+
+  --admin-sidebar-icon-size:
+    var(--admin-font-size-sm);
+
+  --admin-sidebar-icon-width:
+    var(--admin-space-5);
+
+
+  /*======================================================
+  BRAND
+  ======================================================*/
+
+  --admin-sidebar-logo-size:
+    var(--admin-space-10);
+
+  --admin-sidebar-brand-gap:
+    var(--admin-space-3);
+
+
+  /*======================================================
+  NAVIGATION
+  ======================================================*/
+
+  --admin-sidebar-navigation-gap:
+    var(--admin-space-1);
+
+  --admin-sidebar-navigation-padding-x:
+    var(--admin-space-3);
+
+  --admin-sidebar-navigation-padding-y:
+    var(--admin-space-5);
+
+  --admin-sidebar-item-gap:
+    var(--admin-space-3);
+
+  --admin-sidebar-item-padding-x:
+    var(--admin-space-3);
+
+
+  /*======================================================
+  ACTIVE INDICATOR
+  ======================================================*/
+
+  --admin-sidebar-active-indicator-width:
+    var(--admin-space-1);
+
+  --admin-sidebar-active-indicator-height:
+    var(--admin-space-5);
+
+
+  /*======================================================
+  FOOTER
+  ======================================================*/
+
+  --admin-sidebar-footer-gap:
+    var(--admin-space-2);
+
+  --admin-sidebar-footer-padding-x:
+    var(--admin-space-3);
+
+  --admin-sidebar-footer-padding-y:
+    var(--admin-space-4);
+
+
+  /*======================================================
+  MOBILE
+  ======================================================*/
+
+  --admin-sidebar-mobile-offset:
+    var(--admin-space-12);
+
+}

@@ -1,0 +1,94 @@
+<ds-section id="about" background="card" padding="lg">
+
+    <ds-container size="lg">
+
+        <div class="about-layout">
+
+            <!-- ========================================= -->
+            <!-- VISUAL -->
+            <!-- ========================================= -->
+
+            <div class="about-visual">
+
+                @if(home.aboutImage){
+
+                <div class="about-image">
+
+                    <img [src]="home.aboutImage" [alt]="home.aboutTitle || 'Sobre nosotros'">
+
+                </div>
+
+                } @else {
+
+                <ds-image-placeholder ratio="landscape" size="lg" icon="fa-solid fa-building"
+                    text="Conocé más sobre nosotros">
+                </ds-image-placeholder>
+
+                }
+
+
+                <!-- ===================================== -->
+                <!-- DECORATION -->
+                <!-- ===================================== -->
+
+                <div class="
+                        about-decoration
+                        about-decoration-primary
+                    " aria-hidden="true">
+                </div>
+
+                <div class="
+                        about-decoration
+                        about-decoration-secondary
+                    " aria-hidden="true">
+                </div>
+
+            </div>
+
+
+            <!-- ========================================= -->
+            <!-- CONTENT -->
+            <!-- ========================================= -->
+
+            <div class="about-content">
+
+                <ds-section-header align="left" spacing="none" [title]="home.aboutTitle ?? undefined"
+                    [subtitle]="home.aboutText ?? undefined">
+
+                    <ds-badge dsHeaderBadge variant="neutral">
+
+                        <i class="fa-solid fa-circle-info"></i>
+
+                        Nosotros
+
+                    </ds-badge>
+
+                </ds-section-header>
+
+                <!-- ===================================== -->
+                <!-- ACTION -->
+                <!-- ===================================== -->
+
+                @if(home.aboutButtonText){
+
+                <div class="about-actions">
+
+                    <ds-button variant="primary" size="lg" (click)="openLink()">
+
+                        {{ home.aboutButtonText }}
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </ds-button>
+
+                </div>
+
+                }
+
+            </div>
+
+        </div>
+
+    </ds-container>
+
+</ds-section>

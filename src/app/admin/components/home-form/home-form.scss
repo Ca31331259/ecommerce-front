@@ -1,0 +1,268 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+    min-width: 0;
+
+}
+
+
+/*==========================================================
+SECTIONS
+==========================================================*/
+
+.home-form__section {
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-5);
+
+}
+
+.home-form__section + .home-form__section {
+
+    margin-top: var(--admin-space-8);
+
+    padding-top: var(--admin-space-8);
+
+    border-top:
+        1px solid
+        var(--admin-border);
+
+}
+
+
+/*==========================================================
+SECTION HEADER
+==========================================================*/
+
+.home-form__section-header {
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-1);
+
+}
+
+.home-form__section-header h3 {
+
+    margin: 0;
+
+    color: var(--admin-text-primary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-base);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+    line-height: var(--admin-line-height-tight);
+
+}
+
+.home-form__section-header p {
+
+    margin: 0;
+
+    max-width: 720px;
+
+    color: var(--admin-text-secondary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    font-weight: var(--admin-font-weight-normal);
+
+    line-height: var(--admin-line-height-relaxed);
+
+}
+
+
+
+/*==========================================================
+CONDITIONAL CONTENT
+==========================================================*/
+
+.home-form__conditional {
+
+    min-width: 0;
+
+    margin-top: var(--admin-space-2);
+
+    padding-top: var(--admin-space-5);
+
+    border-top:
+        1px solid
+        var(--admin-border);
+
+}
+
+
+/*==========================================================
+RANGE
+==========================================================*/
+
+.home-form__range {
+
+    min-width: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: var(--admin-space-4);
+
+}
+
+.home-form__range input[type='range'] {
+
+    flex: 1;
+
+    min-width: 0;
+
+}
+
+.home-form__range span {
+
+    min-width: 52px;
+
+    padding:
+        var(--admin-space-2)
+        var(--admin-space-3);
+
+    border:
+        1px solid
+        var(--admin-border);
+
+    border-radius:
+        var(--admin-radius-md);
+
+    background:
+        var(--admin-surface-alt);
+
+    color:
+        var(--admin-text-primary);
+
+    font-family:
+        var(--admin-font-family);
+
+    font-size:
+        var(--admin-font-size-sm);
+
+    font-weight:
+        var(--admin-font-weight-semibold);
+
+    line-height: 1;
+
+    text-align: center;
+
+    white-space: nowrap;
+
+}
+
+
+/*==========================================================
+MOBILE
+==========================================================*/
+
+@media (max-width: 640px) {
+
+    .home-form__section {
+
+        gap: var(--admin-space-4);
+
+    }
+
+    .home-form__section + .home-form__section {
+
+        margin-top: var(--admin-space-6);
+
+        padding-top: var(--admin-space-6);
+
+    }
+
+    .home-form__conditional {
+
+        padding-top: var(--admin-space-4);
+
+    }
+
+    .home-form__range {
+
+        gap: var(--admin-space-3);
+
+    }
+
+}
+
+
+/*==========================================================
+UPLOAD HEADER
+==========================================================*/
+
+.home-form__upload {
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-4);
+
+}
+
+.home-form__upload-header {
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-1);
+
+}
+
+.home-form__upload-header h4 {
+
+    margin: 0;
+
+    color: var(--admin-text-primary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+    line-height: var(--admin-line-height-tight);
+
+}
+
+.home-form__upload-header p {
+
+    margin: 0;
+
+    color: var(--admin-text-secondary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    font-weight: var(--admin-font-weight-normal);
+
+    line-height: var(--admin-line-height-relaxed);
+
+}

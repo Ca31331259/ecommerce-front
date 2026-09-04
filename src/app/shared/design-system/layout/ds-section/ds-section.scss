@@ -1,0 +1,105 @@
+:host {
+
+    display: block;
+
+}
+
+.ds-section {
+
+    width: 100%;
+
+}
+
+/*==========================================================
+PADDING
+==========================================================*/
+
+:host(.padding-none) .ds-section {
+
+    padding-block: 0;
+
+}
+
+:host(.padding-sm) .ds-section {
+
+    padding-block: var(--space-7);
+
+}
+
+:host(.padding-md) .ds-section {
+
+    padding-block: var(--space-9);
+
+}
+
+:host(.padding-lg) .ds-section {
+
+    padding-block: var(--ds-section-padding-desktop);
+
+}
+
+:host(.padding-xl) .ds-section {
+
+    padding-block: 10px;
+
+}
+
+/*==========================================================
+BACKGROUND
+==========================================================*/
+
+:host(.bg-transparent) .ds-section {
+
+    background: transparent;
+
+}
+
+:host(.bg-surface) .ds-section {
+
+    background: var(--tenant-bg);
+
+}
+
+:host(.bg-card) .ds-section {
+
+    background: var(--tenant-card);
+
+}
+
+:host(.bg-primary) .ds-section {
+
+    background: var(--tenant-primary);
+
+}
+
+:host(.bg-secondary) .ds-section {
+
+    background: var(--tenant-secondary);
+
+}
+
+/*==========================================================
+RESPONSIVE
+==========================================================*/
+
+@media(max-width:768px){
+
+    :host(.padding-lg) .ds-section{
+
+        padding-block:var(--ds-section-padding-mobile);
+
+    }
+
+    :host(.padding-md) .ds-section{
+
+        padding-block:var(--space-8);
+
+    }
+
+    :host(.padding-sm) .ds-section{
+
+        padding-block:var(--space-6);
+
+    }
+
+}

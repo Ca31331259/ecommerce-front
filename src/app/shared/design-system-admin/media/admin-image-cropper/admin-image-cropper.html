@@ -1,0 +1,24 @@
+<admin-form-card title="Thumbnail" subtitle="Seleccioná el recorte que se mostrará en la galería">
+
+    <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="aspectRatio"
+        format="webp" (imageCropped)="imageCropped($event)">
+
+    </image-cropper>
+
+    <div class="actions">
+
+        <admin-button variant="secondary" icon="fa-solid fa-xmark" (click)="cancel.emit()">
+
+            Cancelar
+
+        </admin-button>
+
+        <admin-button variant="primary" icon="fa-solid fa-check" (click)="saveCrop()">
+
+            Guardar thumbnail
+
+        </admin-button>
+
+    </div>
+
+</admin-form-card>

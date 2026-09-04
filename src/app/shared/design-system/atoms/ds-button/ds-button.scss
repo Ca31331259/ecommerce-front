@@ -1,0 +1,310 @@
+:host {
+
+    display: inline-flex;
+
+    vertical-align: middle;
+
+}
+
+/*==========================================================
+BUTTON
+==========================================================*/
+
+.ds-button {
+
+    width: 100%;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: var(--space-3);
+
+    border: 0;
+
+    border-radius: var(--tenant-radius);
+
+    font-family: var(--tenant-font);
+
+    font-weight: 600;
+
+    line-height: 1;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    position: relative;
+
+    box-sizing: border-box;
+
+    transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition),
+        background var(--transition-fast),
+        color var(--transition-fast),
+        border-color var(--transition-fast);
+
+}
+
+/*==========================================================
+VARIANT PRIMARY
+==========================================================*/
+
+:host(.variant-primary) .ds-button {
+
+    background: var(--tenant-primary);
+
+    color: var(--tenant-button-text);
+
+    box-shadow: var(--shadow-sm);
+
+}
+
+:host(.variant-primary) .ds-button:hover:not(:disabled) {
+
+    transform: translateY(-2px);
+
+    box-shadow: var(--shadow-md);
+
+}
+
+/*==========================================================
+VARIANT SECONDARY
+==========================================================*/
+
+:host(.variant-secondary) .ds-button {
+
+    background: transparent;
+
+    color: var(--tenant-primary);
+
+    border: 1px solid var(--tenant-primary);
+
+}
+
+:host(.variant-secondary) .ds-button:hover:not(:disabled) {
+
+    background: var(--tenant-primary);
+
+    color: var(--tenant-button-text);
+
+    transform: translateY(-2px);
+
+}
+
+/*==========================================================
+VARIANT NEUTRAL
+==========================================================*/
+
+:host(.variant-neutral) .ds-button {
+
+    background: rgba(0, 0, 0, 0.532);
+
+    color: var(--tenant-button-text);
+
+    border: 1px solid var(--tenant-neutral);
+
+}
+
+:host(.variant-neutral) .ds-button:hover:not(:disabled) {
+
+       background: color-mix(
+        in srgb,
+        var(--tenant-primary) 38%,
+        transparent
+    );
+
+    color: var(--tenant-button-text);
+
+    transform: translateY(-2px);
+
+}
+
+/*==========================================================
+VARIANT TEXT
+==========================================================*/
+
+:host(.variant-text) .ds-button {
+
+    background: transparent;
+
+    color: var(--tenant-primary);
+
+    padding-inline: var(--space-3);
+
+}
+
+:host(.variant-text) .ds-button:hover:not(:disabled) {
+
+    background: color-mix(
+        in srgb,
+        var(--tenant-primary) 8%,
+        transparent
+    );
+
+}
+
+/*==========================================================
+SIZE SMALL
+==========================================================*/
+
+:host(.size-sm) .ds-button {
+
+    min-height: 40px;
+
+    padding-inline: var(--space-4);
+
+    font-size: var(--font-small);
+
+}
+
+/*==========================================================
+SIZE MEDIUM
+==========================================================*/
+
+:host(.size-md) .ds-button {
+
+    min-height: var(--ds-button-height);
+
+    padding-inline: var(--space-5);
+
+    font-size: var(--font-body);
+
+}
+
+/*==========================================================
+SIZE LARGE
+==========================================================*/
+
+:host(.size-lg) .ds-button {
+
+    min-height: 60px;
+
+    padding-inline: var(--space-7);
+
+    font-size: 17px;
+
+}
+
+/*==========================================================
+FULL WIDTH
+==========================================================*/
+
+:host(.full-width) {
+
+    display: flex;
+
+    width: 100%;
+
+}
+
+/*==========================================================
+DISABLED
+==========================================================*/
+
+.ds-button:disabled {
+
+    opacity: .55;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+    box-shadow: none;
+
+}
+
+/*==========================================================
+FOCUS
+==========================================================*/
+
+.ds-button:focus-visible {
+
+    outline: 3px solid color-mix(
+        in srgb,
+        var(--tenant-primary) 28%,
+        transparent
+    );
+
+    outline-offset: 3px;
+
+}
+
+/*==========================================================
+CONTENT
+==========================================================*/
+
+.button-content {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: var(--space-3);
+
+    transition: opacity var(--transition-fast);
+
+}
+
+.button-content.loading {
+
+    opacity: .35;
+
+}
+
+/*==========================================================
+SPINNER
+==========================================================*/
+
+.spinner {
+
+    position: absolute;
+
+    width: 18px;
+
+    height: 18px;
+
+    border: 2px solid currentColor;
+
+    border-right-color: transparent;
+
+    border-radius: 50%;
+
+    animation: ds-button-spin .7s linear infinite;
+
+}
+
+@keyframes ds-button-spin {
+
+    to {
+
+        transform: rotate(360deg);
+
+    }
+
+}
+
+/*==========================================================
+REDUCED MOTION
+==========================================================*/
+
+@media (prefers-reduced-motion: reduce) {
+
+    .ds-button {
+
+        transition: none;
+
+    }
+
+    .spinner {
+
+        animation-duration: 1.4s;
+
+    }
+
+}

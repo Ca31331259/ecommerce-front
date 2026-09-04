@@ -1,0 +1,35 @@
+:root {
+
+  --admin-duration-fast: 150ms;
+
+  --admin-duration-normal: 250ms;
+
+  --admin-duration-slow: 400ms;
+
+  --admin-easing-standard: ease;
+
+  --admin-transition-fast:
+
+    all
+
+    var(--admin-duration-fast)
+
+    var(--admin-easing-standard);
+
+  --admin-transition:
+
+    all
+
+    var(--admin-duration-normal)
+
+    var(--admin-easing-standard);
+
+  --admin-transition-slow:
+
+    all
+
+    var(--admin-duration-slow)
+
+    var(--admin-easing-standard);
+
+}

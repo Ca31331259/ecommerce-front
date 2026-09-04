@@ -1,0 +1,217 @@
+<div
+    class="admin-upload"
+    role="button"
+    tabindex="0"
+    [attr.aria-disabled]="disabled || loading"
+    (click)="openFileDialog()"
+    (keydown.enter)="openFileDialog()"
+    (keydown.space)="openFileDialog(); $event.preventDefault()"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)"
+    (drop)="onDrop($event)">
+
+    <input
+        #fileInput
+        class="admin-upload__input"
+        type="file"
+        [accept]="accept"
+        [multiple]="multiple"
+        [disabled]="disabled || loading"
+        (change)="onFileInputChange($event)">
+
+    @if(loading){
+
+        <div class="admin-upload__loading">
+
+            <span
+                class="admin-upload__spinner"
+                aria-hidden="true">
+            </span>
+
+            <strong class="admin-upload__loading-title">
+
+                Procesando archivo
+
+            </strong>
+
+            <span class="admin-upload__loading-text">
+
+                Esperá unos segundos...
+
+            </span>
+
+        </div>
+
+    } @else if(previewUrl && variant === 'image'){
+
+        <div class="admin-upload__preview">
+
+            <img
+                class="admin-upload__image"
+                [src]="previewUrl"
+                [alt]="fileName || 'Vista previa de imagen'">
+
+            <div class="admin-upload__preview-overlay">
+
+                <div class="admin-upload__preview-actions">
+
+                    <button
+                        class="admin-upload__action"
+                        type="button"
+                        (click)="openFileDialog(); $event.stopPropagation()">
+
+                        <i
+                            class="fa-solid fa-arrows-rotate"
+                            aria-hidden="true">
+                        </i>
+
+                        <span>
+                            Reemplazar
+                        </span>
+
+                    </button>
+
+                    <button
+                        class="
+                            admin-upload__action
+                            admin-upload__action--danger
+                        "
+                        type="button"
+                        (click)="onRemove($event)">
+
+                        <i
+                            class="fa-solid fa-trash"
+                            aria-hidden="true">
+                        </i>
+
+                        <span>
+                            Eliminar
+                        </span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    } @else if(fileName && variant === 'file'){
+
+        <div class="admin-upload__file">
+
+            <span
+                class="admin-upload__file-icon"
+                aria-hidden="true">
+
+                <i class="fa-solid fa-file"></i>
+
+            </span>
+
+            <div class="admin-upload__file-information">
+
+                <strong class="admin-upload__file-name">
+
+                    {{ fileName }}
+
+                </strong>
+
+                <span class="admin-upload__file-action">
+
+                    Hacé clic para reemplazar el archivo
+
+                </span>
+
+            </div>
+
+            <button
+                class="
+                    admin-upload__remove
+                "
+                type="button"
+                aria-label="Eliminar archivo"
+                (click)="onRemove($event)">
+
+                <i
+                    class="fa-solid fa-trash"
+                    aria-hidden="true">
+                </i>
+
+            </button>
+
+        </div>
+
+    } @else {
+
+        <div class="admin-upload__empty">
+
+            <span
+                class="admin-upload__icon"
+                aria-hidden="true">
+
+                @if(variant === 'image'){
+
+                    <i class="fa-regular fa-image"></i>
+
+                } @else {
+
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+
+                }
+
+            </span>
+
+            <div class="admin-upload__information">
+
+                <strong class="admin-upload__title">
+
+                    Arrastrá un archivo acá
+
+                </strong>
+
+                <span class="admin-upload__text">
+
+                    o hacé clic para seleccionar
+
+                </span>
+
+            </div>
+
+            @if(metadata.length){
+
+                <div class="admin-upload__meta">
+
+                    <ng-content
+                        select="[adminUploadMeta]">
+                    </ng-content>
+
+                </div>
+
+            }
+
+        </div>
+
+    }
+
+</div>
+
+@if(error){
+
+    <div
+        class="admin-upload__error"
+        role="alert">
+
+        <i
+            class="fa-solid fa-circle-exclamation"
+            aria-hidden="true">
+        </i>
+
+        <span>
+
+            {{ error }}
+
+        </span>
+
+    </div>
+
+}

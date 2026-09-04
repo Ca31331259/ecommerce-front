@@ -1,0 +1,41 @@
+:root {
+
+  /*======================================================
+  BREADCRUMB
+  ======================================================*/
+
+  --admin-breadcrumb-item-gap:
+    var(--admin-space-1);
+
+  --admin-breadcrumb-separator-gap:
+    var(--admin-space-2);
+
+
+  /*======================================================
+  TYPOGRAPHY
+  ======================================================*/
+
+  --admin-breadcrumb-font-size:
+    var(--admin-font-size-xs);
+
+  --admin-breadcrumb-font-size-md:
+    var(--admin-font-size-sm);
+
+
+  /*======================================================
+  TEXT
+  ======================================================*/
+
+  --admin-breadcrumb-text:
+    var(--admin-text-muted);
+
+  --admin-breadcrumb-text-hover:
+    var(--admin-text-secondary);
+
+  --admin-breadcrumb-text-current:
+    var(--admin-text-primary);
+
+  --admin-breadcrumb-separator:
+    var(--slate-300);
+
+}
