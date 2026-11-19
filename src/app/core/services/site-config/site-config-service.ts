@@ -14,7 +14,13 @@ import {
 import {
   GallerySize,
   SiteConfig,
+  TenantAbout,
+  TenantAboutMilestone,
+  TenantAboutStat,
+  TenantAboutTeamMember,
+  TenantAboutValue,
   TenantBanner,
+  TenantBranch,
   TenantFeature,
   TenantGallery,
   TenantHome,
@@ -328,4 +334,233 @@ export class SiteConfigService {
   );
 
 }
+
+
+  /* ======================================================
+   * ABOUT (Nosotros ampliado)
+   * ====================================================== */
+
+  saveAbout(
+    about: TenantAbout
+  ): Observable<TenantAbout> {
+
+    return this.http.put<TenantAbout>(
+      `${this.api}/about`,
+      about
+    );
+
+  }
+
+
+  /* -- Valores -- */
+
+  getAboutValues(): Observable<TenantAboutValue[]> {
+
+    return this.http.get<TenantAboutValue[]>(
+      `${this.api}/about/values`
+    );
+
+  }
+
+  createAboutValue(): Observable<TenantAboutValue> {
+
+    return this.http.post<TenantAboutValue>(
+      `${this.api}/about/values`,
+      {}
+    );
+
+  }
+
+  updateAboutValue(
+    id: number,
+    value: TenantAboutValue
+  ): Observable<TenantAboutValue> {
+
+    return this.http.put<TenantAboutValue>(
+      `${this.api}/about/values/${id}`,
+      value
+    );
+
+  }
+
+  deleteAboutValue(
+    id: number
+  ): Observable<void> {
+
+    return this.http.delete<void>(
+      `${this.api}/about/values/${id}`
+    );
+
+  }
+
+
+  /* -- Hitos (línea de tiempo) -- */
+
+  getAboutMilestones(): Observable<TenantAboutMilestone[]> {
+
+    return this.http.get<TenantAboutMilestone[]>(
+      `${this.api}/about/milestones`
+    );
+
+  }
+
+  createAboutMilestone(): Observable<TenantAboutMilestone> {
+
+    return this.http.post<TenantAboutMilestone>(
+      `${this.api}/about/milestones`,
+      {}
+    );
+
+  }
+
+  updateAboutMilestone(
+    id: number,
+    milestone: TenantAboutMilestone
+  ): Observable<TenantAboutMilestone> {
+
+    return this.http.put<TenantAboutMilestone>(
+      `${this.api}/about/milestones/${id}`,
+      milestone
+    );
+
+  }
+
+  deleteAboutMilestone(
+    id: number
+  ): Observable<void> {
+
+    return this.http.delete<void>(
+      `${this.api}/about/milestones/${id}`
+    );
+
+  }
+
+
+  /* -- Equipo -- */
+
+  getAboutTeam(): Observable<TenantAboutTeamMember[]> {
+
+    return this.http.get<TenantAboutTeamMember[]>(
+      `${this.api}/about/team`
+    );
+
+  }
+
+  createAboutTeamMember(): Observable<TenantAboutTeamMember> {
+
+    return this.http.post<TenantAboutTeamMember>(
+      `${this.api}/about/team`,
+      {}
+    );
+
+  }
+
+  updateAboutTeamMember(
+    id: number,
+    member: TenantAboutTeamMember
+  ): Observable<TenantAboutTeamMember> {
+
+    return this.http.put<TenantAboutTeamMember>(
+      `${this.api}/about/team/${id}`,
+      member
+    );
+
+  }
+
+  deleteAboutTeamMember(
+    id: number
+  ): Observable<void> {
+
+    return this.http.delete<void>(
+      `${this.api}/about/team/${id}`
+    );
+
+  }
+
+
+  /* -- Stats (números destacados) -- */
+
+  getAboutStats(): Observable<TenantAboutStat[]> {
+
+    return this.http.get<TenantAboutStat[]>(
+      `${this.api}/about/stats`
+    );
+
+  }
+
+  createAboutStat(): Observable<TenantAboutStat> {
+
+    return this.http.post<TenantAboutStat>(
+      `${this.api}/about/stats`,
+      {}
+    );
+
+  }
+
+  updateAboutStat(
+    id: number,
+    stat: TenantAboutStat
+  ): Observable<TenantAboutStat> {
+
+    return this.http.put<TenantAboutStat>(
+      `${this.api}/about/stats/${id}`,
+      stat
+    );
+
+  }
+
+  deleteAboutStat(
+    id: number
+  ): Observable<void> {
+
+    return this.http.delete<void>(
+      `${this.api}/about/stats/${id}`
+    );
+
+  }
+
+
+  /* ======================================================
+   * SUCURSALES
+   * ====================================================== */
+
+  getBranches(): Observable<TenantBranch[]> {
+
+    return this.http.get<TenantBranch[]>(
+      `${this.api}/branches`
+    );
+
+  }
+
+  createBranch(): Observable<TenantBranch> {
+
+    return this.http.post<TenantBranch>(
+      `${this.api}/branches`,
+      {}
+    );
+
+  }
+
+  updateBranch(
+    id: number,
+    branch: TenantBranch
+  ): Observable<TenantBranch> {
+
+    return this.http.put<TenantBranch>(
+      `${this.api}/branches/${id}`,
+      branch
+    );
+
+  }
+
+  deleteBranch(
+    id: number
+  ): Observable<void> {
+
+    return this.http.delete<void>(
+      `${this.api}/branches/${id}`
+    );
+
+  }
+
 }

@@ -16,7 +16,13 @@ import {
 import {
   GalleryUploadEvent,
   SiteConfig as SiteConfigModel,
+  TenantAbout,
+  TenantAboutMilestone,
+  TenantAboutStat,
+  TenantAboutTeamMember,
+  TenantAboutValue,
   TenantBanner,
+  TenantBranch,
   TenantFeature,
   TenantGallery,
   TenantHome,
@@ -55,6 +61,30 @@ import {
 } from '../../components/section-editor/section-editor';
 
 import {
+  AboutForm
+} from '../../components/about-form/about-form';
+
+import {
+  AboutValueEditor
+} from '../../components/about-value-editor/about-value-editor';
+
+import {
+  AboutMilestoneEditor
+} from '../../components/about-milestone-editor/about-milestone-editor';
+
+import {
+  AboutTeamEditor
+} from '../../components/about-team-editor/about-team-editor';
+
+import {
+  AboutStatEditor
+} from '../../components/about-stat-editor/about-stat-editor';
+
+import {
+  BranchEditor
+} from '../../components/branch-editor/branch-editor';
+
+import {
   RouterLink
 } from '@angular/router';
 
@@ -64,6 +94,9 @@ import {
   AdminEmptyState,
   AdminLoader,
   AdminPage,
+  AdminTabDefinition,
+  AdminTabPanel,
+  AdminTabs,
   AdminToolbar
 } from '@shared/design-system-admin';
 import { AdminToastService } from '@shared/design-system-admin/feedback/admin-toast.service';
@@ -84,6 +117,8 @@ import { finalize, Observable } from 'rxjs';
 
     AdminBreadcrumb,
     AdminBreadcrumbItem,
+    AdminTabs,
+    AdminTabPanel,
     CompanyForm,
     HomeForm,
     ThemeForm,
@@ -91,7 +126,15 @@ import { finalize, Observable } from 'rxjs';
     BannerEditor,
     FeatureEditor,
     GalleryEditor,
-    SectionEditor
+    SectionEditor,
+
+    AboutForm,
+    AboutValueEditor,
+    AboutMilestoneEditor,
+    AboutTeamEditor,
+    AboutStatEditor,
+
+    BranchEditor
   ],
   templateUrl: './site-config.html',
   styleUrl: './site-config.scss'
@@ -124,6 +167,45 @@ export class SiteConfig implements OnInit {
     signal(false);
 
   private readonly toast = inject(AdminToastService);
+
+
+  /* ======================================================
+   * TABS
+   * ====================================================== */
+
+  readonly tabs: AdminTabDefinition[] = [
+
+    {
+      id: 'general',
+      label: 'General',
+      icon: 'fa-solid fa-gear'
+    },
+
+    {
+      id: 'home',
+      label: 'Página principal',
+      icon: 'fa-solid fa-house'
+    },
+
+    {
+      id: 'about',
+      label: 'Nosotros',
+      icon: 'fa-solid fa-people-group'
+    },
+
+    {
+      id: 'content',
+      label: 'Contenido',
+      icon: 'fa-solid fa-box-open'
+    },
+
+    {
+      id: 'sections',
+      label: 'Secciones',
+      icon: 'fa-solid fa-puzzle-piece'
+    }
+
+  ];
 
 
   markDirty(): void {
@@ -996,6 +1078,700 @@ uploadGalleryImages(
 
           });
 
+        }
+
+      });
+
+  }
+
+
+  /* ======================================================
+   * ABOUT (Nosotros ampliado)
+   * ====================================================== */
+
+  saveAbout(
+    about: TenantAbout
+  ): void {
+
+    this.executeSave(
+
+      this.service.saveAbout(about),
+
+      savedAbout => {
+
+        this.data.update(site => {
+
+          if (!site) {
+
+            return site;
+
+          }
+
+          return {
+
+            ...site,
+
+            about: savedAbout
+
+          };
+
+        });
+
+      }
+
+    );
+
+  }
+
+
+  /* -- Valores -- */
+
+  createAboutValue(): void {
+
+    this.service
+      .createAboutValue()
+      .subscribe({
+
+        next: (value) => {
+
+          this.data.update(site => {
+
+            if (!site) {
+
+              return site;
+
+            }
+            this.toast.success(
+              'Cambios guardados correctamente.'
+            );
+            return {
+              ...site,
+              aboutValues: [
+                ...site.aboutValues,
+                value
+              ]
+            };
+
+          });
+
+        }
+
+      });
+
+  }
+
+
+  saveAboutValue(
+    value: TenantAboutValue
+  ): void {
+
+    this.service
+      .updateAboutValue(
+        value.id,
+        value
+      )
+      .subscribe({
+
+        next: (savedValue) => {
+
+          this.data.update(site => {
+
+            if (!site) {
+
+              return site;
+
+            }
+            this.toast.success(
+              'Cambios guardados correctamente.'
+            );
+            return {
+              ...site,
+              aboutValues:
+                site.aboutValues.map(item =>
+                  item.id === savedValue.id
+                    ? savedValue
+                    : item
+                )
+            };
+
+          });
+
+        }
+
+      });
+
+  }
+
+
+  deleteAboutValue(
+    value: TenantAboutValue
+  ): void {
+
+    this.service
+      .deleteAboutValue(
+        value.id
+      )
+      .subscribe({
+
+        next: () => {
+
+          this.data.update(site => {
+
+            if (!site) {
+
+              return site;
+
+            }
+            this.toast.success(
+              'Cambios guardados correctamente.'
+            );
+            return {
+              ...site,
+              aboutValues:
+                site.aboutValues.filter(
+                  item =>
+                    item.id !== value.id
+                )
+            };
+
+          });
+
+        }
+
+      });
+
+  }
+
+
+  /* -- Hitos (línea de tiempo) -- */
+
+  createAboutMilestone(): void {
+
+    this.service
+      .createAboutMilestone()
+      .subscribe({
+
+        next: (milestone) => {
+
+          this.data.update(site => {
+
+            if (!site) {
+
+              return site;
+
+            }
+            this.toast.success(
+              'Cambios guardados correctamente.'
+            );
+            return {
+              ...site,
+              aboutMilestones: [
+                ...site.aboutMilestones,
+                milestone
+              ]
+            };
+
+          });
+
+        }
+
+      });
+
+  }
+
+
+  saveAboutMilestone(
+    milestone: TenantAboutMilestone
+  ): void {
+
+    this.service
+      .updateAboutMilestone(
+        milestone.id,
+        milestone
+      )
+      .subscribe({
+
+        next: (savedMilestone) => {
+
+          this.data.update(site => {
+
+            if (!site) {
+
+              return site;
+
+            }
+            this.toast.success(
+              'Cambios guardados correctamente.'
+            );
+            return {
+              ...site,
+              aboutMilestones:
+                site.aboutMilestones.map(item =>
+                  item.id === savedMilestone.id
+                    ? savedMilestone
+                    : item
+                )
+            };
+
+          });
+
+        }
+
+      });
+
+  }
+
+
+  deleteAboutMilestone(
+    milestone: TenantAboutMilestone
+  ): void {
+
+    this.service
+      .deleteAboutMilestone(
+        milestone.id
+      )
+      .subscribe({
+
+        next: () => {
+
+          this.data.update(site => {
+
+            if (!site) {
+
+              return site;
+
+            }
+            this.toast.success(
+              'Cambios guardados correctamente.'
+            );
+            return {
+              ...site,
+              aboutMilestones:
+                site.aboutMilestones.filter(
+                  item =>
+                    item.id !== milestone.id
+                )
+            };
+
+          });
+
+        }
+
+      });
+
+  }
+
+
+  /* -- Equipo -- */
+
+  createAboutTeamMember(): void {
+
+    this.service
+      .createAboutTeamMember()
+      .subscribe({
+
+        next: (member) => {
+
+          this.data.update(site => {
+
+            if (!site) {
+
+              return site;
+
+            }
+            this.toast.success(
+              'Cambios guardados correctamente.'
+            );
+            return {
+              ...site,
+              aboutTeam: [
+                ...site.aboutTeam,
+                member
+              ]
+            };
+
+          });
+
+        }
+
+      });
+
+  }
+
+
+  saveAboutTeamMember(
+    member: TenantAboutTeamMember
+  ): void {
+
+    this.service
+      .updateAboutTeamMember(
+        member.id,
+        member
+      )
+      .subscribe({
+
+        next: (savedMember) => {
+
+          this.data.update(site => {
+
+            if (!site) {
+
+              return site;
+
+            }
+            this.toast.success(
+              'Cambios guardados correctamente.'
+            );
+            return {
+              ...site,
+              aboutTeam:
+                site.aboutTeam.map(item =>
+                  item.id === savedMember.id
+                    ? savedMember
+                    : item
+                )
+            };
+
+          });
+
+        }
+
+      });
+
+  }
+
+
+  deleteAboutTeamMember(
+    member: TenantAboutTeamMember
+  ): void {
+
+    this.service
+      .deleteAboutTeamMember(
+        member.id
+      )
+      .subscribe({
+
+        next: () => {
+
+          this.data.update(site => {
+
+            if (!site) {
+
+              return site;
+
+            }
+            this.toast.success(
+              'Cambios guardados correctamente.'
+            );
+            return {
+              ...site,
+              aboutTeam:
+                site.aboutTeam.filter(
+                  item =>
+                    item.id !== member.id
+                )
+            };
+
+          });
+
+        }
+
+      });
+
+  }
+
+
+  uploadAboutTeamPhoto(
+    member: TenantAboutTeamMember,
+    file: File
+  ): void {
+
+    this.service
+      .upload(
+        file,
+        'ABOUT_TEAM'
+      )
+      .subscribe({
+
+        next: (res) => {
+
+          member.photoUrl = res.url;
+          this.toast.success(
+            'Cambios guardados correctamente.'
+          );
+        }
+
+      });
+
+  }
+
+
+  /* -- Stats (números destacados) -- */
+
+  createAboutStat(): void {
+
+    this.service
+      .createAboutStat()
+      .subscribe({
+
+        next: (stat) => {
+
+          this.data.update(site => {
+
+            if (!site) {
+
+              return site;
+
+            }
+            this.toast.success(
+              'Cambios guardados correctamente.'
+            );
+            return {
+              ...site,
+              aboutStats: [
+                ...site.aboutStats,
+                stat
+              ]
+            };
+
+          });
+
+        }
+
+      });
+
+  }
+
+
+  saveAboutStat(
+    stat: TenantAboutStat
+  ): void {
+
+    this.service
+      .updateAboutStat(
+        stat.id,
+        stat
+      )
+      .subscribe({
+
+        next: (savedStat) => {
+
+          this.data.update(site => {
+
+            if (!site) {
+
+              return site;
+
+            }
+            this.toast.success(
+              'Cambios guardados correctamente.'
+            );
+            return {
+              ...site,
+              aboutStats:
+                site.aboutStats.map(item =>
+                  item.id === savedStat.id
+                    ? savedStat
+                    : item
+                )
+            };
+
+          });
+
+        }
+
+      });
+
+  }
+
+
+  deleteAboutStat(
+    stat: TenantAboutStat
+  ): void {
+
+    this.service
+      .deleteAboutStat(
+        stat.id
+      )
+      .subscribe({
+
+        next: () => {
+
+          this.data.update(site => {
+
+            if (!site) {
+
+              return site;
+
+            }
+            this.toast.success(
+              'Cambios guardados correctamente.'
+            );
+            return {
+              ...site,
+              aboutStats:
+                site.aboutStats.filter(
+                  item =>
+                    item.id !== stat.id
+                )
+            };
+
+          });
+
+        }
+
+      });
+
+  }
+
+
+  /* ======================================================
+   * SUCURSALES
+   * ====================================================== */
+
+  createBranch(): void {
+
+    this.service
+      .createBranch()
+      .subscribe({
+
+        next: (branch) => {
+
+          this.data.update(site => {
+
+            if (!site) {
+
+              return site;
+
+            }
+            this.toast.success(
+              'Cambios guardados correctamente.'
+            );
+            return {
+              ...site,
+              branches: [
+                ...site.branches,
+                branch
+              ]
+            };
+
+          });
+
+        }
+
+      });
+
+  }
+
+
+  saveBranch(
+    branch: TenantBranch
+  ): void {
+
+    this.service
+      .updateBranch(
+        branch.id,
+        branch
+      )
+      .subscribe({
+
+        next: (savedBranch) => {
+
+          this.data.update(site => {
+
+            if (!site) {
+
+              return site;
+
+            }
+            this.toast.success(
+              'Cambios guardados correctamente.'
+            );
+            return {
+              ...site,
+              branches:
+                site.branches.map(item =>
+                  item.id === savedBranch.id
+                    ? savedBranch
+                    : item
+                )
+            };
+
+          });
+
+        },
+
+        error: () => {
+
+          this.toast.error(
+            'No se pudieron guardar los cambios.'
+          );
+
+        }
+
+      });
+
+  }
+
+
+  deleteBranch(
+    branch: TenantBranch
+  ): void {
+
+    this.service
+      .deleteBranch(
+        branch.id
+      )
+      .subscribe({
+
+        next: () => {
+
+          this.data.update(site => {
+
+            if (!site) {
+
+              return site;
+
+            }
+            this.toast.success(
+              'Cambios guardados correctamente.'
+            );
+            return {
+              ...site,
+              branches:
+                site.branches.filter(
+                  item =>
+                    item.id !== branch.id
+                )
+            };
+
+          });
+
+        }
+
+      });
+
+  }
+
+
+  uploadBranchImage(
+    branch: TenantBranch,
+    file: File
+  ): void {
+
+    this.service
+      .upload(
+        file,
+        'BRANCH'
+      )
+      .subscribe({
+
+        next: (res) => {
+
+          branch.imageUrl = res.url;
+          this.toast.success(
+            'Cambios guardados correctamente.'
+          );
         }
 
       });

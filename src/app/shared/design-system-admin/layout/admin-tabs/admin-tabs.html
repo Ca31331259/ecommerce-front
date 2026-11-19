@@ -1,0 +1,31 @@
+<div class="admin-tabs">
+
+    <nav class="admin-tabs__nav" role="tablist">
+
+        @for (tab of tabs; track tab.id) {
+
+        <button type="button" class="admin-tabs__tab" role="tab"
+            [class.admin-tabs__tab--active]="tab.id === activeTab"
+            [attr.aria-selected]="tab.id === activeTab" (click)="selectTab(tab.id)">
+
+            @if (tab.icon) {
+
+            <i [class]="tab.icon"></i>
+
+            }
+
+            {{ tab.label }}
+
+        </button>
+
+        }
+
+    </nav>
+
+    <div class="admin-tabs__content">
+
+        <ng-content></ng-content>
+
+    </div>
+
+</div>

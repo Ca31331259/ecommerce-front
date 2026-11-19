@@ -184,6 +184,30 @@ export const PLATFORM_ROUTES: Routes = [
 
                 ]
 
+            },
+
+
+            /*
+             * ==================================================
+             * MIGRACIÓN DE CLIENTE LEGACY
+             * /platform/legacy-migration
+             * ==================================================
+             */
+
+            {
+                path: 'legacy-migration',
+                canActivate: [
+                    platformAuthGuard
+                ],
+
+
+                loadComponent: () =>
+                    import(
+                        './pages/legacy-migration/platform-legacy-migration.component'
+                    ).then(
+                        m => m.PlatformLegacyMigrationComponent
+                    )
+
             }
 
         ]

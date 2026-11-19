@@ -58,6 +58,12 @@ export class PlatformSidebarComponent {
             label: 'Tenants',
             icon: 'fa-solid fa-building',
             route: '/platform/tenants'
+        },
+
+        {
+            label: 'Migrar cliente legacy',
+            icon: 'fa-solid fa-file-import',
+            route: '/platform/legacy-migration'
         }
 
     ]);

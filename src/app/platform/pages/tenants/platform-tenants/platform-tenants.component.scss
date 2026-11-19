@@ -465,6 +465,83 @@ STATUS
 
 
 /*==========================================================
+PAIS BADGE
+==========================================================*/
+
+.platform-tenants__pais-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    padding: 4px 10px;
+
+    border-radius: 999px;
+
+    background: rgba(26, 71, 221, .08);
+
+    color: var(--admin-color-primary);
+
+    font-size: var(--admin-font-size-xs);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+    white-space: nowrap;
+
+}
+
+.platform-tenants__pais-badge--paraguay {
+
+    background: rgba(13, 110, 73, .1);
+
+    color: #0d6e49;
+
+}
+
+
+/*==========================================================
+TENANT TYPE BADGE
+==========================================================*/
+
+.platform-tenants__type-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    padding: 4px 10px;
+
+    border-radius: 999px;
+
+    background: rgba(26, 71, 221, .08);
+
+    color: var(--admin-color-primary);
+
+    font-size: var(--admin-font-size-xs);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+    white-space: nowrap;
+
+}
+
+
+/*==========================================================
+CONNECTION DATA CORRUPTED
+==========================================================*/
+
+.platform-tenants__corrupted-icon {
+
+    margin-left: 6px;
+
+    color: var(--admin-color-danger);
+
+    cursor: help;
+
+}
+
+
+/*==========================================================
 ACTION
 ==========================================================*/
 

@@ -239,7 +239,9 @@
 
                                 Dominio
 
-                                <span>*</span>
+                                @if (requiresEcommerceConnection) {
+                                    <span>*</span>
+                                }
 
                             </label>
 
@@ -273,6 +275,14 @@
 
                                 </small>
 
+                            } @else if (!requiresEcommerceConnection) {
+
+                                <small>
+
+                                    Opcional: este tenant no tiene storefront (ERP puro).
+
+                                </small>
+
                             } @else {
 
                                 <small>
@@ -284,6 +294,311 @@
                             }
 
                         </div>
+
+
+                        <!-- PAIS -->
+
+                        <div
+                            class="
+                                platform-tenant-form__field
+                            ">
+
+                            <label for="pais">
+
+                                País
+
+                                <span>*</span>
+
+                            </label>
+
+                            <select
+                                id="pais"
+                                formControlName="pais"
+                                [class.platform-tenant-form__input--error]="
+                                    hasError('pais')
+                                ">
+
+                                <option value="ARGENTINA">
+                                    Argentina
+                                </option>
+
+                                <option value="PARAGUAY">
+                                    Paraguay
+                                </option>
+
+                            </select>
+
+                            @if (isEdit) {
+
+                                <small>
+
+                                    No se puede cambiar después de crear
+                                    el tenant.
+
+                                </small>
+
+                            } @else {
+
+                                <small>
+
+                                    Define el catálogo geográfico y fiscal
+                                    del ERP. No se podrá cambiar después.
+
+                                </small>
+
+                            }
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ========================================== -->
+            <!-- TIPO DE TENANT -->
+            <!-- ========================================== -->
+
+            <section class="platform-tenant-form__card">
+
+                <header class="platform-tenant-form__card-header">
+
+                    <div>
+
+                        <h2>
+
+                            Tipo de tenant
+
+                        </h2>
+
+                        <p>
+
+                            Qué servicio(s) de Numecos tiene contratado
+                            este tenant.
+
+                        </p>
+
+                    </div>
+
+                </header>
+
+
+                <div class="platform-tenant-form__card-body">
+
+                    <div class="platform-tenant-form__grid">
+
+
+                        <!-- TENANT TYPE -->
+
+                        <div
+                            class="
+                                platform-tenant-form__field
+                            ">
+
+                            <label for="tenantType">
+
+                                Tipo
+
+                                <span>*</span>
+
+                            </label>
+
+                            <select
+                                id="tenantType"
+                                formControlName="tenantType"
+                                [class.platform-tenant-form__input--error]="
+                                    hasError('tenantType')
+                                ">
+
+                                <option value="ECOMMERCE">
+                                    Ecommerce
+                                </option>
+
+                                <option value="ERP">
+                                    ERP
+                                </option>
+
+                                <option value="ECOMMERCE_ERP">
+                                    Ecommerce + ERP
+                                </option>
+
+                            </select>
+
+                            <small>
+
+                                Define qué campos de configuración
+                                aplican para este tenant.
+
+                            </small>
+
+                        </div>
+
+
+                        <!-- ERP SCHEMA -->
+
+                        @if (requiresErpSchema) {
+
+                            <div
+                                class="
+                                    platform-tenant-form__field
+                                ">
+
+                                <label for="erpSchema">
+
+                                    Schema ERP
+
+                                    <span>*</span>
+
+                                </label>
+
+                                <input
+                                    id="erpSchema"
+                                    type="text"
+                                    formControlName="erpSchema"
+                                    autocomplete="off"
+                                    placeholder="Ej. contini_ng"
+                                    [class.platform-tenant-form__input--error]="
+                                        hasError('erpSchema')
+                                    " />
+
+                                @if (hasError('erpSchema')) {
+
+                                    <small>
+
+                                        {{ fieldError('erpSchema') }}
+
+                                    </small>
+
+                                } @else {
+
+                                    <small>
+
+                                        Nombre del schema del tenant en el
+                                        servicio central de BD del ERP.
+
+                                    </small>
+
+                                }
+
+                            </div>
+
+                        }
+
+
+                        <!-- ERP DOMAIN -->
+
+                        @if (requiresErpSchema) {
+
+                            <div
+                                class="
+                                    platform-tenant-form__field
+                                ">
+
+                                <label for="erpDomain">
+
+                                    Dominio ERP
+
+                                </label>
+
+                                <input
+                                    id="erpDomain"
+                                    type="text"
+                                    formControlName="erpDomain"
+                                    autocomplete="off"
+                                    placeholder="contini.testing.numecos.com"
+                                    [class.platform-tenant-form__input--error]="
+                                        hasError('erpDomain')
+                                    " />
+
+                                @if (hasError('erpDomain')) {
+
+                                    <small>
+
+                                        {{ fieldError('erpDomain') }}
+
+                                    </small>
+
+                                } @else {
+
+                                    <small>
+
+                                        Dominio con el que este tenant está
+                                        dado de alta del lado del ERP (reverse
+                                        proxy + SSL en numecos-back/numecos-front)
+                                        — puede ser distinto del dominio de
+                                        arriba. Necesario para el botón
+                                        "Activar reverse proxy" de abajo.
+
+                                    </small>
+
+                                }
+
+                            </div>
+
+                        }
+
+
+                        <!-- SEED BASE DATA -->
+
+                        @if (showSeedBaseDataOption) {
+
+                            <div
+                                class="
+                                    platform-tenant-form__field
+                                    platform-tenant-form__field--full
+                                ">
+
+                                <label>
+
+                                    Datos base
+
+                                </label>
+
+                                <label
+                                    class="
+                                        platform-tenant-form__toggle
+                                    ">
+
+                                    <input
+                                        type="checkbox"
+                                        formControlName="seedBaseData" />
+
+                                    <span
+                                        class="
+                                            platform-tenant-form__toggle-track
+                                        ">
+
+                                        <span
+                                            class="
+                                                platform-tenant-form__toggle-thumb
+                                            ">
+                                        </span>
+
+                                    </span>
+
+                                    <span>
+
+                                        Sembrar catálogos precargados en el ERP
+
+                                    </span>
+
+                                </label>
+
+                                <small>
+
+                                    Desmarcá esto solo si es un cliente legacy
+                                    cuya base vieja vas a migrar después desde
+                                    "Migrar cliente legacy" — el schema tiene
+                                    que quedar vacío o el commit de esa
+                                    migración va a rechazar.
+
+                                </small>
+
+                            </div>
+
+                        }
 
                     </div>
 
@@ -370,6 +685,178 @@
                                 <small>
 
                                     {{ fieldError('monthlyPrice') }}
+
+                                </small>
+
+                            }
+
+                        </div>
+
+
+                        <!-- SUCURSALES INCLUIDAS -->
+
+                        <div
+                            class="
+                                platform-tenant-form__field
+                            ">
+
+                            <label for="sucursalesIncluidas">
+
+                                Sucursales incluidas
+
+                                <span>*</span>
+
+                            </label>
+
+                            <input
+                                id="sucursalesIncluidas"
+                                type="number"
+                                formControlName="sucursalesIncluidas"
+                                min="0"
+                                step="1"
+                                [class.platform-tenant-form__input--error]="
+                                    hasError('sucursalesIncluidas')
+                                " />
+
+                            @if (hasError('sucursalesIncluidas')) {
+
+                                <small>
+
+                                    {{ fieldError('sucursalesIncluidas') }}
+
+                                </small>
+
+                            } @else {
+
+                                <small>
+
+                                    Cuántas sucursales entran en el plan sin
+                                    costo extra.
+
+                                </small>
+
+                            }
+
+                        </div>
+
+
+                        <!-- PRECIO POR SUCURSAL EXTRA -->
+
+                        <div
+                            class="
+                                platform-tenant-form__field
+                            ">
+
+                            <label for="precioPorSucursalExtra">
+
+                                Precio por sucursal extra
+
+                                <span>*</span>
+
+                            </label>
+
+                            <div
+                                class="
+                                    platform-tenant-form__input-prefix
+                                ">
+
+                                <span
+                                    class="
+                                        platform-tenant-form__prefix
+                                    ">
+
+                                    $
+
+                                </span>
+
+                                <input
+                                    id="precioPorSucursalExtra"
+                                    type="number"
+                                    formControlName="precioPorSucursalExtra"
+                                    min="0"
+                                    step="0.01"
+                                    [class.platform-tenant-form__input--error]="
+                                        hasError('precioPorSucursalExtra')
+                                    " />
+
+                            </div>
+
+                            @if (hasError('precioPorSucursalExtra')) {
+
+                                <small>
+
+                                    {{ fieldError('precioPorSucursalExtra') }}
+
+                                </small>
+
+                            } @else {
+
+                                <small>
+
+                                    Se cobra por cada sucursal activa por encima
+                                    de las incluidas. Dejalo en 0 hasta cargar
+                                    el valor negociado.
+
+                                </small>
+
+                            }
+
+                        </div>
+
+                        <div
+                            class="
+                                platform-tenant-form__field
+                            ">
+
+                            <label for="precioFacturacionElectronica">
+
+                                Precio facturación electrónica
+
+                                <span>*</span>
+
+                            </label>
+
+                            <div
+                                class="
+                                    platform-tenant-form__input-prefix
+                                ">
+
+                                <span
+                                    class="
+                                        platform-tenant-form__prefix
+                                    ">
+
+                                    $
+
+                                </span>
+
+                                <input
+                                    id="precioFacturacionElectronica"
+                                    type="number"
+                                    formControlName="precioFacturacionElectronica"
+                                    min="0"
+                                    step="0.01"
+                                    [class.platform-tenant-form__input--error]="
+                                        hasError('precioFacturacionElectronica')
+                                    " />
+
+                            </div>
+
+                            @if (hasError('precioFacturacionElectronica')) {
+
+                                <small>
+
+                                    {{ fieldError('precioFacturacionElectronica') }}
+
+                                </small>
+
+                            } @else {
+
+                                <small>
+
+                                    Costo adicional por activar la facturación
+                                    electrónica AFIP de este tenant. Dejalo en 0
+                                    hasta cargar el valor negociado.
 
                                 </small>
 
@@ -487,6 +974,8 @@
             <!-- ========================================== -->
             <!-- DATABASE -->
             <!-- ========================================== -->
+
+            @if (requiresEcommerceConnection) {
 
             <section class="platform-tenant-form__card">
 
@@ -739,6 +1228,8 @@
                 </div>
 
             </section>
+
+            }
 
 
             <!-- ========================================== -->

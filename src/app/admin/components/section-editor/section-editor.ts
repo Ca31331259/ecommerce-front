@@ -44,6 +44,8 @@ export class SectionEditor {
 
     ABOUT: 'Nosotros',
 
+    ABOUT_DETAIL: 'Nosotros (ampliado)',
+
     BANNERS: 'Banners',
 
     PRODUCTS: 'Productos',
@@ -53,6 +55,8 @@ export class SectionEditor {
     CONTACT: 'Contacto',
 
     CTA: 'Llamado a la Acción',
+
+    BRANCHES: 'Sucursales',
 
     FOOTER: 'Pie de Página'
 
@@ -66,6 +70,8 @@ export class SectionEditor {
 
     ABOUT: 'Información sobre la empresa.',
 
+    ABOUT_DETAIL: 'Historia, misión/visión, valores, línea de tiempo, equipo y stats.',
+
     BANNERS: 'Carrusel promocional.',
 
     PRODUCTS: 'Productos destacados.',
@@ -75,6 +81,8 @@ export class SectionEditor {
     CONTACT: 'Formulario y datos de contacto.',
 
     CTA: 'Bloque de llamada a la acción.',
+
+    BRANCHES: 'Direcciones, contacto y horarios de cada local.',
 
     FOOTER: 'Pie de página del sitio.'
 

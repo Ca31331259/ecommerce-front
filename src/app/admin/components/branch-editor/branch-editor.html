@@ -1,0 +1,218 @@
+<admin-section title="Sucursales" subtitle="Administrá las sucursales físicas del negocio, con dirección, contacto y horarios.">
+
+    <admin-button adminSectionActions variant="primary" icon="fa-solid fa-plus" (clicked)="createBranch()">
+
+        Nueva sucursal
+
+    </admin-button>
+
+    @for (branch of branches; track branch.id) {
+
+    <admin-form-card [title]="branch.name || 'Nueva sucursal'" icon="fa-solid fa-shop">
+        <admin-button adminFormCardActions variant="danger" icon="fa-solid fa-trash" [iconOnly]="true"
+            (clicked)="deleteBranch(branch)">
+        </admin-button>
+
+        <div class="branch-editor">
+
+            <!-- ===================================== -->
+            <!-- IMAGEN -->
+            <!-- ===================================== -->
+
+            <div class="branch-editor__image">
+
+                <admin-upload accept="image/*" variant="image"
+                    [previewUrl]="resolveImage(branch.imageUrl, placeholder.about)"
+                    (fileSelected)="uploadImage(branch, $event)">
+
+                    <span adminUploadMeta>
+                        JPG, PNG o WebP
+                    </span>
+
+                </admin-upload>
+
+            </div>
+
+            <!-- ===================================== -->
+            <!-- DATOS -->
+            <!-- ===================================== -->
+
+            <div class="branch-editor__form">
+
+                <admin-form-grid>
+
+                    <admin-field label="Nombre" [required]="true">
+
+                        <input adminFieldContent adminInput [(ngModel)]="branch.name" placeholder="Ej. Casa Central">
+
+                    </admin-field>
+
+                    <admin-field label="Orden">
+
+                        <input adminFieldContent adminInput type="number" [(ngModel)]="branch.sortOrder">
+
+                    </admin-field>
+
+                    <admin-field class="full" label="Dirección">
+
+                        <input adminFieldContent adminInput [(ngModel)]="branch.address">
+
+                    </admin-field>
+
+                    <admin-field label="Teléfono">
+
+                        <input adminFieldContent adminInput [(ngModel)]="branch.phone">
+
+                    </admin-field>
+
+                    <admin-field label="WhatsApp">
+
+                        <input adminFieldContent adminInput [(ngModel)]="branch.whatsapp">
+
+                    </admin-field>
+
+                    <admin-field label="Email">
+
+                        <input adminFieldContent adminInput type="email" [(ngModel)]="branch.email">
+
+                    </admin-field>
+
+                    <admin-field label="Link de Google Maps">
+
+                        <input adminFieldContent adminInput [(ngModel)]="branch.googleMapsUrl"
+                            placeholder="https://maps.google.com/...">
+
+                    </admin-field>
+
+                    <admin-field class="full" label="Ubicación en el mapa"
+                        hint="Marcá el punto exacto de la sucursal — se usa para mostrar el mapa en el sitio público.">
+
+                        <admin-map-picker adminFieldContent [latitude]="branch.latitude" [longitude]="branch.longitude"
+                            (positionChange)="setPosition(branch, $event)">
+                        </admin-map-picker>
+
+                    </admin-field>
+
+                    <admin-field label="Estado">
+
+                        <admin-switch adminFieldContent [(ngModel)]="branch.active">
+
+                            Sucursal activa
+
+                        </admin-switch>
+
+                    </admin-field>
+
+                </admin-form-grid>
+
+                <!-- ===================================== -->
+                <!-- HORARIOS -->
+                <!-- ===================================== -->
+
+                <div class="branch-editor__hours">
+
+                    <h4 class="branch-editor__hours-title">
+                        Horarios de atención
+                    </h4>
+
+                    @for (day of days; track day.key) {
+
+                    <div class="branch-hours-row">
+
+                        <div class="branch-hours-row__day">
+
+                            <admin-switch
+                                [ngModel]="isDayOpen(branch, day.key)"
+                                (ngModelChange)="toggleDay(branch, day.key, $event)">
+
+                                {{ day.label }}
+
+                            </admin-switch>
+
+                        </div>
+
+                        @if (isDayOpen(branch, day.key)) {
+
+                        <div class="branch-hours-row__ranges">
+
+                            @for (range of rangesForDay(branch, day.key); track $index) {
+
+                            <div class="branch-hours-range">
+
+                                <input type="time" adminInput
+                                    [ngModel]="timeValue(range, 'opensAt')"
+                                    (ngModelChange)="setTimeValue(range, 'opensAt', $event)">
+
+                                <span class="branch-hours-range__separator">
+                                    a
+                                </span>
+
+                                <input type="time" adminInput
+                                    [ngModel]="timeValue(range, 'closesAt')"
+                                    (ngModelChange)="setTimeValue(range, 'closesAt', $event)">
+
+                                <button type="button" class="branch-hours-range__remove"
+                                    (click)="removeRange(branch, range)" aria-label="Quitar rango">
+
+                                    <i class="fa-solid fa-xmark"></i>
+
+                                </button>
+
+                            </div>
+
+                            }
+
+                            <div class="branch-hours-row__actions">
+
+                                <button type="button" class="branch-hours-row__add"
+                                    (click)="addRange(branch, day.key)">
+
+                                    <i class="fa-solid fa-plus"></i>
+                                    Agregar horario
+
+                                </button>
+
+                                <button type="button" class="branch-hours-row__copy"
+                                    (click)="copyToAllDays(branch, day.key)">
+
+                                    Copiar a todos los días
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                        } @else {
+
+                        <span class="branch-hours-row__closed">
+                            Cerrado
+                        </span>
+
+                        }
+
+                    </div>
+
+                    }
+
+                </div>
+
+                <admin-save-bar [model]="branch" (save)="saveBranch(branch)">
+
+                    <admin-button variant="primary" icon="fa-solid fa-floppy-disk" (clicked)="saveBranch(branch)">
+
+                        Guardar
+
+                    </admin-button>
+
+                </admin-save-bar>
+
+            </div>
+
+        </div>
+
+    </admin-form-card>
+
+    }
+
+</admin-section>

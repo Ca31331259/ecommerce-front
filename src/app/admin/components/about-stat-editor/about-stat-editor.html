@@ -1,0 +1,63 @@
+<admin-section title="Números destacados" subtitle="Administrá las estadísticas que se muestran en Nosotros (ej. &quot;+10 años de experiencia&quot;).">
+
+    <admin-button adminSectionActions variant="primary" icon="fa-solid fa-plus" (clicked)="createStat()">
+
+        Nueva estadística
+
+    </admin-button>
+
+    @for (stat of stats; track stat.id) {
+
+    <admin-form-card [title]="(stat.value || '') + ' ' + (stat.label || 'Nueva estadística')"
+        icon="fa-solid fa-chart-simple">
+        <admin-button adminFormCardActions variant="danger" icon="fa-solid fa-trash" [iconOnly]="true"
+            (clicked)="deleteStat(stat)">
+        </admin-button>
+
+        <admin-form-grid>
+
+            <admin-field label="Valor" [required]="true" hint="Ej. &quot;+10&quot;, &quot;500+&quot;.">
+
+                <input adminFieldContent adminInput [(ngModel)]="stat.value">
+
+            </admin-field>
+
+            <admin-field label="Etiqueta" [required]="true" hint="Ej. &quot;años de experiencia&quot;.">
+
+                <input adminFieldContent adminInput [(ngModel)]="stat.label">
+
+            </admin-field>
+
+            <admin-field label="Orden">
+
+                <input adminFieldContent adminInput type="number" [(ngModel)]="stat.sortOrder">
+
+            </admin-field>
+
+            <admin-field label="Estado">
+
+                <admin-switch adminFieldContent [(ngModel)]="stat.active">
+
+                    Estadística activa
+
+                </admin-switch>
+
+            </admin-field>
+
+        </admin-form-grid>
+
+        <admin-save-bar [model]="stat" (save)="saveStat(stat)">
+
+            <admin-button variant="primary" icon="fa-solid fa-floppy-disk" (clicked)="saveStat(stat)">
+
+                Guardar
+
+            </admin-button>
+
+        </admin-save-bar>
+
+    </admin-form-card>
+
+    }
+
+</admin-section>

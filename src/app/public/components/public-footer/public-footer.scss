@@ -188,6 +188,24 @@ DESCRIPTION
 
 }
 
+.footer-text {
+
+    max-width: 460px;
+
+    margin: var(--space-4) 0 0;
+
+    color: rgba(255, 255, 255, .6);
+
+    font-family: var(--tenant-font);
+
+    font-size: var(--font-small, .875rem);
+
+    line-height: 1.65;
+
+    white-space: pre-line;
+
+}
+
 /*==========================================================
 SOCIAL
 ==========================================================*/

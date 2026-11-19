@@ -1,0 +1,283 @@
+@if (hasVisibleContent) {
+
+<ds-section id="about-detail" background="surface" padding="lg">
+
+    <ds-container size="lg">
+
+        <ds-section-header
+            title="Conocé más sobre nosotros"
+            subtitle="Nuestra historia, lo que nos mueve y quiénes hacen posible todo esto.">
+
+            <ds-badge dsHeaderBadge variant="neutral">
+
+                <i class="fa-solid fa-building-user"></i>
+
+                Nosotros
+
+            </ds-badge>
+
+        </ds-section-header>
+
+        <!-- ========================================= -->
+        <!-- HISTORIA -->
+        <!-- ========================================= -->
+
+        @if (about.historyEnabled) {
+
+        <div class="about-detail__block">
+
+            @if (about.historyTitle) {
+
+                <h3 class="about-detail__block-title">
+                    {{ about.historyTitle }}
+                </h3>
+
+            }
+
+            @if (about.historyText) {
+
+                <p class="about-detail__block-text">
+                    {{ about.historyText }}
+                </p>
+
+            }
+
+        </div>
+
+        }
+
+        <!-- ========================================= -->
+        <!-- MISIÓN / VISIÓN -->
+        <!-- ========================================= -->
+
+        @if (about.missionVisionEnabled) {
+
+        <div class="about-detail__block">
+
+            <div class="about-detail__mission-vision">
+
+                <ds-card padding="lg" shadow="sm" [outlined]="true">
+
+                    @if (about.missionTitle) {
+                        <h4 class="about-detail__card-title">
+                            {{ about.missionTitle }}
+                        </h4>
+                    }
+
+                    @if (about.missionText) {
+                        <p class="about-detail__block-text">
+                            {{ about.missionText }}
+                        </p>
+                    }
+
+                </ds-card>
+
+                <ds-card padding="lg" shadow="sm" [outlined]="true">
+
+                    @if (about.visionTitle) {
+                        <h4 class="about-detail__card-title">
+                            {{ about.visionTitle }}
+                        </h4>
+                    }
+
+                    @if (about.visionText) {
+                        <p class="about-detail__block-text">
+                            {{ about.visionText }}
+                        </p>
+                    }
+
+                </ds-card>
+
+            </div>
+
+        </div>
+
+        }
+
+        <!-- ========================================= -->
+        <!-- VALORES -->
+        <!-- ========================================= -->
+
+        @if (about.valuesEnabled && values.length) {
+
+        <div class="about-detail__block">
+
+            <h3 class="about-detail__block-title">
+                Nuestros valores
+            </h3>
+
+            <div class="about-detail__values-grid">
+
+                @for (value of values; track value.id) {
+
+                <ds-card padding="lg" shadow="sm" [outlined]="true">
+
+                    <div class="about-detail__value-icon">
+                        <i [class]="featureIconClass(value.icon)"></i>
+                    </div>
+
+                    @if (value.title) {
+                        <h4 class="about-detail__card-title">
+                            {{ value.title }}
+                        </h4>
+                    }
+
+                    @if (value.description) {
+                        <p class="about-detail__block-text">
+                            {{ value.description }}
+                        </p>
+                    }
+
+                </ds-card>
+
+                }
+
+            </div>
+
+        </div>
+
+        }
+
+        <!-- ========================================= -->
+        <!-- LÍNEA DE TIEMPO -->
+        <!-- ========================================= -->
+
+        @if (about.timelineEnabled && milestones.length) {
+
+        <div class="about-detail__block">
+
+            <h3 class="about-detail__block-title">
+                Nuestra historia en el tiempo
+            </h3>
+
+            <ol class="about-detail__timeline">
+
+                @for (milestone of milestones; track milestone.id) {
+
+                <li class="about-detail__timeline-item">
+
+                    @if (milestone.year) {
+                        <span class="about-detail__timeline-year">
+                            {{ milestone.year }}
+                        </span>
+                    }
+
+                    <div class="about-detail__timeline-content">
+
+                        @if (milestone.title) {
+                            <h4 class="about-detail__card-title">
+                                {{ milestone.title }}
+                            </h4>
+                        }
+
+                        @if (milestone.description) {
+                            <p class="about-detail__block-text">
+                                {{ milestone.description }}
+                            </p>
+                        }
+
+                    </div>
+
+                </li>
+
+                }
+
+            </ol>
+
+        </div>
+
+        }
+
+        <!-- ========================================= -->
+        <!-- EQUIPO -->
+        <!-- ========================================= -->
+
+        @if (about.teamEnabled && team.length) {
+
+        <div class="about-detail__block">
+
+            <h3 class="about-detail__block-title">
+                Nuestro equipo
+            </h3>
+
+            <div class="about-detail__team-grid">
+
+                @for (member of team; track member.id) {
+
+                <ds-card padding="lg" shadow="sm" [outlined]="true">
+
+                    <div class="about-detail__team-photo">
+
+                        @if (member.photoUrl) {
+                            <img [src]="member.photoUrl" [alt]="member.name || ''">
+                        } @else {
+                            <i class="fa-solid fa-user"></i>
+                        }
+
+                    </div>
+
+                    @if (member.name) {
+                        <h4 class="about-detail__card-title">
+                            {{ member.name }}
+                        </h4>
+                    }
+
+                    @if (member.role) {
+                        <span class="about-detail__team-role">
+                            {{ member.role }}
+                        </span>
+                    }
+
+                    @if (member.bio) {
+                        <p class="about-detail__block-text">
+                            {{ member.bio }}
+                        </p>
+                    }
+
+                </ds-card>
+
+                }
+
+            </div>
+
+        </div>
+
+        }
+
+        <!-- ========================================= -->
+        <!-- STATS -->
+        <!-- ========================================= -->
+
+        @if (about.statsEnabled && stats.length) {
+
+        <div class="about-detail__block">
+
+            <div class="about-detail__stats-grid">
+
+                @for (stat of stats; track stat.id) {
+
+                <div class="about-detail__stat">
+
+                    <span class="about-detail__stat-value">
+                        {{ stat.value }}
+                    </span>
+
+                    <span class="about-detail__stat-label">
+                        {{ stat.label }}
+                    </span>
+
+                </div>
+
+                }
+
+            </div>
+
+        </div>
+
+        }
+
+    </ds-container>
+
+</ds-section>
+
+}

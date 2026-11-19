@@ -1,0 +1,82 @@
+<admin-section title="Nuestros valores" subtitle="Administrá los valores que representan a la empresa (bloque de Nosotros).">
+
+    <admin-button adminSectionActions variant="primary" icon="fa-solid fa-plus" (clicked)="createValue()">
+
+        Nuevo valor
+
+    </admin-button>
+
+    @for (value of values; track value.id) {
+
+    <admin-form-card [title]="value.title || 'Nuevo valor'" icon="fa-solid fa-star">
+        <admin-button adminFormCardActions variant="danger" icon="fa-solid fa-trash" [iconOnly]="true"
+            (clicked)="deleteValue(value)">
+        </admin-button>
+        <div class="about-value-editor">
+
+            <div class="about-value-editor__icon">
+
+                <admin-field label="Icono">
+
+                    <admin-icon-picker adminFieldContent [(ngModel)]="value.icon">
+
+                    </admin-icon-picker>
+
+                </admin-field>
+
+            </div>
+
+            <div class="about-value-editor__form">
+
+                <admin-form-grid>
+
+                    <admin-field label="Título" [required]="true">
+
+                        <input adminFieldContent adminInput [(ngModel)]="value.title">
+
+                    </admin-field>
+
+                    <admin-field label="Orden">
+
+                        <input adminFieldContent adminInput type="number" [(ngModel)]="value.sortOrder">
+
+                    </admin-field>
+
+                    <admin-field class="full" label="Descripción">
+
+                        <textarea adminFieldContent adminTextarea rows="4" [(ngModel)]="value.description">
+                        </textarea>
+
+                    </admin-field>
+
+                    <admin-field label="Estado">
+
+                        <admin-switch adminFieldContent [(ngModel)]="value.active">
+
+                            Valor activo
+
+                        </admin-switch>
+
+                    </admin-field>
+
+                </admin-form-grid>
+
+                <admin-save-bar [model]="value" (save)="saveValue(value)">
+
+                    <admin-button variant="primary" icon="fa-solid fa-floppy-disk" (clicked)="saveValue(value)">
+
+                        Guardar
+
+                    </admin-button>
+
+                </admin-save-bar>
+
+            </div>
+
+        </div>
+
+    </admin-form-card>
+
+    }
+
+</admin-section>

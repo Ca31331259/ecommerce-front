@@ -1,0 +1,65 @@
+:host {
+
+    display: block;
+
+}
+
+admin-form-card + admin-form-card {
+
+    margin-top: var(--admin-space-6);
+
+}
+
+.about-team-editor {
+
+    display: grid;
+
+    grid-template-columns: 260px minmax(0, 1fr);
+
+    gap: var(--admin-space-7);
+
+    align-items: start;
+
+}
+
+.about-team-editor__photo {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-4);
+
+}
+
+.about-team-editor__form {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-6);
+
+}
+
+.full {
+
+    grid-column: 1 / -1;
+
+}
+
+admin-save-bar {
+
+    margin-top: var(--admin-space-2);
+
+}
+
+@media (max-width: 1100px) {
+
+    .about-team-editor {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}

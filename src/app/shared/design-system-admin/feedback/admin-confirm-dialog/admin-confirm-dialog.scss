@@ -143,6 +143,72 @@ DESCRIPTION
 }
 
 /*==========================================================
+CONFIRMATION (type-to-confirm)
+==========================================================*/
+
+.admin-confirm-dialog__confirmation {
+
+    width: 100%;
+
+    max-width: var(--admin-form-max-width);
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: var(--admin-space-2);
+
+    text-align: left;
+
+}
+
+.admin-confirm-dialog__confirmation label {
+
+    color: var(--admin-text-secondary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+}
+
+.admin-confirm-dialog__confirmation input {
+
+    width: 100%;
+
+    min-height: var(--admin-button-height);
+
+    padding: 0 var(--admin-space-3);
+
+    box-sizing: border-box;
+
+    border: 1px solid var(--admin-border);
+
+    border-radius: var(--admin-radius-md);
+
+    background: var(--admin-surface);
+
+    color: var(--admin-text-primary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+}
+
+.admin-confirm-dialog__confirmation input:focus-visible {
+
+    outline: none;
+
+    box-shadow: var(--admin-focus-ring);
+
+}
+
+/*==========================================================
 ACTIONS
 ==========================================================*/
 
@@ -318,6 +384,14 @@ DANGER
 /*==========================================================
 FOCUS
 ==========================================================*/
+
+.admin-confirm-dialog__confirm:disabled {
+
+    opacity: .5;
+
+    cursor: not-allowed;
+
+}
 
 .admin-confirm-dialog__cancel:focus-visible,
 .admin-confirm-dialog__confirm:focus-visible {

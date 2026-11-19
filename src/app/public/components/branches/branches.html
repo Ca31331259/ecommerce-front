@@ -1,0 +1,136 @@
+@if (branches.length) {
+
+<ds-section id="branches" background="card" padding="lg">
+
+    <ds-container size="lg">
+
+        <ds-section-header
+            title="Nuestras sucursales"
+            subtitle="Visitanos en cualquiera de nuestros locales.">
+
+            <ds-badge dsHeaderBadge variant="neutral">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                Sucursales
+
+            </ds-badge>
+
+        </ds-section-header>
+
+        <div class="branches-grid">
+
+            @for (branch of branches; track branch.id) {
+
+            <ds-card padding="lg" shadow="sm" [outlined]="true">
+
+                <div class="branch-card">
+
+                    @if (branch.imageUrl) {
+
+                    <div class="branch-card__image">
+                        <img [src]="branch.imageUrl" [alt]="branch.name || ''">
+                    </div>
+
+                    }
+
+                    @if (branch.name) {
+                        <h3 class="branch-card__name">
+                            {{ branch.name }}
+                        </h3>
+                    }
+
+                    @if (branch.address) {
+
+                        <p class="branch-card__line">
+                            <i class="fa-solid fa-location-dot"></i>
+                            {{ branch.address }}
+                        </p>
+
+                    }
+
+                    @if (branch.phone) {
+
+                        <p class="branch-card__line">
+                            <i class="fa-solid fa-phone"></i>
+                            {{ branch.phone }}
+                        </p>
+
+                    }
+
+                    @if (branch.whatsapp) {
+
+                        <p class="branch-card__line">
+                            <i class="fa-brands fa-whatsapp"></i>
+                            {{ branch.whatsapp }}
+                        </p>
+
+                    }
+
+                    @if (branch.email) {
+
+                        <p class="branch-card__line">
+                            <i class="fa-solid fa-envelope"></i>
+                            {{ branch.email }}
+                        </p>
+
+                    }
+
+                    @if (mapEmbedUrl(branch); as embed) {
+
+                        <div class="branch-card__map">
+
+                            <iframe [src]="embed" title="Ubicación de la sucursal"
+                                loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+
+                        </div>
+
+                    }
+
+                    @if (mapLink(branch); as link) {
+
+                        <a class="branch-card__map-link" [href]="link" target="_blank"
+                            rel="noopener">
+
+                            Cómo llegar
+
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                        </a>
+
+                    }
+
+                    <div class="branch-card__hours">
+
+                        @for (row of scheduleFor(branch); track row.label) {
+
+                        <div class="branch-card__hours-row">
+
+                            <span class="branch-card__hours-day">
+                                {{ row.label }}
+                            </span>
+
+                            <span class="branch-card__hours-value">
+                                {{ row.hours }}
+                            </span>
+
+                        </div>
+
+                        }
+
+                    </div>
+
+                </div>
+
+            </ds-card>
+
+            }
+
+        </div>
+
+    </ds-container>
+
+</ds-section>
+
+}

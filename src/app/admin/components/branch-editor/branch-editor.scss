@@ -1,0 +1,252 @@
+:host {
+
+    display: block;
+
+}
+
+admin-form-card + admin-form-card {
+
+    margin-top: var(--admin-space-6);
+
+}
+
+/*======================================================
+LAYOUT
+======================================================*/
+
+.branch-editor {
+
+    display: grid;
+
+    grid-template-columns: 300px minmax(0, 1fr);
+
+    gap: var(--admin-space-7);
+
+    align-items: start;
+
+}
+
+.branch-editor__image {
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--admin-space-4);
+
+}
+
+.branch-editor__form {
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--admin-space-6);
+
+}
+
+.full {
+
+    grid-column: 1 / -1;
+
+}
+
+admin-save-bar {
+
+    margin-top: var(--admin-space-2);
+
+}
+
+@media (max-width: 1100px) {
+
+    .branch-editor {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+
+/*======================================================
+HORARIOS
+======================================================*/
+
+.branch-editor__hours {
+
+    padding-top: var(--admin-space-5);
+
+    border-top: 1px solid var(--admin-border);
+
+}
+
+.branch-editor__hours-title {
+
+    margin: 0 0 var(--admin-space-4);
+
+    color: var(--admin-text-primary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+}
+
+.branch-hours-row {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-2);
+
+    padding: var(--admin-space-3) 0;
+
+}
+
+.branch-hours-row + .branch-hours-row {
+
+    border-top: 1px solid var(--admin-border);
+
+}
+
+.branch-hours-row__day {
+
+    min-width: 140px;
+
+}
+
+.branch-hours-row__closed {
+
+    color: var(--admin-text-muted);
+
+    font-size: var(--admin-font-size-sm);
+
+    padding-left: 2px;
+
+}
+
+.branch-hours-row__ranges {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-3);
+
+}
+
+.branch-hours-range {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: var(--admin-space-2);
+
+    flex-wrap: wrap;
+
+}
+
+.branch-hours-range input[type="time"] {
+
+    min-height: 38px;
+
+    padding: 0 var(--admin-space-2);
+
+    border: 1px solid var(--admin-border);
+
+    border-radius: var(--admin-input-radius);
+
+    background: var(--admin-surface);
+
+    color: var(--admin-text-primary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+}
+
+.branch-hours-range__separator {
+
+    color: var(--admin-text-muted);
+
+    font-size: var(--admin-font-size-sm);
+
+}
+
+.branch-hours-range__remove {
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 30px;
+    height: 30px;
+
+    border: none;
+
+    border-radius: var(--admin-button-radius);
+
+    background: transparent;
+
+    color: var(--admin-text-muted);
+
+    cursor: pointer;
+
+    transition: background .15s, color .15s;
+
+}
+
+.branch-hours-range__remove:hover {
+
+    background: var(--admin-surface-alt);
+
+    color: var(--admin-color-danger);
+
+}
+
+.branch-hours-row__actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: var(--admin-space-4);
+
+    flex-wrap: wrap;
+
+}
+
+.branch-hours-row__add,
+.branch-hours-row__copy {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    border: none;
+
+    background: transparent;
+
+    padding: 4px 0;
+
+    color: var(--admin-color-primary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-xs);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+    cursor: pointer;
+
+}
+
+.branch-hours-row__add:hover,
+.branch-hours-row__copy:hover {
+
+    text-decoration: underline;
+
+}

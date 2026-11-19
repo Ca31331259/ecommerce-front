@@ -1,0 +1,332 @@
+:host {
+
+    display: block;
+    width: 100%;
+
+}
+
+/*==========================================================
+BLOCK
+==========================================================*/
+
+.about-detail__block {
+
+    width: 100%;
+
+}
+
+.about-detail__block + .about-detail__block {
+
+    margin-top: var(--space-9);
+
+}
+
+.about-detail__block-title {
+
+    margin: 0 0 var(--space-4);
+
+    color: var(--tenant-title);
+
+    font-family: var(--tenant-font);
+
+    font-size: 22px;
+
+    font-weight: 700;
+
+    line-height: 1.25;
+
+}
+
+.about-detail__block-text {
+
+    margin: 0;
+
+    color: var(--tenant-text);
+
+    font-family: var(--tenant-font);
+
+    font-size: 15px;
+
+    line-height: 1.7;
+
+    opacity: .8;
+}
+
+.about-detail__card-title {
+
+    margin: 0 0 var(--space-2);
+
+    color: var(--tenant-title);
+
+    font-family: var(--tenant-font);
+
+    font-size: 17px;
+
+    font-weight: 700;
+
+    line-height: 1.3;
+
+}
+
+/*==========================================================
+MISIÓN / VISIÓN
+==========================================================*/
+
+.about-detail__mission-vision {
+
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+
+}
+
+/*==========================================================
+VALORES / EQUIPO — GRID
+==========================================================*/
+
+.about-detail__values-grid,
+.about-detail__team-grid {
+
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+
+}
+
+.about-detail__value-icon {
+
+    width: 56px;
+    height: 56px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: var(--space-4);
+
+    border-radius: 16px;
+
+    background: color-mix(in srgb, var(--tenant-accent) 12%, white);
+
+    color: var(--tenant-accent);
+
+    font-size: 24px;
+
+}
+
+/*==========================================================
+EQUIPO — FOTO
+==========================================================*/
+
+.about-detail__team-photo {
+
+    width: 96px;
+    height: 96px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: var(--space-4);
+
+    border-radius: 50%;
+
+    overflow: hidden;
+
+    background: color-mix(in srgb, var(--tenant-primary) 10%, white);
+
+    color: var(--tenant-primary);
+
+    font-size: 32px;
+
+}
+
+.about-detail__team-photo img {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+}
+
+.about-detail__team-role {
+
+    display: block;
+
+    margin-bottom: var(--space-3);
+
+    color: var(--tenant-primary);
+
+    font-family: var(--tenant-font);
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: .04em;
+
+}
+
+/*==========================================================
+LÍNEA DE TIEMPO
+==========================================================*/
+
+.about-detail__timeline {
+
+    list-style: none;
+
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+
+    border-left: 2px solid color-mix(in srgb, var(--tenant-primary) 20%, transparent);
+
+}
+
+.about-detail__timeline-item {
+
+    position: relative;
+
+    padding-left: var(--space-6);
+
+}
+
+.about-detail__timeline-item::before {
+
+    content: '';
+
+    position: absolute;
+
+    left: -7px;
+    top: 4px;
+
+    width: 12px;
+    height: 12px;
+
+    border-radius: 50%;
+
+    background: var(--tenant-primary);
+
+}
+
+.about-detail__timeline-year {
+
+    display: inline-block;
+
+    margin-bottom: var(--space-2);
+
+    color: var(--tenant-primary);
+
+    font-family: var(--tenant-font);
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: .04em;
+
+}
+
+/*==========================================================
+STATS
+==========================================================*/
+
+.about-detail__stats-grid {
+
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-6);
+
+}
+
+.about-detail__stat {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
+
+}
+
+.about-detail__stat-value {
+
+    color: var(--tenant-primary);
+
+    font-family: var(--tenant-font);
+
+    font-size: 32px;
+
+    font-weight: 800;
+
+    line-height: 1.1;
+
+}
+
+.about-detail__stat-label {
+
+    margin-top: var(--space-2);
+
+    color: var(--tenant-text);
+
+    font-family: var(--tenant-font);
+
+    font-size: 13px;
+
+    opacity: .75;
+
+}
+
+/*==========================================================
+TABLET
+==========================================================*/
+
+@media (min-width: 640px) {
+
+    .about-detail__values-grid,
+    .about-detail__team-grid {
+
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    }
+
+}
+
+@media (min-width: 768px) {
+
+    .about-detail__mission-vision {
+
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    }
+
+}
+
+/*==========================================================
+DESKTOP
+==========================================================*/
+
+@media (min-width: 1024px) {
+
+    .about-detail__values-grid,
+    .about-detail__team-grid {
+
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    }
+
+    .about-detail__stats-grid {
+
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+
+    }
+
+}

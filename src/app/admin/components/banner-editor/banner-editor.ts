@@ -38,6 +38,8 @@ import {
 
 } from '@shared/placeholders';
 
+import { SECTION_ANCHOR_OPTIONS } from '../../shared/section-anchor-options';
+
 
 
 @Component({
@@ -78,44 +80,7 @@ export class BannerEditor {
 
     readonly CUSTOM_LINK = '__CUSTOM__';
 
-readonly anchorOptions: AdminSelectOption[] = [
-
-  {
-    value: '#hero',
-    label: 'Hero'
-  },
-
-  {
-    value: '#about',
-    label: 'Nosotros'
-  },
-
-  {
-    value: '#benefits',
-    label: 'Beneficios'
-  },
-
-  {
-    value: '#gallery',
-    label: 'Galería'
-  },
-
-  {
-    value: '#products',
-    label: 'Productos'
-  },
-
-  {
-    value: '#contact',
-    label: 'Contacto'
-  },
-
-  {
-    value: this.CUSTOM_LINK,
-    label: 'URL personalizada...'
-  }
-
-];
+readonly anchorOptions: AdminSelectOption[] = SECTION_ANCHOR_OPTIONS;
 
 linkTypes: Record<number, string> = {};
 

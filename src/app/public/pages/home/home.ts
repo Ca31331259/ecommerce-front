@@ -11,6 +11,8 @@ import { BannerCarousel } from '../../components/baner-carousel/banner-carousel'
 import { Gallery } from '../../components/gallery/gallery';
 import { Cta } from '../../components/cta/cta';
 import { Contact } from '../../components/contact/contact';
+import { AboutDetail } from '../../components/about-detail/about-detail';
+import { Branches } from '../../components/branches/branches';
 
 
 
@@ -21,10 +23,12 @@ import { Contact } from '../../components/contact/contact';
     HeroBanner,
     Features,
     About,
+    AboutDetail,
     BannerCarousel,
     Gallery,
     Cta,
-    Contact
+    Contact,
+    Branches
   ],
   templateUrl: './home.html',
   styleUrl: './home.scss'
@@ -54,6 +58,24 @@ export class Home {
 
   readonly sections =
     computed(() => this.site()?.sections ?? []);
+
+  readonly about =
+    computed(() => this.site()?.about);
+
+  readonly aboutValues =
+    computed(() => this.site()?.aboutValues ?? []);
+
+  readonly aboutMilestones =
+    computed(() => this.site()?.aboutMilestones ?? []);
+
+  readonly aboutTeam =
+    computed(() => this.site()?.aboutTeam ?? []);
+
+  readonly aboutStats =
+    computed(() => this.site()?.aboutStats ?? []);
+
+  readonly branches =
+    computed(() => this.site()?.branches ?? []);
 
   isEnabled(section: string): boolean {
  

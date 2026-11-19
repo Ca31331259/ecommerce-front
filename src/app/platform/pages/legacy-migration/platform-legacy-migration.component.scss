@@ -1,0 +1,425 @@
+:host {
+    display: block;
+    width: 100%;
+    min-width: 0;
+}
+
+
+.platform-legacy-migration {
+
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--admin-space-6);
+    box-sizing: border-box;
+
+}
+
+
+/*==========================================================
+HEADER
+==========================================================*/
+
+.platform-legacy-migration__header {
+
+    margin-bottom: var(--admin-space-6);
+
+}
+
+.platform-legacy-migration__eyebrow {
+
+    color: var(--admin-text-muted);
+    font-size: var(--admin-font-size-sm);
+    font-weight: var(--admin-font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: .04em;
+
+}
+
+.platform-legacy-migration__header h1 {
+
+    margin: 4px 0 6px;
+    color: var(--admin-text-primary);
+    font-size: 1.8rem;
+    font-weight: 700;
+
+}
+
+.platform-legacy-migration__header p {
+
+    margin: 0;
+    max-width: 720px;
+    color: var(--admin-text-secondary);
+    font-size: var(--admin-font-size-sm);
+    line-height: var(--admin-line-height-normal);
+
+}
+
+
+/*==========================================================
+CARD
+==========================================================*/
+
+.platform-legacy-migration__card {
+
+    background: var(--admin-surface);
+    border: 1px solid var(--admin-border);
+    border-radius: var(--admin-card-radius);
+    padding: var(--admin-space-6);
+    margin-bottom: var(--admin-space-6);
+    box-sizing: border-box;
+
+}
+
+.platform-legacy-migration__card--success {
+
+    border-color: rgba(34, 197, 94, .35);
+
+}
+
+.platform-legacy-migration__card-header {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--admin-space-5);
+
+}
+
+.platform-legacy-migration__card-header h2 {
+
+    margin: 0 0 4px;
+    color: var(--admin-text-primary);
+    font-size: 1.15rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+}
+
+.platform-legacy-migration__card-header h2 .fa-circle-check {
+
+    color: var(--admin-color-success);
+
+}
+
+.platform-legacy-migration__card-header span {
+
+    color: var(--admin-text-muted);
+    font-size: var(--admin-font-size-xs);
+
+}
+
+
+/*==========================================================
+FORM
+==========================================================*/
+
+.platform-legacy-migration__grid {
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--admin-space-5);
+
+}
+
+.platform-legacy-migration__field label {
+
+    display: block;
+    margin-bottom: 6px;
+    color: var(--admin-text-primary);
+    font-size: var(--admin-font-size-sm);
+    font-weight: var(--admin-font-weight-semibold);
+
+}
+
+.platform-legacy-migration__field label span {
+
+    margin-left: 3px;
+    color: var(--admin-color-danger);
+
+}
+
+.platform-legacy-migration__field input {
+
+    width: 100%;
+    min-height: 42px;
+    padding: 0 var(--admin-space-3);
+    box-sizing: border-box;
+    border: 1px solid var(--admin-border);
+    border-radius: var(--admin-input-radius);
+    outline: none;
+    background: var(--admin-surface);
+    color: var(--admin-text-primary);
+    font-family: var(--admin-font-family);
+    font-size: var(--admin-font-size-sm);
+    transition: border-color .2s, box-shadow .2s;
+
+}
+
+.platform-legacy-migration__field input:focus {
+
+    border-color: var(--admin-color-primary);
+    box-shadow: var(--admin-focus-ring);
+
+}
+
+.platform-legacy-migration__field small {
+
+    display: block;
+    margin-top: 6px;
+    color: var(--admin-text-muted);
+    font-size: var(--admin-font-size-xs);
+
+}
+
+.platform-legacy-migration__actions {
+
+    display: flex;
+    align-items: center;
+    gap: var(--admin-space-4);
+    margin-top: var(--admin-space-6);
+    flex-wrap: wrap;
+
+}
+
+.platform-legacy-migration__hint {
+
+    color: var(--admin-text-muted);
+    font-size: var(--admin-font-size-xs);
+
+}
+
+
+/*==========================================================
+ALERTS
+==========================================================*/
+
+.platform-legacy-migration__alert {
+
+    display: flex;
+    align-items: center;
+    gap: var(--admin-space-3);
+    padding: var(--admin-space-4);
+    margin-bottom: var(--admin-space-6);
+    border-radius: var(--admin-card-radius);
+    font-size: .90rem;
+    font-weight: 500;
+
+}
+
+.platform-legacy-migration__alert--danger {
+
+    background: rgba(220, 38, 38, .08);
+    border: 1px solid rgba(220, 38, 38, .18);
+    color: var(--admin-color-danger);
+
+}
+
+
+/*==========================================================
+REPORT SECTIONS
+==========================================================*/
+
+.platform-legacy-migration__report-section {
+
+    padding: var(--admin-space-4) 0;
+    border-top: 1px solid var(--admin-border);
+
+}
+
+.platform-legacy-migration__report-section:first-of-type {
+
+    border-top: none;
+    padding-top: 0;
+
+}
+
+.platform-legacy-migration__report-title {
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--admin-space-3);
+    margin-bottom: var(--admin-space-3);
+
+}
+
+.platform-legacy-migration__report-title h3 {
+
+    margin: 0;
+    color: var(--admin-text-primary);
+    font-size: .95rem;
+    font-weight: 700;
+
+}
+
+.platform-legacy-migration__report-flag {
+
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: rgba(148, 163, 184, .10);
+    color: var(--admin-text-muted);
+    font-size: var(--admin-font-size-xs);
+    font-weight: 600;
+    white-space: nowrap;
+
+}
+
+.platform-legacy-migration__report-flag--success {
+
+    background: rgba(34, 197, 94, .08);
+    color: var(--admin-color-success);
+
+}
+
+.platform-legacy-migration__report-flag--danger {
+
+    background: rgba(220, 38, 38, .08);
+    color: var(--admin-color-danger);
+
+}
+
+
+/*==========================================================
+TABLE
+==========================================================*/
+
+.platform-legacy-migration__table-wrapper {
+
+    width: 100%;
+    overflow-x: auto;
+
+}
+
+.platform-legacy-migration__table {
+
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--admin-font-size-sm);
+
+}
+
+.platform-legacy-migration__table th,
+.platform-legacy-migration__table td {
+
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--admin-border);
+    white-space: nowrap;
+
+}
+
+.platform-legacy-migration__table th {
+
+    color: var(--admin-text-muted);
+    font-size: var(--admin-font-size-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+
+}
+
+.platform-legacy-migration__table td {
+
+    color: var(--admin-text-primary);
+
+}
+
+.platform-legacy-migration__table td code {
+
+    background: var(--admin-surface-alt);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: .85em;
+
+}
+
+
+/*==========================================================
+PASSWORDS TEMPORALES
+==========================================================*/
+
+.platform-legacy-migration__passwords-warning {
+
+    display: flex;
+    align-items: center;
+    gap: var(--admin-space-3);
+    padding: var(--admin-space-4);
+    margin-bottom: var(--admin-space-4);
+    border-radius: var(--admin-card-radius);
+    background: rgba(245, 158, 11, .10);
+    border: 1px solid rgba(245, 158, 11, .30);
+    color: var(--admin-color-warning);
+    font-size: .88rem;
+
+}
+
+
+/*==========================================================
+GENERIC BUTTONS (mismo criterio que tenant-detail)
+==========================================================*/
+
+.btn {
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 0 20px;
+    border: none;
+    border-radius: var(--admin-button-radius);
+    cursor: pointer;
+    font-size: .90rem;
+    font-weight: 600;
+    transition: .20s;
+
+}
+
+.btn:hover {
+
+    transform: translateY(-1px);
+
+}
+
+.btn:disabled {
+
+    opacity: .60;
+    cursor: not-allowed;
+    transform: none;
+
+}
+
+.btn-primary {
+
+    background: var(--admin-color-primary);
+    color: white;
+
+}
+
+.btn-danger {
+
+    background: var(--admin-color-danger);
+    color: white;
+
+}
+
+
+/*==========================================================
+RESPONSIVE
+==========================================================*/
+
+@media (max-width: 720px) {
+
+    .platform-legacy-migration__grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}

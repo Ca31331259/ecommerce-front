@@ -1,0 +1,382 @@
+<div class="platform-legacy-migration">
+
+    <!-- ========================================== -->
+    <!-- HEADER -->
+    <!-- ========================================== -->
+
+    <header class="platform-legacy-migration__header">
+
+        <span class="platform-legacy-migration__eyebrow">
+
+            Plataforma
+
+        </span>
+
+        <h1>
+
+            Migrar cliente legacy
+
+        </h1>
+
+        <p>
+
+            Analizá y simulá la migración de un schema legacy antes de
+            confirmarla. El tenant destino ya tiene que estar provisionado
+            (alta sin datos base) antes de este paso.
+
+        </p>
+
+    </header>
+
+
+    <!-- ========================================== -->
+    <!-- FORM -->
+    <!-- ========================================== -->
+
+    <section class="platform-legacy-migration__card">
+
+        <form
+            [formGroup]="form"
+            (ngSubmit)="runAnalyzeAndDryRun()">
+
+            <div class="platform-legacy-migration__grid">
+
+                <div class="platform-legacy-migration__field">
+
+                    <label for="code">
+
+                        Código del tenant
+
+                        <span>*</span>
+
+                    </label>
+
+                    <input
+                        id="code"
+                        type="text"
+                        formControlName="code"
+                        autocomplete="off"
+                        placeholder="Ej. citylux" />
+
+                    <small>
+
+                        Tiene que ser un tenant ya provisionado.
+
+                    </small>
+
+                </div>
+
+
+                <div class="platform-legacy-migration__field">
+
+                    <label for="sourceSchema">
+
+                        Schema legacy de origen
+
+                        <span>*</span>
+
+                    </label>
+
+                    <input
+                        id="sourceSchema"
+                        type="text"
+                        formControlName="sourceSchema"
+                        autocomplete="off"
+                        placeholder="Ej. citylux_legacy" />
+
+                    <small>
+
+                        Schema restaurado manualmente en el server (paso
+                        previo, no lo hace esta pantalla).
+
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="platform-legacy-migration__actions">
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                    [disabled]="analyzing()">
+
+                    @if (analyzing()) {
+
+                        <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+
+                        Analizando...
+
+                    } @else {
+
+                        <i class="fa-solid fa-magnifying-glass-chart" aria-hidden="true"></i>
+
+                        Analizar y simular
+
+                    }
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn btn-outline-danger"
+                    [disabled]="analyzing() || reimporting()"
+                    title="Vacía el schema real del tenant y vuelve a traer todo desde cero (p.ej. si el legacy siguió recibiendo carga después de migrarlo)"
+                    (click)="reimportar()">
+
+                    @if (reimporting()) {
+
+                        <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+
+                        Reimportando...
+
+                    } @else {
+
+                        <i class="fa-solid fa-rotate" aria-hidden="true"></i>
+
+                        Reimportar (borra y trae todo de nuevo)
+
+                    }
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- ERROR -->
+    <!-- ========================================== -->
+
+    @if (errorMessage()) {
+
+        <div class="platform-legacy-migration__alert platform-legacy-migration__alert--danger">
+
+            <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+
+            <span>{{ errorMessage() }}</span>
+
+        </div>
+
+    }
+
+
+    <!-- ========================================== -->
+    <!-- DRY-RUN: REPORTES -->
+    <!-- ========================================== -->
+
+    @if (dryRunResult(); as dryRun) {
+
+        <section class="platform-legacy-migration__card">
+
+            <header class="platform-legacy-migration__card-header">
+
+                <div>
+
+                    <h2>Resultado de la simulación (dry-run)</h2>
+
+                    <span>
+                        runId: {{ dryRun.runId }} · status: {{ dryRun.status }}
+                    </span>
+
+                </div>
+
+            </header>
+
+            @for (section of reportSections(); track section.key) {
+
+                <div class="platform-legacy-migration__report-section">
+
+                    <div class="platform-legacy-migration__report-title">
+
+                        <h3>{{ section.title }}</h3>
+
+                        @if (section.unexpectedNonEmpty) {
+
+                            <span class="platform-legacy-migration__report-flag platform-legacy-migration__report-flag--danger">
+
+                                <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+
+                                Debería estar vacío
+
+                            </span>
+
+                        } @else if (section.isEmpty) {
+
+                            <span class="platform-legacy-migration__report-flag platform-legacy-migration__report-flag--success">
+
+                                <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+
+                                Sin registros
+
+                            </span>
+
+                        } @else {
+
+                            <span class="platform-legacy-migration__report-flag">
+
+                                {{ section.rows.length }} registro(s)
+
+                            </span>
+
+                        }
+
+                    </div>
+
+                    @if (!section.isEmpty) {
+
+                        <div class="platform-legacy-migration__table-wrapper">
+
+                            <table class="platform-legacy-migration__table">
+
+                                <thead>
+                                    <tr>
+                                        @for (column of section.columns; track column) {
+                                            <th>{{ column }}</th>
+                                        }
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @for (row of section.rows; track $index) {
+                                        <tr>
+                                            @for (column of section.columns; track column) {
+                                                <td>{{ row[column] }}</td>
+                                            }
+                                        </tr>
+                                    }
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    }
+
+                </div>
+
+            }
+
+            <div class="platform-legacy-migration__actions">
+
+                <button
+                    type="button"
+                    class="btn btn-danger"
+                    [disabled]="!dryRunSucceeded() || committing()"
+                    (click)="confirmMigration()">
+
+                    @if (committing()) {
+
+                        <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+
+                        Confirmando...
+
+                    } @else {
+
+                        <i class="fa-solid fa-check-double" aria-hidden="true"></i>
+
+                        Confirmar migración
+
+                    }
+
+                </button>
+
+                @if (!dryRunSucceeded() && !commitResult()) {
+
+                    <span class="platform-legacy-migration__hint">
+
+                        Los datos del formulario cambiaron desde este dry-run:
+                        corré "Analizar y simular" de nuevo antes de confirmar.
+
+                    </span>
+
+                }
+
+            </div>
+
+        </section>
+
+    }
+
+
+    <!-- ========================================== -->
+    <!-- COMMIT: RESULTADO -->
+    <!-- ========================================== -->
+
+    @if (commitResult(); as commit) {
+
+        <section class="platform-legacy-migration__card platform-legacy-migration__card--success">
+
+            <header class="platform-legacy-migration__card-header">
+
+                <div>
+
+                    <h2>
+
+                        <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+
+                        Migración confirmada
+
+                    </h2>
+
+                    <span>
+                        runId: {{ commit.runId }} · status: {{ commit.status }}
+                    </span>
+
+                </div>
+
+            </header>
+
+            @if (commit.passwordsTemporales && objectEntries(commit.passwordsTemporales).length > 0) {
+
+                <div class="platform-legacy-migration__passwords">
+
+                    <div class="platform-legacy-migration__passwords-warning">
+
+                        <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+
+                        <strong>
+
+                            Esta es la ÚNICA vez que se muestran estas
+                            contraseñas. No se guardan en ningún lado —
+                            copialas ahora y comunicaselas al cliente.
+
+                        </strong>
+
+                    </div>
+
+                    <table class="platform-legacy-migration__table">
+
+                        <thead>
+                            <tr>
+                                <th>Usuario</th>
+                                <th>Contraseña temporal</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @for (entry of objectEntries(commit.passwordsTemporales); track entry[0]) {
+                                <tr>
+                                    <td>{{ entry[0] }}</td>
+                                    <td><code>{{ entry[1] }}</code></td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            }
+
+        </section>
+
+    }
+
+</div>

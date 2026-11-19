@@ -1,5 +1,7 @@
+@if (section === 'hero') {
+
 <admin-form-card title="Contenido de la página principal"
-    subtitle="Administrá el Hero, la sección Nosotros y el llamado a la acción principal.">
+    subtitle="Administrá el Hero y el llamado a la acción principal.">
 
     <!-- ======================================================
     HERO
@@ -385,28 +387,108 @@
 
 
     <!-- ======================================================
-    ABOUT
+    CTA
     ======================================================= -->
 
+    <div class="home-form__section">
 
+        <admin-form-preview style="margin: 30px" title="Ejemplo" description="Ejemplo de Llamado a la Accion"
+            badge="Hero" image="assets/placeholders/cta-preview.png">
+        </admin-form-preview>
+
+        <div class="home-form__section-header">
+
+            <h3>
+                Llamado a la acción
+            </h3>
+
+            <p>
+                Configurá el bloque destacado que invita al visitante a realizar una acción.
+            </p>
+
+        </div>
+
+
+        <admin-form-grid columns="2">
+
+            <admin-field label="Título" hint="Título principal del llamado a la acción.">
+
+                <input adminFieldContent adminInput type="text" [(ngModel)]="home.ctaTitle"
+                    placeholder="Ej. ¿Listo para comenzar?">
+
+            </admin-field>
+
+
+            <admin-field label="Descripción" hint="Texto complementario del llamado a la acción.">
+
+                <textarea adminFieldContent adminTextarea rows="4" [(ngModel)]="home.ctaText"
+                    placeholder="Invitá al visitante a dar el siguiente paso...">
+                </textarea>
+
+            </admin-field>
+
+
+            <admin-field label="Texto del botón" hint="Texto visible en el botón del CTA.">
+
+                <input adminFieldContent adminInput type="text" [(ngModel)]="home.ctaButtonText"
+                    placeholder="Ej. Contactanos">
+
+            </admin-field>
+
+
+            <admin-field label="Destino del botón" hint="Elegí una sección del sitio o una URL personalizada.">
+
+                <admin-select adminFieldContent [ngModel]="ctaLinkType" (ngModelChange)="onCtaLinkChange($event)"
+                    [options]="anchorOptions">
+
+                </admin-select>
+
+            </admin-field>
+
+            @if(ctaLinkType === CUSTOM_LINK){
+
+            <div style="margin-top:12px;">
+
+                <input adminInput type="url" [(ngModel)]="home.ctaButtonLink" placeholder="https://...">
+
+            </div>
+
+            }
+
+        </admin-form-grid>
+
+    </div>
+
+
+    <!-- ======================================================
+    ACTIONS
+    ======================================================= -->
+
+    <div adminFormCardFooter>
+
+        <admin-button variant="primary" icon="fa-solid fa-floppy-disk" (clicked)="saveHome()">
+
+            Guardar página principal
+
+        </admin-button>
+
+    </div>
+
+</admin-form-card>
+
+}
+
+
+@if (section === 'about') {
+
+<admin-form-card title="Nosotros (resumen para el inicio)"
+    subtitle="Bloque corto que se muestra en la página principal. Para historia, misión/visión, valores, equipo y estadísticas, usá la sección &quot;Nosotros — contenido ampliado&quot; de más abajo.">
 
     <div class="home-form__section">
 
         <admin-form-preview style="margin: 30px" title="Ejemplo" description="Ejemplo de Nosotros" badge="Hero"
             image="assets/placeholders/about-preview.png">
         </admin-form-preview>
-
-        <div class="home-form__section-header">
-
-            <h3>
-                Nosotros
-            </h3>
-
-            <p>
-                Presentá la empresa y contá a los clientes quiénes están detrás del comercio.
-            </p>
-
-        </div>
 
 
         <admin-form-grid columns="2">
@@ -496,80 +578,6 @@
 
 
     <!-- ======================================================
-    CTA
-    ======================================================= -->
-
-    <div class="home-form__section">
-
-        <admin-form-preview style="margin: 30px" title="Ejemplo" description="Ejemplo de Llamado a la Accion"
-            badge="Hero" image="assets/placeholders/cta-preview.png">
-        </admin-form-preview>
-
-        <div class="home-form__section-header">
-
-            <h3>
-                Llamado a la acción
-            </h3>
-
-            <p>
-                Configurá el bloque destacado que invita al visitante a realizar una acción.
-            </p>
-
-        </div>
-
-
-        <admin-form-grid columns="2">
-
-            <admin-field label="Título" hint="Título principal del llamado a la acción.">
-
-                <input adminFieldContent adminInput type="text" [(ngModel)]="home.ctaTitle"
-                    placeholder="Ej. ¿Listo para comenzar?">
-
-            </admin-field>
-
-
-            <admin-field label="Descripción" hint="Texto complementario del llamado a la acción.">
-
-                <textarea adminFieldContent adminTextarea rows="4" [(ngModel)]="home.ctaText"
-                    placeholder="Invitá al visitante a dar el siguiente paso...">
-                </textarea>
-
-            </admin-field>
-
-
-            <admin-field label="Texto del botón" hint="Texto visible en el botón del CTA.">
-
-                <input adminFieldContent adminInput type="text" [(ngModel)]="home.ctaButtonText"
-                    placeholder="Ej. Contactanos">
-
-            </admin-field>
-
-
-            <admin-field label="Destino del botón" hint="Elegí una sección del sitio o una URL personalizada.">
-
-                <admin-select adminFieldContent [ngModel]="ctaLinkType" (ngModelChange)="onCtaLinkChange($event)"
-                    [options]="anchorOptions">
-
-                </admin-select>
-
-            </admin-field>
-
-            @if(ctaLinkType === CUSTOM_LINK){
-
-            <div style="margin-top:12px;">
-
-                <input adminInput type="url" [(ngModel)]="home.ctaButtonLink" placeholder="https://...">
-
-            </div>
-
-            }
-
-        </admin-form-grid>
-
-    </div>
-
-
-    <!-- ======================================================
     ACTIONS
     ======================================================= -->
 
@@ -577,10 +585,12 @@
 
         <admin-button variant="primary" icon="fa-solid fa-floppy-disk" (clicked)="saveHome()">
 
-            Guardar página principal
+            Guardar Nosotros
 
         </admin-button>
 
     </div>
 
 </admin-form-card>
+
+}

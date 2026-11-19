@@ -60,7 +60,7 @@
 
                     <div class="gallery-cropper">
 
-                        <admin-image-cropper [imageChangedEvent]="imageChangedEvent" [aspectRatio]="1"
+                        <admin-image-cropper [imageChangedEvent]="imageChangedEvent" [aspectRatio]="cropperAspectRatio()"
                             (cancel)="closeCropper()" (save)="saveThumbnail($event)">
 
                         </admin-image-cropper>

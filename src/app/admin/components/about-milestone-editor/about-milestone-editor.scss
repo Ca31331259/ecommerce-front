@@ -1,0 +1,23 @@
+:host {
+
+    display: block;
+
+}
+
+admin-form-card + admin-form-card {
+
+    margin-top: var(--admin-space-6);
+
+}
+
+.full {
+
+    grid-column: 1 / -1;
+
+}
+
+admin-save-bar {
+
+    margin-top: var(--admin-space-2);
+
+}

@@ -283,4 +283,26 @@ saveThumbnail(
     this.galleryEditing = undefined;
 
   }
+
+  /*======================================================
+  ASPECT RATIO (según el size del item, mismo criterio
+  que gallery.scss usa en el sitio público)
+  ======================================================*/
+
+  cropperAspectRatio(): number {
+
+    switch (this.galleryEditing?.size) {
+
+      case 'MEDIUM':
+        return 2 / 1;
+
+      case 'LARGE':
+        return 16 / 6;
+
+      default:
+        return 1;
+
+    }
+
+  }
 }

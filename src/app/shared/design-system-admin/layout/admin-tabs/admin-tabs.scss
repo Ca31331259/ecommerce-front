@@ -1,0 +1,121 @@
+:host {
+
+    display: block;
+
+}
+
+/*==========================================================
+NAV
+==========================================================*/
+
+.admin-tabs__nav {
+
+    display: flex;
+
+    gap: var(--admin-space-2);
+
+    overflow-x: auto;
+
+    -webkit-overflow-scrolling: touch;
+
+    border-bottom: 1px solid var(--admin-border);
+
+    margin-bottom: var(--admin-space-7);
+
+    scrollbar-width: none;
+
+}
+
+.admin-tabs__nav::-webkit-scrollbar {
+
+    display: none;
+
+}
+
+/*==========================================================
+TAB
+==========================================================*/
+
+.admin-tabs__tab {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: var(--admin-space-2);
+
+    flex-shrink: 0;
+
+    padding: var(--admin-space-3) var(--admin-space-4);
+
+    border: none;
+
+    border-bottom: 2px solid transparent;
+
+    background: transparent;
+
+    color: var(--admin-text-secondary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-sm);
+
+    font-weight: var(--admin-font-weight-medium);
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition: color 0.15s ease, border-color 0.15s ease;
+
+}
+
+.admin-tabs__tab:hover {
+
+    color: var(--admin-text-primary);
+
+}
+
+.admin-tabs__tab--active {
+
+    color: var(--admin-color-primary);
+
+    border-bottom-color: var(--admin-color-primary);
+
+    font-weight: var(--admin-font-weight-semibold);
+
+}
+
+/*==========================================================
+CONTENT
+==========================================================*/
+
+.admin-tabs__content {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: var(--admin-space-5);
+
+}
+
+/*==========================================================
+DESKTOP
+==========================================================*/
+
+@media (min-width: 640px) {
+
+    .admin-tabs__nav {
+
+        gap: var(--admin-space-4);
+
+    }
+
+    .admin-tabs__tab {
+
+        font-size: var(--admin-font-size-md);
+
+    }
+
+}

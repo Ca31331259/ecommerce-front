@@ -30,6 +30,22 @@
 
 }
 
+@case('ABOUT_DETAIL') {
+
+@if (about(); as aboutData) {
+
+<app-about-detail
+    [about]="aboutData"
+    [values]="aboutValues()"
+    [milestones]="aboutMilestones()"
+    [team]="aboutTeam()"
+    [stats]="aboutStats()">
+</app-about-detail>
+
+}
+
+}
+
 @case('BANNERS') {
 
 @if(banners().length) {
@@ -58,6 +74,13 @@
 
 <app-cta [home]="homeData">
 </app-cta>
+
+}
+
+@case('BRANCHES') {
+
+<app-branches [branches]="branches()">
+</app-branches>
 
 }
 

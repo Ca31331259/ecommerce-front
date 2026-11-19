@@ -285,7 +285,9 @@ FIELD
 }
 
 .platform-tenant-form__field
-> input {
+> input,
+.platform-tenant-form__field
+> select {
 
     width: 100%;
 
@@ -332,7 +334,9 @@ FIELD
 }
 
 .platform-tenant-form__field
-> input:focus {
+> input:focus,
+.platform-tenant-form__field
+> select:focus {
 
     border-color: var(--admin-color-primary);
 
@@ -341,7 +345,9 @@ FIELD
 }
 
 .platform-tenant-form__field
-> input:disabled {
+> input:disabled,
+.platform-tenant-form__field
+> select:disabled {
 
     opacity: .65;
 

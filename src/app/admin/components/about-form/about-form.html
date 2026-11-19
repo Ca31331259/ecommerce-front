@@ -1,0 +1,181 @@
+<admin-form-card title="Nosotros — contenido ampliado"
+    subtitle="Complementa al resumen corto de la página principal (sección 'Página principal' de más arriba). Historia, misión/visión y los toggles de los bloques de listas (valores, línea de tiempo, equipo, stats) — cada bloque se muestra en el sitio solo si está activado.">
+
+    <!-- ======================================================
+    HISTORIA
+    ======================================================= -->
+
+    <div class="about-form__section">
+
+        <div class="about-form__section-header">
+
+            <h3>
+                Historia
+            </h3>
+
+            <p>
+                Contá la historia de la empresa.
+            </p>
+
+            <admin-switch [(ngModel)]="about.historyEnabled">
+                Mostrar este bloque
+            </admin-switch>
+
+        </div>
+
+        @if (about.historyEnabled) {
+
+        <admin-form-grid>
+
+            <admin-field label="Título">
+
+                <input adminFieldContent adminInput type="text" [(ngModel)]="about.historyTitle"
+                    placeholder="Ej. Nuestra historia">
+
+            </admin-field>
+
+            <admin-field class="full" label="Texto">
+
+                <textarea adminFieldContent adminTextarea rows="6" [(ngModel)]="about.historyText"
+                    placeholder="Contá cómo empezó todo...">
+                </textarea>
+
+            </admin-field>
+
+        </admin-form-grid>
+
+        }
+
+    </div>
+
+    <!-- ======================================================
+    MISIÓN / VISIÓN
+    ======================================================= -->
+
+    <div class="about-form__section">
+
+        <div class="about-form__section-header">
+
+            <h3>
+                Misión y visión
+            </h3>
+
+            <p>
+                Qué hace la empresa y hacia dónde va.
+            </p>
+
+            <admin-switch [(ngModel)]="about.missionVisionEnabled">
+                Mostrar este bloque
+            </admin-switch>
+
+        </div>
+
+        @if (about.missionVisionEnabled) {
+
+        <admin-form-grid columns="2">
+
+            <admin-field label="Título de la misión">
+
+                <input adminFieldContent adminInput type="text" [(ngModel)]="about.missionTitle"
+                    placeholder="Ej. Nuestra misión">
+
+            </admin-field>
+
+            <admin-field label="Título de la visión">
+
+                <input adminFieldContent adminInput type="text" [(ngModel)]="about.visionTitle"
+                    placeholder="Ej. Nuestra visión">
+
+            </admin-field>
+
+            <admin-field label="Texto de la misión">
+
+                <textarea adminFieldContent adminTextarea rows="4" [(ngModel)]="about.missionText">
+                </textarea>
+
+            </admin-field>
+
+            <admin-field label="Texto de la visión">
+
+                <textarea adminFieldContent adminTextarea rows="4" [(ngModel)]="about.visionText">
+                </textarea>
+
+            </admin-field>
+
+        </admin-form-grid>
+
+        }
+
+    </div>
+
+    <!-- ======================================================
+    TOGGLES DE LOS BLOQUES DE LISTA
+    ======================================================= -->
+
+    <div class="about-form__section">
+
+        <div class="about-form__section-header">
+
+            <h3>
+                Otros bloques
+            </h3>
+
+            <p>
+                El contenido de cada uno se carga aparte, más abajo en esta misma página.
+            </p>
+
+        </div>
+
+        <admin-form-grid columns="2">
+
+            <admin-field label="Valores">
+
+                <admin-switch adminFieldContent [(ngModel)]="about.valuesEnabled">
+                    Mostrar "Nuestros valores"
+                </admin-switch>
+
+            </admin-field>
+
+            <admin-field label="Línea de tiempo">
+
+                <admin-switch adminFieldContent [(ngModel)]="about.timelineEnabled">
+                    Mostrar "Nuestra historia en el tiempo"
+                </admin-switch>
+
+            </admin-field>
+
+            <admin-field label="Equipo">
+
+                <admin-switch adminFieldContent [(ngModel)]="about.teamEnabled">
+                    Mostrar "Nuestro equipo"
+                </admin-switch>
+
+            </admin-field>
+
+            <admin-field label="Números destacados">
+
+                <admin-switch adminFieldContent [(ngModel)]="about.statsEnabled">
+                    Mostrar estadísticas
+                </admin-switch>
+
+            </admin-field>
+
+        </admin-form-grid>
+
+    </div>
+
+    <!-- ======================================================
+    ACTIONS
+    ======================================================= -->
+
+    <div adminFormCardFooter>
+
+        <admin-button variant="primary" icon="fa-solid fa-floppy-disk" (clicked)="saveAbout()">
+
+            Guardar Nosotros
+
+        </admin-button>
+
+    </div>
+
+</admin-form-card>

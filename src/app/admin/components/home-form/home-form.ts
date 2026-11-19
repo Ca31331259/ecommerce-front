@@ -36,6 +36,7 @@ import {
 
 } from '@shared/placeholders';
 import { AdminTextareaDirective } from '@shared/design-system-admin/forms/admin-textarea';
+import { SECTION_ANCHOR_OPTIONS } from '../../shared/section-anchor-options';
 
 @Component({
   selector: 'app-home-form',
@@ -89,6 +90,14 @@ ctaLinkType = '#contact';
     required: true
   })
   home!: TenantHome;
+
+  /**
+   * Qué porción del formulario mostrar — permite instanciar este mismo
+   * componente en dos tabs distintos del admin ("Página principal" con
+   * Hero+CTA, "Nosotros" con el resumen corto) sin duplicar la clase.
+   */
+  @Input()
+  section: 'hero' | 'about' = 'hero';
 
 
   /* ======================================================
@@ -214,44 +223,7 @@ ctaLinkType = '#contact';
   ];
 
 
-  readonly anchorOptions: AdminSelectOption[] = [
-
-    {
-      value: '#hero',
-      label: 'Hero'
-    },
-
-    {
-      value: '#about',
-      label: 'Nosotros'
-    },
-
-    {
-      value: '#benefits',
-      label: 'Beneficios'
-    },
-
-    {
-      value: '#gallery',
-      label: 'Galería'
-    },
-
-    {
-      value: '#products',
-      label: 'Productos'
-    },
-
-    {
-      value: '#contact',
-      label: 'Contacto'
-    },
-
-    {
-      value: '__CUSTOM__',
-      label: 'URL personalizada...'
-    }
-
-  ];
+  readonly anchorOptions: AdminSelectOption[] = SECTION_ANCHOR_OPTIONS;
 
 
   /* ======================================================

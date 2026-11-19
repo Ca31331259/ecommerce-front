@@ -102,6 +102,24 @@
                     </h1>
 
 
+                    @if (data.connectionDataCorrupted) {
+
+                        <i
+                            class="
+                                fa-solid
+                                fa-triangle-exclamation
+                                platform-tenant-detail__corrupted-icon
+                            "
+                            aria-hidden="true"
+                            title="
+                                Los datos de conexión de este tenant no se
+                                pudieron leer. Requiere revisión manual.
+                            ">
+                        </i>
+
+                    }
+
+
                     @if (data.active) {
 
                     <span class="
@@ -151,7 +169,7 @@
 
                     <span>
 
-                        {{ data.domain }}
+                        {{ data.domain || 'Sin storefront' }}
 
                     </span>
 
@@ -181,10 +199,19 @@
             </a>
 
 
-            <button type="button" class="
+            <button
+                type="button"
+                class="
                         platform-tenant-detail__button
                         platform-tenant-detail__button--primary
-                    " [disabled]="deploying()" (click)="deploy()">
+                    "
+                [disabled]="!requiresEcommerce(data.tenantType) || deploying()"
+                [title]="
+                    !requiresEcommerce(data.tenantType)
+                        ? 'Este tenant no requiere Ecommerce (ERP puro); no tiene storefront para desplegar.'
+                        : ''
+                "
+                (click)="deploy()">
 
                 @if (deploying()) {
 
@@ -314,6 +341,18 @@
 
 
         <button type="button" [class.platform-tenant-detail__tab--active]="
+                    activeTab() === 'facturacion'
+                " class="platform-tenant-detail__tab" (click)="setTab('facturacion')">
+
+            <i class="fa-solid fa-file-invoice-dollar" aria-hidden="true">
+            </i>
+
+            Facturación
+
+        </button>
+
+
+        <button type="button" [class.platform-tenant-detail__tab--active]="
                     activeTab() === 'logs'
                 " class="platform-tenant-detail__tab" (click)="setTab('logs')">
 
@@ -342,6 +381,28 @@
 
         <div class="detail-card">
 
+            @if (t.connectionDataCorrupted) {
+
+                <div class="
+                    platform-tenant-detail__alert
+                    platform-tenant-detail__alert--danger
+                ">
+
+                    <i class="fa-solid fa-triangle-exclamation" aria-hidden="true">
+                    </i>
+
+                    <span>
+
+                        Los datos de conexión de este tenant no se
+                        pudieron leer (dbPassword ilegible). Requiere
+                        revisión manual del lado del backend.
+
+                    </span>
+
+                </div>
+
+            }
+
             <div class="detail-grid">
 
                 <div>
@@ -356,15 +417,37 @@
 
                 <div>
                     <label>Dominio</label>
-                    <span>{{ t.domain }}</span>
+                    <span>{{ t.domain || 'Sin storefront' }}</span>
+                </div>
+
+                <div>
+                    <label>País</label>
+
+                    <span class="badge">
+
+                        {{ t.pais === 'PARAGUAY' ? 'Paraguay' : 'Argentina' }}
+
+                    </span>
+
+                </div>
+
+                <div>
+                    <label>Tipo de tenant</label>
+
+                    <span class="badge">
+
+                        {{ getTenantTypeLabel(t.tenantType) }}
+
+                    </span>
+
                 </div>
 
                 <div>
                     <label>Estado</label>
 
-                    <span class="badge" [class.success]="t.active" [class.danger]="!t.active">
+                    <span class="badge" [class]="getLifecycleClass(t.lifecycleStatus)">
 
-                        {{ t.active ? 'Activo' : 'Inactivo' }}
+                        {{ getLifecycleLabel(t.lifecycleStatus) }}
 
                     </span>
 
@@ -392,7 +475,392 @@
 
                 </div>
 
+                @if (requiresEcommerce(t.tenantType)) {
+
+                    <div>
+                        <label>Deployment</label>
+
+                        <span class="badge" [class]="getDeploymentStatusClass(t.deploymentStatus)">
+
+                            {{ getDeploymentStatusLabel(t.deploymentStatus) }}
+
+                        </span>
+
+                    </div>
+
+                }
+
+                @if (requiresErp(t.tenantType)) {
+
+                    <div>
+                        <label>Provisioning ERP</label>
+
+                        <span class="badge" [class]="getErpProvisioningClass(t.erpProvisioningStatus)">
+
+                            {{ getErpProvisioningLabel(t.erpProvisioningStatus) }}
+
+                        </span>
+
+                    </div>
+
+                }
+
+                @if (t.erpSchema) {
+
+                    <div>
+                        <label>Schema ERP</label>
+                        <span>{{ t.erpSchema }}</span>
+                    </div>
+
+                }
+
+                @if (requiresErp(t.tenantType)) {
+
+                    <div>
+                        <label>Dominio ERP</label>
+                        <span>{{ t.erpDomain || 'Sin configurar' }}</span>
+                    </div>
+
+                }
+
             </div>
+
+        </div>
+
+
+        <!-- ================================== -->
+        <!-- CICLO DE VIDA -->
+        <!-- ================================== -->
+
+        <div class="detail-card">
+
+            <header class="
+                        platform-tenant-detail__card-header
+                    ">
+
+                <div>
+
+                    <h2>
+
+                        Ciclo de vida
+
+                    </h2>
+
+                    <span>
+
+                        Activar, suspender o cancelar este tenant.
+
+                    </span>
+
+                </div>
+
+            </header>
+
+            @if (lifecycleActionError()) {
+
+                <div class="
+                    platform-tenant-detail__alert
+                    platform-tenant-detail__alert--danger
+                ">
+
+                    <i class="fa-solid fa-circle-xmark" aria-hidden="true">
+                    </i>
+
+                    <span>
+
+                        {{ lifecycleActionError() }}
+
+                    </span>
+
+                </div>
+
+            }
+
+            <div class="detail-actions">
+
+                <button
+                    class="btn btn-success"
+                    type="button"
+                    (click)="activateTenant()"
+                    [disabled]="
+                        !canActivate(t.lifecycleStatus) || activating()
+                    "
+                    [title]="
+                        t.lifecycleStatus === 'CANCELLED'
+                            ? 'Un tenant cancelado no puede reactivarse.'
+                            : t.lifecycleStatus === 'ACTIVE'
+                                ? 'El tenant ya está activo.'
+                                : ''
+                    ">
+
+                    @if (activating()) {
+
+                        <i class="fa-solid fa-spinner fa-spin" aria-hidden="true">
+                        </i>
+
+                    } @else {
+
+                        <i class="fa-solid fa-play" aria-hidden="true">
+                        </i>
+
+                    }
+
+                    Activar
+
+                </button>
+
+                <button
+                    class="btn btn-warning"
+                    type="button"
+                    (click)="suspendTenant()"
+                    [disabled]="
+                        !canSuspend(t.lifecycleStatus) || suspending()
+                    "
+                    [title]="
+                        t.lifecycleStatus === 'CANCELLED'
+                            ? 'Un tenant cancelado no puede suspenderse.'
+                            : ''
+                    ">
+
+                    @if (suspending()) {
+
+                        <i class="fa-solid fa-spinner fa-spin" aria-hidden="true">
+                        </i>
+
+                    } @else {
+
+                        <i class="fa-solid fa-pause" aria-hidden="true">
+                        </i>
+
+                    }
+
+                    Suspender
+
+                </button>
+
+                <button
+                    class="btn btn-danger"
+                    type="button"
+                    (click)="cancelTenant()"
+                    [disabled]="
+                        !canCancel(t.lifecycleStatus) || cancelling()
+                    "
+                    [title]="
+                        t.lifecycleStatus === 'CANCELLED'
+                            ? 'Este tenant ya está cancelado.'
+                            : ''
+                    ">
+
+                    @if (cancelling()) {
+
+                        <i class="fa-solid fa-spinner fa-spin" aria-hidden="true">
+                        </i>
+
+                    } @else {
+
+                        <i class="fa-solid fa-ban" aria-hidden="true">
+                        </i>
+
+                    }
+
+                    Cancelar
+
+                </button>
+
+                <button
+                    class="btn btn-danger"
+                    type="button"
+                    (click)="deleteTenant()"
+                    [disabled]="deleting()"
+                    title="Borra el tenant Y su base de datos completa -- irreversible.">
+
+                    @if (deleting()) {
+
+                        <i class="fa-solid fa-spinner fa-spin" aria-hidden="true">
+                        </i>
+
+                    } @else {
+
+                        <i class="fa-solid fa-trash" aria-hidden="true">
+                        </i>
+
+                    }
+
+                    Eliminar tenant (con su base)
+
+                </button>
+
+                @if (canRetryProvisioning(t)) {
+
+                    <button
+                        class="btn btn-warning"
+                        type="button"
+                        (click)="retryProvisioning()"
+                        [disabled]="retryingProvisioning()">
+
+                        @if (retryingProvisioning()) {
+
+                            <i class="fa-solid fa-spinner fa-spin" aria-hidden="true">
+                            </i>
+
+                            Reintentando...
+
+                        } @else {
+
+                            <i class="fa-solid fa-rotate-right" aria-hidden="true">
+                            </i>
+
+                            Reintentar provisioning ERP
+
+                        }
+
+                    </button>
+
+                }
+
+                @if (requiresErp(t.tenantType)) {
+
+                    <button
+                        class="btn btn-warning"
+                        type="button"
+                        (click)="activarReverseProxy()"
+                        [disabled]="!t.erpDomain || activatingReverseProxy()"
+                        [title]="
+                            !t.erpDomain
+                                ? 'Cargá el dominio ERP en \'Editar tenant\' antes de activar el reverse proxy.'
+                                : ''
+                        ">
+
+                        @if (activatingReverseProxy()) {
+
+                            <i class="fa-solid fa-spinner fa-spin" aria-hidden="true">
+                            </i>
+
+                            Activando...
+
+                        } @else {
+
+                            <i class="fa-solid fa-shield-halved" aria-hidden="true">
+                            </i>
+
+                            Activar reverse proxy ERP
+
+                        }
+
+                    </button>
+
+                }
+
+                @if (requiresErp(t.tenantType)) {
+
+                    <button
+                        class="btn btn-warning"
+                        type="button"
+                        (click)="resetPasswordSoporte()"
+                        [disabled]="resettingSoportePassword()">
+
+                        @if (resettingSoportePassword()) {
+
+                            <i class="fa-solid fa-spinner fa-spin" aria-hidden="true">
+                            </i>
+
+                            Reseteando...
+
+                        } @else {
+
+                            <i class="fa-solid fa-key" aria-hidden="true">
+                            </i>
+
+                            Resetear contraseña de "soporte"
+
+                        }
+
+                    </button>
+
+                }
+
+                @if (requiresEcommerce(t.tenantType)) {
+
+                    <button
+                        class="btn btn-warning"
+                        type="button"
+                        (click)="resetDbPassword()"
+                        [disabled]="!t.dbUsername || resettingDbPassword()"
+                        [title]="
+                            !t.dbUsername
+                                ? 'Cargá el usuario de base de datos en \'Editar tenant\' antes de poder resetear su contraseña.'
+                                : ''
+                        ">
+
+                        @if (resettingDbPassword()) {
+
+                            <i class="fa-solid fa-spinner fa-spin" aria-hidden="true">
+                            </i>
+
+                            Reseteando...
+
+                        } @else {
+
+                            <i class="fa-solid fa-database" aria-hidden="true">
+                            </i>
+
+                            Resetear contraseña de conexión
+
+                        }
+
+                    </button>
+
+                }
+
+            </div>
+
+            @if (revealedPassword(); as revealed) {
+
+                <div class="platform-tenant-detail__alert platform-tenant-detail__alert--success">
+
+                    <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+
+                    <span class="platform-tenant-detail__alert-text">
+
+                        {{ revealed.label }}: <code>{{ revealed.value }}</code> — copiala ahora,
+                        no se vuelve a mostrar.
+
+                    </span>
+
+                    <button
+                        class="platform-tenant-detail__alert-dismiss"
+                        type="button"
+                        (click)="dismissRevealedPassword()"
+                        title="Ocultar">
+
+                        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+
+                    </button>
+
+                </div>
+
+            }
+
+            @if (reverseProxySuccess()) {
+
+                <p class="platform-tenant-detail__lifecycle-note">
+
+                    Reverse proxy activado correctamente en el ERP.
+
+                </p>
+
+            }
+
+            @if (t.lifecycleStatus === 'CANCELLED') {
+
+                <p class="platform-tenant-detail__lifecycle-note">
+
+                    Este tenant fue cancelado de forma definitiva y no puede
+                    reactivarse desde la plataforma.
+
+                </p>
+
+            }
 
         </div>
 
@@ -440,7 +908,7 @@
                     </span>
 
                     <strong>
-                        {{ data.domain }}
+                        {{ data.domain || 'Sin storefront' }}
                     </strong>
 
                 </div>
@@ -501,7 +969,16 @@
 
             <div class="detail-actions">
 
-                <button class="btn btn-primary" (click)="verifyDomain()" [disabled]="verifyingDomain()">
+                <button
+                    class="btn btn-primary"
+                    (click)="verifyDomain()"
+                    [disabled]="!data.domain || verifyingDomain()"
+                    [title]="
+                        !data.domain
+                            ? 'Este tenant no tiene domain configurado (no requiere storefront).'
+                            : ''
+                    "
+                >
 
                     Verificar dominio
 
@@ -564,7 +1041,12 @@
         <button
             class="btn btn-primary"
             (click)="requestSsl()"
-            [disabled]="requestingSsl()">
+            [disabled]="!tenant() || !requiresEcommerce(tenant()!.tenantType) || requestingSsl()"
+            [title]="
+                tenant() && !requiresEcommerce(tenant()!.tenantType)
+                    ? 'Este tenant no requiere Ecommerce (ERP puro); no tiene storefront para el que pedir SSL.'
+                    : ''
+            ">
 
             Solicitar certificado SSL
 
@@ -649,19 +1131,43 @@
 
                 </button>
 
-                <button class="btn btn-success" (click)="deploy()" [disabled]="deploying()">
+                <button
+                    class="btn btn-success"
+                    (click)="deploy()"
+                    [disabled]="!tenant() || !requiresEcommerce(tenant()!.tenantType) || deploying()"
+                    [title]="
+                        tenant() && !requiresEcommerce(tenant()!.tenantType)
+                            ? 'Este tenant no requiere Ecommerce (ERP puro); no tiene storefront para desplegar.'
+                            : ''
+                    ">
 
                     Deploy
 
                 </button>
 
-                <button class="btn btn-warning" (click)="redeploy()" [disabled]="redeploying()">
+                <button
+                    class="btn btn-warning"
+                    (click)="redeploy()"
+                    [disabled]="!tenant() || !requiresEcommerce(tenant()!.tenantType) || redeploying()"
+                    [title]="
+                        tenant() && !requiresEcommerce(tenant()!.tenantType)
+                            ? 'Este tenant no requiere Ecommerce (ERP puro); no tiene storefront para desplegar.'
+                            : ''
+                    ">
 
                     Redeploy
 
                 </button>
 
-                <button class="btn btn-danger" (click)="undeploy()" [disabled]="undeploying()">
+                <button
+                    class="btn btn-danger"
+                    (click)="undeploy()"
+                    [disabled]="!tenant() || !requiresEcommerce(tenant()!.tenantType) || undeploying()"
+                    [title]="
+                        tenant() && !requiresEcommerce(tenant()!.tenantType)
+                            ? 'Este tenant no requiere Ecommerce (ERP puro); no tiene storefront para desplegar.'
+                            : ''
+                    ">
 
                     Undeploy
 
@@ -761,6 +1267,326 @@
         }
 
         <!-- ================================== -->
+        <!-- FACTURACIÓN -->
+        <!-- ================================== -->
+
+        @if (activeTab() === 'facturacion') {
+
+        <section class="platform-tenant-detail__card">
+
+            <header class="platform-tenant-detail__card-header">
+
+                <div>
+
+                    <h2>
+
+                        Facturación
+
+                    </h2>
+
+                    <span>
+
+                        Uso reportado por el ERP y monto extra a facturar
+                        (informativo — no hay cobro automático).
+
+                    </span>
+
+                </div>
+
+                <button
+                    class="btn btn-primary"
+                    type="button"
+                    (click)="loadUsage()"
+                    [disabled]="loadingUsage()">
+
+                    @if (loadingUsage()) {
+
+                        <i class="fa-solid fa-spinner fa-spin" aria-hidden="true">
+                        </i>
+
+                    } @else {
+
+                        <i class="fa-solid fa-rotate-right" aria-hidden="true">
+                        </i>
+
+                    }
+
+                    Actualizar
+
+                </button>
+
+            </header>
+
+            @if (loadingUsage() && !usage()) {
+
+                <p class="platform-tenant-detail__lifecycle-note">
+
+                    Consultando el uso del tenant en el ERP...
+
+                </p>
+
+            } @else if (usage(); as u) {
+
+                @if (!u.disponible) {
+
+                    <div class="
+                        platform-tenant-detail__alert
+                        platform-tenant-detail__alert--danger
+                    ">
+
+                        <i class="fa-solid fa-triangle-exclamation" aria-hidden="true">
+                        </i>
+
+                        <span>
+
+                            {{ u.error || 'No se pudo obtener el uso de este tenant desde el ERP.' }}
+                            Los datos de plan de abajo son locales.
+
+                        </span>
+
+                    </div>
+
+                }
+
+                <!-- Plan + monto -->
+
+                <div class="detail-grid">
+
+                    <div>
+                        <label>Sucursales incluidas en el plan</label>
+                        <span>{{ u.sucursalesIncluidas }}</span>
+                    </div>
+
+                    <div>
+                        <label>Precio por sucursal extra</label>
+                        <span>$ {{ u.precioPorSucursalExtra | number:'1.2-2' }}</span>
+                    </div>
+
+                    @if (u.disponible && u.uso; as usoData) {
+
+                        <div>
+                            <label>Sucursales activas</label>
+                            <span>{{ usoData.sucursalesActivas }}</span>
+                        </div>
+
+                        <div>
+                            <label>Sucursales por encima del plan</label>
+                            <span>{{ u.sucursalesExtra }}</span>
+                        </div>
+
+                        <div>
+                            <label>Monto extra a facturar (estimado)</label>
+                            <span class="badge" [class.success]="(u.montoExtraEstimado || 0) === 0"
+                                [class.warning]="(u.montoExtraEstimado || 0) > 0">
+                                $ {{ u.montoExtraEstimado | number:'1.2-2' }}
+                            </span>
+                        </div>
+
+                        <div>
+                            <label>Facturación AFIP habilitada</label>
+                            <span class="badge" [class.success]="usoData.facturacionAfipHabilitada"
+                                [class.danger]="!usoData.facturacionAfipHabilitada">
+                                {{ usoData.facturacionAfipHabilitada ? 'Sí' : 'No' }}
+                            </span>
+                        </div>
+
+                    }
+
+                </div>
+
+            }
+
+        </section>
+
+
+        @if (usage(); as u) {
+
+            @if (u.disponible && u.uso; as usoData) {
+
+                <!-- Estructura -->
+
+                <section class="platform-tenant-detail__card">
+
+                    <header class="platform-tenant-detail__card-header">
+                        <div><h2>Estructura</h2></div>
+                    </header>
+
+                    <div class="detail-grid">
+                        <div>
+                            <label>Sucursales totales</label>
+                            <span>{{ usoData.estructura.sucursalesTotales }}</span>
+                        </div>
+                        <div>
+                            <label>Puntos de venta activos</label>
+                            <span>{{ usoData.estructura.puntosVentaActivos }}</span>
+                        </div>
+                        <div>
+                            <label>PV con factura electrónica</label>
+                            <span>{{ usoData.estructura.puntosVentaConFacturaElectronica }}</span>
+                        </div>
+                    </div>
+
+                </section>
+
+
+                <!-- Usuarios -->
+
+                <section class="platform-tenant-detail__card">
+
+                    <header class="platform-tenant-detail__card-header">
+                        <div><h2>Usuarios</h2></div>
+                    </header>
+
+                    <div class="detail-grid">
+                        <div>
+                            <label>Activos</label>
+                            <span>{{ usoData.usuarios.activos }}</span>
+                        </div>
+                        <div>
+                            <label>Con login últimos 90 días</label>
+                            <span>{{ usoData.usuarios.conLoginUltimos90Dias }}</span>
+                        </div>
+                        <div>
+                            <label>Roles activos</label>
+                            <span>{{ usoData.usuarios.rolesActivos }}</span>
+                        </div>
+                    </div>
+
+                </section>
+
+
+                <!-- Facturación (ERP) -->
+
+                <section class="platform-tenant-detail__card">
+
+                    <header class="platform-tenant-detail__card-header">
+                        <div><h2>Facturación (ERP)</h2></div>
+                    </header>
+
+                    <div class="detail-grid">
+                        <div>
+                            <label>AFIP en producción</label>
+                            <span class="badge" [class.success]="usoData.facturacion.afipProduccion"
+                                [class.warning]="!usoData.facturacion.afipProduccion">
+                                {{ usoData.facturacion.afipProduccion ? 'Sí' : 'Homologación / sin datos' }}
+                            </span>
+                        </div>
+                        <div>
+                            <label>Certificado válido hasta</label>
+                            <span>{{ usoData.facturacion.certificadoValidoHasta || '—' }}</span>
+                        </div>
+                        <div>
+                            <label>CUIT del certificado</label>
+                            <span>{{ usoData.facturacion.certificadoCuit || '—' }}</span>
+                        </div>
+                        <div>
+                            <label>Comprobantes mes actual</label>
+                            <span>{{ usoData.facturacion.comprobantesMesActual | number }}</span>
+                        </div>
+                        <div>
+                            <label>Comprobantes electrónicos mes actual</label>
+                            <span>{{ usoData.facturacion.comprobantesElectronicosMesActual | number }}</span>
+                        </div>
+                        <div>
+                            <label>Comprobantes últimos 12 meses</label>
+                            <span>{{ usoData.facturacion.comprobantesUltimos12Meses | number }}</span>
+                        </div>
+                    </div>
+
+                </section>
+
+
+                <!-- Operación -->
+
+                <section class="platform-tenant-detail__card">
+
+                    <header class="platform-tenant-detail__card-header">
+                        <div><h2>Operación</h2></div>
+                    </header>
+
+                    <div class="detail-grid">
+                        <div>
+                            <label>Órdenes de trabajo mes actual</label>
+                            <span>{{ usoData.operacion.ordenesTrabajoMesActual | number }}</span>
+                        </div>
+                        <div>
+                            <label>OT de contactología mes actual</label>
+                            <span>{{ usoData.operacion.ordenesTrabajoContactologiaMesActual | number }}</span>
+                        </div>
+                        <div>
+                            <label>Presupuestos mes actual</label>
+                            <span>{{ usoData.operacion.presupuestosMesActual | number }}</span>
+                        </div>
+                    </div>
+
+                </section>
+
+
+                <!-- Datos -->
+
+                <section class="platform-tenant-detail__card">
+
+                    <header class="platform-tenant-detail__card-header">
+                        <div><h2>Datos</h2></div>
+                    </header>
+
+                    <div class="detail-grid">
+                        <div>
+                            <label>Clientes activos</label>
+                            <span>{{ usoData.datos.clientesActivos | number }}</span>
+                        </div>
+                        <div>
+                            <label>Productos activos</label>
+                            <span>{{ usoData.datos.productosActivos | number }}</span>
+                        </div>
+                        <div>
+                            <label>Artículos activos</label>
+                            <span>{{ usoData.datos.articulosActivos | number }}</span>
+                        </div>
+                        <div>
+                            <label>Registros de stock</label>
+                            <span>{{ usoData.datos.registrosStock | number }}</span>
+                        </div>
+                    </div>
+
+                </section>
+
+
+                <!-- Módulos -->
+
+                <section class="platform-tenant-detail__card">
+
+                    <header class="platform-tenant-detail__card-header">
+                        <div><h2>Módulos</h2></div>
+                    </header>
+
+                    <div class="detail-grid">
+                        <div>
+                            <label>En uso</label>
+                            <span>{{ usoData.modulos.enUso.length ? usoData.modulos.enUso.join(', ') : '—' }}</span>
+                        </div>
+                        <div>
+                            <label>Contabilidad con asientos</label>
+                            <span class="badge" [class.success]="usoData.modulos.contabilidadConAsientos"
+                                [class.muted]="!usoData.modulos.contabilidadConAsientos">
+                                {{ usoData.modulos.contabilidadConAsientos ? 'Sí' : 'No' }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <p class="platform-tenant-detail__lifecycle-note">
+                        Datos generados por el ERP el {{ usoData.generadoEn | date:'medium' }}.
+                    </p>
+
+                </section>
+
+            }
+
+        }
+
+        }
+
+        <!-- ================================== -->
         <!-- LOGS -->
         <!-- ================================== -->
 
@@ -768,59 +1594,115 @@
 
         <section class="platform-tenant-detail__card">
 
-            <header class="
-                            platform-tenant-detail__card-header
-                        ">
+            <header class="platform-tenant-detail__card-header">
 
                 <div>
 
                     <h2>
-
                         Logs
-
                     </h2>
 
                     <span>
-
-                        Historial de operaciones del tenant
-
+                        Historial de operaciones del tenant, en Plataforma y en el ERP.
                     </span>
 
                 </div>
 
+                <button
+                    class="btn btn-primary"
+                    type="button"
+                    (click)="loadLogs()"
+                    [disabled]="loadingLogs()">
+
+                    @if (loadingLogs()) {
+                        <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+                    } @else {
+                        <i class="fa-solid fa-rotate-right" aria-hidden="true"></i>
+                    }
+
+                    Actualizar
+
+                </button>
+
             </header>
 
+            @if (logsError()) {
 
-            <div class="
-                            platform-tenant-detail__logs-empty
-                        ">
+                <div class="platform-tenant-detail__alert platform-tenant-detail__alert--danger">
+                    <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+                    <span>{{ logsError() }}</span>
+                </div>
 
-                <div class="
-                                platform-tenant-detail__logs-icon
-                            ">
+            }
 
-                    <i class="
-                                    fa-solid
-                                    fa-file-lines
-                                ">
-                    </i>
+            @if (loadingLogs() && logs().length === 0) {
+
+                <p class="platform-tenant-detail__lifecycle-note">
+                    Consultando el historial de este tenant...
+                </p>
+
+            } @else if (logs().length === 0) {
+
+                <div class="platform-tenant-detail__logs-empty">
+
+                    <div class="platform-tenant-detail__logs-icon">
+                        <i class="fa-solid fa-file-lines"></i>
+                    </div>
+
+                    <strong>
+                        Sin eventos registrados
+                    </strong>
+
+                    <span>
+                        Todavía no hay actividad registrada para este tenant.
+                    </span>
 
                 </div>
 
-                <strong>
+            } @else {
 
-                    Logs próximamente
+                <ul class="platform-tenant-detail__logs-list">
 
-                </strong>
+                    @for (entry of logs(); track $index) {
 
-                <span>
+                        <li class="platform-tenant-detail__logs-item">
 
-                    El backend todavía no expone
-                    un endpoint de logs para este tenant.
+                            <span class="platform-tenant-detail__logs-icon-sm">
+                                <i [class]="logIcon(entry.tipo)" aria-hidden="true"></i>
+                            </span>
 
-                </span>
+                            <div class="platform-tenant-detail__logs-content">
 
-            </div>
+                                <div class="platform-tenant-detail__logs-badges">
+                                    <admin-status-badge [label]="entry.nivel" [variant]="nivelVariant(entry.nivel)" size="sm" />
+                                    <admin-status-badge
+                                        [label]="entry.origen === 'ERP' ? 'ERP' : 'Plataforma'"
+                                        [variant]="entry.origen === 'ERP' ? 'neutral' : 'primary'"
+                                        [dot]="false"
+                                        size="sm"
+                                    />
+                                </div>
+
+                                <p class="platform-tenant-detail__logs-mensaje">
+                                    {{ entry.mensaje }}
+                                </p>
+
+                                <span class="platform-tenant-detail__logs-meta">
+                                    {{ entry.creadoEn | date: 'dd/MM/yyyy HH:mm' }}
+                                    @if (entry.actor) {
+                                        · {{ entry.actor }}
+                                    }
+                                </span>
+
+                            </div>
+
+                        </li>
+
+                    }
+
+                </ul>
+
+            }
 
         </section>
 

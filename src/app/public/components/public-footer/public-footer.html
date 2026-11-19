@@ -62,10 +62,21 @@
 
           }
 
+          @if(settings?.footerText){
+
+          <p class="footer-text">
+
+            {{ settings.footerText }}
+
+          </p>
+
+          }
+
           <div class="footer-social">
 
             <ds-social-buttons [facebook]="settings?.facebook" [instagram]="settings?.instagram"
-              [whatsapp]="settings?.whatsapp" [linkedin]="settings?.linkedin" variant="light">
+              [whatsapp]="settings?.whatsapp" [whatsappMessage]="settings?.whatsappMessage"
+              [linkedin]="settings?.linkedin" variant="light">
             </ds-social-buttons>
 
           </div>

@@ -3,6 +3,8 @@ import {
   Inject
 } from '@angular/core';
 
+import { FormsModule } from '@angular/forms';
+
 import {
   MAT_DIALOG_DATA,
   MatDialogRef
@@ -16,6 +18,7 @@ import {
 @Component({
   selector: 'admin-confirm-dialog',
   standalone: true,
+  imports: [FormsModule],
   templateUrl: './admin-confirm-dialog.html',
   styleUrl: './admin-confirm-dialog.scss',
   host: {
@@ -35,6 +38,12 @@ export class AdminConfirmDialog {
   readonly confirmLabel: string;
 
   readonly cancelLabel: string;
+
+  readonly confirmationText?: string;
+
+  readonly confirmationLabel?: string;
+
+  typed = '';
 
   constructor(
     private readonly dialogRef:
@@ -66,9 +75,26 @@ export class AdminConfirmDialog {
     this.cancelLabel =
       data.cancelLabel ?? 'Cancelar';
 
+    this.confirmationText =
+      data.confirmationText;
+
+    this.confirmationLabel =
+      data.confirmationLabel;
+
+  }
+
+  get confirmDisabled(): boolean {
+
+    return !!this.confirmationText
+      && this.typed !== this.confirmationText;
+
   }
 
   confirm(): void {
+
+    if (this.confirmDisabled) {
+      return;
+    }
 
     this.dialogRef.close(true);
 

@@ -1,0 +1,91 @@
+<admin-section title="Nuestro equipo" subtitle="Administrá los integrantes del equipo que se muestran en Nosotros.">
+
+    <admin-button adminSectionActions variant="primary" icon="fa-solid fa-plus" (clicked)="createMember()">
+
+        Nuevo integrante
+
+    </admin-button>
+
+    @for (member of members; track member.id) {
+
+    <admin-form-card [title]="member.name || 'Nuevo integrante'" icon="fa-solid fa-user">
+        <admin-button adminFormCardActions variant="danger" icon="fa-solid fa-trash" [iconOnly]="true"
+            (clicked)="deleteMember(member)">
+        </admin-button>
+
+        <div class="about-team-editor">
+
+            <div class="about-team-editor__photo">
+
+                <admin-upload accept="image/*" variant="image"
+                    [previewUrl]="resolveImage(member.photoUrl, placeholder.about)"
+                    (fileSelected)="uploadPhoto(member, $event)">
+
+                    <span adminUploadMeta>
+                        JPG, PNG o WebP
+                    </span>
+
+                </admin-upload>
+
+            </div>
+
+            <div class="about-team-editor__form">
+
+                <admin-form-grid>
+
+                    <admin-field label="Nombre" [required]="true">
+
+                        <input adminFieldContent adminInput [(ngModel)]="member.name">
+
+                    </admin-field>
+
+                    <admin-field label="Cargo / rol">
+
+                        <input adminFieldContent adminInput [(ngModel)]="member.role" placeholder="Ej. Fundador">
+
+                    </admin-field>
+
+                    <admin-field label="Orden">
+
+                        <input adminFieldContent adminInput type="number" [(ngModel)]="member.sortOrder">
+
+                    </admin-field>
+
+                    <admin-field class="full" label="Bio breve">
+
+                        <textarea adminFieldContent adminTextarea rows="4" [(ngModel)]="member.bio">
+                        </textarea>
+
+                    </admin-field>
+
+                    <admin-field label="Estado">
+
+                        <admin-switch adminFieldContent [(ngModel)]="member.active">
+
+                            Integrante visible
+
+                        </admin-switch>
+
+                    </admin-field>
+
+                </admin-form-grid>
+
+                <admin-save-bar [model]="member" (save)="saveMember(member)">
+
+                    <admin-button variant="primary" icon="fa-solid fa-floppy-disk" (clicked)="saveMember(member)">
+
+                        Guardar
+
+                    </admin-button>
+
+                </admin-save-bar>
+
+            </div>
+
+        </div>
+
+    </admin-form-card>
+
+    }
+
+</admin-section>

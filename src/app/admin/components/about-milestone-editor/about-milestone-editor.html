@@ -1,0 +1,69 @@
+<admin-section title="Línea de tiempo" subtitle="Administrá los hitos de la historia de la empresa (bloque de Nosotros).">
+
+    <admin-button adminSectionActions variant="primary" icon="fa-solid fa-plus" (clicked)="createMilestone()">
+
+        Nuevo hito
+
+    </admin-button>
+
+    @for (milestone of milestones; track milestone.id) {
+
+    <admin-form-card [title]="milestone.title || 'Nuevo hito'" icon="fa-solid fa-timeline">
+        <admin-button adminFormCardActions variant="danger" icon="fa-solid fa-trash" [iconOnly]="true"
+            (clicked)="deleteMilestone(milestone)">
+        </admin-button>
+
+        <admin-form-grid>
+
+            <admin-field label="Año / fecha" hint="Texto libre, ej. &quot;2015&quot; o &quot;Verano 2020&quot;.">
+
+                <input adminFieldContent adminInput [(ngModel)]="milestone.year">
+
+            </admin-field>
+
+            <admin-field label="Título" [required]="true">
+
+                <input adminFieldContent adminInput [(ngModel)]="milestone.title">
+
+            </admin-field>
+
+            <admin-field label="Orden">
+
+                <input adminFieldContent adminInput type="number" [(ngModel)]="milestone.sortOrder">
+
+            </admin-field>
+
+            <admin-field class="full" label="Descripción">
+
+                <textarea adminFieldContent adminTextarea rows="4" [(ngModel)]="milestone.description">
+                </textarea>
+
+            </admin-field>
+
+            <admin-field label="Estado">
+
+                <admin-switch adminFieldContent [(ngModel)]="milestone.active">
+
+                    Hito activo
+
+                </admin-switch>
+
+            </admin-field>
+
+        </admin-form-grid>
+
+        <admin-save-bar [model]="milestone" (save)="saveMilestone(milestone)">
+
+            <admin-button variant="primary" icon="fa-solid fa-floppy-disk" (clicked)="saveMilestone(milestone)">
+
+                Guardar
+
+            </admin-button>
+
+        </admin-save-bar>
+
+    </admin-form-card>
+
+    }
+
+</admin-section>

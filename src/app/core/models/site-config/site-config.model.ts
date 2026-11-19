@@ -46,12 +46,23 @@ export type SiteSection =
   | 'HERO'
   | 'FEATURES'
   | 'ABOUT'
+  | 'ABOUT_DETAIL'
   | 'BANNERS'
   | 'PRODUCTS'
   | 'GALLERY'
   | 'CONTACT'
   | 'CTA'
+  | 'BRANCHES'
   | 'FOOTER';
+
+export type DayOfWeek =
+  | 'MONDAY'
+  | 'TUESDAY'
+  | 'WEDNESDAY'
+  | 'THURSDAY'
+  | 'FRIDAY'
+  | 'SATURDAY'
+  | 'SUNDAY';
 
 export type UploadType =
     | 'LOGO'
@@ -62,7 +73,9 @@ export type UploadType =
     | 'ABOUT'
     | 'BANNER'
     | 'GALLERY'
-    | 'GALLERY_THUMBNAIL';
+    | 'GALLERY_THUMBNAIL'
+    | 'ABOUT_TEAM'
+    | 'BRANCH';
 
 
 /* ======================================================
@@ -287,6 +300,156 @@ export interface TenantSection {
 
 
 /* ======================================================
+ * ABOUT (Nosotros ampliado)
+ * ====================================================== */
+
+export interface TenantAbout {
+
+  id: number;
+
+  historyEnabled: boolean | null;
+
+  historyTitle: string | null;
+
+  historyText: string | null;
+
+  missionVisionEnabled: boolean | null;
+
+  missionTitle: string | null;
+
+  missionText: string | null;
+
+  visionTitle: string | null;
+
+  visionText: string | null;
+
+  valuesEnabled: boolean | null;
+
+  timelineEnabled: boolean | null;
+
+  teamEnabled: boolean | null;
+
+  statsEnabled: boolean | null;
+
+}
+
+export interface TenantAboutValue {
+
+  id: number;
+
+  title: string | null;
+
+  description: string | null;
+
+  icon: FeatureIcon | null;
+
+  sortOrder: number | null;
+
+  active: boolean | null;
+
+}
+
+export interface TenantAboutMilestone {
+
+  id: number;
+
+  year: string | null;
+
+  title: string | null;
+
+  description: string | null;
+
+  sortOrder: number | null;
+
+  active: boolean | null;
+
+}
+
+export interface TenantAboutTeamMember {
+
+  id: number;
+
+  name: string | null;
+
+  role: string | null;
+
+  photoUrl: string | null;
+
+  bio: string | null;
+
+  sortOrder: number | null;
+
+  active: boolean | null;
+
+}
+
+export interface TenantAboutStat {
+
+  id: number;
+
+  value: string | null;
+
+  label: string | null;
+
+  sortOrder: number | null;
+
+  active: boolean | null;
+
+}
+
+
+/* ======================================================
+ * SUCURSALES
+ * ====================================================== */
+
+export interface TenantBranchHours {
+
+  /** Solo se usa localmente en el editor (no viaja al backend). */
+  id?: number;
+
+  dayOfWeek: DayOfWeek;
+
+  /** Formato "HH:mm" o "HH:mm:ss" (el backend devuelve LocalTime como ISO). */
+  opensAt: string;
+
+  closesAt: string;
+
+  sortOrder: number;
+
+}
+
+export interface TenantBranch {
+
+  id: number;
+
+  name: string | null;
+
+  address: string | null;
+
+  phone: string | null;
+
+  whatsapp: string | null;
+
+  email: string | null;
+
+  googleMapsUrl: string | null;
+
+  latitude: number | null;
+
+  longitude: number | null;
+
+  imageUrl: string | null;
+
+  sortOrder: number | null;
+
+  active: boolean | null;
+
+  hours: TenantBranchHours[];
+
+}
+
+
+/* ======================================================
  * SITE CONFIG
  * ====================================================== */
 
@@ -305,6 +468,18 @@ export interface SiteConfig {
   gallery: TenantGallery[];
 
   sections: TenantSection[];
+
+  about: TenantAbout;
+
+  aboutValues: TenantAboutValue[];
+
+  aboutMilestones: TenantAboutMilestone[];
+
+  aboutTeam: TenantAboutTeamMember[];
+
+  aboutStats: TenantAboutStat[];
+
+  branches: TenantBranch[];
 
 }
 

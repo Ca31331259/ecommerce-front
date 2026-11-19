@@ -155,6 +155,14 @@
                             </th>
 
                             <th>
+                                País
+                            </th>
+
+                            <th>
+                                Tipo
+                            </th>
+
+                            <th>
                                 Web
                             </th>
 
@@ -215,6 +223,24 @@
 
                                                 {{ tenant.name }}
 
+                                                @if (tenant.connectionDataCorrupted) {
+
+                                                    <i
+                                                        class="
+                                                            fa-solid
+                                                            fa-triangle-exclamation
+                                                            platform-tenants__corrupted-icon
+                                                        "
+                                                        aria-hidden="true"
+                                                        title="
+                                                            Los datos de conexión de este
+                                                            tenant no se pudieron leer.
+                                                            Requiere revisión manual.
+                                                        ">
+                                                    </i>
+
+                                                }
+
                                             </strong>
 
                                             <span>
@@ -239,7 +265,42 @@
                                             platform-tenants__domain
                                         ">
 
-                                        {{ tenant.domain }}
+                                        {{ tenant.domain || 'Sin storefront' }}
+
+                                    </span>
+
+                                </td>
+
+
+                                <!-- PAIS -->
+
+                                <td>
+
+                                    <span
+                                        class="
+                                            platform-tenants__pais-badge
+                                        "
+                                        [class.platform-tenants__pais-badge--paraguay]="
+                                            tenant.pais === 'PARAGUAY'
+                                        ">
+
+                                        {{ tenant.pais === 'PARAGUAY' ? 'Paraguay' : 'Argentina' }}
+
+                                    </span>
+
+                                </td>
+
+
+                                <!-- TENANT TYPE -->
+
+                                <td>
+
+                                    <span
+                                        class="
+                                            platform-tenants__type-badge
+                                        ">
+
+                                        {{ getTenantTypeLabel(tenant.tenantType) }}
 
                                     </span>
 
@@ -361,47 +422,36 @@
                                 </td>
 
 
-                                <!-- ACTIVE -->
+                                <!-- LIFECYCLE STATUS -->
 
                                 <td>
 
-                                    @if (tenant.active) {
+                                    <span
+                                        class="
+                                            platform-tenants__status
+                                        "
+                                        [class.platform-tenants__status--success]="
+                                            getLifecycleClass(tenant.lifecycleStatus) === 'success'
+                                        "
+                                        [class.platform-tenants__status--warning]="
+                                            getLifecycleClass(tenant.lifecycleStatus) === 'warning'
+                                        "
+                                        [class.platform-tenants__status--danger]="
+                                            getLifecycleClass(tenant.lifecycleStatus) === 'danger'
+                                        "
+                                        [class.platform-tenants__status--muted]="
+                                            getLifecycleClass(tenant.lifecycleStatus) === 'muted'
+                                        ">
 
                                         <span
                                             class="
-                                                platform-tenants__status
-                                                platform-tenants__status--success
+                                                platform-tenants__status-dot
                                             ">
-
-                                            <span
-                                                class="
-                                                    platform-tenants__status-dot
-                                                ">
-                                            </span>
-
-                                            Activo
-
                                         </span>
 
-                                    } @else {
+                                        {{ getLifecycleLabel(tenant.lifecycleStatus) }}
 
-                                        <span
-                                            class="
-                                                platform-tenants__status
-                                                platform-tenants__status--muted
-                                            ">
-
-                                            <span
-                                                class="
-                                                    platform-tenants__status-dot
-                                                ">
-                                            </span>
-
-                                            Inactivo
-
-                                        </span>
-
-                                    }
+                                    </span>
 
                                 </td>
 
@@ -439,7 +489,7 @@
                             <tr>
 
                                 <td
-                                    colspan="7"
+                                    colspan="9"
                                     class="
                                         platform-tenants__empty
                                     ">

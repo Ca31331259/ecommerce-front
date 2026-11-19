@@ -41,69 +41,111 @@
 
     } @else if(data(); as site) {
 
-    <!-- ==================================================
-        COMPANY
-        =================================================== -->
+    <admin-tabs [tabs]="tabs" activeTab="general">
 
-    <app-company-form [settings]="site.settings" (save)="saveSettings($event)">
-    </app-company-form>
+        <!-- ==================================================
+            GENERAL (Empresa + Tema)
+            =================================================== -->
 
+        <admin-tab-panel tabId="general">
 
-    <!-- ==================================================
-        HOME
-        =================================================== -->
+            <app-company-form [settings]="site.settings" (save)="saveSettings($event)">
+            </app-company-form>
 
-    <app-home-form [home]="site.home" (save)="saveHome($event)" (heroUpload)="uploadHero($event)"
-        (heroBackgroundUpload)="uploadHeroBackground($event)" (heroVideoUpload)="uploadHeroVideo($event)"
-        (aboutUpload)="uploadAbout($event)" style="margin-top: 10px;">
-    </app-home-form>
+            <app-theme-form [theme]="site.theme" [settings]="site.settings" [home]="site.home"
+                (save)="saveTheme($event)" (logoUpload)="uploadLogo($event)" (faviconUpload)="uploadFavicon($event)"
+                style="margin-top:10px">
+            </app-theme-form>
 
-
-    <!-- ==================================================
-        THEME
-        =================================================== -->
-
-    @if (data(); as site) {
-
-    <app-theme-form [theme]="site.theme" [settings]="site.settings" [home]="site.home" (save)="saveTheme($event)"
-        (logoUpload)="uploadLogo($event)" (faviconUpload)="uploadFavicon($event)" style="margin-top:10px">
-    </app-theme-form>
-    }
+        </admin-tab-panel>
 
 
-    <!-- ==================================================
-        BANNERS
-        =================================================== -->
+        <!-- ==================================================
+            PÁGINA PRINCIPAL (Hero + CTA)
+            =================================================== -->
 
-    <app-banner-editor [banners]="site.banners" (create)="createBanner()" (save)="saveBanner($event)"
-        style="margin-top:10px" (delete)="deleteBanner($event)" (upload)="uploadBanner($event.banner, $event.file)"
-        (dirtyChange)="markDirty()">
-    </app-banner-editor>
+        <admin-tab-panel tabId="home">
 
+            <app-home-form [home]="site.home" section="hero" (save)="saveHome($event)"
+                (heroUpload)="uploadHero($event)" (heroBackgroundUpload)="uploadHeroBackground($event)"
+                (heroVideoUpload)="uploadHeroVideo($event)">
+            </app-home-form>
 
-    <!-- ==================================================
-        FEATURES
-        =================================================== -->
-
-    <app-feature-editor [features]="site.features" (create)="createFeature()" (save)="saveFeature($event)"
-        (delete)="deleteFeature($event)">
-    </app-feature-editor>
+        </admin-tab-panel>
 
 
-    <!-- ==================================================
-        GALLERY
-        =================================================== -->
+        <!-- ==================================================
+            NOSOTROS (resumen del Home + ampliado)
+            =================================================== -->
 
-    <app-gallery-editor [gallery]="site.gallery" (create)="createGallery()" (save)="saveGallery($event)"
-        (delete)="deleteGallery($event)" (saveThumbnailRequested)="uploadGalleryImages($event)">
-    </app-gallery-editor>
+        <admin-tab-panel tabId="about">
 
-    <!-- ==================================================
-        SECTIONS
-        =================================================== -->
-    <app-section-editor [sections]="data()?.sections ?? []" (save)="saveSection($event)"
-        (saveOrder)="saveSectionsOrder($event)">
-    </app-section-editor>
+            <app-home-form [home]="site.home" section="about" (save)="saveHome($event)"
+                (aboutUpload)="uploadAbout($event)">
+            </app-home-form>
+
+            <app-about-form [about]="site.about" (save)="saveAbout($event)" style="margin-top:10px">
+            </app-about-form>
+
+            <app-about-value-editor [values]="site.aboutValues" (create)="createAboutValue()"
+                (save)="saveAboutValue($event)" (delete)="deleteAboutValue($event)">
+            </app-about-value-editor>
+
+            <app-about-milestone-editor [milestones]="site.aboutMilestones" (create)="createAboutMilestone()"
+                (save)="saveAboutMilestone($event)" (delete)="deleteAboutMilestone($event)">
+            </app-about-milestone-editor>
+
+            <app-about-team-editor [members]="site.aboutTeam" (create)="createAboutTeamMember()"
+                (save)="saveAboutTeamMember($event)" (delete)="deleteAboutTeamMember($event)"
+                (upload)="uploadAboutTeamPhoto($event.member, $event.file)">
+            </app-about-team-editor>
+
+            <app-about-stat-editor [stats]="site.aboutStats" (create)="createAboutStat()"
+                (save)="saveAboutStat($event)" (delete)="deleteAboutStat($event)">
+            </app-about-stat-editor>
+
+        </admin-tab-panel>
+
+
+        <!-- ==================================================
+            CONTENIDO (Banners, Features, Galería, Sucursales)
+            =================================================== -->
+
+        <admin-tab-panel tabId="content">
+
+            <app-banner-editor [banners]="site.banners" (create)="createBanner()" (save)="saveBanner($event)"
+                (delete)="deleteBanner($event)" (upload)="uploadBanner($event.banner, $event.file)"
+                (dirtyChange)="markDirty()">
+            </app-banner-editor>
+
+            <app-feature-editor [features]="site.features" (create)="createFeature()" (save)="saveFeature($event)"
+                (delete)="deleteFeature($event)">
+            </app-feature-editor>
+
+            <app-gallery-editor [gallery]="site.gallery" (create)="createGallery()" (save)="saveGallery($event)"
+                (delete)="deleteGallery($event)" (saveThumbnailRequested)="uploadGalleryImages($event)">
+            </app-gallery-editor>
+
+            <app-branch-editor [branches]="site.branches" (create)="createBranch()" (save)="saveBranch($event)"
+                (delete)="deleteBranch($event)" (upload)="uploadBranchImage($event.branch, $event.file)">
+            </app-branch-editor>
+
+        </admin-tab-panel>
+
+
+        <!-- ==================================================
+            SECCIONES
+            =================================================== -->
+
+        <admin-tab-panel tabId="sections">
+
+            <app-section-editor [sections]="data()?.sections ?? []" (save)="saveSection($event)"
+                (saveOrder)="saveSectionsOrder($event)">
+            </app-section-editor>
+
+        </admin-tab-panel>
+
+    </admin-tabs>
 
     } @else {
 

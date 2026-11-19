@@ -1,0 +1,55 @@
+:host {
+
+    display: block;
+
+}
+
+/*==========================================================
+MAP
+==========================================================*/
+
+.admin-map-picker__map {
+
+    width: 100%;
+
+    height: 220px;
+
+    border-radius: var(--admin-radius-md);
+
+    overflow: hidden;
+
+    border: 1px solid var(--admin-border);
+
+}
+
+/*==========================================================
+HINT
+==========================================================*/
+
+.admin-map-picker__hint {
+
+    margin: var(--admin-space-2) 0 0;
+
+    color: var(--admin-text-secondary);
+
+    font-family: var(--admin-font-family);
+
+    font-size: var(--admin-font-size-xs);
+
+    line-height: var(--admin-line-height-normal);
+
+}
+
+/*==========================================================
+DESKTOP
+==========================================================*/
+
+@media (min-width: 640px) {
+
+    .admin-map-picker__map {
+
+        height: 320px;
+
+    }
+
+}

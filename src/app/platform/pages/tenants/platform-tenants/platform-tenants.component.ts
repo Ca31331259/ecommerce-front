@@ -7,7 +7,12 @@ import {
 } from '@angular/core';
 
 import { RouterLink } from '@angular/router';
-import { PlatformTenant, SslStatus } from '../../../models/platform-tenant.model';
+import {
+    PlatformTenant,
+    SslStatus,
+    TenantLifecycleStatus,
+    TenantType
+} from '../../../models/platform-tenant.model';
 import { PlatformTenantService } from '../../../services/platform-tenant.service';
 
 
@@ -134,7 +139,7 @@ export class PlatformTenantsComponent
 
                 ||
 
-                tenant.domain
+                (tenant.domain ?? '')
                     .toLowerCase()
                     .includes(value)
 
@@ -163,6 +168,81 @@ export class PlatformTenantsComponent
 
             default:
                 return status;
+
+        }
+
+    }
+
+
+    getTenantTypeLabel(
+        type: TenantType
+    ): string {
+
+        switch (type) {
+
+            case 'ECOMMERCE':
+                return 'Ecommerce';
+
+            case 'ERP':
+                return 'ERP';
+
+            case 'ECOMMERCE_ERP':
+                return 'Ecommerce + ERP';
+
+            default:
+                return type;
+
+        }
+
+    }
+
+
+    getLifecycleLabel(
+        status: TenantLifecycleStatus
+    ): string {
+
+        switch (status) {
+
+            case 'PENDING_PROVISION':
+                return 'Pendiente';
+
+            case 'ACTIVE':
+                return 'Activo';
+
+            case 'SUSPENDED':
+                return 'Suspendido';
+
+            case 'CANCELLED':
+                return 'Cancelado';
+
+            default:
+                return status;
+
+        }
+
+    }
+
+
+    getLifecycleClass(
+        status: TenantLifecycleStatus
+    ): string {
+
+        switch (status) {
+
+            case 'PENDING_PROVISION':
+                return 'warning';
+
+            case 'ACTIVE':
+                return 'success';
+
+            case 'SUSPENDED':
+                return 'danger';
+
+            case 'CANCELLED':
+                return 'muted';
+
+            default:
+                return 'muted';
 
         }
 
