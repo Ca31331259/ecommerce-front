@@ -61,7 +61,10 @@ export class ProductList {
   }
 
   constructor() {
-    this.shop.categorias().subscribe((categorias) => this.categorias.set(categorias));
+    this.shop.categorias().subscribe({
+      next: (categorias) => this.categorias.set(categorias),
+      error: () => this.categorias.set([])
+    });
 
     this.route.queryParamMap.subscribe((params) => {
       const categoria = params.get('categoria');
@@ -116,12 +119,24 @@ export class ProductList {
   private cargar(page: number): void {
     this.cargando.set(true);
     const categoria = this.categoriaSeleccionada() ?? undefined;
-    this.shop.productos({ categoria, page, size: TAMANIO_PAGINA }).subscribe((resultado) => {
-      this.productos.set(resultado.contenido);
-      this.total.set(resultado.total);
-      this.pagina.set(resultado.pagina);
-      this.cargando.set(false);
+    this.shop.productos({ categoria, page, size: TAMANIO_PAGINA }).subscribe({
+      next: (resultado) => {
+        this.productos.set(resultado.contenido);
+        this.total.set(resultado.total);
+        this.pagina.set(resultado.pagina);
+        this.cargando.set(false);
+      },
+      // Tienda pausada (404) u otro error del backend: no queda nada que mostrar, pero el
+      // loader tiene que soltar igual -- si no, el spinner queda girando para siempre.
+      error: () => {
+        this.productos.set([]);
+        this.total.set(0);
+        this.cargando.set(false);
+      }
     });
-    this.shop.facetas(categoria).subscribe((facetas) => this.facetas.set(facetas));
+    this.shop.facetas(categoria).subscribe({
+      next: (facetas) => this.facetas.set(facetas),
+      error: () => this.facetas.set({})
+    });
   }
 }
