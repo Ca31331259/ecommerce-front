@@ -2,31 +2,102 @@
 
   <ds-container size="xl">
 
+    <!-- ========================================= -->
+    <!-- TOOLBAR: BÚSQUEDA + ORDEN + FILTROS (mobile) -->
+    <!-- ========================================= -->
+
+    <div class="shop-toolbar">
+      <form class="shop-search" (ngSubmit)="buscar()">
+        <input type="search" name="q" placeholder="Buscar productos..." [(ngModel)]="buscadorTexto" />
+        <button type="submit" aria-label="Buscar">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </form>
+
+      <div class="shop-toolbar-right">
+        <label class="shop-sort">
+          <span>Ordenar por</span>
+          <select [ngModel]="ordenSeleccionado()" (ngModelChange)="seleccionarOrden($event || null)" name="orden">
+            <option [ngValue]="null">Relevancia</option>
+            @for (opcion of opcionesOrden; track opcion.valor) {
+              <option [ngValue]="opcion.valor">{{ opcion.etiqueta }}</option>
+            }
+          </select>
+        </label>
+
+        <button type="button" class="shop-drawer-toggle" (click)="abrirDrawer()">
+          <i class="fa-solid fa-sliders"></i>
+          Filtros
+        </button>
+      </div>
+    </div>
+
     <div class="shop-layout">
 
       <!-- ========================================= -->
-      <!-- SIDEBAR: CATEGORIES -->
+      <!-- SIDEBAR / DRAWER: CATEGORÍAS + FACETAS -->
       <!-- ========================================= -->
 
-      <aside class="shop-sidebar">
+      @if (drawerAbierto()) {
+        <div class="shop-drawer-backdrop" (click)="cerrarDrawer()"></div>
+      }
 
-        <h3>Categorías</h3>
+      <aside class="shop-sidebar" [class.shop-sidebar--open]="drawerAbierto()">
 
-        <ul class="shop-category-list">
-          <li>
-            <button type="button" [class.active]="categoriaSeleccionada() === null" (click)="seleccionarCategoria(null)">
-              Todas
-            </button>
-          </li>
-          @for (categoria of categorias(); track categoria.id) {
+        <div class="shop-sidebar-header">
+          <h3>Filtros</h3>
+          <button type="button" class="shop-drawer-close" (click)="cerrarDrawer()" aria-label="Cerrar filtros">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <section class="shop-filter-group">
+          <h4>Categorías</h4>
+          <ul class="shop-category-list">
             <li>
-              <button type="button" [class.active]="categoriaSeleccionada() === categoria.id" (click)="seleccionarCategoria(categoria.id)">
-                {{ categoria.nombre }}
-                <span class="shop-category-count">{{ categoria.cantidadProductos }}</span>
+              <button type="button" [class.active]="categoriaSeleccionada() === null" (click)="seleccionarCategoria(null)">
+                Todas
               </button>
             </li>
-          }
-        </ul>
+            @for (categoria of categorias(); track categoria.id) {
+              <li>
+                <button type="button" [class.active]="categoriaSeleccionada() === categoria.id" (click)="seleccionarCategoria(categoria.id)">
+                  {{ categoria.nombre }}
+                  <span class="shop-category-count">{{ categoria.cantidadProductos }}</span>
+                </button>
+              </li>
+            }
+          </ul>
+        </section>
+
+        <section class="shop-filter-group">
+          <h4>Precio</h4>
+          <div class="shop-price-range">
+            <input type="number" placeholder="Mín" #precioMinInput [value]="precioMin()" min="0" />
+            <span>-</span>
+            <input type="number" placeholder="Máx" #precioMaxInput [value]="precioMax()" min="0" />
+            <button type="button" (click)="aplicarRangoPrecio(precioMinInput.valueAsNumber || null, precioMaxInput.valueAsNumber || null)">
+              Aplicar
+            </button>
+          </div>
+        </section>
+
+        @for (faceta of facetas() | keyvalue; track faceta.key) {
+          <section class="shop-filter-group">
+            <h4>{{ etiquetaFaceta(faceta.key) }}</h4>
+            <ul class="shop-facet-list">
+              @for (opcion of faceta.value | keyvalue; track opcion.key) {
+                <li>
+                  <button type="button" [class.active]="valorSeleccionado(faceta.key) === opcion.key"
+                    (click)="alternarAtributo(faceta.key, opcion.key)">
+                    {{ opcion.key }}
+                    <span class="shop-category-count">{{ opcion.value }}</span>
+                  </button>
+                </li>
+              }
+            </ul>
+          </section>
+        }
 
       </aside>
 
@@ -36,10 +107,21 @@
 
       <div class="shop-content">
 
-        @if (categoriaSeleccionada() !== null) {
+        @if (hayFiltrosActivos) {
           <div class="shop-active-filter">
-            <ds-badge variant="accent">{{ nombreCategoria(categoriaSeleccionada()!) }}</ds-badge>
-            <button type="button" class="shop-clear-filter" (click)="seleccionarCategoria(null)">Quitar filtro</button>
+            @if (categoriaSeleccionada() !== null) {
+              <ds-badge variant="accent">{{ nombreCategoria(categoriaSeleccionada()!) }}</ds-badge>
+            }
+            @for (atributo of atributosSeleccionados() | keyvalue; track atributo.key) {
+              <ds-badge variant="accent">{{ etiquetaFaceta(atributo.key) }}: {{ atributo.value }}</ds-badge>
+            }
+            @if (precioMin() !== null || precioMax() !== null) {
+              <ds-badge variant="accent">
+                Precio: {{ precioMin() != null ? (precioMin() | currency: 'ARS') : '$0' }}
+                - {{ precioMax() != null ? (precioMax() | currency: 'ARS') : 'sin tope' }}
+              </ds-badge>
+            }
+            <button type="button" class="shop-clear-filter" (click)="limpiarFiltros()">Quitar filtros</button>
           </div>
         }
 

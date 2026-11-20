@@ -9,13 +9,19 @@ const SESSION_ID_KEY = 'shop_session_id';
 export interface ShopProductFilter {
   categoria?: number;
   tipoProducto?: string;
-  atributoClave?: string;
-  atributoValor?: string;
+  /** Varios atributos simultáneos (ej. { forma: 'aviador', color: 'negro' }), Fase 1.5 -- cada
+   * clave se manda como su propio query param (ver ShopPublicController.atributosDe, que trata
+   * cualquier param no reservado como filtro de atributo). */
+  atributos?: Record<string, string>;
+  precioMin?: number;
+  precioMax?: number;
   texto?: string;
   orden?: string;
   page?: number;
   size?: number;
 }
+
+export type ShopFacetFilter = Omit<ShopProductFilter, 'page' | 'size'>;
 
 /**
  * Consume /public/shop/** de Platform (Fase 1, ver docs/ecommerce/plan-fase-0-1.md en
@@ -35,13 +41,7 @@ export class ShopService {
   }
 
   productos(filtro: ShopProductFilter = {}) {
-    let params = new HttpParams().set('domain', this.domain);
-    if (filtro.categoria != null) params = params.set('categoria', filtro.categoria);
-    if (filtro.tipoProducto) params = params.set('tipoProducto', filtro.tipoProducto);
-    if (filtro.atributoClave) params = params.set('atributoClave', filtro.atributoClave);
-    if (filtro.atributoValor) params = params.set('atributoValor', filtro.atributoValor);
-    if (filtro.texto) params = params.set('texto', filtro.texto);
-    if (filtro.orden) params = params.set('orden', filtro.orden);
+    let params = this.paramsDeFiltro(filtro);
     params = params.set('page', filtro.page ?? 0);
     params = params.set('size', filtro.size ?? 24);
     return this.http.get<ShopPage<ShopProduct>>(
@@ -50,13 +50,26 @@ export class ShopService {
     );
   }
 
-  facetas(categoria?: number) {
-    let params = new HttpParams().set('domain', this.domain);
-    if (categoria != null) params = params.set('categoria', categoria);
+  facetas(filtro: ShopFacetFilter = {}) {
+    const params = this.paramsDeFiltro(filtro);
     return this.http.get<ShopFacets>(
       `${this.config.baseUrl}/public/shop/products/facets`,
       { params }
     );
+  }
+
+  private paramsDeFiltro(filtro: ShopFacetFilter): HttpParams {
+    let params = new HttpParams().set('domain', this.domain);
+    if (filtro.categoria != null) params = params.set('categoria', filtro.categoria);
+    if (filtro.tipoProducto) params = params.set('tipoProducto', filtro.tipoProducto);
+    if (filtro.precioMin != null) params = params.set('precioMin', filtro.precioMin);
+    if (filtro.precioMax != null) params = params.set('precioMax', filtro.precioMax);
+    if (filtro.texto) params = params.set('texto', filtro.texto);
+    if (filtro.orden) params = params.set('orden', filtro.orden);
+    for (const [clave, valor] of Object.entries(filtro.atributos ?? {})) {
+      if (valor) params = params.set(clave, valor);
+    }
+    return params;
   }
 
   destacados(limite = 12) {
