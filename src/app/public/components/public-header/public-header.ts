@@ -118,4 +118,18 @@ export class PublicHeader {
 
   }
 
+  /*==========================================================
+  TIENDA (módulo Shop, pedido real 2026-11-19)
+  ==========================================================*/
+
+  irATienda(): void {
+
+    this.closeMenu();
+
+    this.router.navigate([
+      '/tienda'
+    ]);
+
+  }
+
 }

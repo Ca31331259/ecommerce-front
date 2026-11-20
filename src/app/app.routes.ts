@@ -22,6 +22,21 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./public/pages/home/home')
             .then(m => m.Home)
+      },
+
+      // Módulo Shop (pedido real 2026-11-19, ver docs/ecommerce/plan-fase-0-1.md en numecos-java)
+      // -- catálogo publicado por el ERP, consumido vía /public/shop/** de Platform.
+      {
+        path: 'tienda',
+        loadComponent: () =>
+          import('./public/pages/shop/product-list/product-list')
+            .then(m => m.ProductList)
+      },
+      {
+        path: 'tienda/productos/:slug',
+        loadComponent: () =>
+          import('./public/pages/shop/product-detail/product-detail')
+            .then(m => m.ProductDetail)
       }
 
     ]

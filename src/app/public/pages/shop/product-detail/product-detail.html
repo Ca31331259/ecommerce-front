@@ -1,0 +1,98 @@
+<ds-section background="transparent" padding="xl">
+
+  <ds-container size="xl">
+
+    @if (cargando()) {
+      <ds-loader size="lg" layout="block" />
+    } @else if (noEncontrado()) {
+      <div class="product-not-found">
+        <h2>No encontramos este producto</h2>
+        <a routerLink="/tienda"><ds-button variant="primary">Volver a la tienda</ds-button></a>
+      </div>
+    } @else if (detalle(); as detalle) {
+      <div class="product-detail-layout">
+
+        <!-- ========================================= -->
+        <!-- IMAGES -->
+        <!-- ========================================= -->
+
+        <div class="product-images">
+          <div class="product-image-main">
+            @if (imagenesProducto().length) {
+              <img [src]="imagenesProducto()[imagenActiva()]" [alt]="detalle.producto.titulo" />
+            } @else {
+              <ds-image-placeholder ratio="square" size="lg" icon="fa-regular fa-image" text="Sin imagen" />
+            }
+          </div>
+          @if (imagenesProducto().length > 1) {
+            <div class="product-image-thumbs">
+              @for (imagen of imagenesProducto(); track imagen; let i = $index) {
+                <button type="button" [class.active]="i === imagenActiva()" (click)="imagenActiva.set(i)">
+                  <img [src]="imagen" alt="" />
+                </button>
+              }
+            </div>
+          }
+        </div>
+
+        <!-- ========================================= -->
+        <!-- INFO -->
+        <!-- ========================================= -->
+
+        <div class="product-info">
+          <h1>{{ detalle.producto.titulo }}</h1>
+
+          <div class="product-price">
+            @if (detalle.producto.precio != null) {
+              <span class="product-price-actual">{{ detalle.producto.precio | currency: 'ARS' }}</span>
+            }
+            @if (detalle.producto.precioComparativo != null) {
+              <span class="product-price-comparativo">{{ detalle.producto.precioComparativo | currency: 'ARS' }}</span>
+            }
+          </div>
+
+          @if (etiquetaStock(); as stock) {
+            <ds-badge [variant]="stock.variant">{{ stock.texto }}</ds-badge>
+          }
+
+          @if (detalle.producto.descripcion) {
+            <p class="product-description">{{ detalle.producto.descripcion }}</p>
+          }
+
+          @if (detalle.producto.atributosFiltro | keyvalue; as atributos) {
+            @if (atributos.length) {
+              <dl class="product-attributes">
+                @for (atributo of atributos; track atributo.key) {
+                  <div class="product-attribute">
+                    <dt>{{ atributo.key }}</dt>
+                    <dd>{{ atributo.value }}</dd>
+                  </div>
+                }
+              </dl>
+            }
+          }
+
+          @if (detalle.variantes.length) {
+            <div class="product-variants">
+              <h3>Otros colores</h3>
+              <div class="product-variants-list">
+                @for (variante of detalle.variantes; track variante.id) {
+                  <button type="button" class="product-variant-thumb" (click)="irAVariante(variante)">
+                    @if (variante.imagenes.length) {
+                      <img [src]="variante.imagenes[0]" [alt]="variante.titulo" />
+                    } @else {
+                      <ds-image-placeholder ratio="square" size="sm" icon="fa-regular fa-image" />
+                    }
+                  </button>
+                }
+              </div>
+            </div>
+          }
+        </div>
+
+      </div>
+    }
+
+  </ds-container>
+
+</ds-section>

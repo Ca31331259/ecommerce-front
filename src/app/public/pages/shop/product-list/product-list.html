@@ -1,0 +1,101 @@
+<ds-section id="tienda" background="transparent" padding="xl">
+
+  <ds-container size="xl">
+
+    <div class="shop-layout">
+
+      <!-- ========================================= -->
+      <!-- SIDEBAR: CATEGORIES -->
+      <!-- ========================================= -->
+
+      <aside class="shop-sidebar">
+
+        <h3>Categorías</h3>
+
+        <ul class="shop-category-list">
+          <li>
+            <button type="button" [class.active]="categoriaSeleccionada() === null" (click)="seleccionarCategoria(null)">
+              Todas
+            </button>
+          </li>
+          @for (categoria of categorias(); track categoria.id) {
+            <li>
+              <button type="button" [class.active]="categoriaSeleccionada() === categoria.id" (click)="seleccionarCategoria(categoria.id)">
+                {{ categoria.nombre }}
+                <span class="shop-category-count">{{ categoria.cantidadProductos }}</span>
+              </button>
+            </li>
+          }
+        </ul>
+
+      </aside>
+
+      <!-- ========================================= -->
+      <!-- PRODUCT GRID -->
+      <!-- ========================================= -->
+
+      <div class="shop-content">
+
+        @if (categoriaSeleccionada() !== null) {
+          <div class="shop-active-filter">
+            <ds-badge variant="accent">{{ nombreCategoria(categoriaSeleccionada()!) }}</ds-badge>
+            <button type="button" class="shop-clear-filter" (click)="seleccionarCategoria(null)">Quitar filtro</button>
+          </div>
+        }
+
+        @if (cargando()) {
+          <ds-loader size="lg" layout="block" />
+        } @else if (productos().length) {
+          <div class="shop-grid">
+            @for (producto of productos(); track producto.id) {
+              <ds-card padding="none" shadow="sm" [hover]="true" class="shop-product-card">
+                <a [routerLink]="['/tienda', 'productos', producto.slug]" class="shop-product-link">
+                  <div class="shop-product-image">
+                    @if (imagenPrincipal(producto)) {
+                      <img [src]="imagenPrincipal(producto)" [alt]="producto.titulo" loading="lazy" />
+                    } @else {
+                      <ds-image-placeholder ratio="square" size="lg" icon="fa-regular fa-image" text="Sin imagen" />
+                    }
+                    @if (producto.destacado) {
+                      <ds-badge variant="primary" size="sm" class="shop-product-badge">Destacado</ds-badge>
+                    }
+                  </div>
+                  <div class="shop-product-info">
+                    <h3>{{ producto.titulo }}</h3>
+                    <div class="shop-product-price">
+                      @if (producto.precio != null) {
+                        <span class="shop-price-actual">{{ producto.precio | currency: 'ARS' }}</span>
+                      }
+                      @if (producto.precioComparativo != null) {
+                        <span class="shop-price-comparativo">{{ producto.precioComparativo | currency: 'ARS' }}</span>
+                      }
+                    </div>
+                    @if (etiquetaStock(producto); as stock) {
+                      <ds-badge [variant]="stock.variant" size="sm">{{ stock.texto }}</ds-badge>
+                    }
+                  </div>
+                </a>
+              </ds-card>
+            }
+          </div>
+
+          <div class="shop-pagination">
+            <ds-button variant="secondary" [disabled]="pagina() === 0" (click)="paginaAnterior()">Anterior</ds-button>
+            <span>Página {{ pagina() + 1 }}</span>
+            <ds-button variant="secondary" [disabled]="!hayMasPaginas" (click)="siguientePagina()">Siguiente</ds-button>
+          </div>
+        } @else {
+          <ds-empty-state size="lg" variant="subtle">
+            <i dsEmptyIcon class="fa-regular fa-glasses"></i>
+            <h3 dsEmptyTitle>No encontramos productos</h3>
+            <p dsEmptyDescription>Probá con otra categoría o volvé más tarde.</p>
+          </ds-empty-state>
+        }
+
+      </div>
+
+    </div>
+
+  </ds-container>
+
+</ds-section>

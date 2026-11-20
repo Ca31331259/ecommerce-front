@@ -76,6 +76,15 @@
 
                 </button>
 
+                <button
+                    type="button"
+                    class="nav-link"
+                    (click)="irATienda()">
+
+                    Tienda
+
+                </button>
+
                 @if(isEnabled('ABOUT')){
 
                     <button
@@ -198,6 +207,17 @@
                     <i class="fa-solid fa-house"></i>
 
                     <span>Inicio</span>
+
+                </button>
+
+                <button
+                    type="button"
+                    class="mobile-nav-link"
+                    (click)="irATienda()">
+
+                    <i class="fa-solid fa-bag-shopping"></i>
+
+                    <span>Tienda</span>
 
                 </button>
 
