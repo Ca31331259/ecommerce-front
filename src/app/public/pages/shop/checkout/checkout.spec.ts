@@ -39,7 +39,7 @@ describe('Checkout', () => {
   let fixture: ComponentFixture<Checkout>;
   let component: Checkout;
   let cartService: { carrito: ReturnType<typeof vi.fn>; refrescar: ReturnType<typeof vi.fn>; sucursalesDisponibles: ReturnType<typeof vi.fn> };
-  let orderService: { checkout: ReturnType<typeof vi.fn> };
+  let orderService: { checkout: ReturnType<typeof vi.fn>; pagosDisponibles: ReturnType<typeof vi.fn> };
   let router: { navigate: ReturnType<typeof vi.fn> };
 
   const sucursal: ShopBranch = { id: 1, nombre: 'Sucursal Centro', direccion: null };
@@ -50,7 +50,7 @@ describe('Checkout', () => {
       refrescar: vi.fn(),
       sucursalesDisponibles: vi.fn().mockReturnValue(of([sucursal]))
     };
-    orderService = { checkout: vi.fn() };
+    orderService = { checkout: vi.fn(), pagosDisponibles: vi.fn().mockReturnValue(of({ disponible: true })) };
     router = { navigate: vi.fn() };
 
     await TestBed.configureTestingModule({
@@ -90,6 +90,25 @@ describe('Checkout', () => {
 
   it('no permite confirmar sin completar los datos obligatorios', () => {
     expect(component.puedeConfirmar()).toBe(false);
+  });
+
+  it('marca pagosDisponibles en false si la óptica no puede cobrar todavía (Fase 3)', async () => {
+    orderService.pagosDisponibles.mockReturnValue(of({ disponible: false }));
+    fixture = TestBed.createComponent(Checkout);
+    component = fixture.componentInstance;
+    await fixture.whenStable();
+
+    expect(component.pagosDisponibles()).toBe(false);
+    expect(component.puedeConfirmar()).toBe(false);
+  });
+
+  it('deja pagosDisponibles en true si la consulta falla (no bloquea por un error de red)', async () => {
+    orderService.pagosDisponibles.mockReturnValue(throwError(() => new Error('network')));
+    fixture = TestBed.createComponent(Checkout);
+    component = fixture.componentInstance;
+    await fixture.whenStable();
+
+    expect(component.pagosDisponibles()).toBe(true);
   });
 
   it('valida el documento en vivo y bloquea la confirmación si es inválido', () => {

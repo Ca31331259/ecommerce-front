@@ -71,6 +71,27 @@ describe('OrderStatus', () => {
     expect(component.cargando()).toBe(false);
   });
 
+  it('confirmandoPago es true sólo si PENDIENTE_PAGO con un pago ya iniciado (Fase 3)', async () => {
+    orderService.obtenerPedido.mockReturnValue(of(orden({ estado: 'PENDIENTE_PAGO', urlPago: '/tienda/pago-simulado/xyz' })));
+    await montar();
+
+    expect(component.confirmandoPago()).toBe(true);
+  });
+
+  it('confirmandoPago es false si PENDIENTE_PAGO pero todavía no se inició ningún pago', async () => {
+    orderService.obtenerPedido.mockReturnValue(of(orden({ estado: 'PENDIENTE_PAGO', urlPago: null })));
+    await montar();
+
+    expect(component.confirmandoPago()).toBe(false);
+  });
+
+  it('confirmandoPago es false si el pedido ya tiene un estado final', async () => {
+    orderService.obtenerPedido.mockReturnValue(of(orden({ estado: 'PAGADO', urlPago: '/tienda/pago-simulado/xyz' })));
+    await montar();
+
+    expect(component.confirmandoPago()).toBe(false);
+  });
+
   it('permite reintentar pago sólo en PENDIENTE_PAGO/PAGO_RECHAZADO', async () => {
     await montar();
 

@@ -27,6 +27,15 @@ export class ShopOrderService {
     return this.http.get<ShopBranch[]>(`${this.config.baseUrl}/public/shop/branches`, { params: this.params() });
   }
 
+  /** Fase 3 (ver docs/ecommerce/plan-fase-3.md bloque 3) -- el checkout lo consulta antes de
+   * mostrar el formulario, para avisar si los pagos no están disponibles (ej. la óptica tiene
+   * Mercado Pago desconectado/vencido) sin que el comprador llegue a cargar sus datos. */
+  pagosDisponibles() {
+    return this.http.get<{ disponible: boolean }>(`${this.config.baseUrl}/public/shop/payments/disponible`, {
+      params: this.params()
+    });
+  }
+
   checkout(request: CheckoutRequest) {
     return this.http.post<ShopOrder>(`${this.config.baseUrl}/public/shop/checkout`, request, {
       headers: this.headers(),

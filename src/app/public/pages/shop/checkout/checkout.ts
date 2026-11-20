@@ -64,6 +64,9 @@ export class Checkout {
   readonly error = signal<string | null>(null);
   readonly errorDocumento = signal<string | null>(null);
 
+  readonly pagosDisponibles = signal(true);
+  readonly cargandoPagosDisponibles = signal(true);
+
   form: FormularioComprador = formularioVacio();
   private readonly idempotencyKey = crypto.randomUUID();
 
@@ -71,6 +74,25 @@ export class Checkout {
     this.cartService.refrescar();
     this.shop.registrarEvento('checkout_start').subscribe();
     this.cargarSucursales();
+    this.verificarPagosDisponibles();
+  }
+
+  /** Fase 3 (ver docs/ecommerce/plan-fase-3.md bloque 3) -- se avisa ANTES de que el comprador
+   * cargue sus datos si la óptica no puede cobrar todavía (ej. Mercado Pago desconectado). Si la
+   * consulta falla, se deja pasar (puedeConfirmar() de todas formas depende de esto sólo para
+   * bloquear, nunca para asumir que SÍ hay pago disponible por un error de red). */
+  private verificarPagosDisponibles(): void {
+    this.cargandoPagosDisponibles.set(true);
+    this.orderService.pagosDisponibles().subscribe({
+      next: (respuesta) => {
+        this.pagosDisponibles.set(respuesta.disponible);
+        this.cargandoPagosDisponibles.set(false);
+      },
+      error: () => {
+        this.pagosDisponibles.set(true);
+        this.cargandoPagosDisponibles.set(false);
+      }
+    });
   }
 
   private cargarSucursales(): void {
@@ -102,7 +124,8 @@ export class Checkout {
       !!this.form.telefono &&
       !!this.form.sucursalRetiroId &&
       !this.errorDocumento() &&
-      !this.sinSucursalCompleta()
+      !this.sinSucursalCompleta() &&
+      this.pagosDisponibles()
     );
   }
 

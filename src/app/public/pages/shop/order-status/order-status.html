@@ -22,7 +22,22 @@
         }
 
         @if (orden.estado === 'PENDIENTE_PAGO') {
-          <p>Tenés hasta <strong>{{ orden.venceEn | date: 'short' }}</strong> para completar el pago.</p>
+          @if (confirmandoPago()) {
+            <p class="order-confirmando">
+              <ds-loader size="sm" layout="inline" />
+              Estamos confirmando tu pago… esto puede tardar unos segundos.
+            </p>
+          } @else {
+            <p>Tenés hasta <strong>{{ orden.venceEn | date: 'short' }}</strong> para completar el pago.</p>
+          }
+        }
+        @if (orden.estado === 'PAGO_RECHAZADO') {
+          <p class="order-aviso">
+            El pago fue rechazado. Podés reintentarlo mientras tu pedido siga reservado ({{ orden.venceEn | date: 'short' }}).
+          </p>
+        }
+        @if (orden.estado === 'VENCIDO') {
+          <p class="order-aviso">Se venció el tiempo para pagar este pedido y se liberó la reserva de stock.</p>
         }
 
         <ul class="order-items">
