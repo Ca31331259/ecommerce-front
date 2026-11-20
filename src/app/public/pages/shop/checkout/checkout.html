@@ -1,0 +1,123 @@
+<ds-section background="transparent" padding="xl">
+  <ds-container size="lg">
+
+    <h1>Checkout</h1>
+
+    @if (cartService.carrito(); as carrito) {
+      @if (!carrito.items.length) {
+        <p>Tu carrito está vacío. <a routerLink="/tienda">Volver a la tienda</a></p>
+      } @else {
+        <div class="checkout-layout">
+
+          <form class="checkout-form" (ngSubmit)="confirmar()">
+            <section class="checkout-step">
+              <h3>1. Tus datos</h3>
+              <div class="checkout-fields">
+                <label>
+                  Nombre
+                  <input type="text" [(ngModel)]="form.nombre" name="nombre" required />
+                </label>
+                <label>
+                  Apellido
+                  <input type="text" [(ngModel)]="form.apellido" name="apellido" required />
+                </label>
+                <label>
+                  Email
+                  <input type="email" [(ngModel)]="form.email" name="email" required />
+                </label>
+                <label>
+                  Teléfono
+                  <input type="tel" [(ngModel)]="form.telefono" name="telefono" required />
+                </label>
+                <label>
+                  Condición IVA
+                  <select [(ngModel)]="form.condicionIva" name="condicionIva" (ngModelChange)="validarDocumentoEnVivo()">
+                    @for (c of condicionesIva; track c) {
+                      <option [value]="c">{{ c }}</option>
+                    }
+                  </select>
+                </label>
+                <label>
+                  Tipo de documento
+                  <select [(ngModel)]="form.tipoDocumento" name="tipoDocumento" (ngModelChange)="validarDocumentoEnVivo()">
+                    @for (t of tiposDocumento; track t) {
+                      <option [value]="t">{{ t }}</option>
+                    }
+                  </select>
+                </label>
+                <label>
+                  Número de documento
+                  <input
+                    type="text"
+                    [(ngModel)]="form.numeroDocumento"
+                    name="numeroDocumento"
+                    (ngModelChange)="validarDocumentoEnVivo()"
+                    required
+                  />
+                  @if (errorDocumento()) {
+                    <span class="checkout-field-error">{{ errorDocumento() }}</span>
+                  }
+                </label>
+              </div>
+            </section>
+
+            <section class="checkout-step">
+              <h3>2. Retiro en sucursal</h3>
+              @if (cargandoSucursales()) {
+                <p>Buscando sucursales con stock disponible...</p>
+              } @else if (sinSucursalCompleta()) {
+                <p class="checkout-aviso">
+                  Ninguna sucursal tiene stock de todos los productos de tu carrito. Ajustá las cantidades o consultanos.
+                </p>
+              } @else {
+                <div class="checkout-sucursales">
+                  @for (sucursal of sucursalesDisponibles(); track sucursal.id) {
+                    <label class="checkout-sucursal-option">
+                      <input type="radio" name="sucursalRetiroId" [value]="sucursal.id" [(ngModel)]="form.sucursalRetiroId" />
+                      <span>
+                        {{ sucursal.nombre }}
+                        @if (sucursal.direccion) {
+                          <small>{{ sucursal.direccion }}</small>
+                        }
+                      </span>
+                    </label>
+                  }
+                </div>
+              }
+            </section>
+
+            @if (error()) {
+              <p class="checkout-error" role="alert">{{ error() }}</p>
+            }
+
+            <ds-button variant="primary" size="lg" [fullWidth]="true" [disabled]="!puedeConfirmar() || enviando()" type="submit">
+              @if (enviando()) {
+                Procesando...
+              } @else {
+                Confirmar pedido
+              }
+            </ds-button>
+          </form>
+
+          <aside class="checkout-summary">
+            <h3>Resumen</h3>
+            <ul>
+              @for (item of carrito.items; track item.shopProductId) {
+                <li>
+                  <span>{{ item.cantidad }}x {{ item.titulo }}</span>
+                  <span>{{ item.subtotal | currency: 'ARS' }}</span>
+                </li>
+              }
+            </ul>
+            <div class="checkout-summary-total">
+              <span>Total</span>
+              <strong>{{ carrito.total | currency: 'ARS' }}</strong>
+            </div>
+          </aside>
+
+        </div>
+      }
+    }
+
+  </ds-container>
+</ds-section>

@@ -12,6 +12,7 @@ import { TenantStore } from '../../core/store/tenant.store';
 import { DsLoader } from '../../shared/design-system/atoms/ds-loader';
 import { PublicHeader } from '../../public/components/public-header/public-header';
 import { PublicFooter } from '../../public/components/public-footer/public-footer';
+import { MiniCartDrawer } from '../../public/components/mini-cart-drawer/mini-cart-drawer';
 import { ThemeService } from '../../core/services/tenant/theme-service';
 
 @Component({
@@ -21,6 +22,7 @@ import { ThemeService } from '../../core/services/tenant/theme-service';
     RouterOutlet,
     PublicHeader,
     PublicFooter,
+    MiniCartDrawer,
     DsLoader
   ],
   templateUrl: './public-layout.html',

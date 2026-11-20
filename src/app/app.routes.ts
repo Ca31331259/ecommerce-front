@@ -37,6 +37,35 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./public/pages/shop/product-detail/product-detail')
             .then(m => m.ProductDetail)
+      },
+      // Carrito/checkout/pedidos (Fase 2, ver docs/ecommerce/plan-fase-2.md).
+      {
+        path: 'tienda/carrito',
+        loadComponent: () =>
+          import('./public/pages/shop/cart/cart')
+            .then(m => m.Cart)
+      },
+      {
+        path: 'tienda/checkout',
+        loadComponent: () =>
+          import('./public/pages/shop/checkout/checkout')
+            .then(m => m.Checkout)
+      },
+      {
+        path: 'tienda/pedido/:token',
+        loadComponent: () =>
+          import('./public/pages/shop/order-status/order-status')
+            .then(m => m.OrderStatus)
+      },
+      // Pago simulado -- SOLO dev/test, ver FakePaymentGateway (corrección C9). La ruta siempre
+      // existe en el front; lo que la hace inofensiva en producción es que el backend nunca
+      // registra /public/shop/payments/fake/** ahí, así que nadie llega a esta página con una
+      // referencia real.
+      {
+        path: 'tienda/pago-simulado/:externalReference',
+        loadComponent: () =>
+          import('./public/pages/shop/fake-payment/fake-payment')
+            .then(m => m.FakePayment)
       }
 
     ]

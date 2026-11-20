@@ -1,0 +1,63 @@
+<ds-section background="transparent" padding="xl">
+  <ds-container size="lg">
+
+    @if (cargando()) {
+      <ds-loader size="lg" layout="block" />
+    } @else if (noEncontrado()) {
+      <div class="order-not-found">
+        <h2>No encontramos este pedido</h2>
+        <a routerLink="/tienda"><ds-button variant="primary">Volver a la tienda</ds-button></a>
+      </div>
+    } @else if (orden(); as orden) {
+      <div class="order-status-layout">
+        <header class="order-header">
+          <h1>Pedido {{ orden.numero }}</h1>
+          <ds-badge [variant]="variante(orden.estado)">{{ etiqueta(orden.estado) }}</ds-badge>
+        </header>
+
+        @if (orden.requiereAtencion) {
+          <p class="order-aviso">
+            Tu pago fue aprobado, pero hubo un problema con el stock. Nos vamos a poner en contacto para resolverlo.
+          </p>
+        }
+
+        @if (orden.estado === 'PENDIENTE_PAGO') {
+          <p>Tenés hasta <strong>{{ orden.venceEn | date: 'short' }}</strong> para completar el pago.</p>
+        }
+
+        <ul class="order-items">
+          @for (item of orden.items; track item.titulo) {
+            <li>
+              <span>{{ item.cantidad }}x {{ item.titulo }}@if (item.variante) { ({{ item.variante }}) }</span>
+              <span>{{ item.subtotal | currency: 'ARS' }}</span>
+            </li>
+          }
+        </ul>
+        <div class="order-total">
+          <span>Total</span>
+          <strong>{{ orden.total | currency: 'ARS' }}</strong>
+        </div>
+
+        <div class="order-actions">
+          @if (puedeReintentar(orden.estado)) {
+            <ds-button variant="primary" [disabled]="procesando()" (click)="reintentarPago()">Reintentar pago</ds-button>
+          }
+          @if (puedeCancelar(orden.estado)) {
+            @if (!confirmandoCancelacion()) {
+              <ds-button variant="secondary" [disabled]="procesando()" (click)="pedirConfirmacionCancelar()">
+                Cancelar pedido
+              </ds-button>
+            } @else {
+              <div class="order-confirm-cancel">
+                <span>¿Confirmás cancelar? Se libera la reserva de stock.</span>
+                <ds-button variant="secondary" [disabled]="procesando()" (click)="confirmarCancelacion()">Sí, cancelar</ds-button>
+                <ds-button variant="text" [disabled]="procesando()" (click)="descartarCancelacion()">No</ds-button>
+              </div>
+            }
+          }
+        </div>
+      </div>
+    }
+
+  </ds-container>
+</ds-section>

@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { CurrencyPipe, KeyValuePipe } from '@angular/common';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ShopService } from '@core/services/shop/shop-service';
+import { ShopCartService } from '@core/services/shop/shop-cart-service';
 import { ShopProduct, ShopProductDetail } from '@core/models/shop/shop-product.model';
 import { DsSection } from '../../../../shared/design-system/layout/ds-section';
 import { DsContainer } from '../../../../shared/design-system/layout/ds-container';
@@ -20,6 +21,7 @@ import { DsImagePlaceholder } from '../../../../shared/design-system/atoms/ds-im
 export class ProductDetail {
 
   private readonly shop = inject(ShopService);
+  private readonly cartService = inject(ShopCartService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
 
@@ -27,6 +29,8 @@ export class ProductDetail {
   readonly detalle = signal<ShopProductDetail | null>(null);
   readonly imagenActiva = signal(0);
   readonly noEncontrado = signal(false);
+  readonly agregando = signal(false);
+  readonly agregado = signal(false);
 
   constructor() {
     this.route.paramMap.subscribe((params) => {
@@ -57,6 +61,28 @@ export class ProductDetail {
 
   irAVariante(variante: ShopProduct): void {
     this.router.navigate(['/tienda', 'productos', variante.slug]);
+  }
+
+  puedeAgregarAlCarrito(): boolean {
+    return this.detalle()?.producto.estadoStock !== 'SIN_STOCK';
+  }
+
+  agregarAlCarrito(): void {
+    const producto = this.detalle()?.producto;
+    if (!producto || this.agregando()) {
+      return;
+    }
+    this.agregando.set(true);
+    this.agregado.set(false);
+    this.cartService.agregar(producto.id, 1).subscribe({
+      next: () => {
+        this.agregando.set(false);
+        this.agregado.set(true);
+        this.cartService.abrirDrawer();
+        this.shop.registrarEvento('add_to_cart', { productId: producto.id }).subscribe();
+      },
+      error: () => this.agregando.set(false)
+    });
   }
 
   private cargar(slug: string): void {

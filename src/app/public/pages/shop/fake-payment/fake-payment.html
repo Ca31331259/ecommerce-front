@@ -1,0 +1,27 @@
+<ds-section background="transparent" padding="xl">
+  <ds-container size="sm">
+
+    <div class="fake-payment-banner" role="alert">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      PAGO SIMULADO — entorno de pruebas
+    </div>
+
+    <div class="fake-payment-card">
+      <h1>Simulá el resultado del pago</h1>
+      <p>Esta página sólo existe en desarrollo/pruebas. En producción esto sería el checkout real de Mercado Pago.</p>
+
+      <div class="fake-payment-actions">
+        <ds-button variant="primary" size="lg" [disabled]="procesando()" (click)="simular('APROBADO')">
+          Aprobar
+        </ds-button>
+        <ds-button variant="secondary" size="lg" [disabled]="procesando()" (click)="simular('RECHAZADO')">
+          Rechazar
+        </ds-button>
+        <ds-button variant="text" size="lg" [disabled]="procesando()" (click)="dejarPendiente()">
+          Dejar pendiente
+        </ds-button>
+      </div>
+    </div>
+
+  </ds-container>
+</ds-section>

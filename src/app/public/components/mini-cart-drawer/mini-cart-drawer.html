@@ -1,0 +1,42 @@
+@if (cartService.drawerAbierto()) {
+  <div class="mini-cart-backdrop" (click)="cerrar()"></div>
+
+  <aside class="mini-cart-drawer">
+    <div class="mini-cart-header">
+      <h3>Tu carrito</h3>
+      <button type="button" class="mini-cart-close" (click)="cerrar()" aria-label="Cerrar">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    @if (cartService.carrito(); as carrito) {
+      @if (carrito.items.length) {
+        <ul class="mini-cart-items">
+          @for (item of carrito.items; track item.shopProductId) {
+            <li class="mini-cart-item">
+              <div class="mini-cart-item-info">
+                <span class="mini-cart-item-titulo">{{ item.titulo }}</span>
+                <span class="mini-cart-item-detalle">
+                  {{ item.cantidad }} x {{ item.precioUnitario | currency: 'ARS' }}
+                </span>
+              </div>
+              <button type="button" class="mini-cart-item-quitar" (click)="quitar(item.shopProductId)" aria-label="Quitar">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </li>
+          }
+        </ul>
+
+        <div class="mini-cart-footer">
+          <div class="mini-cart-total">
+            <span>Total</span>
+            <strong>{{ carrito.total | currency: 'ARS' }}</strong>
+          </div>
+          <ds-button variant="primary" size="lg" [fullWidth]="true" (click)="irAlCarrito()">Ver carrito</ds-button>
+        </div>
+      } @else {
+        <p class="mini-cart-vacio">Tu carrito está vacío.</p>
+      }
+    }
+  </aside>
+}

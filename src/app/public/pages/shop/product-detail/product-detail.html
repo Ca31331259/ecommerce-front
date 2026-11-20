@@ -55,6 +55,18 @@
             <ds-badge [variant]="stock.variant">{{ stock.texto }}</ds-badge>
           }
 
+          <div class="product-add-to-cart">
+            <ds-button variant="primary" size="lg" [disabled]="!puedeAgregarAlCarrito() || agregando()" (click)="agregarAlCarrito()">
+              @if (agregando()) {
+                Agregando...
+              } @else if (agregado()) {
+                <i class="fa-solid fa-check"></i> Agregado
+              } @else {
+                <i class="fa-solid fa-cart-plus"></i> Agregar al carrito
+              }
+            </ds-button>
+          </div>
+
           @if (detalle.producto.descripcion) {
             <p class="product-description">{{ detalle.producto.descripcion }}</p>
           }
