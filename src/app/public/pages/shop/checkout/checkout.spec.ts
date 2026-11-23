@@ -5,6 +5,7 @@ import { vi } from 'vitest';
 
 import { Checkout } from './checkout';
 import { ShopCartService } from '@core/services/shop/shop-cart-service';
+import { ShopEnvioService } from '@core/services/shop/shop-envio-service';
 import { ShopOrderService } from '@core/services/shop/shop-order-service';
 import { ShopService } from '@core/services/shop/shop-service';
 import { ShopCart } from '@core/models/shop/shop-cart.model';
@@ -14,7 +15,10 @@ function carritoCon(total: number): ShopCart {
   return {
     token: 'tok-1',
     items: [{ shopProductId: 1, titulo: 'Anteojo', slug: 'anteojo', precioUnitario: total, cantidad: 1, subtotal: total, activo: true }],
-    total
+    total,
+    cuponCodigo: null,
+    descuentoCupon: 0,
+    totalFinal: total
   };
 }
 
@@ -31,6 +35,13 @@ function orden(overrides: Partial<ShopOrder> = {}): ShopOrder {
     items: [],
     urlPago: null,
     venceEn: new Date().toISOString(),
+    codigoRetiro: null,
+    sucursal: null,
+    montoReembolsado: null,
+    fechaReembolso: null,
+    historial: [],
+    metodoEntrega: 'RETIRO_SUCURSAL',
+    envio: null,
     ...overrides
   };
 }
@@ -40,6 +51,7 @@ describe('Checkout', () => {
   let component: Checkout;
   let cartService: { carrito: ReturnType<typeof vi.fn>; refrescar: ReturnType<typeof vi.fn>; sucursalesDisponibles: ReturnType<typeof vi.fn> };
   let orderService: { checkout: ReturnType<typeof vi.fn>; pagosDisponibles: ReturnType<typeof vi.fn> };
+  let envioService: { geografia: ReturnType<typeof vi.fn>; cotizar: ReturnType<typeof vi.fn> };
   let router: { navigate: ReturnType<typeof vi.fn> };
 
   const sucursal: ShopBranch = { id: 1, nombre: 'Sucursal Centro', direccion: null };
@@ -51,6 +63,8 @@ describe('Checkout', () => {
       sucursalesDisponibles: vi.fn().mockReturnValue(of([sucursal]))
     };
     orderService = { checkout: vi.fn(), pagosDisponibles: vi.fn().mockReturnValue(of({ disponible: true })) };
+    // Fase 7 -- sin provincias no se ofrece "Envío a domicilio" (ver cargarGeografia en checkout.ts).
+    envioService = { geografia: vi.fn().mockReturnValue(of([])), cotizar: vi.fn() };
     router = { navigate: vi.fn() };
 
     await TestBed.configureTestingModule({
@@ -58,6 +72,7 @@ describe('Checkout', () => {
       providers: [
         { provide: ShopCartService, useValue: cartService },
         { provide: ShopOrderService, useValue: orderService },
+        { provide: ShopEnvioService, useValue: envioService },
         { provide: ShopService, useValue: { registrarEvento: vi.fn().mockReturnValue(of(undefined)) } },
         { provide: Router, useValue: router }
       ]

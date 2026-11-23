@@ -68,27 +68,150 @@
             </section>
 
             <section class="checkout-step">
-              <h3>2. Retiro en sucursal</h3>
-              @if (cargandoSucursales()) {
-                <p>Buscando sucursales con stock disponible...</p>
-              } @else if (sinSucursalCompleta()) {
-                <p class="checkout-aviso">
-                  Ninguna sucursal tiene stock de todos los productos de tu carrito. Ajustá las cantidades o consultanos.
-                </p>
+              <h3>2. Entrega</h3>
+
+              <div class="checkout-tipo-entrega">
+                <label class="checkout-tipo-entrega-option">
+                  <input
+                    type="radio"
+                    name="tipoEntrega"
+                    value="RETIRO_SUCURSAL"
+                    [checked]="tipoEntrega() === 'RETIRO_SUCURSAL'"
+                    (change)="elegirTipoEntrega('RETIRO_SUCURSAL')"
+                  />
+                  <span>Retirar en sucursal</span>
+                </label>
+                @if (!cargandoGeografia() && geografiaDisponible()) {
+                  <label class="checkout-tipo-entrega-option">
+                    <input
+                      type="radio"
+                      name="tipoEntrega"
+                      value="ENVIO_DOMICILIO"
+                      [checked]="tipoEntrega() === 'ENVIO_DOMICILIO'"
+                      (change)="elegirTipoEntrega('ENVIO_DOMICILIO')"
+                    />
+                    <span>Envío a domicilio</span>
+                  </label>
+                }
+              </div>
+
+              @if (tipoEntrega() === 'RETIRO_SUCURSAL') {
+                @if (cargandoSucursales()) {
+                  <p>Buscando sucursales con stock disponible...</p>
+                } @else if (sinSucursalCompleta()) {
+                  <p class="checkout-aviso">
+                    Ninguna sucursal tiene stock de todos los productos de tu carrito. Ajustá las cantidades o consultanos.
+                  </p>
+                } @else {
+                  <div class="checkout-sucursales">
+                    @for (sucursal of sucursalesDisponibles(); track sucursal.id) {
+                      <label class="checkout-sucursal-option">
+                        <input type="radio" name="sucursalRetiroId" [value]="sucursal.id" [(ngModel)]="form.sucursalRetiroId" />
+                        <span>
+                          {{ sucursal.nombre }}
+                          @if (sucursal.direccion) {
+                            <small>{{ sucursal.direccion }}</small>
+                          }
+                        </span>
+                      </label>
+                    }
+                  </div>
+                }
               } @else {
-                <div class="checkout-sucursales">
-                  @for (sucursal of sucursalesDisponibles(); track sucursal.id) {
-                    <label class="checkout-sucursal-option">
-                      <input type="radio" name="sucursalRetiroId" [value]="sucursal.id" [(ngModel)]="form.sucursalRetiroId" />
-                      <span>
-                        {{ sucursal.nombre }}
-                        @if (sucursal.direccion) {
-                          <small>{{ sucursal.direccion }}</small>
-                        }
-                      </span>
-                    </label>
-                  }
+                <div class="checkout-fields">
+                  <label>
+                    Nombre del destinatario
+                    <input type="text" [(ngModel)]="envio.destinatarioNombre" name="envioDestinatarioNombre" required />
+                  </label>
+                  <label>
+                    Teléfono de contacto
+                    <input type="tel" [(ngModel)]="envio.telefonoContacto" name="envioTelefonoContacto" required />
+                  </label>
+                  <label>
+                    Calle
+                    <input type="text" [(ngModel)]="envio.calle" name="envioCalle" required />
+                  </label>
+                  <label>
+                    Número
+                    <input type="text" [(ngModel)]="envio.numero" name="envioNumero" required />
+                  </label>
+                  <label>
+                    Piso / depto (opcional)
+                    <input type="text" [(ngModel)]="envio.pisoDepto" name="envioPisoDepto" />
+                  </label>
+                  <label>
+                    Entre calles / referencias (opcional)
+                    <input type="text" [(ngModel)]="envio.entreCalles" name="envioEntreCalles" />
+                  </label>
+                  <label>
+                    Provincia
+                    <select [(ngModel)]="envio.provinciaId" name="envioProvinciaId" (ngModelChange)="cambioProvincia()" required>
+                      <option [ngValue]="null" disabled>Elegí una provincia</option>
+                      @for (provincia of provincias(); track provincia.id) {
+                        <option [ngValue]="provincia.id">{{ provincia.nombre }}</option>
+                      }
+                    </select>
+                  </label>
+                  <label>
+                    Localidad
+                    <select
+                      [(ngModel)]="envio.localidadId"
+                      name="envioLocalidadId"
+                      (ngModelChange)="cambioLocalidad()"
+                      [disabled]="envio.provinciaId == null"
+                      required
+                    >
+                      <option [ngValue]="null" disabled>Elegí una localidad</option>
+                      @for (localidad of localidadesDeProvincia(); track localidad.id) {
+                        <option [ngValue]="localidad.id">{{ localidad.nombre }}</option>
+                      }
+                    </select>
+                  </label>
+                  <label>
+                    Código postal
+                    <input
+                      type="text"
+                      [(ngModel)]="envio.codigoPostal"
+                      name="envioCodigoPostal"
+                      (ngModelChange)="cambioCodigoPostal()"
+                      required
+                    />
+                  </label>
                 </div>
+
+                <ds-button
+                  variant="secondary"
+                  type="button"
+                  [disabled]="verificandoCobertura()"
+                  (click)="verificarCobertura()"
+                >
+                  @if (verificandoCobertura()) {
+                    Verificando...
+                  } @else {
+                    Verificar cobertura
+                  }
+                </ds-button>
+
+                @if (!verificandoCobertura() && cotizacion(); as cotizacion) {
+                  @if (cotizacion.disponible) {
+                    <p class="checkout-cobertura checkout-cobertura--ok">
+                      Llegamos a tu zona{{ cotizacion.zonaNombre ? ' (' + cotizacion.zonaNombre + ')' : '' }}.
+                      @if (cotizacion.costoEnvio === 0) {
+                        Envío gratis.
+                      } @else {
+                        Costo de envío: {{ cotizacion.costoEnvio | currency: 'ARS' }}.
+                      }
+                      @if (cotizacion.plazoEstimado) {
+                        Llega en {{ cotizacion.plazoEstimado }}.
+                      }
+                    </p>
+                  } @else {
+                    <div class="checkout-cobertura checkout-cobertura--sin-cobertura">
+                      <p>Todavía no llegamos a tu zona.</p>
+                      <ds-button variant="secondary" type="button" (click)="volverARetiro()">Retirar en sucursal</ds-button>
+                    </div>
+                  }
+                }
               }
             </section>
 
@@ -118,9 +241,23 @@
                 </li>
               }
             </ul>
+            @if (tipoEntrega() === 'ENVIO_DOMICILIO') {
+              <div class="checkout-summary-row">
+                <span>Envío</span>
+                @if (verificandoCobertura()) {
+                  <span>Calculando...</span>
+                } @else if (costoEnvioConfirmado() === 0) {
+                  <span>Gratis</span>
+                } @else if (costoEnvioConfirmado() != null) {
+                  <span>{{ costoEnvioConfirmado() | currency: 'ARS' }}</span>
+                } @else {
+                  <span>A confirmar</span>
+                }
+              </div>
+            }
             <div class="checkout-summary-total">
               <span>Total</span>
-              <strong>{{ carrito.total | currency: 'ARS' }}</strong>
+              <strong>{{ totalConEnvio(carrito.total) | currency: 'ARS' }}</strong>
             </div>
           </aside>
 

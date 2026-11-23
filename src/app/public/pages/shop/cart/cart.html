@@ -30,9 +30,44 @@
           </ul>
 
           <aside class="cart-summary">
+
+            @if (carrito.cuponCodigo) {
+              <div class="cart-summary-row">
+                <span>Subtotal</span>
+                <span>{{ carrito.total | currency: 'ARS' }}</span>
+              </div>
+              <div class="cart-summary-row cart-summary-row--descuento">
+                <span>Descuento ({{ carrito.cuponCodigo }})</span>
+                <span>-{{ carrito.descuentoCupon | currency: 'ARS' }}</span>
+              </div>
+            } @else {
+              <div class="cart-cupon">
+                <label for="cart-cupon-input">¿Tenés un cupón?</label>
+                <div class="cart-cupon-form">
+                  <input
+                    id="cart-cupon-input"
+                    type="text"
+                    placeholder="Código de cupón"
+                    [(ngModel)]="cuponInput"
+                    [disabled]="aplicandoCupon()"
+                    (keyup.enter)="aplicarCupon()" />
+                  <ds-button variant="secondary" [disabled]="!cuponInput.trim() || aplicandoCupon()" (click)="aplicarCupon()">
+                    @if (aplicandoCupon()) {
+                      Aplicando...
+                    } @else {
+                      Aplicar
+                    }
+                  </ds-button>
+                </div>
+                @if (errorCupon()) {
+                  <p class="cart-cupon-error">{{ errorCupon() }}</p>
+                }
+              </div>
+            }
+
             <div class="cart-summary-total">
               <span>Total</span>
-              <strong>{{ carrito.total | currency: 'ARS' }}</strong>
+              <strong>{{ carrito.totalFinal | currency: 'ARS' }}</strong>
             </div>
             <ds-button variant="primary" size="lg" [fullWidth]="true" (click)="irAlCheckout()">Finalizar compra</ds-button>
             <a routerLink="/tienda">Seguir comprando</a>

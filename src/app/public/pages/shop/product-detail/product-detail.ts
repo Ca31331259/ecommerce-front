@@ -94,6 +94,11 @@ export class ProductDetail {
         this.detalle.set(detalle);
         this.cargando.set(false);
         this.shop.registrarEvento('product_view', { productId: detalle.producto.id }).subscribe();
+        // Fase 5 (ver docs/ecommerce/plan-fase-5.md en numecos-java §1.12) -- `promo_view` al ver
+        // el detalle de un producto con promoción vigente.
+        if (detalle.producto.descuentoPorcentaje != null) {
+          this.shop.registrarEvento('promo_view', { productId: detalle.producto.id }).subscribe();
+        }
       },
       error: () => {
         this.cargando.set(false);

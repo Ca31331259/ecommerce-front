@@ -37,12 +37,15 @@ const OPCIONES_ORDEN: { valor: string; etiqueta: string }[] = [
   { valor: 'destacados', etiqueta: 'Destacados' },
   { valor: 'precio_asc', etiqueta: 'Precio: menor a mayor' },
   { valor: 'precio_desc', etiqueta: 'Precio: mayor a menor' },
-  { valor: 'novedades', etiqueta: 'Novedades' }
+  { valor: 'novedades', etiqueta: 'Novedades' },
+  // Fase 5 (ver docs/ecommerce/plan-fase-5.md en numecos-java §3.2) -- puntaje calculado por el
+  // ERP de noche, Platform sólo ordena por `puntaje_ventas DESC`.
+  { valor: 'mas_vendidos', etiqueta: 'Más vendidos' }
 ];
 
 // Nunca son filtros de atributo -- todo lo demás en la URL se interpreta como uno (mismo criterio
 // que ShopPublicController.atributosDe del lado de Platform).
-const PARAMS_RESERVADOS = new Set(['categoria', 'orden', 'precioMin', 'precioMax', 'q']);
+const PARAMS_RESERVADOS = new Set(['categoria', 'orden', 'precioMin', 'precioMax', 'q', 'enPromocion']);
 
 function soloAtributos(params: Record<string, string>): Record<string, string> {
   const atributos: Record<string, string> = {};
@@ -97,6 +100,8 @@ export class ProductList {
   readonly precioMax = signal<number | null>(null);
   readonly textoBusqueda = signal('');
   readonly drawerAbierto = signal(false);
+  // Fase 5 (ver docs/ecommerce/plan-fase-5.md en numecos-java §3.1) -- filtro "En promoción".
+  readonly enPromocionSeleccionado = signal(false);
 
   readonly opcionesOrden = OPCIONES_ORDEN;
   protected buscadorTexto = '';
@@ -107,7 +112,8 @@ export class ProductList {
 
   get hayFiltrosActivos(): boolean {
     return this.categoriaSeleccionada() !== null || Object.keys(this.atributosSeleccionados()).length > 0
-      || this.precioMin() !== null || this.precioMax() !== null || this.textoBusqueda() !== '';
+      || this.precioMin() !== null || this.precioMax() !== null || this.textoBusqueda() !== ''
+      || this.enPromocionSeleccionado();
   }
 
   constructor() {
@@ -129,17 +135,19 @@ export class ProductList {
       this.ordenSeleccionado.set(params.get('orden'));
       this.precioMin.set(params.get('precioMin') ? Number(params.get('precioMin')) : null);
       this.precioMax.set(params.get('precioMax') ? Number(params.get('precioMax')) : null);
+      this.enPromocionSeleccionado.set(params.get('enPromocion') === 'true');
       this.textoBusqueda.set(textoNuevo);
       this.buscadorTexto = textoNuevo;
       this.atributosSeleccionados.set(soloAtributos(todos));
 
-      this.cargar(0);
+      // Fase 6 (ver docs/ecommerce/plan-fase-6.md §1.7/§3.1) -- el evento `search` se dispara
+      // recién en el callback de la respuesta de `cargar` (ver más abajo), no acá al cambiar el
+      // texto, para poder incluir `cantidadResultados` real. Sólo se pide cuando el texto
+      // realmente cambió, nunca al repaginar/filtrar sin tocar la búsqueda.
+      this.cargar(0, textoCambio && textoNuevo ? textoNuevo : undefined);
 
       if (categoriaCambio && categoriaNueva != null) {
         this.shop.registrarEvento('category_view', { categoriaId: categoriaNueva }).subscribe();
-      }
-      if (textoCambio && textoNuevo) {
-        this.shop.registrarEvento('search', { texto: textoNuevo }).subscribe();
       }
     });
   }
@@ -178,6 +186,12 @@ export class ProductList {
   aplicarRangoPrecio(min: number | null, max: number | null): void {
     this.navegarConFiltros({ precioMin: min, precioMax: max });
     this.shop.registrarEvento('filter_used', { clave: 'precio', min, max }).subscribe();
+  }
+
+  alternarEnPromocion(): void {
+    const nuevoValor = !this.enPromocionSeleccionado();
+    this.navegarConFiltros({ enPromocion: nuevoValor });
+    this.shop.registrarEvento('filter_used', { clave: 'enPromocion', valor: nuevoValor }).subscribe();
   }
 
   buscar(): void {
@@ -238,6 +252,7 @@ export class ProductList {
     precioMin?: number | null;
     precioMax?: number | null;
     q?: string | null;
+    enPromocion?: boolean | null;
   }): void {
     const categoria = cambios.categoria !== undefined ? cambios.categoria : this.categoriaSeleccionada();
     const orden = cambios.orden !== undefined ? cambios.orden : this.ordenSeleccionado();
@@ -245,6 +260,7 @@ export class ProductList {
     const precioMin = cambios.precioMin !== undefined ? cambios.precioMin : this.precioMin();
     const precioMax = cambios.precioMax !== undefined ? cambios.precioMax : this.precioMax();
     const q = cambios.q !== undefined ? cambios.q : (this.textoBusqueda() || null);
+    const enPromocion = cambios.enPromocion !== undefined ? cambios.enPromocion : this.enPromocionSeleccionado();
 
     const queryParams: Record<string, string | number | null> = {
       categoria,
@@ -252,12 +268,18 @@ export class ProductList {
       precioMin,
       precioMax,
       q,
+      // Nunca se manda 'false' -- ausencia del param = sin filtro, mismo criterio que el resto de
+      // filtros opcionales de esta URL.
+      enPromocion: enPromocion ? 'true' : null,
       ...atributos
     };
     this.router.navigate([], { relativeTo: this.route, queryParams });
   }
 
-  private cargar(page: number): void {
+  /** `textoBusqueda` sólo se pasa cuando el texto de búsqueda realmente cambió en esta carga (ver
+   * el llamado desde el subscribe de `queryParamMap`) -- dispara `search` en el callback de la
+   * respuesta, ya con la cantidad real de resultados (Fase 6, §1.7/§3.1 del plan). */
+  private cargar(page: number, textoBusqueda?: string): void {
     this.cargando.set(true);
     const filtro = {
       categoria: this.categoriaSeleccionada() ?? undefined,
@@ -266,6 +288,7 @@ export class ProductList {
       precioMax: this.precioMax() ?? undefined,
       texto: this.textoBusqueda() || undefined,
       orden: this.ordenSeleccionado() ?? undefined,
+      enPromocion: this.enPromocionSeleccionado() || undefined,
       page,
       size: TAMANIO_PAGINA
     };
@@ -275,6 +298,11 @@ export class ProductList {
         this.total.set(resultado.total);
         this.pagina.set(resultado.pagina);
         this.cargando.set(false);
+        if (textoBusqueda) {
+          this.shop
+            .registrarEvento('search', { texto: textoBusqueda, cantidadResultados: resultado.total })
+            .subscribe();
+        }
       },
       // Tienda pausada (404) u otro error del backend: no queda nada que mostrar, pero el
       // loader tiene que soltar igual -- si no, el spinner queda girando para siempre.

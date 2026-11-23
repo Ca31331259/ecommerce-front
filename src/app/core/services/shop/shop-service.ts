@@ -3,8 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { ApiConfig } from '@core/config/api.config';
 import { ShopCategory } from '@core/models/shop/shop-category.model';
 import { ShopFacets, ShopPage, ShopProduct, ShopProductDetail } from '@core/models/shop/shop-product.model';
-
-const SESSION_ID_KEY = 'shop_session_id';
+import { shopSessionId } from './shop-session';
 
 export interface ShopProductFilter {
   categoria?: number;
@@ -17,6 +16,8 @@ export interface ShopProductFilter {
   precioMax?: number;
   texto?: string;
   orden?: string;
+  /** Fase 5 -- filtro "En promoción" (`?enPromocion=true`, ver ShopPublicController.productos). */
+  enPromocion?: boolean;
   page?: number;
   size?: number;
 }
@@ -66,6 +67,7 @@ export class ShopService {
     if (filtro.precioMax != null) params = params.set('precioMax', filtro.precioMax);
     if (filtro.texto) params = params.set('texto', filtro.texto);
     if (filtro.orden) params = params.set('orden', filtro.orden);
+    if (filtro.enPromocion) params = params.set('enPromocion', 'true');
     for (const [clave, valor] of Object.entries(filtro.atributos ?? {})) {
       if (valor) params = params.set(clave, valor);
     }
@@ -76,6 +78,33 @@ export class ShopService {
     const params = new HttpParams().set('domain', this.domain).set('limite', limite);
     return this.http.get<ShopProduct[]>(
       `${this.config.baseUrl}/public/shop/products/destacados`,
+      { params }
+    );
+  }
+
+  // ---- Fase 5: secciones de descubrimiento nuevas -- mismo molde que destacados() (ver
+  // docs/ecommerce/plan-fase-5.md en numecos-java §1.8/§3.2/§3.3) ----
+
+  novedades(limite = 12) {
+    const params = new HttpParams().set('domain', this.domain).set('limite', limite);
+    return this.http.get<ShopProduct[]>(
+      `${this.config.baseUrl}/public/shop/products/novedades`,
+      { params }
+    );
+  }
+
+  masVendidos(limite = 12) {
+    const params = new HttpParams().set('domain', this.domain).set('limite', limite);
+    return this.http.get<ShopProduct[]>(
+      `${this.config.baseUrl}/public/shop/products/mas-vendidos`,
+      { params }
+    );
+  }
+
+  enPromocion(limite = 12) {
+    const params = new HttpParams().set('domain', this.domain).set('limite', limite);
+    return this.http.get<ShopProduct[]>(
+      `${this.config.baseUrl}/public/shop/products/en-promocion`,
       { params }
     );
   }
@@ -100,19 +129,8 @@ export class ShopService {
     const params = new HttpParams().set('domain', this.domain);
     return this.http.post<void>(
       `${this.config.baseUrl}/public/shop/events`,
-      { tipo, sessionId: this.sessionId(), payload },
+      { tipo, sessionId: shopSessionId(), payload },
       { params }
     );
-  }
-
-  /** Cookie anónima propia (sin ningún dato personal, ver shop_event) -- persistida en
-   * localStorage, nunca enviada como identificador de usuario real. */
-  private sessionId(): string {
-    let id = localStorage.getItem(SESSION_ID_KEY);
-    if (!id) {
-      id = typeof crypto.randomUUID === 'function' ? crypto.randomUUID() : `${Date.now()}-${Math.random()}`;
-      localStorage.setItem(SESSION_ID_KEY, id);
-    }
-    return id;
   }
 }

@@ -87,3 +87,47 @@
   justify-content: space-between;
   font-size: 1.2rem;
 }
+
+.cart-summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+.cart-summary-row--descuento {
+  color: #15803d;
+  font-weight: 600;
+  opacity: 1;
+}
+
+.cart-cupon {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
+  label {
+    font-size: 0.85rem;
+    opacity: 0.8;
+  }
+}
+
+.cart-cupon-form {
+  display: flex;
+  gap: 0.5rem;
+
+  input {
+    flex: 1;
+    min-width: 0;
+    padding: 0.5rem 0.6rem;
+    border: 1px solid var(--color-border, rgba(0, 0, 0, 0.15));
+    border-radius: 0.4rem;
+    font: inherit;
+  }
+}
+
+.cart-cupon-error {
+  margin: 0;
+  color: #b91c1c;
+  font-size: 0.85rem;
+}

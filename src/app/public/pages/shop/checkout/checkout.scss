@@ -101,10 +101,60 @@
   }
 }
 
+.checkout-summary-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  opacity: 0.85;
+  margin-bottom: 0.5rem;
+}
+
 .checkout-summary-total {
   display: flex;
   justify-content: space-between;
   font-size: 1.1rem;
   padding-top: 0.75rem;
   border-top: 1px solid var(--color-border, rgba(0, 0, 0, 0.08));
+}
+
+// ---- Fase 7: método de entrega / envío a domicilio ----
+
+.checkout-tipo-entrega {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.checkout-tipo-entrega-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--color-border, rgba(0, 0, 0, 0.15));
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.checkout-cobertura {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+}
+
+.checkout-cobertura--ok {
+  background: #ecfdf5;
+  color: #15803d;
+}
+
+.checkout-cobertura--sin-cobertura {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: #fffbeb;
+  color: #b45309;
+
+  p {
+    margin: 0;
+  }
 }

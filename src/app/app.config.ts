@@ -44,6 +44,49 @@ import {
     PublicSiteService
 } from './core/services/public-site/public-site-service';
 
+import {
+    ShopService
+} from './core/services/shop/shop-service';
+
+import {
+    datosVisitaActual,
+    esVisitaNueva
+} from './core/services/shop/shop-session';
+
+
+/*
+ * Fase 6 (ver docs/ecommerce/plan-fase-6.md §1.10/§3.1) -- dispara `session_start` una sola vez
+ * por pestaña/visita nueva, en el punto de bootstrap más temprano razonable (antes de que se
+ * monte ninguna página). Sincrónico a propósito (no `async`/`await`): no bloquea el arranque de
+ * la app esperando la respuesta del POST, sólo dispara el evento y sigue. No corre en `/platform`
+ * (panel de administración, sin noción de "visita" de storefront).
+ */
+function shopSessionInitializer(
+    shopService: ShopService,
+) {
+
+    return () => {
+
+        if (
+            window.location.pathname
+                .startsWith('/platform')
+        ) {
+
+            return;
+
+        }
+
+        if (esVisitaNueva()) {
+
+            shopService
+                .registrarEvento('session_start', { ...datosVisitaActual() })
+                .subscribe();
+
+        }
+
+    };
+
+}
 
 function tenantInitializer(
     tenantService: TenantService,
@@ -160,6 +203,29 @@ export const appConfig: ApplicationConfig = {
                 PublicSiteService,
 
                 SiteStore
+
+            ],
+
+            multi: true
+
+        },
+
+
+        /*
+         * ==================================================
+         * SHOP SESSION INITIALIZER (Fase 6)
+         * ==================================================
+         */
+
+        {
+            provide: APP_INITIALIZER,
+
+            useFactory:
+                shopSessionInitializer,
+
+            deps: [
+
+                ShopService
 
             ],
 

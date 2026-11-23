@@ -82,6 +82,14 @@
           </div>
         </section>
 
+        <section class="shop-filter-group">
+          <h4>Promoción</h4>
+          <label class="shop-filter-checkbox">
+            <input type="checkbox" [checked]="enPromocionSeleccionado()" (change)="alternarEnPromocion()" />
+            En promoción
+          </label>
+        </section>
+
         @for (faceta of facetas() | keyvalue; track faceta.key) {
           <section class="shop-filter-group">
             <h4>{{ etiquetaFaceta(faceta.key) }}</h4>
@@ -121,6 +129,9 @@
                 - {{ precioMax() != null ? (precioMax() | currency: 'ARS') : 'sin tope' }}
               </ds-badge>
             }
+            @if (enPromocionSeleccionado()) {
+              <ds-badge variant="accent">En promoción</ds-badge>
+            }
             <button type="button" class="shop-clear-filter" (click)="limpiarFiltros()">Quitar filtros</button>
           </div>
         }
@@ -138,7 +149,9 @@
                     } @else {
                       <ds-image-placeholder ratio="square" size="lg" icon="fa-regular fa-image" text="Sin imagen" />
                     }
-                    @if (producto.destacado) {
+                    @if (producto.descuentoPorcentaje != null) {
+                      <ds-badge variant="accent" size="sm" class="shop-product-badge">-{{ producto.descuentoPorcentaje }}%</ds-badge>
+                    } @else if (producto.destacado) {
                       <ds-badge variant="primary" size="sm" class="shop-product-badge">Destacado</ds-badge>
                     }
                   </div>
@@ -148,7 +161,9 @@
                       @if (producto.precio != null) {
                         <span class="shop-price-actual">{{ producto.precio | currency: 'ARS' }}</span>
                       }
-                      @if (producto.precioComparativo != null) {
+                      @if (producto.precioOriginal != null) {
+                        <span class="shop-price-comparativo">{{ producto.precioOriginal | currency: 'ARS' }}</span>
+                      } @else if (producto.precioComparativo != null) {
                         <span class="shop-price-comparativo">{{ producto.precioComparativo | currency: 'ARS' }}</span>
                       }
                     </div>

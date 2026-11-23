@@ -3,6 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { ApiConfig } from '@core/config/api.config';
 import { CheckoutRequest, ShopBranch, ShopOrder } from '@core/models/shop/shop-order.model';
 import { ShopCartService } from './shop-cart-service';
+import { shopSessionId } from './shop-session';
 
 /** Checkout y estado del pedido (Fase 2, ver docs/ecommerce/plan-fase-2.md §4.1). */
 @Injectable({ providedIn: 'root' })
@@ -38,7 +39,7 @@ export class ShopOrderService {
 
   checkout(request: CheckoutRequest) {
     return this.http.post<ShopOrder>(`${this.config.baseUrl}/public/shop/checkout`, request, {
-      headers: this.headers(),
+      headers: this.headers().set('X-Session-Id', shopSessionId()),
       params: this.params()
     });
   }

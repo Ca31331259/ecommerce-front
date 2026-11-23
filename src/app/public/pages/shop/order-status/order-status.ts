@@ -16,7 +16,14 @@ const ETIQUETAS_ESTADO: Record<EstadoPedido, string> = {
   PAGADO: 'Pagado',
   PAGO_RECHAZADO: 'Pago rechazado',
   VENCIDO: 'Vencido',
-  CANCELADO: 'Cancelado'
+  CANCELADO: 'Cancelado',
+  EN_PREPARACION: 'En preparación',
+  LISTO_PARA_RETIRAR: 'Listo para retirar',
+  // Fase 7 (ver docs/ecommerce/plan-fase-7.md en numecos-java §3.7) -- camino paralelo a
+  // LISTO_PARA_RETIRAR, pero para pedidos de envío a domicilio.
+  DESPACHADO: 'En camino',
+  ENTREGADO: 'Entregado',
+  REEMBOLSADO: 'Reembolsado'
 };
 
 const VARIANTES_ESTADO: Record<EstadoPedido, 'success' | 'warning' | 'neutral' | 'primary'> = {
@@ -24,7 +31,12 @@ const VARIANTES_ESTADO: Record<EstadoPedido, 'success' | 'warning' | 'neutral' |
   PAGADO: 'success',
   PAGO_RECHAZADO: 'warning',
   VENCIDO: 'neutral',
-  CANCELADO: 'neutral'
+  CANCELADO: 'neutral',
+  EN_PREPARACION: 'primary',
+  LISTO_PARA_RETIRAR: 'success',
+  DESPACHADO: 'primary',
+  ENTREGADO: 'success',
+  REEMBOLSADO: 'neutral'
 };
 
 const ESTADOS_REINTENTABLES: EstadoPedido[] = ['PENDIENTE_PAGO', 'PAGO_RECHAZADO'];
@@ -108,6 +120,36 @@ export class OrderStatus {
 
   puedeCancelar(estado: EstadoPedido): boolean {
     return ESTADOS_REINTENTABLES.includes(estado);
+  }
+
+  mostrarCodigoRetiro(orden: ShopOrder): boolean {
+    return !!orden.codigoRetiro;
+  }
+
+  mostrarSucursal(orden: ShopOrder): boolean {
+    return !!orden.sucursal;
+  }
+
+  /** Fase 7 (ver docs/ecommerce/plan-fase-7.md en numecos-java §3.9) -- `envio` siempre viene
+   * `null` para pedidos de retiro (ver `ShopOrderService.armarRespuesta` del lado Platform), el
+   * chequeo de `metodoEntrega` es sólo defensivo. */
+  mostrarEnvio(orden: ShopOrder): boolean {
+    return orden.metodoEntrega === 'ENVIO_DOMICILIO' && !!orden.envio;
+  }
+
+  /** El seguimiento (empresa/número/link) sólo se completa cuando la óptica despacha el pedido
+   * (§3.8 del plan) -- antes de eso viene todo `null`, así que el bloque no se muestra. */
+  mostrarSeguimiento(orden: ShopOrder): boolean {
+    const envio = orden.envio;
+    return !!envio && (!!envio.seguimientoEmpresa || !!envio.seguimientoNumero || !!envio.seguimientoLink);
+  }
+
+  mostrarReembolso(orden: ShopOrder): boolean {
+    return orden.estado === 'REEMBOLSADO' || orden.montoReembolsado != null;
+  }
+
+  mostrarHistorial(orden: ShopOrder): boolean {
+    return orden.historial.length > 0;
   }
 
   reintentarPago(): void {

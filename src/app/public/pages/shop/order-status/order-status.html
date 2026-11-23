@@ -40,6 +40,79 @@
           <p class="order-aviso">Se venció el tiempo para pagar este pedido y se liberó la reserva de stock.</p>
         }
 
+        @if (mostrarCodigoRetiro(orden)) {
+          <div class="order-pickup-code">
+            <span class="order-pickup-code-label">Código de retiro</span>
+            <strong class="order-pickup-code-value">{{ orden.codigoRetiro }}</strong>
+          </div>
+        }
+
+        @if (mostrarSucursal(orden)) {
+          <div class="order-branch">
+            <h3 class="order-branch-title">Retirás en</h3>
+            <p class="order-branch-nombre">{{ orden.sucursal!.nombre }}</p>
+            @if (orden.sucursal!.direccion) {
+              <p class="order-branch-detalle">{{ orden.sucursal!.direccion }}</p>
+            }
+            @if (orden.sucursal!.telefono) {
+              <p class="order-branch-detalle">Tel: {{ orden.sucursal!.telefono }}</p>
+            }
+          </div>
+        }
+
+        @if (mostrarEnvio(orden)) {
+          <div class="order-branch">
+            <h3 class="order-branch-title">Envío a domicilio</h3>
+            <p class="order-branch-nombre">
+              {{ orden.envio!.calle }} {{ orden.envio!.numero }}@if (orden.envio!.pisoDepto) {, {{ orden.envio!.pisoDepto }}}
+            </p>
+            @if (orden.envio!.entreCalles) {
+              <p class="order-branch-detalle">Entre calles: {{ orden.envio!.entreCalles }}</p>
+            }
+            <p class="order-branch-detalle">
+              {{ orden.envio!.localidadNombre }}@if (orden.envio!.provinciaNombre) {, {{ orden.envio!.provinciaNombre }}}
+              @if (orden.envio!.codigoPostal) { (CP {{ orden.envio!.codigoPostal }}) }
+            </p>
+            <p class="order-branch-detalle">Destinatario: {{ orden.envio!.destinatarioNombre }} -- Tel: {{ orden.envio!.telefonoContacto }}</p>
+            @if (orden.envio!.zonaNombre || orden.envio!.plazoEstimado) {
+              <p class="order-branch-detalle">
+                @if (orden.envio!.zonaNombre) { Zona: {{ orden.envio!.zonaNombre }}. }
+                @if (orden.envio!.plazoEstimado) { Llega en {{ orden.envio!.plazoEstimado }}. }
+              </p>
+            }
+            <p class="order-branch-detalle">
+              Costo de envío: @if (orden.envio!.costo === 0) { Gratis } @else { {{ orden.envio!.costo | currency: orden.moneda }} }
+            </p>
+          </div>
+        }
+
+        @if (mostrarSeguimiento(orden)) {
+          <div class="order-branch">
+            <h3 class="order-branch-title">Seguimiento del envío</h3>
+            @if (orden.envio!.seguimientoEmpresa) {
+              <p class="order-branch-detalle">Empresa: {{ orden.envio!.seguimientoEmpresa }}</p>
+            }
+            @if (orden.envio!.seguimientoNumero) {
+              <p class="order-branch-detalle">Número de seguimiento: {{ orden.envio!.seguimientoNumero }}</p>
+            }
+            @if (orden.envio!.seguimientoLink) {
+              <p class="order-branch-detalle"><a [href]="orden.envio!.seguimientoLink" target="_blank" rel="noopener">Seguir el envío</a></p>
+            }
+          </div>
+        }
+
+        @if (mostrarReembolso(orden)) {
+          <div class="order-refund">
+            <h3 class="order-refund-title">Reembolso</h3>
+            @if (orden.montoReembolsado != null) {
+              <p>Se reembolsaron <strong>{{ orden.montoReembolsado | currency: orden.moneda }}</strong></p>
+            }
+            @if (orden.fechaReembolso) {
+              <p class="order-refund-fecha">{{ orden.fechaReembolso | date: 'short' }}</p>
+            }
+          </div>
+        }
+
         <ul class="order-items">
           @for (item of orden.items; track item.titulo) {
             <li>
@@ -71,6 +144,24 @@
             }
           }
         </div>
+
+        @if (mostrarHistorial(orden)) {
+          <div class="order-timeline-block">
+            <h3 class="order-timeline-title">Seguimiento</h3>
+            <ol class="order-timeline">
+              @for (paso of orden.historial; track $index) {
+                <li class="order-timeline-item">
+                  <span class="order-timeline-estado">{{ etiqueta(paso.estadoNuevo) }}</span>
+                  <span class="order-timeline-fecha">{{ paso.creadoEn | date: 'short' }}</span>
+                  @if (paso.motivo) {
+                    <span class="order-timeline-motivo">{{ paso.motivo }}</span>
+                  }
+                  <span class="order-timeline-origen">{{ paso.origen }}</span>
+                </li>
+              }
+            </ol>
+          </div>
+        }
       </div>
     }
 

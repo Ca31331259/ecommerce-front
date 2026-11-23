@@ -46,8 +46,13 @@
             @if (detalle.producto.precio != null) {
               <span class="product-price-actual">{{ detalle.producto.precio | currency: 'ARS' }}</span>
             }
-            @if (detalle.producto.precioComparativo != null) {
+            @if (detalle.producto.precioOriginal != null) {
+              <span class="product-price-comparativo">{{ detalle.producto.precioOriginal | currency: 'ARS' }}</span>
+            } @else if (detalle.producto.precioComparativo != null) {
               <span class="product-price-comparativo">{{ detalle.producto.precioComparativo | currency: 'ARS' }}</span>
+            }
+            @if (detalle.producto.descuentoPorcentaje != null) {
+              <ds-badge variant="accent" size="sm">-{{ detalle.producto.descuentoPorcentaje }}%</ds-badge>
             }
           </div>
 

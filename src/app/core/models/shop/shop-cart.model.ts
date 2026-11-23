@@ -14,4 +14,11 @@ export interface ShopCart {
   token: string;
   items: ShopCartItem[];
   total: number;
+  /** Fase 5 (ver docs/ecommerce/plan-fase-5.md en numecos-java §3.4, espejo de
+   * ShopCartService.Carrito) -- `null`/0 cuando no hay cupón aplicado o dejó de ser válido
+   * (vencimiento, baja, etc.): se re-valida en cada lectura, sin aviso explícito de "este cupón
+   * ya no aplica" (mismo criterio que la promoción, §1.4). */
+  cuponCodigo: string | null;
+  descuentoCupon: number;
+  totalFinal: number;
 }

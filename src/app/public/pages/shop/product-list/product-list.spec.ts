@@ -21,7 +21,9 @@ function producto(id: number): ShopProduct {
     estadoStock: 'DISPONIBLE',
     grupoVarianteId: null,
     atributosFiltro: {},
-    imagenes: []
+    imagenes: [],
+    precioOriginal: null,
+    descuentoPorcentaje: null
   };
 }
 
@@ -121,10 +123,27 @@ describe('ProductList', () => {
     expect(shop.registrarEvento).toHaveBeenCalledWith('category_view', { categoriaId: 9 });
   });
 
-  it('dispara el evento search cuando cambia el texto buscado en la URL', () => {
+  it('dispara el evento search con la cantidad real de resultados cuando resuelve la búsqueda', () => {
+    (shop.productos as ReturnType<typeof vi.fn>).mockReturnValue(
+      of({ contenido: [producto(1)], total: 7, pagina: 0, tamanio: 24 })
+    );
+
     queryParamMap$.next(convertToParamMap({ q: 'aviador' }));
 
-    expect(shop.registrarEvento).toHaveBeenCalledWith('search', { texto: 'aviador' });
+    expect(shop.registrarEvento).toHaveBeenCalledWith('search', { texto: 'aviador', cantidadResultados: 7 });
+  });
+
+  it('no dispara search de nuevo al repaginar sin cambiar el texto', () => {
+    (shop.productos as ReturnType<typeof vi.fn>).mockReturnValue(
+      of({ contenido: [producto(1)], total: 50, pagina: 0, tamanio: 24 })
+    );
+    queryParamMap$.next(convertToParamMap({ q: 'aviador' }));
+    (shop.registrarEvento as ReturnType<typeof vi.fn>).mockClear();
+
+    component.siguientePagina();
+
+    expect(shop.productos).toHaveBeenCalledWith(expect.objectContaining({ page: 1 }));
+    expect(shop.registrarEvento).not.toHaveBeenCalledWith('search', expect.anything());
   });
 
   it('no deja el loader girando para siempre si el backend falla (tienda pausada, etc.)', () => {

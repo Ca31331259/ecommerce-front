@@ -21,7 +21,9 @@ function producto(id: number, slug: string): ShopProduct {
     estadoStock: 'DISPONIBLE',
     grupoVarianteId: null,
     atributosFiltro: {},
-    imagenes: []
+    imagenes: [],
+    precioOriginal: null,
+    descuentoPorcentaje: null
   };
 }
 

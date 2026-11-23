@@ -20,6 +20,13 @@ function orden(overrides: Partial<ShopOrder> = {}): ShopOrder {
     items: [],
     urlPago: null,
     venceEn: new Date().toISOString(),
+    codigoRetiro: null,
+    sucursal: null,
+    montoReembolsado: null,
+    fechaReembolso: null,
+    historial: [],
+    metodoEntrega: 'RETIRO_SUCURSAL',
+    envio: null,
     ...overrides
   };
 }
