@@ -1,0 +1,74 @@
+<admin-page>
+
+    <admin-breadcrumb>
+
+        <span adminBreadcrumbItem [current]="true">
+
+            Categorías
+
+        </span>
+
+    </admin-breadcrumb>
+
+
+    <admin-toolbar title="Categorías" subtitle="Organización del catálogo sincronizada desde el ERP (se crean y
+            editan ahí; acá se ven organizadas y listas para usar en la tienda).">
+    </admin-toolbar>
+
+
+    <admin-section>
+
+        <admin-table [loading]="loading()" [empty]="!loading() && categorias().length === 0"
+            loadingLabel="Cargando categorías...">
+
+            <div adminTableContent class="categories-table">
+
+                <div class="categories-table__head">
+
+                    <span>Nombre</span>
+                    <span>Categoría padre</span>
+                    <span>Orden</span>
+
+                </div>
+
+                @for (categoria of categorias(); track categoria.id) {
+
+                <div class="categories-table__row">
+
+                    <span class="categories-table__nombre">
+
+                        {{ categoria.nombre }}
+
+                    </span>
+
+                    <span>
+
+                        {{ nombrePadre(categoria) }}
+
+                    </span>
+
+                    <span>
+
+                        {{ categoria.orden }}
+
+                    </span>
+
+                </div>
+
+                }
+
+            </div>
+
+            <div adminTableEmpty>
+
+                <admin-empty-state title="Todavía no hay categorías sincronizadas"
+                    description="Creá categorías en el ERP para que aparezcan acá.">
+                </admin-empty-state>
+
+            </div>
+
+        </admin-table>
+
+    </admin-section>
+
+</admin-page>

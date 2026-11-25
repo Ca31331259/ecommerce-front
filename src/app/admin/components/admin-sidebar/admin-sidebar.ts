@@ -114,15 +114,13 @@ export class AdminSidebar {
       {
         label: 'Productos',
         icon: 'fa-solid fa-box',
-        disabled: true,
-        badge: 'Próximamente'
+        route: '/admin/products'
       },
 
       {
         label: 'Categorías',
         icon: 'fa-solid fa-layer-group',
-        disabled: true,
-        badge: 'Próximamente'
+        route: '/admin/categories'
       },
 
       /*{
@@ -134,8 +132,7 @@ export class AdminSidebar {
       {
         label: 'Pedidos',
         icon: 'fa-solid fa-cart-shopping',
-        disabled: true,
-        badge: 'Próximamente'
+        route: '/admin/orders'
       },
 
       {

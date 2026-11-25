@@ -1,0 +1,280 @@
+<admin-page>
+
+    <admin-breadcrumb>
+
+        <a adminBreadcrumbItem [routerLink]="['/admin/orders']">Pedidos</a>
+
+        <span adminBreadcrumbItem [current]="true">
+
+            {{ detalle()?.orden?.numero ?? 'Pedido' }}
+
+        </span>
+
+    </admin-breadcrumb>
+
+
+    @if (loading()) {
+
+    <admin-loader label="Cargando pedido...">
+    </admin-loader>
+
+    } @else if (notFound()) {
+
+    <admin-section>
+
+        <admin-card>
+
+            <p>No se encontró el pedido.</p>
+
+            <admin-button variant="outline" size="sm" (clicked)="volver()">
+                Volver a Pedidos
+            </admin-button>
+
+        </admin-card>
+
+    </admin-section>
+
+    } @else if (detalle(); as d) {
+
+    <admin-toolbar [title]="d.orden.numero" subtitle="Detalle del pedido -- información de sólo lectura.">
+
+        <admin-status-badge adminToolbarMeta [label]="etiqueta(d.orden.estado)" [variant]="variante(d.orden.estado)">
+        </admin-status-badge>
+
+    </admin-toolbar>
+
+    <admin-section title="Datos del pedido">
+
+        <admin-card>
+
+            <admin-info-list>
+
+                <div adminInfoItem>
+                    <span>Fecha</span>
+                    <strong>{{ d.orden.creadoEn | date: 'dd/MM/yyyy HH:mm' }}</strong>
+                </div>
+
+                <div adminInfoItem>
+                    <span>Método de entrega</span>
+                    <strong>{{ d.orden.metodoEntrega === 'ENVIO_DOMICILIO' ? 'Envío a domicilio' : 'Retiro en sucursal' }}</strong>
+                </div>
+
+                <div adminInfoItem>
+                    <span>Subtotal</span>
+                    <strong>{{ d.orden.moneda }} {{ d.orden.subtotal }}</strong>
+                </div>
+
+                @if (d.orden.cuponCodigo) {
+                <div adminInfoItem>
+                    <span>Cupón aplicado</span>
+                    <strong>{{ d.orden.cuponCodigo }} (-{{ d.orden.moneda }} {{ d.orden.cuponMontoDescontado }})</strong>
+                </div>
+                }
+
+                @if (d.orden.envioCosto) {
+                <div adminInfoItem>
+                    <span>Costo de envío</span>
+                    <strong>{{ d.orden.moneda }} {{ d.orden.envioCosto }}</strong>
+                </div>
+                }
+
+                <div adminInfoItem>
+                    <span>Total</span>
+                    <strong>{{ d.orden.moneda }} {{ d.orden.total }}</strong>
+                </div>
+
+                @if (d.orden.codigoRetiro) {
+                <div adminInfoItem>
+                    <span>Código de retiro</span>
+                    <strong>{{ d.orden.codigoRetiro }}</strong>
+                </div>
+                }
+
+                @if (d.orden.requiereAtencion) {
+                <div adminInfoItem>
+                    <span>Requiere atención</span>
+                    <admin-status-badge label="Sí" variant="warning" size="sm"></admin-status-badge>
+                </div>
+                }
+
+                @if (d.orden.motivoAtencion) {
+                <div adminInfoItem>
+                    <span>Motivo</span>
+                    <strong>{{ d.orden.motivoAtencion }}</strong>
+                </div>
+                }
+
+                @if (d.orden.montoReembolsado) {
+                <div adminInfoItem>
+                    <span>Reembolsado</span>
+                    <strong>{{ d.orden.moneda }} {{ d.orden.montoReembolsado }} ({{ d.orden.fechaReembolso | date: 'dd/MM/yyyy' }})</strong>
+                </div>
+                }
+
+            </admin-info-list>
+
+        </admin-card>
+
+    </admin-section>
+
+
+    <admin-section title="Comprador">
+
+        <admin-card>
+
+            <admin-info-list>
+
+                <div adminInfoItem>
+                    <span>Nombre</span>
+                    <strong>{{ d.orden.compradorNombre }} {{ d.orden.compradorApellido }}</strong>
+                </div>
+
+                <div adminInfoItem>
+                    <span>Email</span>
+                    <strong>{{ d.orden.compradorEmail }}</strong>
+                </div>
+
+                @if (d.orden.compradorTelefono) {
+                <div adminInfoItem>
+                    <span>Teléfono</span>
+                    <strong>{{ d.orden.compradorTelefono }}</strong>
+                </div>
+                }
+
+                @if (d.orden.compradorNumeroDocumento) {
+                <div adminInfoItem>
+                    <span>Documento</span>
+                    <strong>{{ d.orden.compradorTipoDocumento }} {{ d.orden.compradorNumeroDocumento }}</strong>
+                </div>
+                }
+
+            </admin-info-list>
+
+        </admin-card>
+
+    </admin-section>
+
+
+    @if (tieneEnvio) {
+
+    <admin-section title="Envío">
+
+        <admin-card>
+
+            <admin-info-list>
+
+                <div adminInfoItem>
+                    <span>Destinatario</span>
+                    <strong>{{ d.orden.envioDestinatarioNombre }}</strong>
+                </div>
+
+                <div adminInfoItem>
+                    <span>Dirección</span>
+                    <strong>{{ d.orden.envioCalle }} {{ d.orden.envioNumero }}
+                        {{ d.orden.envioPisoDepto }}</strong>
+                </div>
+
+                @if (d.orden.envioEntreCalles) {
+                <div adminInfoItem>
+                    <span>Entre calles</span>
+                    <strong>{{ d.orden.envioEntreCalles }}</strong>
+                </div>
+                }
+
+                @if (d.orden.envioCodigoPostal) {
+                <div adminInfoItem>
+                    <span>Código postal</span>
+                    <strong>{{ d.orden.envioCodigoPostal }}</strong>
+                </div>
+                }
+
+                @if (d.orden.envioZonaNombre) {
+                <div adminInfoItem>
+                    <span>Zona</span>
+                    <strong>{{ d.orden.envioZonaNombre }} ({{ d.orden.envioPlazoEstimado }})</strong>
+                </div>
+                }
+
+                @if (d.orden.envioSeguimientoNumero) {
+                <div adminInfoItem>
+                    <span>Seguimiento</span>
+                    <strong>{{ d.orden.envioSeguimientoEmpresa }} -- {{ d.orden.envioSeguimientoNumero }}</strong>
+                </div>
+                }
+
+            </admin-info-list>
+
+        </admin-card>
+
+    </admin-section>
+
+    }
+
+
+    <admin-section title="Productos">
+
+        <admin-table [loading]="false" [empty]="d.items.length === 0">
+
+            <div adminTableContent class="order-items">
+
+                <div class="order-items__head">
+                    <span>Producto</span>
+                    <span>Cantidad</span>
+                    <span>Precio unit.</span>
+                    <span>Subtotal</span>
+                </div>
+
+                @for (item of d.items; track item.id) {
+
+                <div class="order-items__row">
+                    <span>{{ item.tituloSnapshot }}</span>
+                    <span>{{ item.cantidad }}</span>
+                    <span>{{ d.orden.moneda }} {{ item.precioUnitarioSnapshot }}</span>
+                    <span>{{ d.orden.moneda }} {{ item.subtotal }}</span>
+                </div>
+
+                }
+
+            </div>
+
+        </admin-table>
+
+    </admin-section>
+
+
+    <admin-section title="Historial">
+
+        <admin-card>
+
+            <div class="order-history">
+
+                @for (entrada of d.historial; track $index) {
+
+                <div class="order-history__item">
+
+                    <span class="order-history__fecha">{{ entrada.creadoEn | date: 'dd/MM/yyyy HH:mm' }}</span>
+
+                    <span class="order-history__cambio">
+
+                        @if (entrada.estadoAnterior) {
+                        {{ etiqueta(entrada.estadoAnterior) }} &rarr;
+                        }
+                        {{ etiqueta(entrada.estadoNuevo) }}
+
+                    </span>
+
+                    <span class="order-history__motivo">{{ entrada.motivo }}</span>
+
+                </div>
+
+                }
+
+            </div>
+
+        </admin-card>
+
+    </admin-section>
+
+    }
+
+</admin-page>

@@ -123,6 +123,30 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./admin/pages/profile/profile-page')
             .then(m => m.ProfilePage)
+      },
+      {
+        path: 'products',
+        loadComponent: () =>
+          import('./admin/pages/products/products')
+            .then(m => m.Products)
+      },
+      {
+        path: 'categories',
+        loadComponent: () =>
+          import('./admin/pages/categories/categories')
+            .then(m => m.Categories)
+      },
+      {
+        path: 'orders',
+        loadComponent: () =>
+          import('./admin/pages/orders/orders')
+            .then(m => m.Orders)
+      },
+      {
+        path: 'orders/:id',
+        loadComponent: () =>
+          import('./admin/pages/order-detail/order-detail')
+            .then(m => m.OrderDetail)
       }
 
     ]

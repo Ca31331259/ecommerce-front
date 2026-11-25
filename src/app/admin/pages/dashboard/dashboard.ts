@@ -19,11 +19,14 @@ import {
   AdminBreadcrumbItem,
   AdminButton,
   AdminCard,
+  AdminCardFooterDirective,
+  AdminCardHeaderDirective,
   AdminInfoItem,
   AdminInfoList,
   AdminLoader,
   AdminPage,
   AdminSection,
+  AdminStatCard,
   AdminStatusBadge,
   AdminToolbar,
   AdminToolbarMetaDirective
@@ -32,6 +35,14 @@ import {
 import {
   SiteConfigService
 } from '../../../core/services/site-config/site-config-service';
+
+import {
+  ShopAdminService
+} from '../../../core/services/shop-admin/shop-admin-service';
+
+import {
+  AdminSalesSummary
+} from '../../../core/models/shop-admin';
 
 import {
   TenantStore
@@ -102,10 +113,13 @@ interface DashboardQuickAction {
     AdminToolbarMetaDirective,
     AdminSection,
     AdminCard,
+    AdminCardHeaderDirective,
+    AdminCardFooterDirective,
     AdminLoader,
+    AdminStatCard,
     AdminStatusBadge,
 
-    //AdminButton,  
+    AdminButton,
 
     AdminInfoList,
     AdminInfoItem,
@@ -134,8 +148,14 @@ export class Dashboard implements OnInit {
   private readonly profileService =
     inject(ProfileService);
 
+  private readonly shopAdminService =
+    inject(ShopAdminService);
+
   readonly profile =
     signal<UserProfile | null>(null);
+
+  readonly ventas =
+    signal<AdminSalesSummary | null>(null);
 
   /* ======================================================
    * Store
@@ -276,6 +296,15 @@ export class Dashboard implements OnInit {
 
     this.loadDashboard();
 
+    // Independiente del forkJoin de arriba a propósito -- si el resumen de ventas falla, no tiene
+    // que tumbar el resto del dashboard (site/profile), que es lo que ya andaba antes de esto.
+    this.shopAdminService
+      .resumenVentas()
+      .subscribe({
+        next: resumen => this.ventas.set(resumen),
+        error: () => {}
+      });
+
   }
 
   /* ======================================================
@@ -342,6 +371,30 @@ private loadDashboard(): void {
 
     void this.router.navigate([
       '/admin/profile'
+    ]);
+
+  }
+
+  irAProductos(): void {
+
+    void this.router.navigate([
+      '/admin/products'
+    ]);
+
+  }
+
+  irACategorias(): void {
+
+    void this.router.navigate([
+      '/admin/categories'
+    ]);
+
+  }
+
+  irAPedidos(): void {
+
+    void this.router.navigate([
+      '/admin/orders'
     ]);
 
   }
