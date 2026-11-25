@@ -135,3 +135,23 @@ export interface AdminSalesSummary {
   pedidosHoy: number;
   pedidosRequierenAtencion: number;
 }
+
+/** No hay cuenta de cliente propia (checkout invitado) -- "cliente" es agrupar pedidos por email
+ * de comprador (ver ShopOrderRepository.listarClientes del lado backend). */
+export interface AdminCustomerSummary {
+  email: string;
+  nombre: string | null;
+  apellido: string | null;
+  telefono: string | null;
+  cantidadPedidos: number;
+  montoTotalComprado: number;
+  primerPedido: string;
+  ultimoPedido: string;
+}
+
+export interface AdminCustomerSummaryPage {
+  contenido: AdminCustomerSummary[];
+  total: number;
+  pagina: number;
+  tamanio: number;
+}

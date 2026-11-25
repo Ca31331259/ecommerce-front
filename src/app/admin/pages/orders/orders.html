@@ -18,6 +18,20 @@
 
     <admin-section>
 
+        @if (filtroEmail(); as email) {
+
+        <div class="orders-email-filter">
+
+            <admin-status-badge [label]="'Pedidos de ' + email" variant="info"></admin-status-badge>
+
+            <admin-button variant="outline" size="sm" (clicked)="quitarFiltroEmail()">
+                Quitar filtro
+            </admin-button>
+
+        </div>
+
+        }
+
         <div class="orders-filters">
 
             <admin-button [variant]="filtroEstado() === null ? 'primary' : 'outline'" size="sm"

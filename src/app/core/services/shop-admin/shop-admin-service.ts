@@ -12,6 +12,7 @@ import {
 } from 'rxjs';
 
 import {
+  AdminCustomerSummaryPage,
   AdminOrderDetailResponse,
   AdminOrderSummaryPage,
   AdminSalesSummary,
@@ -89,6 +90,7 @@ export class ShopAdminService {
 
   listarPedidos(
     estado: string | null,
+    email: string | null,
     pagina: number,
     tamanio: number
   ): Observable<AdminOrderSummaryPage> {
@@ -103,6 +105,15 @@ export class ShopAdminService {
       params = {
         ...params,
         estado
+      };
+
+    }
+
+    if (email) {
+
+      params = {
+        ...params,
+        email
       };
 
     }
@@ -130,6 +141,24 @@ export class ShopAdminService {
 
     return this.http.get<AdminSalesSummary>(
       `${this.api}/orders/resumen`
+    );
+
+  }
+
+
+  listarClientes(
+    pagina: number,
+    tamanio: number
+  ): Observable<AdminCustomerSummaryPage> {
+
+    return this.http.get<AdminCustomerSummaryPage>(
+      `${this.api}/customers`,
+      {
+        params: {
+          pagina: String(pagina),
+          tamanio: String(tamanio)
+        }
+      }
     );
 
   }

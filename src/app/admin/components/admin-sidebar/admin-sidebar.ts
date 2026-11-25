@@ -138,8 +138,7 @@ export class AdminSidebar {
       {
         label: 'Clientes',
         icon: 'fa-solid fa-users',
-        disabled: true,
-        badge: 'Próximamente'
+        route: '/admin/customers'
       }
 
     ];

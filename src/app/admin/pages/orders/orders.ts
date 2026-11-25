@@ -9,6 +9,7 @@ import {
 } from '@angular/common';
 
 import {
+  ActivatedRoute,
   Router
 } from '@angular/router';
 
@@ -70,10 +71,17 @@ export class Orders implements OnInit {
 
   constructor(
     private readonly shopAdminService: ShopAdminService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly route: ActivatedRoute
   ) {}
 
   readonly estadosFiltro = ESTADOS_PEDIDO;
+
+  /** Cómo llega acá la pantalla de Clientes -- no hay cuenta de cliente real, "ver los pedidos de
+   * este cliente" es, literalmente, este mismo listado filtrado por email (ver Javadoc de
+   * ShopOrderRepository.listarClientes). */
+  readonly filtroEmail =
+    signal<string | null>(null);
 
   readonly pedidos =
     signal<AdminOrderSummary[]>([]);
@@ -94,6 +102,25 @@ export class Orders implements OnInit {
 
 
   ngOnInit(): void {
+
+    this.filtroEmail.set(
+      this.route.snapshot.queryParamMap.get('email')
+    );
+
+    this.cargar();
+
+  }
+
+
+  quitarFiltroEmail(): void {
+
+    this.filtroEmail.set(null);
+    this.pagina.set(0);
+
+    void this.router.navigate(
+      ['/admin/orders'],
+      { queryParams: {} }
+    );
 
     this.cargar();
 
@@ -156,7 +183,7 @@ export class Orders implements OnInit {
     this.loading.set(true);
 
     this.shopAdminService
-      .listarPedidos(this.filtroEstado(), this.pagina(), this.tamanio)
+      .listarPedidos(this.filtroEstado(), this.filtroEmail(), this.pagina(), this.tamanio)
       .subscribe({
         next: respuesta => {
 

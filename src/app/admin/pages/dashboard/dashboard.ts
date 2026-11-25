@@ -399,6 +399,14 @@ private loadDashboard(): void {
 
   }
 
+  irAClientes(): void {
+
+    void this.router.navigate([
+      '/admin/customers'
+    ]);
+
+  }
+
 
   
 }
