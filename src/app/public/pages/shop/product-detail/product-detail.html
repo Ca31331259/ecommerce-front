@@ -1,119 +1,143 @@
 <ds-section background="transparent" padding="xl">
-
   <ds-container size="xl">
-
     @if (cargando()) {
-      <ds-loader size="lg" layout="block" />
+      <div class="product-detail-loading">
+        <ds-loader size="lg" layout="block" />
+      </div>
     } @else if (noEncontrado()) {
       <div class="product-not-found">
+        <div class="product-not-found-icon"><i class="fa-solid fa-glasses"></i></div>
         <h2>No encontramos este producto</h2>
+        <p>Puede que haya sido retirado o que el enlace ya no esté disponible.</p>
         <a routerLink="/tienda"><ds-button variant="primary">Volver a la tienda</ds-button></a>
       </div>
     } @else if (detalle(); as detalle) {
-      <div class="product-detail-layout">
+      <div class="product-detail-page">
+        <nav class="product-breadcrumb" aria-label="Navegación">
+          <a routerLink="/tienda"><i class="fa-solid fa-house"></i> Tienda</a>
+          <i class="fa-solid fa-chevron-right"></i>
+          <span>Detalle del producto</span>
+        </nav>
 
-        <!-- ========================================= -->
-        <!-- IMAGES -->
-        <!-- ========================================= -->
-
-        <div class="product-images">
-          <div class="product-image-main">
-            @if (imagenesProducto().length) {
-              <img [src]="imagenesProducto()[imagenActiva()]" [alt]="detalle.producto.titulo" />
-            } @else {
-              <ds-image-placeholder ratio="square" size="lg" icon="fa-regular fa-image" text="Sin imagen" />
-            }
-          </div>
-          @if (imagenesProducto().length > 1) {
-            <div class="product-image-thumbs">
-              @for (imagen of imagenesProducto(); track imagen; let i = $index) {
-                <button type="button" [class.active]="i === imagenActiva()" (click)="imagenActiva.set(i)">
-                  <img [src]="imagen" alt="" />
-                </button>
+        <div class="product-detail-layout">
+          <!-- Galería -->
+          <section class="product-gallery" aria-label="Imágenes del producto">
+            <div class="product-image-main">
+              @if (imagenesProducto().length) {
+                <img [src]="imagenesProducto()[imagenActiva()]" [alt]="detalle.producto.titulo" />
+              } @else {
+                <ds-image-placeholder ratio="square" size="lg" icon="fa-regular fa-image" text="Imagen no disponible" />
+              }
+              @if (detalle.producto.descuentoPorcentaje != null) {
+                <div class="product-image-discount">-{{ detalle.producto.descuentoPorcentaje }}%</div>
+              } @else if (detalle.producto.destacado) {
+                <div class="product-image-featured"><i class="fa-solid fa-star"></i> Destacado</div>
               }
             </div>
-          }
-        </div>
 
-        <!-- ========================================= -->
-        <!-- INFO -->
-        <!-- ========================================= -->
-
-        <div class="product-info">
-          <h1>{{ detalle.producto.titulo }}</h1>
-
-          <div class="product-price">
-            @if (detalle.producto.precio != null) {
-              <span class="product-price-actual">{{ detalle.producto.precio | currency: 'ARS' }}</span>
-            }
-            @if (detalle.producto.precioOriginal != null) {
-              <span class="product-price-comparativo">{{ detalle.producto.precioOriginal | currency: 'ARS' }}</span>
-            } @else if (detalle.producto.precioComparativo != null) {
-              <span class="product-price-comparativo">{{ detalle.producto.precioComparativo | currency: 'ARS' }}</span>
-            }
-            @if (detalle.producto.descuentoPorcentaje != null) {
-              <ds-badge variant="accent" size="sm">-{{ detalle.producto.descuentoPorcentaje }}%</ds-badge>
-            }
-          </div>
-
-          @if (etiquetaStock(); as stock) {
-            <ds-badge [variant]="stock.variant">{{ stock.texto }}</ds-badge>
-          }
-
-          <div class="product-add-to-cart">
-            <ds-button variant="primary" size="lg" [disabled]="!puedeAgregarAlCarrito() || agregando()" (click)="agregarAlCarrito()">
-              @if (agregando()) {
-                Agregando...
-              } @else if (agregado()) {
-                <i class="fa-solid fa-check"></i> Agregado
-              } @else {
-                <i class="fa-solid fa-cart-plus"></i> Agregar al carrito
-              }
-            </ds-button>
-          </div>
-
-          <p class="product-payment-methods">
-            <i class="fa-solid fa-credit-card"></i> Pagás con Mercado Pago -- tarjetas de crédito y débito
-          </p>
-
-          @if (detalle.producto.descripcion) {
-            <p class="product-description">{{ detalle.producto.descripcion }}</p>
-          }
-
-          @if (detalle.producto.atributosFiltro | keyvalue; as atributos) {
-            @if (atributos.length) {
-              <dl class="product-attributes">
-                @for (atributo of atributos; track atributo.key) {
-                  <div class="product-attribute">
-                    <dt>{{ atributo.key }}</dt>
-                    <dd>{{ atributo.value }}</dd>
-                  </div>
-                }
-              </dl>
-            }
-          }
-
-          @if (detalle.variantes.length) {
-            <div class="product-variants">
-              <h3>Otros colores</h3>
-              <div class="product-variants-list">
-                @for (variante of detalle.variantes; track variante.id) {
-                  <button type="button" class="product-variant-thumb" (click)="irAVariante(variante)">
-                    @if (variante.imagenes.length) {
-                      <img [src]="variante.imagenes[0]" [alt]="variante.titulo" />
-                    } @else {
-                      <ds-image-placeholder ratio="square" size="sm" icon="fa-regular fa-image" />
-                    }
+            @if (imagenesProducto().length > 1) {
+              <div class="product-image-thumbs">
+                @for (imagen of imagenesProducto(); track imagen; let i = $index) {
+                  <button type="button" [class.active]="i === imagenActiva()" (click)="imagenActiva.set(i)"
+                    [attr.aria-label]="'Ver imagen ' + (i + 1)" [attr.aria-pressed]="i === imagenActiva()">
+                    <img [src]="imagen" alt="" />
                   </button>
                 }
               </div>
-            </div>
-          }
-        </div>
+            }
+          </section>
 
+          <!-- Información y compra -->
+          <section class="product-info">
+            <div class="product-info-topline">
+              <span class="product-eyebrow">NUMECOS · TIENDA ONLINE</span>
+              @if (etiquetaStock(); as stock) {
+                <ds-badge [variant]="stock.variant">{{ stock.texto }}</ds-badge>
+              } @else {
+                <span class="product-stock-default"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+              }
+            </div>
+
+            <h1>{{ detalle.producto.titulo }}</h1>
+
+            <div class="product-price-block">
+              @if (detalle.producto.precio != null) {
+                <span class="product-price-actual">{{ detalle.producto.precio | currency: 'ARS' }}</span>
+              }
+              @if (detalle.producto.precioOriginal != null) {
+                <span class="product-price-comparativo">{{ detalle.producto.precioOriginal | currency: 'ARS' }}</span>
+              } @else if (detalle.producto.precioComparativo != null) {
+                <span class="product-price-comparativo">{{ detalle.producto.precioComparativo | currency: 'ARS' }}</span>
+              }
+              @if (detalle.producto.descuentoPorcentaje != null) {
+                <ds-badge variant="accent" size="sm">{{ detalle.producto.descuentoPorcentaje }}% OFF</ds-badge>
+              }
+            </div>
+            <p class="product-price-note">Precio final · Consultá opciones de pago disponibles</p>
+
+            <div class="product-purchase-panel">
+              <div class="product-add-to-cart">
+                <ds-button variant="primary" size="lg" [disabled]="!puedeAgregarAlCarrito() || agregando()" (click)="agregarAlCarrito()">
+                  @if (agregando()) {
+                    <i class="fa-solid fa-spinner fa-spin"></i> Agregando...
+                  } @else if (agregado()) {
+                    <i class="fa-solid fa-check"></i> Agregado al carrito
+                  } @else {
+                    <i class="fa-solid fa-cart-plus"></i> Agregar al carrito
+                  }
+                </ds-button>
+              </div>
+              <div class="product-payment-methods">
+                <i class="fa-regular fa-credit-card"></i>
+                <div><strong>Pagá de forma segura</strong><span>Mercado Pago · Tarjetas de crédito y débito</span></div>
+              </div>
+            </div>
+
+            <div class="product-benefits">
+              <div class="product-benefit"><span class="product-benefit-icon"><i class="fa-solid fa-shield-halved"></i></span><div><strong>Compra segura</strong><small>Protección en tu compra</small></div></div>
+              <div class="product-benefit"><span class="product-benefit-icon"><i class="fa-solid fa-truck-fast"></i></span><div><strong>Envíos</strong><small>Consultá cobertura y opciones</small></div></div>
+            </div>
+
+            @if (detalle.producto.descripcion) {
+              <div class="product-description-block">
+                <h2>Descripción</h2>
+                <p class="product-description">{{ detalle.producto.descripcion }}</p>
+              </div>
+            }
+
+            @if (detalle.producto.atributosFiltro | keyvalue; as atributos) {
+              @if (atributos.length) {
+                <div class="product-specifications">
+                  <h2>Características</h2>
+                  <dl class="product-attributes">
+                    @for (atributo of atributos; track atributo.key) {
+                      <div class="product-attribute"><dt>{{ atributo.key }}</dt><dd>{{ atributo.value }}</dd></div>
+                    }
+                  </dl>
+                </div>
+              }
+            }
+
+            @if (detalle.variantes.length) {
+              <div class="product-variants">
+                <h2>También disponible</h2>
+                <p>Elegí otra variante de este modelo</p>
+                <div class="product-variants-list">
+                  @for (variante of detalle.variantes; track variante.id) {
+                    <button type="button" class="product-variant-thumb" (click)="irAVariante(variante)" [attr.aria-label]="'Ver variante ' + variante.titulo">
+                      @if (variante.imagenes.length) {
+                        <img [src]="variante.imagenes[0]" [alt]="variante.titulo" />
+                      } @else {
+                        <ds-image-placeholder ratio="square" size="sm" icon="fa-regular fa-image" />
+                      }
+                    </button>
+                  }
+                </div>
+              </div>
+            }
+          </section>
+        </div>
       </div>
     }
-
   </ds-container>
-
 </ds-section>

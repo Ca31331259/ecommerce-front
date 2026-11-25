@@ -1,198 +1,156 @@
 <ds-section id="tienda" background="transparent" padding="xl">
-
   <ds-container size="xl">
+    <div class="shop-shell">
+      <!-- Intro / storefront banner -->
+      <section class="shop-hero" aria-label="Presentación de la tienda">
+        <div class="shop-hero-copy">
+          <span class="shop-eyebrow"><i class="fa-solid fa-sparkles"></i> TIENDA ONLINE</span>
+          <h1>Encontrá tu próximo<br><span>estilo favorito</span></h1>
+          <p>Descubrí armazones, lentes de sol, contactología y accesorios.</p>
+          <div class="shop-hero-points">
+            <span><i class="fa-solid fa-shield-halved"></i> Compra segura</span>
+            <span><i class="fa-solid fa-truck-fast"></i> Envíos y retiro</span>
+          </div>
+        </div>
+        <div class="shop-hero-art" aria-hidden="true">
+          <div class="shop-art-circle shop-art-circle--large"></div>
+          <div class="shop-art-circle shop-art-circle--small"></div>
+          <div class="shop-art-glasses"><i class="fa-solid fa-glasses"></i></div>
+          <div class="shop-art-caption"><strong>Tu mirada.</strong><span>Tu estilo.</span></div>
+        </div>
+      </section>
 
-    <!-- ========================================= -->
-    <!-- TOOLBAR: BÚSQUEDA + ORDEN + FILTROS (mobile) -->
-    <!-- ========================================= -->
 
-    <div class="shop-toolbar">
-      <form class="shop-search" (ngSubmit)="buscar()">
-        <input type="search" name="q" placeholder="Buscar productos..." [(ngModel)]="buscadorTexto" />
-        <button type="submit" aria-label="Buscar">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
-      </form>
-
-      <div class="shop-toolbar-right">
-        <label class="shop-sort">
-          <span>Ordenar por</span>
-          <select [ngModel]="ordenSeleccionado()" (ngModelChange)="seleccionarOrden($event || null)" name="orden">
-            <option [ngValue]="null">Relevancia</option>
-            @for (opcion of opcionesOrden; track opcion.valor) {
-              <option [ngValue]="opcion.valor">{{ opcion.etiqueta }}</option>
-            }
-          </select>
-        </label>
-
-        <button type="button" class="shop-drawer-toggle" (click)="abrirDrawer()">
-          <i class="fa-solid fa-sliders"></i>
-          Filtros
-        </button>
-      </div>
-    </div>
-
-    <div class="shop-layout">
-
-      <!-- ========================================= -->
-      <!-- SIDEBAR / DRAWER: CATEGORÍAS + FACETAS -->
-      <!-- ========================================= -->
-
-      @if (drawerAbierto()) {
-        <div class="shop-drawer-backdrop" (click)="cerrarDrawer()"></div>
-      }
-
-      <aside class="shop-sidebar" [class.shop-sidebar--open]="drawerAbierto()">
-
-        <div class="shop-sidebar-header">
-          <h3>Filtros</h3>
-          <button type="button" class="shop-drawer-close" (click)="cerrarDrawer()" aria-label="Cerrar filtros">
-            <i class="fa-solid fa-xmark"></i>
+      <!-- Search and sorting -->
+      <div class="shop-toolbar">
+        <form class="shop-search" (ngSubmit)="buscar()">
+          <i class="fa-solid fa-magnifying-glass shop-search-icon" aria-hidden="true"></i>
+          <input type="search" name="q" placeholder="Buscar productos, marcas o estilos..." [(ngModel)]="buscadorTexto" />
+          <button type="submit" aria-label="Buscar"><i class="fa-solid fa-arrow-right"></i></button>
+        </form>
+        <div class="shop-toolbar-right">
+          <label class="shop-sort">
+            <span>Ordenar por</span>
+            <select [ngModel]="ordenSeleccionado()" (ngModelChange)="seleccionarOrden($event || null)" name="orden">
+              <option [ngValue]="null">Destacados</option>
+              @for (opcion of opcionesOrden; track opcion.valor) {
+                <option [ngValue]="opcion.valor">{{ opcion.etiqueta }}</option>
+              }
+            </select>
+          </label>
+          <button type="button" class="shop-drawer-toggle" (click)="abrirDrawer()">
+            <i class="fa-solid fa-sliders"></i><span>Filtros</span>
           </button>
         </div>
+      </div>
 
-        <section class="shop-filter-group">
-          <h4>Categorías</h4>
-          <ul class="shop-category-list">
-            <li>
-              <button type="button" [class.active]="categoriaSeleccionada() === null" (click)="seleccionarCategoria(null)">
-                Todas
-              </button>
-            </li>
-            @for (categoria of categorias(); track categoria.id) {
-              <li>
-                <button type="button" [class.active]="categoriaSeleccionada() === categoria.id" (click)="seleccionarCategoria(categoria.id)">
-                  {{ categoria.nombre }}
-                  <span class="shop-category-count">{{ categoria.cantidadProductos }}</span>
-                </button>
-              </li>
-            }
-          </ul>
-        </section>
 
-        <section class="shop-filter-group">
-          <h4>Precio</h4>
-          <div class="shop-price-range">
-            <input type="number" placeholder="Mín" #precioMinInput [value]="precioMin()" min="0" />
-            <span>-</span>
-            <input type="number" placeholder="Máx" #precioMaxInput [value]="precioMax()" min="0" />
-            <button type="button" (click)="aplicarRangoPrecio(precioMinInput.valueAsNumber || null, precioMaxInput.valueAsNumber || null)">
-              Aplicar
-            </button>
+      <div class="shop-layout">
+        @if (drawerAbierto()) {
+          <div class="shop-drawer-backdrop" (click)="cerrarDrawer()"></div>
+        }
+        <aside class="shop-sidebar" [class.shop-sidebar--open]="drawerAbierto()">
+          <div class="shop-sidebar-header">
+            <div><span class="shop-sidebar-kicker">TU BÚSQUEDA</span><h3><i class="fa-solid fa-sliders"></i> Filtros</h3></div>
+            <button type="button" class="shop-drawer-close" (click)="cerrarDrawer()" aria-label="Cerrar filtros"><i class="fa-solid fa-xmark"></i></button>
+            @if (hayFiltrosActivos) { <button type="button" class="shop-clear-filter shop-clear-filter--sidebar" (click)="limpiarFiltros()">Limpiar</button> }
           </div>
-        </section>
 
-        <section class="shop-filter-group">
-          <h4>Promoción</h4>
-          <label class="shop-filter-checkbox">
-            <input type="checkbox" [checked]="enPromocionSeleccionado()" (change)="alternarEnPromocion()" />
-            En promoción
-          </label>
-        </section>
-
-        @for (faceta of facetas() | keyvalue; track faceta.key) {
           <section class="shop-filter-group">
-            <h4>{{ etiquetaFaceta(faceta.key) }}</h4>
-            <ul class="shop-facet-list">
-              @for (opcion of faceta.value | keyvalue; track opcion.key) {
-                <li>
-                  <button type="button" [class.active]="valorSeleccionado(faceta.key) === opcion.key"
-                    (click)="alternarAtributo(faceta.key, opcion.key)">
-                    {{ opcion.key }}
-                    <span class="shop-category-count">{{ opcion.value }}</span>
-                  </button>
-                </li>
+            <h4>Categorías</h4>
+            <ul class="shop-category-list">
+              <li><button type="button" [class.active]="categoriaSeleccionada() === null" (click)="seleccionarCategoria(null)"><span class="shop-filter-label"><i class="fa-solid fa-border-all"></i> Todas</span></button></li>
+              @for (categoria of categorias(); track categoria.id) {
+                <li><button type="button" [class.active]="categoriaSeleccionada() === categoria.id" (click)="seleccionarCategoria(categoria.id)"><span class="shop-filter-label">{{ categoria.nombre }}</span><span class="shop-category-count">{{ categoria.cantidadProductos }}</span></button></li>
               }
             </ul>
           </section>
-        }
 
-      </aside>
+          <section class="shop-filter-group">
+            <h4>Rango de precio</h4>
+            <div class="shop-price-range">
+              <label><span>Mínimo</span><input type="number" placeholder="$ 0" #precioMinInput [value]="precioMin()" min="0" /></label>
+              <label><span>Máximo</span><input type="number" placeholder="Sin límite" #precioMaxInput [value]="precioMax()" min="0" /></label>
+              <button type="button" (click)="aplicarRangoPrecio(precioMinInput.valueAsNumber || null, precioMaxInput.valueAsNumber || null)"><i class="fa-solid fa-check"></i> Aplicar</button>
+            </div>
+          </section>
 
-      <!-- ========================================= -->
-      <!-- PRODUCT GRID -->
-      <!-- ========================================= -->
+          <section class="shop-filter-group shop-promo-filter">
+            <label class="shop-filter-checkbox"><input type="checkbox" [checked]="enPromocionSeleccionado()" (change)="alternarEnPromocion()" /><span><strong>Ver promociones</strong><small>Productos con descuento</small></span><i class="fa-solid fa-tag"></i></label>
+          </section>
 
-      <div class="shop-content">
+          @for (faceta of facetas() | keyvalue; track faceta.key) {
+            <section class="shop-filter-group">
+              <h4>{{ etiquetaFaceta(faceta.key) }}</h4>
+              <ul class="shop-facet-list">
+                @for (opcion of faceta.value | keyvalue; track opcion.key) {
+                  <li><button type="button" [class.active]="valorSeleccionado(faceta.key) === opcion.key" (click)="alternarAtributo(faceta.key, opcion.key)"><span class="shop-filter-label">{{ opcion.key }}</span><span class="shop-category-count">{{ opcion.value }}</span></button></li>
+                }
+              </ul>
+            </section>
+          }
+        </aside>
 
-        @if (hayFiltrosActivos) {
-          <div class="shop-active-filter">
-            @if (categoriaSeleccionada() !== null) {
-              <ds-badge variant="accent">{{ nombreCategoria(categoriaSeleccionada()!) }}</ds-badge>
-            }
-            @for (atributo of atributosSeleccionados() | keyvalue; track atributo.key) {
-              <ds-badge variant="accent">{{ etiquetaFaceta(atributo.key) }}: {{ atributo.value }}</ds-badge>
-            }
-            @if (precioMin() !== null || precioMax() !== null) {
-              <ds-badge variant="accent">
-                Precio: {{ precioMin() != null ? (precioMin() | currency: 'ARS') : '$0' }}
-                - {{ precioMax() != null ? (precioMax() | currency: 'ARS') : 'sin tope' }}
-              </ds-badge>
-            }
-            @if (enPromocionSeleccionado()) {
-              <ds-badge variant="accent">En promoción</ds-badge>
-            }
-            <button type="button" class="shop-clear-filter" (click)="limpiarFiltros()">Quitar filtros</button>
+
+        <main class="shop-content">
+          <div class="shop-results-heading">
+            <div class="shop-results-title">
+              <span class="shop-eyebrow shop-eyebrow--content">CATÁLOGO</span>
+              <h2>{{ categoriaSeleccionada() !== null ? nombreCategoria(categoriaSeleccionada()!) : 'Todos los productos' }}</h2>
+              @if (!cargando()) { <p>{{ total() }} productos para descubrir</p> }
+            </div>
+            <div class="shop-mobile-sort">
+              <label class="shop-sort"><span>Ordenar</span><select [ngModel]="ordenSeleccionado()" (ngModelChange)="seleccionarOrden($event || null)" name="ordenMobile"><option [ngValue]="null">Destacados</option>@for (opcion of opcionesOrden; track opcion.valor) {<option [ngValue]="opcion.valor">{{ opcion.etiqueta }}</option>}</select></label>
+            </div>
           </div>
-        }
 
-        @if (cargando()) {
-          <ds-loader size="lg" layout="block" />
-        } @else if (productos().length) {
-          <div class="shop-grid">
-            @for (producto of productos(); track producto.id) {
-              <ds-card padding="none" shadow="sm" [hover]="true" class="shop-product-card">
-                <a [routerLink]="['/tienda', 'productos', producto.slug]" class="shop-product-link">
-                  <div class="shop-product-image">
-                    @if (imagenPrincipal(producto)) {
-                      <img [src]="imagenPrincipal(producto)" [alt]="producto.titulo" loading="lazy" />
-                    } @else {
-                      <ds-image-placeholder ratio="square" size="lg" icon="fa-regular fa-image" text="Sin imagen" />
-                    }
-                    @if (producto.descuentoPorcentaje != null) {
-                      <ds-badge variant="accent" size="sm" class="shop-product-badge">-{{ producto.descuentoPorcentaje }}%</ds-badge>
-                    } @else if (producto.destacado) {
-                      <ds-badge variant="primary" size="sm" class="shop-product-badge">Destacado</ds-badge>
-                    }
-                  </div>
-                  <div class="shop-product-info">
-                    <h3>{{ producto.titulo }}</h3>
-                    <div class="shop-product-price">
-                      @if (producto.precio != null) {
-                        <span class="shop-price-actual">{{ producto.precio | currency: 'ARS' }}</span>
-                      }
-                      @if (producto.precioOriginal != null) {
-                        <span class="shop-price-comparativo">{{ producto.precioOriginal | currency: 'ARS' }}</span>
-                      } @else if (producto.precioComparativo != null) {
-                        <span class="shop-price-comparativo">{{ producto.precioComparativo | currency: 'ARS' }}</span>
-                      }
+          @if (hayFiltrosActivos) {
+            <div class="shop-active-filter">
+              @if (categoriaSeleccionada() !== null) { <ds-badge variant="accent">{{ nombreCategoria(categoriaSeleccionada()!) }}</ds-badge> }
+              @for (atributo of atributosSeleccionados() | keyvalue; track atributo.key) { <ds-badge variant="accent">{{ etiquetaFaceta(atributo.key) }}: {{ atributo.value }}</ds-badge> }
+              @if (precioMin() !== null || precioMax() !== null) { <ds-badge variant="accent">Precio: {{ precioMin() != null ? (precioMin() | currency: 'ARS') : '$0' }} - {{ precioMax() != null ? (precioMax() | currency: 'ARS') : 'sin tope' }}</ds-badge> }
+              @if (enPromocionSeleccionado()) { <ds-badge variant="accent">En promoción</ds-badge> }
+              <button type="button" class="shop-clear-filter" (click)="limpiarFiltros()">Quitar filtros</button>
+            </div>
+          }
+
+          @if (cargando()) {
+            <div class="shop-loading"><ds-loader size="lg" layout="block" /></div>
+          } @else if (productos().length) {
+            <div class="shop-grid">
+              @for (producto of productos(); track producto.id) {
+                <ds-card padding="none" shadow="sm" [hover]="true" class="shop-product-card">
+                  <a [routerLink]="['/tienda', 'productos', producto.slug]" class="shop-product-link">
+                    <div class="shop-product-image">
+                      @if (imagenPrincipal(producto)) { <img [src]="imagenPrincipal(producto)" [alt]="producto.titulo" loading="lazy" /> }
+                      @else { <ds-image-placeholder ratio="square" size="lg" icon="fa-regular fa-image" text="Sin imagen" /> }
+                      @if (producto.descuentoPorcentaje != null) { <ds-badge variant="accent" size="sm" class="shop-product-badge">-{{ producto.descuentoPorcentaje }}%</ds-badge> }
+                      @else if (producto.destacado) { <ds-badge variant="primary" size="sm" class="shop-product-badge">Destacado</ds-badge> }
+                      <span class="shop-product-view"><i class="fa-regular fa-eye"></i> Ver detalle</span>
                     </div>
-                    @if (etiquetaStock(producto); as stock) {
-                      <ds-badge [variant]="stock.variant" size="sm">{{ stock.texto }}</ds-badge>
-                    }
-                  </div>
-                </a>
-              </ds-card>
-            }
-          </div>
-
-          <div class="shop-pagination">
-            <ds-button variant="secondary" [disabled]="pagina() === 0" (click)="paginaAnterior()">Anterior</ds-button>
-            <span>Página {{ pagina() + 1 }}</span>
-            <ds-button variant="secondary" [disabled]="!hayMasPaginas" (click)="siguientePagina()">Siguiente</ds-button>
-          </div>
-        } @else {
-          <ds-empty-state size="lg" variant="subtle">
-            <i dsEmptyIcon class="fa-regular fa-glasses"></i>
-            <h3 dsEmptyTitle>No encontramos productos</h3>
-            <p dsEmptyDescription>Probá con otra categoría o volvé más tarde.</p>
-          </ds-empty-state>
-        }
-
+                    <div class="shop-product-info">
+                      <h3>{{ producto.titulo }}</h3>
+                      <div class="shop-product-price">
+                        @if (producto.precio != null) { <span class="shop-price-actual">{{ producto.precio | currency: 'ARS' }}</span> }
+                        @if (producto.precioOriginal != null) { <span class="shop-price-comparativo">{{ producto.precioOriginal | currency: 'ARS' }}</span> }
+                        @else if (producto.precioComparativo != null) { <span class="shop-price-comparativo">{{ producto.precioComparativo | currency: 'ARS' }}</span> }
+                      </div>
+                      @if (etiquetaStock(producto); as stock) { <ds-badge [variant]="stock.variant" size="sm">{{ stock.texto }}</ds-badge> }
+                      <div class="shop-product-cta"><span>Ver producto</span><i class="fa-solid fa-arrow-right"></i></div>
+                    </div>
+                  </a>
+                </ds-card>
+              }
+            </div>
+            <div class="shop-pagination">
+              <div class="shop-pagination-summary">Página {{ pagina() + 1 }} <span>·</span> {{ total() }} productos</div>
+              <div class="shop-pagination-controls"><ds-button variant="secondary" [disabled]="pagina() === 0" (click)="paginaAnterior()"> <i class="fa-solid fa-chevron-left"></i> Anterior</ds-button><ds-button variant="secondary" [disabled]="!hayMasPaginas" (click)="siguientePagina()">Siguiente <i class="fa-solid fa-chevron-right"></i></ds-button></div>
+            </div>
+          } @else {
+            <ds-empty-state size="lg" variant="subtle"><i dsEmptyIcon class="fa-regular fa-glasses"></i><h3 dsEmptyTitle>No encontramos productos</h3><p dsEmptyDescription>Probá con otra categoría o modificá los filtros para encontrar lo que buscás.</p></ds-empty-state>
+          }
+        </main>
       </div>
-
     </div>
-
   </ds-container>
-
 </ds-section>
