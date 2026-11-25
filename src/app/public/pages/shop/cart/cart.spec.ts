@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
+import { provideRouter, Router } from '@angular/router';
 import { of } from 'rxjs';
 import { vi } from 'vitest';
 
@@ -32,12 +32,15 @@ describe('Cart', () => {
     await TestBed.configureTestingModule({
       imports: [Cart],
       providers: [
+        // Router real (vía provideRouter) en vez de un mock -- el componente usa routerLink, que
+        // necesita ActivatedRoute + Router.createUrlTree funcionando de verdad, no sólo .navigate.
+        provideRouter([]),
         { provide: ShopCartService, useValue: cartServiceStub },
-        { provide: ShopService, useValue: shopServiceStub },
-        { provide: Router, useValue: { navigate: vi.fn() } }
+        { provide: ShopService, useValue: shopServiceStub }
       ]
     }).compileComponents();
 
+    vi.spyOn(TestBed.inject(Router), 'navigate').mockResolvedValue(true);
     fixture = TestBed.createComponent(Cart);
     component = fixture.componentInstance;
   });

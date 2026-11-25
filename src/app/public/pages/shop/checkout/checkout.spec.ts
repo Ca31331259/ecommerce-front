@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
+import { provideRouter, Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { vi } from 'vitest';
 
@@ -52,7 +52,7 @@ describe('Checkout', () => {
   let cartService: { carrito: ReturnType<typeof vi.fn>; refrescar: ReturnType<typeof vi.fn>; sucursalesDisponibles: ReturnType<typeof vi.fn> };
   let orderService: { checkout: ReturnType<typeof vi.fn>; pagosDisponibles: ReturnType<typeof vi.fn> };
   let envioService: { geografia: ReturnType<typeof vi.fn>; cotizar: ReturnType<typeof vi.fn> };
-  let router: { navigate: ReturnType<typeof vi.fn> };
+  let router: Router;
 
   const sucursal: ShopBranch = { id: 1, nombre: 'Sucursal Centro', direccion: null };
 
@@ -65,21 +65,24 @@ describe('Checkout', () => {
     orderService = { checkout: vi.fn(), pagosDisponibles: vi.fn().mockReturnValue(of({ disponible: true })) };
     // Fase 7 -- sin provincias no se ofrece "Envío a domicilio" (ver cargarGeografia en checkout.ts).
     envioService = { geografia: vi.fn().mockReturnValue(of([])), cotizar: vi.fn() };
-    router = { navigate: vi.fn() };
 
     await TestBed.configureTestingModule({
       imports: [Checkout],
       providers: [
+        // Router real (vía provideRouter) en vez de un mock -- el componente usa routerLink, que
+        // necesita ActivatedRoute + Router.createUrlTree funcionando de verdad, no sólo .navigate.
+        provideRouter([]),
         { provide: ShopCartService, useValue: cartService },
         { provide: ShopOrderService, useValue: orderService },
         { provide: ShopEnvioService, useValue: envioService },
-        { provide: ShopService, useValue: { registrarEvento: vi.fn().mockReturnValue(of(undefined)) } },
-        { provide: Router, useValue: router }
+        { provide: ShopService, useValue: { registrarEvento: vi.fn().mockReturnValue(of(undefined)) } }
       ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(Checkout);
     component = fixture.componentInstance;
+    router = TestBed.inject(Router);
+    vi.spyOn(router, 'navigate').mockResolvedValue(true);
     await fixture.whenStable();
   });
 

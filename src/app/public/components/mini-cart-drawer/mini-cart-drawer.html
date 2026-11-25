@@ -35,7 +35,7 @@
                     <span class="mini-cart-detail-dot">·</span>
                     <span>{{ item.precioUnitario | currency: 'ARS' }} c/u</span>
                   </span>
-                  <strong class="mini-cart-item-subtotal">{{ item.cantidad * item.precioUnitario | currency: 'ARS' }}</strong>
+                  <strong class="mini-cart-item-subtotal">{{ item.cantidad * (item.precioUnitario ?? 0) | currency: 'ARS' }}</strong>
                 </div>
                 <button type="button" class="mini-cart-item-quitar" (click)="quitar(item.shopProductId)" aria-label="Quitar {{ item.titulo }} del carrito" title="Quitar producto">
                   <i class="fa-solid fa-trash-can"></i>
