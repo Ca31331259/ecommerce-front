@@ -1,0 +1,185 @@
+<ds-section background="transparent" padding="xl">
+  <ds-container size="lg">
+    <div class="checkout-page">
+      <header class="checkout-header">
+        <a class="checkout-back" routerLink="/tienda"><i class="fa-solid fa-arrow-left"></i> Volver a la tienda</a>
+        <div class="checkout-heading">
+          <span class="checkout-eyebrow">COMPRA SEGURA</span>
+          <h1>Finalizá tu compra</h1>
+          <p>Completá tus datos y elegí cómo recibir tus productos.</p>
+        </div>
+        <div class="checkout-progress" aria-label="Proceso de compra">
+          <span class="checkout-progress-step checkout-progress-step--active"><i class="fa-solid fa-user"></i> Datos y entrega</span>
+          <span class="checkout-progress-line"></span>
+          <span class="checkout-progress-step"><i class="fa-solid fa-credit-card"></i> Pago</span>
+          <span class="checkout-progress-line"></span>
+          <span class="checkout-progress-step"><i class="fa-solid fa-check"></i> Confirmación</span>
+        </div>
+      </header>
+
+
+      @if (!cargandoPagosDisponibles() && !pagosDisponibles()) {
+        <p class="checkout-aviso" role="alert"><i class="fa-solid fa-circle-exclamation"></i> Los pagos no están disponibles por el momento. Probá de nuevo más tarde o consultanos directamente.</p>
+      }
+
+
+      @if (cartService.carrito(); as carrito) {
+        @if (!carrito.items.length) {
+          <div class="checkout-empty">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <h2>Tu carrito está vacío</h2>
+            <p>Agregá productos para continuar con tu compra.</p>
+            <a routerLink="/tienda"><ds-button variant="primary">Volver a la tienda</ds-button></a>
+          </div>
+        } @else {
+          <div class="checkout-layout">
+            <form class="checkout-form" (ngSubmit)="confirmar()">
+              <section class="checkout-step">
+                <div class="checkout-step-heading">
+                  <span class="checkout-step-number">01</span>
+                  <div><h2>Datos personales</h2><p>Necesitamos estos datos para registrar tu pedido.</p></div>
+                </div>
+                <div class="checkout-fields">
+                  <label><span>Nombre <b>*</b></span><input type="text" [(ngModel)]="form.nombre" name="nombre" autocomplete="given-name" required /></label>
+                  <label><span>Apellido <b>*</b></span><input type="text" [(ngModel)]="form.apellido" name="apellido" autocomplete="family-name" required /></label>
+                  <label><span>Email <b>*</b></span><input type="email" [(ngModel)]="form.email" name="email" autocomplete="email" required /></label>
+                  <label><span>Teléfono <b>*</b></span><input type="tel" [(ngModel)]="form.telefono" name="telefono" autocomplete="tel" required /></label>
+                  <label><span>Condición frente al IVA <b>*</b></span>
+                    <select [(ngModel)]="form.condicionIva" name="condicionIva" (ngModelChange)="validarDocumentoEnVivo()">
+                      @for (c of condicionesIva; track c) { <option [value]="c">{{ c }}</option> }
+                    </select>
+                  </label>
+                  <label><span>Tipo de documento <b>*</b></span>
+                    <select [(ngModel)]="form.tipoDocumento" name="tipoDocumento" (ngModelChange)="validarDocumentoEnVivo()">
+                      @for (t of tiposDocumento; track t) { <option [value]="t">{{ t }}</option> }
+                    </select>
+                  </label>
+                  <label class="checkout-field-full"><span>Número de documento <b>*</b></span>
+                    <input type="text" [(ngModel)]="form.numeroDocumento" name="numeroDocumento" autocomplete="off" (ngModelChange)="validarDocumentoEnVivo()" required />
+                    @if (errorDocumento()) { <span class="checkout-field-error"><i class="fa-solid fa-circle-exclamation"></i> {{ errorDocumento() }}</span> }
+                  </label>
+                </div>
+              </section>
+
+              <section class="checkout-step">
+                <div class="checkout-step-heading">
+                  <span class="checkout-step-number">02</span>
+                  <div><h2>¿Cómo querés recibir tu compra?</h2><p>Elegí la opción que más te convenga.</p></div>
+                </div>
+                <div class="checkout-tipo-entrega">
+                  <label class="checkout-tipo-entrega-option" [class.checkout-tipo-entrega-option--selected]="tipoEntrega() === 'RETIRO_SUCURSAL'">
+                    <input type="radio" name="tipoEntrega" value="RETIRO_SUCURSAL" [checked]="tipoEntrega() === 'RETIRO_SUCURSAL'" (change)="elegirTipoEntrega('RETIRO_SUCURSAL')" />
+                    <span class="checkout-delivery-icon"><i class="fa-solid fa-store"></i></span>
+                    <span class="checkout-delivery-copy"><strong>Retiro en sucursal</strong><small>Elegí dónde retirar tu pedido</small></span>
+                    <i class="fa-solid fa-circle-check checkout-delivery-check"></i>
+                  </label>
+                  @if (!cargandoGeografia() && geografiaDisponible()) {
+                    <label class="checkout-tipo-entrega-option" [class.checkout-tipo-entrega-option--selected]="tipoEntrega() === 'ENVIO_DOMICILIO'">
+                      <input type="radio" name="tipoEntrega" value="ENVIO_DOMICILIO" [checked]="tipoEntrega() === 'ENVIO_DOMICILIO'" (change)="elegirTipoEntrega('ENVIO_DOMICILIO')" />
+                      <span class="checkout-delivery-icon"><i class="fa-solid fa-truck-fast"></i></span>
+                      <span class="checkout-delivery-copy"><strong>Envío a domicilio</strong><small>Verificá cobertura y costo en tu zona</small></span>
+                      <i class="fa-solid fa-circle-check checkout-delivery-check"></i>
+                    </label>
+                  }
+                </div>
+                @if (tipoEntrega() === 'RETIRO_SUCURSAL') {
+                  <div class="checkout-delivery-panel">
+                    <h3><i class="fa-solid fa-location-dot"></i> Seleccioná una sucursal</h3>
+                    @if (cargandoSucursales()) {
+                      <p class="checkout-inline-loading"><i class="fa-solid fa-spinner fa-spin"></i> Buscando sucursales con stock disponible...</p>
+                    } @else if (sinSucursalCompleta()) {
+                      <p class="checkout-aviso">Ninguna sucursal tiene stock de todos los productos de tu carrito. Ajustá las cantidades o consultanos.</p>
+                    } @else {
+                      <div class="checkout-sucursales">
+                        @for (sucursal of sucursalesDisponibles(); track sucursal.id) {
+                          <label class="checkout-sucursal-option" [class.checkout-sucursal-option--selected]="form.sucursalRetiroId === sucursal.id">
+                            <input type="radio" name="sucursalRetiroId" [value]="sucursal.id" [(ngModel)]="form.sucursalRetiroId" />
+                            <span class="checkout-sucursal-radio"></span>
+                            <span class="checkout-sucursal-copy"><strong>{{ sucursal.nombre }}</strong>
+                              @if (sucursal.direccion) { <small><i class="fa-solid fa-map-marker-alt"></i> {{ sucursal.direccion }}</small> }
+                            </span>
+                          </label>
+                        }
+                      </div>
+                    }
+                  </div>
+                } @else {
+                  <div class="checkout-delivery-panel checkout-delivery-panel--home">
+                    <h3><i class="fa-solid fa-house"></i> Datos de envío</h3>
+                    <div class="checkout-fields">
+                      <label><span>Nombre del destinatario <b>*</b></span><input type="text" [(ngModel)]="envio.destinatarioNombre" name="envioDestinatarioNombre" autocomplete="name" required /></label>
+                      <label><span>Teléfono de contacto <b>*</b></span><input type="tel" [(ngModel)]="envio.telefonoContacto" name="envioTelefonoContacto" autocomplete="tel" required /></label>
+                      <label><span>Calle <b>*</b></span><input type="text" [(ngModel)]="envio.calle" name="envioCalle" autocomplete="address-line1" required /></label>
+                      <label><span>Número <b>*</b></span><input type="text" [(ngModel)]="envio.numero" name="envioNumero" required /></label>
+                      <label><span>Piso / depto</span><input type="text" [(ngModel)]="envio.pisoDepto" name="envioPisoDepto" autocomplete="address-line2" /></label>
+                      <label><span>Entre calles / referencias</span><input type="text" [(ngModel)]="envio.entreCalles" name="envioEntreCalles" /></label>
+                      <label><span>Provincia <b>*</b></span>
+                        <select [(ngModel)]="envio.provinciaId" name="envioProvinciaId" (ngModelChange)="cambioProvincia()" required>
+                          <option [ngValue]="null" disabled>Elegí una provincia</option>
+                          @for (provincia of provincias(); track provincia.id) { <option [ngValue]="provincia.id">{{ provincia.nombre }}</option> }
+                        </select>
+                      </label>
+                      <label><span>Localidad <b>*</b></span>
+                        <select [(ngModel)]="envio.localidadId" name="envioLocalidadId" (ngModelChange)="cambioLocalidad()" [disabled]="envio.provinciaId == null" required>
+                          <option [ngValue]="null" disabled>Elegí una localidad</option>
+                          @for (localidad of localidadesDeProvincia(); track localidad.id) { <option [ngValue]="localidad.id">{{ localidad.nombre }}</option> }
+                        </select>
+                      </label>
+                      <label class="checkout-field-full"><span>Código postal <b>*</b></span><input type="text" [(ngModel)]="envio.codigoPostal" name="envioCodigoPostal" autocomplete="postal-code" (ngModelChange)="cambioCodigoPostal()" required /></label>
+                    </div>
+                    <ds-button variant="secondary" type="button" [disabled]="verificandoCobertura()" (click)="verificarCobertura()">
+                      @if (verificandoCobertura()) { <i class="fa-solid fa-spinner fa-spin"></i> Verificando... } @else { <i class="fa-solid fa-location-crosshairs"></i> Verificar cobertura }
+                    </ds-button>
+                    @if (!verificandoCobertura() && cotizacion(); as cotizacion) {
+                      @if (cotizacion.disponible) {
+                        <p class="checkout-cobertura checkout-cobertura--ok"><i class="fa-solid fa-circle-check"></i> Llegamos a tu zona{{ cotizacion.zonaNombre ? ' (' + cotizacion.zonaNombre + ')' : '' }}.
+                          @if (cotizacion.costoEnvio === 0) { Envío gratis. } @else { Costo de envío: {{ cotizacion.costoEnvio | currency: 'ARS' }}. }
+                          @if (cotizacion.plazoEstimado) { Llega en {{ cotizacion.plazoEstimado }}. }
+                        </p>
+                      } @else {
+                        <div class="checkout-cobertura checkout-cobertura--sin-cobertura"><p><i class="fa-solid fa-circle-exclamation"></i> Todavía no llegamos a tu zona.</p><ds-button variant="secondary" type="button" (click)="volverARetiro()">Elegir retiro en sucursal</ds-button></div>
+                      }
+                    }
+                  </div>
+                }
+              </section>
+
+              @if (error()) { <p class="checkout-error" role="alert"><i class="fa-solid fa-circle-exclamation"></i> {{ error() }}</p> }
+              <div class="checkout-submit-area">
+                <ds-button variant="primary" size="lg" [fullWidth]="true" [disabled]="!puedeConfirmar() || enviando()" type="submit">
+                  @if (enviando()) { <i class="fa-solid fa-spinner fa-spin"></i> Procesando pedido... } @else { Confirmar pedido <i class="fa-solid fa-arrow-right"></i> }
+                </ds-button>
+                <p class="checkout-payment-methods"><i class="fa-solid fa-shield-halved"></i> Pagás de forma segura con Mercado Pago: tarjetas de crédito y débito.</p>
+              </div>
+            </form>
+
+
+            <aside class="checkout-summary">
+              <div class="checkout-summary-heading"><h2>Resumen de compra</h2><span>{{ carrito.items.length }} {{ carrito.items.length === 1 ? 'producto' : 'productos' }}</span></div>
+              <ul class="checkout-summary-items">
+                @for (item of carrito.items; track item.shopProductId) {
+                  <li><span class="checkout-summary-item-name">{{ item.cantidad }} × {{ item.titulo }}</span><strong>{{ item.subtotal | currency: 'ARS' }}</strong></li>
+                }
+              </ul>
+              @if (tipoEntrega() === 'ENVIO_DOMICILIO') {
+                <div class="checkout-summary-row"><span>Envío</span>
+                  @if (verificandoCobertura()) { <span>Calculando...</span> }
+                  @else if (costoEnvioConfirmado() === 0) { <span class="checkout-shipping-free">Gratis</span> }
+                  @else if (costoEnvioConfirmado() != null) { <span>{{ costoEnvioConfirmado() | currency: 'ARS' }}</span> }
+                  @else { <span>A confirmar</span> }
+                </div>
+              }
+              <div class="checkout-summary-total"><span>Total de productos</span><strong>{{ carrito.total | currency: 'ARS' }}</strong></div>
+              @if (tipoEntrega() === 'ENVIO_DOMICILIO' && costoEnvioConfirmado() != null) {
+                <div class="checkout-summary-row checkout-summary-row--final"><span>Envío confirmado</span><strong>{{ costoEnvioConfirmado() | currency: 'ARS' }}</strong></div>
+              }
+              <div class="checkout-summary-grand-total"><span>Total a pagar</span><strong>{{ totalConEnvio(carrito.total) | currency: 'ARS' }}</strong></div>
+              <div class="checkout-summary-secure"><i class="fa-solid fa-lock"></i><div><strong>Compra protegida</strong><small>Tu información se procesa de forma segura.</small></div></div>
+              <div class="checkout-summary-payment"><i class="fa-solid fa-credit-card"></i><span>Medios de pago</span><small>Crédito y débito a través de Mercado Pago</small></div>
+            </aside>
+          </div>
+        }
+      }
+    </div>
+  </ds-container>
+</ds-section>

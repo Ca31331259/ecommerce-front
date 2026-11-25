@@ -50,6 +50,12 @@ export class SectionEditor {
 
     PRODUCTS: 'Productos',
 
+    EN_PROMOCION: 'En promoción',
+
+    MAS_VENDIDOS: 'Más vendidos',
+
+    NOVEDADES: 'Novedades',
+
     GALLERY: 'Galería',
 
     CONTACT: 'Contacto',
@@ -75,6 +81,12 @@ export class SectionEditor {
     BANNERS: 'Carrusel promocional.',
 
     PRODUCTS: 'Productos destacados.',
+
+    EN_PROMOCION: 'Productos con una promoción vigente.',
+
+    MAS_VENDIDOS: 'Los productos más vendidos, calculados por el ERP.',
+
+    NOVEDADES: 'Los últimos productos publicados en la tienda.',
 
     GALLERY: 'Galería de imágenes.',
 

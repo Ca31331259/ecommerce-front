@@ -52,6 +52,41 @@
 
     } @else {
 
+    @if (ventas(); as v) {
+
+    <admin-section title="Resumen de ventas" subtitle="Pedidos concretados como venta real (excluye pagos
+            rechazados/vencidos/cancelados).">
+
+        <div class="dashboard-stats">
+
+            <admin-stat-card label="Ventas totales" [value]="'$' + v.montoTotal" icon="fa-solid fa-sack-dollar"
+                variant="success">
+            </admin-stat-card>
+
+            <admin-stat-card label="Pedidos" [value]="v.totalPedidos" icon="fa-solid fa-cart-shopping" variant="primary">
+            </admin-stat-card>
+
+            <admin-stat-card label="Ticket promedio" [value]="'$' + v.ticketPromedio" icon="fa-solid fa-receipt"
+                variant="info">
+            </admin-stat-card>
+
+            <admin-stat-card label="Pedidos hoy" [value]="v.pedidosHoy" icon="fa-solid fa-calendar-day" variant="neutral">
+            </admin-stat-card>
+
+            @if (v.pedidosRequierenAtencion > 0) {
+
+            <admin-stat-card label="Requieren atención" [value]="v.pedidosRequierenAtencion"
+                icon="fa-solid fa-triangle-exclamation" variant="warning">
+            </admin-stat-card>
+
+            }
+
+        </div>
+
+    </admin-section>
+
+    }
+
     <admin-section title="Información del administrador"
         subtitle="Datos de la cuenta con la que administrás el ecommerce.">
 
@@ -136,7 +171,7 @@
 
     <!-- ==================================================
         QUICK ACTIONS
-        =================================================== 
+        =================================================== -->
 
     <admin-section title="Acciones rápidas" subtitle="Accesos directos a las tareas más frecuentes.">
 
@@ -198,7 +233,6 @@
         </div>
 
     </admin-section>
--->
 
     <!-- ==================================================
         SITE STATUS
@@ -374,14 +408,16 @@
 
                         <span>
 
-                            Administración del catálogo.
+                            Catálogo sincronizado desde el ERP: habilitá o deshabilitá la publicación.
 
                         </span>
 
                     </div>
 
-                    <admin-status-badge label="Próximamente" variant="neutral">
-                    </admin-status-badge>
+                    <admin-button variant="outline" size="sm" icon="fa-solid fa-arrow-right"
+                        (clicked)="irAProductos()">
+                        Abrir
+                    </admin-button>
 
                 </div>
 
@@ -404,14 +440,16 @@
 
                         <span>
 
-                            Organización y clasificación de productos.
+                            Organización del catálogo, sincronizada desde el ERP.
 
                         </span>
 
                     </div>
 
-                    <admin-status-badge label="Próximamente" variant="neutral">
-                    </admin-status-badge>
+                    <admin-button variant="outline" size="sm" icon="fa-solid fa-arrow-right"
+                        (clicked)="irACategorias()">
+                        Abrir
+                    </admin-button>
 
                 </div>
 
@@ -434,14 +472,16 @@
 
                         <span>
 
-                            Gestión del flujo de compras.
+                            Pedidos hechos desde la tienda online.
 
                         </span>
 
                     </div>
 
-                    <admin-status-badge label="Próximamente" variant="neutral">
-                    </admin-status-badge>
+                    <admin-button variant="outline" size="sm" icon="fa-solid fa-arrow-right"
+                        (clicked)="irAPedidos()">
+                        Abrir
+                    </admin-button>
 
                 </div>
 
@@ -464,14 +504,16 @@
 
                         <span>
 
-                            Administración de compradores.
+                            Compradores agrupados por email (sin cuenta, checkout por invitado).
 
                         </span>
 
                     </div>
 
-                    <admin-status-badge label="Próximamente" variant="neutral">
-                    </admin-status-badge>
+                    <admin-button variant="outline" size="sm" icon="fa-solid fa-arrow-right"
+                        (clicked)="irAClientes()">
+                        Abrir
+                    </admin-button>
 
                 </div>
 

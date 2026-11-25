@@ -1,0 +1,75 @@
+@if (!cargando() && productos().length) {
+
+<ds-section [id]="'shop-' + kind" background="transparent" padding="lg">
+
+    <ds-container size="xl">
+
+        <!-- ========================================= -->
+        <!-- SECTION HEADER -->
+        <!-- ========================================= -->
+
+        <ds-section-header
+            [title]="titulo"
+            [subtitle]="subtitulo">
+
+            <ds-badge
+                dsHeaderBadge
+                variant="accent">
+
+                <i [class]="icono"></i>
+
+                {{ etiquetaBadge }}
+
+            </ds-badge>
+
+        </ds-section-header>
+
+        <!-- ========================================= -->
+        <!-- PRODUCT GRID -->
+        <!-- ========================================= -->
+
+        <div class="shop-home-products-grid">
+
+            @for (producto of productos(); track producto.id) {
+
+                <ds-card padding="none" shadow="sm" [hover]="true" class="shop-home-product-card">
+                    <a [routerLink]="['/tienda', 'productos', producto.slug]" class="shop-home-product-link">
+                        <div class="shop-home-product-image">
+                            @if (imagenPrincipal(producto)) {
+                                <img [src]="imagenPrincipal(producto)" [alt]="producto.titulo" loading="lazy" />
+                            } @else {
+                                <ds-image-placeholder ratio="square" size="lg" icon="fa-regular fa-image" text="Sin imagen" />
+                            }
+                            @if (producto.descuentoPorcentaje != null) {
+                                <ds-badge variant="accent" size="sm" class="shop-home-product-discount">
+                                    -{{ producto.descuentoPorcentaje }}%
+                                </ds-badge>
+                            } @else if (producto.destacado) {
+                                <ds-badge variant="primary" size="sm" class="shop-home-product-discount">Destacado</ds-badge>
+                            }
+                        </div>
+                        <div class="shop-home-product-info">
+                            <h3>{{ producto.titulo }}</h3>
+                            <div class="shop-home-product-price">
+                                @if (producto.precio != null) {
+                                    <span class="shop-home-price-actual">{{ producto.precio | currency: 'ARS' }}</span>
+                                }
+                                @if (producto.precioOriginal != null) {
+                                    <span class="shop-home-price-original">{{ producto.precioOriginal | currency: 'ARS' }}</span>
+                                } @else if (producto.precioComparativo != null) {
+                                    <span class="shop-home-price-original">{{ producto.precioComparativo | currency: 'ARS' }}</span>
+                                }
+                            </div>
+                        </div>
+                    </a>
+                </ds-card>
+
+            }
+
+        </div>
+
+    </ds-container>
+
+</ds-section>
+
+}

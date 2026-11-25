@@ -1,0 +1,67 @@
+@if (cartService.drawerAbierto()) {
+  <div class="mini-cart-backdrop" (click)="cerrar()"></div>
+
+  <aside class="mini-cart-drawer" aria-label="Carrito de compras">
+    <div class="mini-cart-header">
+      <div class="mini-cart-heading">
+        <span class="mini-cart-eyebrow">Tu compra</span>
+        <div class="mini-cart-title-row">
+          <h3>Carrito</h3>
+          @if (cartService.carrito(); as carritoHeader) {
+            <span class="mini-cart-count">{{ carritoHeader.items.length }}</span>
+          }
+        </div>
+      </div>
+      <button type="button" class="mini-cart-close" (click)="cerrar()" aria-label="Cerrar carrito">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    @if (cartService.carrito(); as carrito) {
+      @if (carrito.items.length) {
+        <div class="mini-cart-content">
+          <div class="mini-cart-intro">
+            <span class="mini-cart-intro-icon"><i class="fa-solid fa-bag-shopping"></i></span>
+            <span>Productos agregados a tu compra</span>
+          </div>
+
+          <ul class="mini-cart-items">
+            @for (item of carrito.items; track item.shopProductId) {
+              <li class="mini-cart-item">
+                <div class="mini-cart-item-info">
+                  <span class="mini-cart-item-titulo">{{ item.titulo }}</span>
+                  <span class="mini-cart-item-detalle">
+                    <span class="mini-cart-quantity">{{ item.cantidad }} unidad(es)</span>
+                    <span class="mini-cart-detail-dot">·</span>
+                    <span>{{ item.precioUnitario | currency: 'ARS' }} c/u</span>
+                  </span>
+                  <strong class="mini-cart-item-subtotal">{{ item.cantidad * item.precioUnitario | currency: 'ARS' }}</strong>
+                </div>
+                <button type="button" class="mini-cart-item-quitar" (click)="quitar(item.shopProductId)" aria-label="Quitar {{ item.titulo }} del carrito" title="Quitar producto">
+                  <i class="fa-solid fa-trash-can"></i>
+                </button>
+              </li>
+            }
+          </ul>
+        </div>
+
+        <div class="mini-cart-footer">
+          <div class="mini-cart-total-row">
+            <span>Subtotal de la compra</span>
+            <strong>{{ carrito.total | currency: 'ARS' }}</strong>
+          </div>
+          <p class="mini-cart-shipping-note"><i class="fa-solid fa-truck"></i> El envío se calcula en el checkout</p>
+          <ds-button variant="primary" size="lg" [fullWidth]="true" (click)="irAlCarrito()">Ver carrito y continuar</ds-button>
+          <button type="button" class="mini-cart-continue" (click)="cerrar()">Seguir comprando</button>
+        </div>
+      } @else {
+        <div class="mini-cart-empty">
+          <div class="mini-cart-empty-icon"><i class="fa-solid fa-bag-shopping"></i></div>
+          <h4>Tu carrito está vacío</h4>
+          <p>Explorá nuestros productos y agregá los que te interesen.</p>
+          <button type="button" class="mini-cart-continue" (click)="cerrar()">Seguir comprando</button>
+        </div>
+      }
+    }
+  </aside>
+}

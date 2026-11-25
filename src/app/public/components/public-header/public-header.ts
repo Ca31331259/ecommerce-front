@@ -2,12 +2,14 @@ import {
   Component,
   HostListener,
   Input,
+  inject,
   signal
 } from '@angular/core';
 
 import { Router } from '@angular/router';
 import { DsContainer } from '../../../shared/design-system/layout/ds-container';
 import { DsButton } from '../../../shared/design-system/atoms/ds-button/ds-button';
+import { ShopCartService } from '@core/services/shop/shop-cart-service';
 
 
 @Component({
@@ -21,6 +23,8 @@ import { DsButton } from '../../../shared/design-system/atoms/ds-button/ds-butto
   styleUrl: './public-header.scss'
 })
 export class PublicHeader {
+
+  readonly cartService = inject(ShopCartService);
 
   @Input({ required: true })
   settings: any;
@@ -114,6 +118,30 @@ export class PublicHeader {
 
     this.router.navigate([
       '/login'
+    ]);
+
+  }
+
+  /*==========================================================
+  TIENDA (módulo Shop, pedido real 2026-11-19)
+  ==========================================================*/
+
+  irATienda(): void {
+
+    this.closeMenu();
+
+    this.router.navigate([
+      '/tienda'
+    ]);
+
+  }
+
+  irAlCarrito(): void {
+
+    this.closeMenu();
+
+    this.router.navigate([
+      '/tienda/carrito'
     ]);
 
   }

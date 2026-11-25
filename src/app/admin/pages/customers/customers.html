@@ -1,0 +1,101 @@
+<admin-page>
+
+    <admin-breadcrumb>
+
+        <span adminBreadcrumbItem [current]="true">
+
+            Clientes
+
+        </span>
+
+    </admin-breadcrumb>
+
+
+    <admin-toolbar title="Clientes" subtitle="Compradores de la tienda online, agrupados por email -- no hay
+            cuenta de cliente, el checkout es por invitado.">
+    </admin-toolbar>
+
+
+    <admin-section>
+
+        <admin-table [loading]="loading()" [empty]="!loading() && clientes().length === 0"
+            loadingLabel="Cargando clientes...">
+
+            <div adminTableContent class="customers-table">
+
+                <div class="customers-table__head">
+
+                    <span>Cliente</span>
+                    <span>Teléfono</span>
+                    <span>Pedidos</span>
+                    <span>Total comprado</span>
+                    <span>Último pedido</span>
+                    <span></span>
+
+                </div>
+
+                @for (cliente of clientes(); track cliente.email) {
+
+                <div class="customers-table__row">
+
+                    <span class="customers-table__nombre">
+
+                        <strong>{{ cliente.nombre }} {{ cliente.apellido }}</strong>
+                        <span class="customers-table__email">{{ cliente.email }}</span>
+
+                    </span>
+
+                    <span>{{ cliente.telefono ?? '-' }}</span>
+
+                    <span>{{ cliente.cantidadPedidos }}</span>
+
+                    <span>${{ cliente.montoTotalComprado }}</span>
+
+                    <span>{{ cliente.ultimoPedido | date: 'dd/MM/yyyy' }}</span>
+
+                    <span>
+
+                        <admin-button variant="outline" size="sm" (clicked)="verPedidos(cliente)">
+                            Ver pedidos
+                        </admin-button>
+
+                    </span>
+
+                </div>
+
+                }
+
+            </div>
+
+            <div adminTableEmpty>
+
+                <admin-empty-state title="Todavía no hay clientes"
+                    description="Van a aparecer acá apenas se haga el primer pedido en la tienda.">
+                </admin-empty-state>
+
+            </div>
+
+            <div adminTableFooter class="customers-pagination">
+
+                <admin-button variant="outline" size="sm" [disabled]="pagina() === 0" (clicked)="irAPagina(pagina() - 1)">
+                    Anterior
+                </admin-button>
+
+                <span class="customers-pagination__info">
+
+                    Página {{ pagina() + 1 }} de {{ totalPaginas }} ({{ total() }} clientes)
+
+                </span>
+
+                <admin-button variant="outline" size="sm" [disabled]="pagina() + 1 >= totalPaginas"
+                    (clicked)="irAPagina(pagina() + 1)">
+                    Siguiente
+                </admin-button>
+
+            </div>
+
+        </admin-table>
+
+    </admin-section>
+
+</admin-page>

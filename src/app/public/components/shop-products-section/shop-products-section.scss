@@ -1,0 +1,57 @@
+.shop-home-products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.shop-home-product-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.shop-home-product-image {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.shop-home-product-discount {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+}
+
+.shop-home-product-info {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
+  h3 {
+    margin: 0;
+    font-size: 1rem;
+  }
+}
+
+.shop-home-product-price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.shop-home-price-actual {
+  font-weight: 700;
+}
+
+.shop-home-price-original {
+  text-decoration: line-through;
+  opacity: 0.55;
+  font-size: 0.85em;
+}

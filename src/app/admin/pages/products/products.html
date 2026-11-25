@@ -1,0 +1,161 @@
+<admin-page>
+
+    <admin-breadcrumb>
+
+        <span adminBreadcrumbItem [current]="true">
+
+            Productos
+
+        </span>
+
+    </admin-breadcrumb>
+
+
+    <admin-toolbar title="Productos" subtitle="Catálogo sincronizado desde el ERP. Acá podés habilitar o deshabilitar
+            la publicación de cada producto en la tienda.">
+    </admin-toolbar>
+
+
+    <admin-section>
+
+        <div class="products-filters">
+
+            <admin-button [variant]="filtro() === 'todos' ? 'primary' : 'outline'" size="sm"
+                (clicked)="cambiarFiltro('todos')">
+                Todos
+            </admin-button>
+
+            <admin-button [variant]="filtro() === 'activos' ? 'primary' : 'outline'" size="sm"
+                (clicked)="cambiarFiltro('activos')">
+                Publicados
+            </admin-button>
+
+            <admin-button [variant]="filtro() === 'inactivos' ? 'primary' : 'outline'" size="sm"
+                (clicked)="cambiarFiltro('inactivos')">
+                Despublicados
+            </admin-button>
+
+        </div>
+
+        <admin-table [loading]="loading()" [empty]="!loading() && productos().length === 0"
+            loadingLabel="Cargando productos...">
+
+            <div adminTableContent class="products-grid">
+
+                @for (producto of productos(); track producto.id) {
+
+                <div class="product-card" [class.product-card--despublicado]="!producto.activo">
+
+                    <div class="product-card__image">
+
+                        @if (producto.imagenUrl) {
+
+                        <img [src]="producto.imagenUrl" [alt]="producto.titulo" loading="lazy" />
+
+                        } @else {
+
+                        <div class="product-card__placeholder">
+
+                            <i class="fa-regular fa-image"></i>
+                            <span>Sin imagen</span>
+
+                        </div>
+
+                        }
+
+                        @if (!producto.activo) {
+
+                        <admin-status-badge label="Despublicado" variant="neutral" class="product-card__badge">
+                        </admin-status-badge>
+
+                        }
+
+                    </div>
+
+                    <div class="product-card__info">
+
+                        <h3 class="product-card__titulo" [title]="producto.titulo">
+
+                            {{ producto.titulo }}
+
+                        </h3>
+
+                        <div class="product-card__price">
+
+                            {{ producto.precio != null ? ('$' + producto.precio) : 'Sin precio' }}
+
+                        </div>
+
+                        <div class="product-card__stock">
+
+                            <admin-status-badge [label]="producto.estadoStock ?? 'Sin dato'" size="sm" [variant]="
+                                    producto.estadoStock === 'DISPONIBLE'
+                                        ? 'success'
+                                        : producto.estadoStock === 'SIN_STOCK'
+                                            ? 'danger'
+                                            : 'neutral'
+                                ">
+                            </admin-status-badge>
+
+                            @if (producto.cantidadStock != null) {
+
+                            <span class="product-card__stock-count">
+
+                                {{ producto.cantidadStock }} u.
+
+                            </span>
+
+                            }
+
+                        </div>
+
+                    </div>
+
+                    <div class="product-card__footer">
+
+                        <admin-switch [ngModel]="producto.activo" [disabled]="estaCambiando(producto.id)"
+                            (ngModelChange)="toggleActivo(producto, $event)">
+                            {{ producto.activo ? 'Publicado' : 'Despublicado' }}
+                        </admin-switch>
+
+                    </div>
+
+                </div>
+
+                }
+
+            </div>
+
+            <div adminTableEmpty>
+
+                <admin-empty-state title="No hay productos para este filtro"
+                    description="Publicá productos desde el ERP para que aparezcan acá.">
+                </admin-empty-state>
+
+            </div>
+
+            <div adminTableFooter class="products-pagination">
+
+                <admin-button variant="outline" size="sm" [disabled]="pagina() === 0"
+                    (clicked)="irAPagina(pagina() - 1)">
+                    Anterior
+                </admin-button>
+
+                <span class="products-pagination__info">
+
+                    Página {{ pagina() + 1 }} de {{ totalPaginas }} ({{ total() }} productos)
+
+                </span>
+
+                <admin-button variant="outline" size="sm" [disabled]="pagina() + 1 >= totalPaginas"
+                    (clicked)="irAPagina(pagina() + 1)">
+                    Siguiente
+                </admin-button>
+
+            </div>
+
+        </admin-table>
+
+    </admin-section>
+
+</admin-page>

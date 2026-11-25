@@ -1,0 +1,147 @@
+<admin-page>
+
+    <admin-breadcrumb>
+
+        <span adminBreadcrumbItem [current]="true">
+
+            Pedidos
+
+        </span>
+
+    </admin-breadcrumb>
+
+
+    <admin-toolbar title="Pedidos" subtitle="Pedidos hechos desde la tienda online. Es información de
+            sólo lectura -- el seguimiento y despacho se maneja desde el ERP.">
+    </admin-toolbar>
+
+
+    <admin-section>
+
+        @if (filtroEmail(); as email) {
+
+        <div class="orders-email-filter">
+
+            <admin-status-badge [label]="'Pedidos de ' + email" variant="info"></admin-status-badge>
+
+            <admin-button variant="outline" size="sm" (clicked)="quitarFiltroEmail()">
+                Quitar filtro
+            </admin-button>
+
+        </div>
+
+        }
+
+        <div class="orders-filters">
+
+            <admin-button [variant]="filtroEstado() === null ? 'primary' : 'outline'" size="sm"
+                (clicked)="cambiarFiltro(null)">
+                Todos
+            </admin-button>
+
+            @for (estado of estadosFiltro; track estado) {
+
+            <admin-button [variant]="filtroEstado() === estado ? 'primary' : 'outline'" size="sm"
+                (clicked)="cambiarFiltro(estado)">
+                {{ etiqueta(estado) }}
+            </admin-button>
+
+            }
+
+        </div>
+
+        <admin-table [loading]="loading()" [empty]="!loading() && pedidos().length === 0"
+            loadingLabel="Cargando pedidos...">
+
+            <div adminTableContent class="orders-table">
+
+                <div class="orders-table__head">
+
+                    <span>Pedido</span>
+                    <span>Comprador</span>
+                    <span>Total</span>
+                    <span>Estado</span>
+                    <span>Fecha</span>
+
+                </div>
+
+                @for (pedido of pedidos(); track pedido.id) {
+
+                <div class="orders-table__row" (click)="verDetalle(pedido)">
+
+                    <span class="orders-table__numero">
+
+                        {{ pedido.numero }}
+
+                        @if (pedido.requiereAtencion) {
+
+                        <i class="fa-solid fa-triangle-exclamation orders-table__alerta"
+                            title="Requiere atención"></i>
+
+                        }
+
+                    </span>
+
+                    <span class="orders-table__comprador">
+
+                        {{ pedido.compradorNombre }} {{ pedido.compradorApellido }}
+
+                    </span>
+
+                    <span>
+
+                        {{ pedido.moneda }} {{ pedido.total }}
+
+                    </span>
+
+                    <span>
+
+                        <admin-status-badge [label]="etiqueta(pedido.estado)" [variant]="variante(pedido.estado)" size="sm">
+                        </admin-status-badge>
+
+                    </span>
+
+                    <span class="orders-table__fecha">
+
+                        {{ pedido.creadoEn | date: 'dd/MM/yyyy HH:mm' }}
+
+                    </span>
+
+                </div>
+
+                }
+
+            </div>
+
+            <div adminTableEmpty>
+
+                <admin-empty-state title="No hay pedidos para este filtro"
+                    description="Los pedidos que hagan los clientes en la tienda van a aparecer acá.">
+                </admin-empty-state>
+
+            </div>
+
+            <div adminTableFooter class="orders-pagination">
+
+                <admin-button variant="outline" size="sm" [disabled]="pagina() === 0" (clicked)="irAPagina(pagina() - 1)">
+                    Anterior
+                </admin-button>
+
+                <span class="orders-pagination__info">
+
+                    Página {{ pagina() + 1 }} de {{ totalPaginas }} ({{ total() }} pedidos)
+
+                </span>
+
+                <admin-button variant="outline" size="sm" [disabled]="pagina() + 1 >= totalPaginas"
+                    (clicked)="irAPagina(pagina() + 1)">
+                    Siguiente
+                </admin-button>
+
+            </div>
+
+        </admin-table>
+
+    </admin-section>
+
+</admin-page>

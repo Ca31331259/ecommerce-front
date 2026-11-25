@@ -1,0 +1,97 @@
+<ds-section background="transparent" padding="xl">
+  <ds-container size="lg">
+    <div class="cart-page">
+      <header class="cart-header">
+        <div class="cart-heading-copy">
+          <span class="cart-eyebrow"><i class="fa-solid fa-bag-shopping"></i> TU COMPRA</span>
+          <h1>Mi carrito</h1>
+          <p>Revisá tus productos antes de continuar.</p>
+        </div>
+        <a class="cart-back-link" routerLink="/tienda"><i class="fa-solid fa-arrow-left"></i> Seguir explorando</a>
+      </header>
+
+
+      @if (cartService.carrito(); as carrito) {
+        @if (carrito.items.length) {
+          <div class="cart-layout">
+            <section class="cart-main" aria-label="Productos en el carrito">
+              <div class="cart-items-header">
+                <h2>Productos seleccionados</h2>
+                <span>{{ carrito.items.length }} {{ carrito.items.length === 1 ? 'producto' : 'productos' }}</span>
+              </div>
+              <ul class="cart-items">
+                @for (item of carrito.items; track item.shopProductId) {
+                  <li class="cart-item">
+                    <div class="cart-item-visual" aria-hidden="true"><i class="fa-solid fa-glasses"></i></div>
+                    <div class="cart-item-info">
+                      <span class="cart-item-titulo">{{ item.titulo }}</span>
+                      @if (!item.activo) {
+                        <span class="cart-item-aviso"><i class="fa-solid fa-circle-exclamation"></i> Este producto ya no está disponible</span>
+                      }
+                      <span class="cart-item-precio">{{ item.precioUnitario | currency: 'ARS' }} <small>por unidad</small></span>
+                    </div>
+                    <div class="cart-item-cantidad" aria-label="Cantidad">
+                      <button type="button" [disabled]="item.cantidad <= 1" (click)="cambiarCantidad(item.shopProductId, item.cantidad - 1)" aria-label="Reducir cantidad">−</button>
+                      <span>{{ item.cantidad }}</span>
+                      <button type="button" (click)="cambiarCantidad(item.shopProductId, item.cantidad + 1)" aria-label="Aumentar cantidad">+</button>
+                    </div>
+                    <div class="cart-item-total-wrap">
+                      <span class="cart-item-total-label">Subtotal</span>
+                      <strong class="cart-item-subtotal">{{ item.subtotal | currency: 'ARS' }}</strong>
+                    </div>
+                    <button type="button" class="cart-item-quitar" (click)="quitar(item.shopProductId)" aria-label="Quitar producto del carrito" title="Quitar producto">
+                      <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                  </li>
+                }
+              </ul>
+              <div class="cart-shopping-note"><i class="fa-solid fa-shield-halved"></i><span>Tu compra se procesa de forma segura. Podrás revisar todos los datos antes de confirmar.</span></div>
+            </section>
+
+            <aside class="cart-summary">
+              <div class="cart-summary-heading"><i class="fa-solid fa-receipt"></i><h2>Resumen de compra</h2></div>
+              @if (carrito.cuponCodigo) {
+                <div class="cart-summary-row">
+                  <span>Subtotal</span>
+                  <span>{{ carrito.total | currency: 'ARS' }}</span>
+                </div>
+                <div class="cart-summary-row cart-summary-row--descuento">
+                  <span><i class="fa-solid fa-tag"></i> Descuento ({{ carrito.cuponCodigo }})</span>
+                  <span>−{{ carrito.descuentoCupon | currency: 'ARS' }}</span>
+                </div>
+              } @else {
+                <div class="cart-cupon">
+                  <label for="cart-cupon-input">¿Tenés un cupón de descuento?</label>
+                  <div class="cart-cupon-form">
+                    <input id="cart-cupon-input" type="text" placeholder="Ingresá tu código" [(ngModel)]="cuponInput" [disabled]="aplicandoCupon()" (keyup.enter)="aplicarCupon()" />
+                    <ds-button variant="secondary" [disabled]="!cuponInput.trim() || aplicandoCupon()" (click)="aplicarCupon()">
+                      @if (aplicandoCupon()) { Aplicando... } @else { Aplicar }
+                    </ds-button>
+                  </div>
+                  @if (errorCupon()) { <p class="cart-cupon-error"><i class="fa-solid fa-circle-exclamation"></i> {{ errorCupon() }}</p> }
+                </div>
+              }
+              <div class="cart-summary-total"><span>Total a pagar</span><strong>{{ carrito.totalFinal | currency: 'ARS' }}</strong></div>
+              <ds-button variant="primary" size="lg" [fullWidth]="true" (click)="irAlCheckout()"><span class="cart-checkout-button">Continuar al checkout <i class="fa-solid fa-arrow-right"></i></span></ds-button>
+              <a class="cart-continue-link" routerLink="/tienda"><i class="fa-solid fa-arrow-left"></i> Seguir comprando</a>
+              <div class="cart-trust-list">
+                <div><i class="fa-solid fa-lock"></i><span><strong>Compra segura</strong><small>Datos protegidos</small></span></div>
+                <div><i class="fa-solid fa-credit-card"></i><span><strong>Medios de pago</strong><small>Opciones disponibles en checkout</small></span></div>
+                <div><i class="fa-solid fa-headset"></i><span><strong>Estamos para ayudarte</strong><small>Consultá si necesitás asistencia</small></span></div>
+              </div>
+            </aside>
+          </div>
+        } @else {
+          <div class="cart-empty-panel">
+            <ds-empty-state size="lg" variant="subtle">
+              <i dsEmptyIcon class="fa-solid fa-bag-shopping"></i>
+              <h3 dsEmptyTitle>Tu carrito está esperando</h3>
+              <p dsEmptyDescription>Todavía no agregaste productos. Explorá la tienda y encontrá lo que estás buscando.</p>
+            </ds-empty-state>
+            <a routerLink="/tienda"><ds-button variant="primary">Explorar la tienda <i class="fa-solid fa-arrow-right"></i></ds-button></a>
+          </div>
+        }
+      }
+    </div>
+  </ds-container>
+</ds-section>

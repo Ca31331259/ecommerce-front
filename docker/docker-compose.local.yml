@@ -12,8 +12,14 @@ services:
 
     restart: unless-stopped
 
+    # Puerto del HOST (izquierda) vs. puerto que nginx escucha DENTRO del container (derecha, 80,
+    # fijo -- ver Dockerfile) -- pedido real 2026-11-19: antes publicaba en 8081, que en el esquema
+    # unificado de puertos de los 4 repos es exclusivamente el backend de Platform/ecommerce (otro
+    # proceso), no este frontend -- colisionaba de verdad si los dos corrían a la vez en la misma
+    # máquina. 4202 es el mismo puerto que usa `ng serve` en dev (angular.json), para no tener un
+    # tercer número distinto según cómo se levante esto.
     ports:
-      - "8081:80"
+      - "4202:80"
 
     healthcheck:
       test: ["CMD", "wget", "--spider", "-q", "http://localhost/health"]

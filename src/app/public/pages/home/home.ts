@@ -13,6 +13,7 @@ import { Cta } from '../../components/cta/cta';
 import { Contact } from '../../components/contact/contact';
 import { AboutDetail } from '../../components/about-detail/about-detail';
 import { Branches } from '../../components/branches/branches';
+import { ShopProductsSection } from '../../components/shop-products-section/shop-products-section';
 
 
 
@@ -28,7 +29,8 @@ import { Branches } from '../../components/branches/branches';
     Gallery,
     Cta,
     Contact,
-    Branches
+    Branches,
+    ShopProductsSection
   ],
   templateUrl: './home.html',
   styleUrl: './home.scss'
