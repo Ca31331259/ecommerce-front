@@ -18,6 +18,7 @@ import {
   AuthService
 } from '../../../core/services/auth-service';
 import { AdminShellStore } from '../../store/admin-shell.store';
+import { environment } from '../../../../environments/environment';
 
 
 
@@ -32,6 +33,10 @@ interface AdminNavigationItem {
   disabled?: boolean;
 
   badge?: string;
+
+  /** environment.shopHabilitado (pedido real 2026-11-25) -- entradas que sólo tienen sentido con el
+   * módulo de tienda prendido en esta imagen (se filtran en `navigationItems`, ver más abajo). */
+  shopOnly?: boolean;
 
 }
 
@@ -92,7 +97,7 @@ export class AdminSidebar {
         ?? null
     );
 
-  readonly navigationItems:
+  private static readonly ALL_NAVIGATION_ITEMS:
     readonly AdminNavigationItem[] = [
 
       {
@@ -114,13 +119,15 @@ export class AdminSidebar {
       {
         label: 'Productos',
         icon: 'fa-solid fa-box',
-        route: '/admin/products'
+        route: '/admin/products',
+        shopOnly: true
       },
 
       {
         label: 'Categorías',
         icon: 'fa-solid fa-layer-group',
-        route: '/admin/categories'
+        route: '/admin/categories',
+        shopOnly: true
       },
 
       /*{
@@ -132,16 +139,26 @@ export class AdminSidebar {
       {
         label: 'Pedidos',
         icon: 'fa-solid fa-cart-shopping',
-        route: '/admin/orders'
+        route: '/admin/orders',
+        shopOnly: true
       },
 
       {
         label: 'Clientes',
         icon: 'fa-solid fa-users',
-        route: '/admin/customers'
+        route: '/admin/customers',
+        shopOnly: true
       }
 
     ];
+
+  /** environment.shopHabilitado (pedido real 2026-11-25) -- oculta las 4 entradas de tienda cuando
+   * el módulo está apagado en esta imagen; las rutas en sí ya están bloqueadas por adminShopGuard. */
+  readonly navigationItems:
+    readonly AdminNavigationItem[] =
+      environment.shopHabilitado
+        ? AdminSidebar.ALL_NAVIGATION_ITEMS
+        : AdminSidebar.ALL_NAVIGATION_ITEMS.filter(item => !item.shopOnly);
 
   closeMobileSidebar(): void {
 

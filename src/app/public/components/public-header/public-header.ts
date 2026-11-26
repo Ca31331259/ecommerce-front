@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { DsContainer } from '../../../shared/design-system/layout/ds-container';
 import { DsButton } from '../../../shared/design-system/atoms/ds-button/ds-button';
 import { ShopCartService } from '@core/services/shop/shop-cart-service';
+import { environment } from '../../../../environments/environment';
 
 
 @Component({
@@ -25,6 +26,10 @@ import { ShopCartService } from '@core/services/shop/shop-cart-service';
 export class PublicHeader {
 
   readonly cartService = inject(ShopCartService);
+
+  /** environment.shopHabilitado (pedido real 2026-11-25) -- oculta "Tienda" y el carrito del nav
+   * cuando el módulo está apagado en esta imagen; la ruta en sí ya está bloqueada por shopGuard. */
+  readonly shopHabilitado = environment.shopHabilitado;
 
   @Input({ required: true })
   settings: any;

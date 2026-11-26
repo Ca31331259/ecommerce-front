@@ -76,14 +76,18 @@
 
                 </button>
 
-                <button
-                    type="button"
-                    class="nav-link"
-                    (click)="irATienda()">
+                @if(shopHabilitado){
 
-                    Tienda
+                    <button
+                        type="button"
+                        class="nav-link"
+                        (click)="irATienda()">
 
-                </button>
+                        Tienda
+
+                    </button>
+
+                }
 
                 @if(isEnabled('ABOUT')){
 
@@ -145,21 +149,25 @@
 
             <div class="desktop-actions">
 
-                <button
-                    type="button"
-                    class="cart-button"
-                    aria-label="Ver carrito"
-                    (click)="irAlCarrito()">
+                @if(shopHabilitado){
 
-                    <i class="fa-solid fa-bag-shopping"></i>
+                    <button
+                        type="button"
+                        class="cart-button"
+                        aria-label="Ver carrito"
+                        (click)="irAlCarrito()">
 
-                    @if(cartService.cantidadItems() > 0){
+                        <i class="fa-solid fa-bag-shopping"></i>
 
-                        <span class="cart-badge">{{ cartService.cantidadItems() }}</span>
+                        @if(cartService.cantidadItems() > 0){
 
-                    }
+                            <span class="cart-badge">{{ cartService.cantidadItems() }}</span>
 
-                </button>
+                        }
+
+                    </button>
+
+                }
 
                 <ds-button
                     variant="text"
@@ -226,16 +234,20 @@
 
                 </button>
 
-                <button
-                    type="button"
-                    class="mobile-nav-link"
-                    (click)="irATienda()">
+                @if(shopHabilitado){
 
-                    <i class="fa-solid fa-bag-shopping"></i>
+                    <button
+                        type="button"
+                        class="mobile-nav-link"
+                        (click)="irATienda()">
 
-                    <span>Tienda</span>
+                        <i class="fa-solid fa-bag-shopping"></i>
 
-                </button>
+                        <span>Tienda</span>
+
+                    </button>
+
+                }
 
                 @if(isEnabled('ABOUT')){
 
@@ -297,21 +309,25 @@
 
                 }
 
-                <button
-                    type="button"
-                    class="mobile-nav-link"
-                    (click)="irAlCarrito()">
+                @if(shopHabilitado){
 
-                    <i class="fa-solid fa-bag-shopping"></i>
+                    <button
+                        type="button"
+                        class="mobile-nav-link"
+                        (click)="irAlCarrito()">
 
-                    <span>
-                        Carrito
-                        @if(cartService.cantidadItems() > 0){
-                            ({{ cartService.cantidadItems() }})
-                        }
-                    </span>
+                        <i class="fa-solid fa-bag-shopping"></i>
 
-                </button>
+                        <span>
+                            Carrito
+                            @if(cartService.cantidadItems() > 0){
+                                ({{ cartService.cantidadItems() }})
+                            }
+                        </span>
+
+                    </button>
+
+                }
 
                 <div class="mobile-actions">
 

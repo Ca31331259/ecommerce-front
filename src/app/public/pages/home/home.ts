@@ -14,6 +14,7 @@ import { Contact } from '../../components/contact/contact';
 import { AboutDetail } from '../../components/about-detail/about-detail';
 import { Branches } from '../../components/branches/branches';
 import { ShopProductsSection } from '../../components/shop-products-section/shop-products-section';
+import { environment } from '../../../../environments/environment';
 
 
 
@@ -78,6 +79,10 @@ export class Home {
 
   readonly branches =
     computed(() => this.site()?.branches ?? []);
+
+  /** environment.shopHabilitado (pedido real 2026-11-25) -- sin el módulo, las secciones de
+   * productos de la home no tienen nada que mostrar (el endpoint que consultan ya no existe). */
+  readonly shopHabilitado = environment.shopHabilitado;
 
   isEnabled(section: string): boolean {
  

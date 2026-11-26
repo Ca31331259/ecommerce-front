@@ -49,6 +49,7 @@ import {
 } from '../../../core/store/tenant.store';
 import { ProfileService } from '@core/services/profile/profile-service';
 import { UserProfile } from '@core/models/profile/user-profile';
+import { environment } from '../../../../environments/environment';
 
 
 import { forkJoin } from 'rxjs';
@@ -156,6 +157,11 @@ export class Dashboard implements OnInit {
 
   readonly ventas =
     signal<AdminSalesSummary | null>(null);
+
+  /** environment.shopHabilitado (pedido real 2026-11-25) -- oculta el resumen de ventas y las
+   * tarjetas de tienda del roadmap, y evita pegarle a un endpoint que ya no existe del lado del
+   * backend (ver ngOnInit). */
+  readonly shopHabilitado = environment.shopHabilitado;
 
   /* ======================================================
    * Store
@@ -295,6 +301,10 @@ export class Dashboard implements OnInit {
   ngOnInit(): void {
 
     this.loadDashboard();
+
+    if (!this.shopHabilitado) {
+      return;
+    }
 
     // Independiente del forkJoin de arriba a propósito -- si el resumen de ventas falla, no tiene
     // que tumbar el resto del dashboard (site/profile), que es lo que ya andaba antes de esto.

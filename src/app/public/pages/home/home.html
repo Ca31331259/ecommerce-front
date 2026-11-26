@@ -59,29 +59,37 @@
 
 @case('PRODUCTS') {
 
+@if(shopHabilitado){
 <app-shop-products-section kind="destacados">
 </app-shop-products-section>
+}
 
 }
 
 @case('EN_PROMOCION') {
 
+@if(shopHabilitado){
 <app-shop-products-section kind="en-promocion">
 </app-shop-products-section>
+}
 
 }
 
 @case('MAS_VENDIDOS') {
 
+@if(shopHabilitado){
 <app-shop-products-section kind="mas-vendidos">
 </app-shop-products-section>
+}
 
 }
 
 @case('NOVEDADES') {
 
+@if(shopHabilitado){
 <app-shop-products-section kind="novedades">
 </app-shop-products-section>
+}
 
 }
 

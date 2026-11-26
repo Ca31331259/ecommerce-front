@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth-guard';
+import { shopGuard, adminShopGuard } from './core/guards/shop-guard';
 
 export const routes: Routes = [
 
@@ -25,47 +26,56 @@ export const routes: Routes = [
       },
 
       // Módulo Shop (pedido real 2026-11-19, ver docs/ecommerce/plan-fase-0-1.md en numecos-java)
-      // -- catálogo publicado por el ERP, consumido vía /public/shop/** de Platform.
+      // -- catálogo publicado por el ERP, consumido vía /public/shop/** de Platform. Agrupadas bajo
+      // canActivateChild (en vez de canActivate repetido en cada una) desde que se agregó
+      // environment.shopHabilitado (pedido real 2026-11-25) -- navegar directo por URL a cualquiera
+      // de estas con el flag apagado redirige a la home (ver shopGuard).
       {
-        path: 'tienda',
-        loadComponent: () =>
-          import('./public/pages/shop/product-list/product-list')
-            .then(m => m.ProductList)
-      },
-      {
-        path: 'tienda/productos/:slug',
-        loadComponent: () =>
-          import('./public/pages/shop/product-detail/product-detail')
-            .then(m => m.ProductDetail)
-      },
-      // Carrito/checkout/pedidos (Fase 2, ver docs/ecommerce/plan-fase-2.md).
-      {
-        path: 'tienda/carrito',
-        loadComponent: () =>
-          import('./public/pages/shop/cart/cart')
-            .then(m => m.Cart)
-      },
-      {
-        path: 'tienda/checkout',
-        loadComponent: () =>
-          import('./public/pages/shop/checkout/checkout')
-            .then(m => m.Checkout)
-      },
-      {
-        path: 'tienda/pedido/:token',
-        loadComponent: () =>
-          import('./public/pages/shop/order-status/order-status')
-            .then(m => m.OrderStatus)
-      },
-      // Pago simulado -- SOLO dev/test, ver FakePaymentGateway (corrección C9). La ruta siempre
-      // existe en el front; lo que la hace inofensiva en producción es que el backend nunca
-      // registra /public/shop/payments/fake/** ahí, así que nadie llega a esta página con una
-      // referencia real.
-      {
-        path: 'tienda/pago-simulado/:externalReference',
-        loadComponent: () =>
-          import('./public/pages/shop/fake-payment/fake-payment')
-            .then(m => m.FakePayment)
+        path: '',
+        canActivateChild: [shopGuard],
+        children: [
+          {
+            path: 'tienda',
+            loadComponent: () =>
+              import('./public/pages/shop/product-list/product-list')
+                .then(m => m.ProductList)
+          },
+          {
+            path: 'tienda/productos/:slug',
+            loadComponent: () =>
+              import('./public/pages/shop/product-detail/product-detail')
+                .then(m => m.ProductDetail)
+          },
+          // Carrito/checkout/pedidos (Fase 2, ver docs/ecommerce/plan-fase-2.md).
+          {
+            path: 'tienda/carrito',
+            loadComponent: () =>
+              import('./public/pages/shop/cart/cart')
+                .then(m => m.Cart)
+          },
+          {
+            path: 'tienda/checkout',
+            loadComponent: () =>
+              import('./public/pages/shop/checkout/checkout')
+                .then(m => m.Checkout)
+          },
+          {
+            path: 'tienda/pedido/:token',
+            loadComponent: () =>
+              import('./public/pages/shop/order-status/order-status')
+                .then(m => m.OrderStatus)
+          },
+          // Pago simulado -- SOLO dev/test, ver FakePaymentGateway (corrección C9). La ruta siempre
+          // existe en el front; lo que la hace inofensiva en producción es que el backend nunca
+          // registra /public/shop/payments/fake/** ahí, así que nadie llega a esta página con una
+          // referencia real.
+          {
+            path: 'tienda/pago-simulado/:externalReference',
+            loadComponent: () =>
+              import('./public/pages/shop/fake-payment/fake-payment')
+                .then(m => m.FakePayment)
+          }
+        ]
       }
 
     ]
@@ -124,35 +134,43 @@ export const routes: Routes = [
           import('./admin/pages/profile/profile-page')
             .then(m => m.ProfilePage)
       },
+      // Páginas de shop del panel admin -- agrupadas bajo canActivateChild (environment.shopHabilitado,
+      // pedido real 2026-11-25): navegar directo por URL con el flag apagado vuelve al dashboard.
       {
-        path: 'products',
-        loadComponent: () =>
-          import('./admin/pages/products/products')
-            .then(m => m.Products)
-      },
-      {
-        path: 'categories',
-        loadComponent: () =>
-          import('./admin/pages/categories/categories')
-            .then(m => m.Categories)
-      },
-      {
-        path: 'orders',
-        loadComponent: () =>
-          import('./admin/pages/orders/orders')
-            .then(m => m.Orders)
-      },
-      {
-        path: 'orders/:id',
-        loadComponent: () =>
-          import('./admin/pages/order-detail/order-detail')
-            .then(m => m.OrderDetail)
-      },
-      {
-        path: 'customers',
-        loadComponent: () =>
-          import('./admin/pages/customers/customers')
-            .then(m => m.Customers)
+        path: '',
+        canActivateChild: [adminShopGuard],
+        children: [
+          {
+            path: 'products',
+            loadComponent: () =>
+              import('./admin/pages/products/products')
+                .then(m => m.Products)
+          },
+          {
+            path: 'categories',
+            loadComponent: () =>
+              import('./admin/pages/categories/categories')
+                .then(m => m.Categories)
+          },
+          {
+            path: 'orders',
+            loadComponent: () =>
+              import('./admin/pages/orders/orders')
+                .then(m => m.Orders)
+          },
+          {
+            path: 'orders/:id',
+            loadComponent: () =>
+              import('./admin/pages/order-detail/order-detail')
+                .then(m => m.OrderDetail)
+          },
+          {
+            path: 'customers',
+            loadComponent: () =>
+              import('./admin/pages/customers/customers')
+                .then(m => m.Customers)
+          }
+        ]
       }
 
     ]

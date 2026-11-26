@@ -14,6 +14,7 @@ import { PublicHeader } from '../../public/components/public-header/public-heade
 import { PublicFooter } from '../../public/components/public-footer/public-footer';
 import { MiniCartDrawer } from '../../public/components/mini-cart-drawer/mini-cart-drawer';
 import { ThemeService } from '../../core/services/tenant/theme-service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-public-layout',
@@ -33,6 +34,10 @@ export class PublicLayout {
   private store = inject(TenantStore);
 
   private themeService = inject(ThemeService);
+
+  /** environment.shopHabilitado (pedido real 2026-11-25) -- sin el módulo, no tiene sentido montar
+   * el drawer del carrito (ni pegarle a ShopCartService, que consulta un endpoint que ya no existe). */
+  readonly shopHabilitado = environment.shopHabilitado;
 
   bootstrap = computed(() =>
     this.store.site()
